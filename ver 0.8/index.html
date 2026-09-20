@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+	/* ==========================================================================
+   ИГРОВЫЕ ВКЛАДКИ В СТИЛЕ MINECRAFT
+   ========================================================================== */
+.minecraft-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: -2px; /* Накладываем вкладки на серую рамку контейнера */
+    padding-left: 15px;
+    user-select: none;
+    position: relative;
+    z-index: 10; /* Чтобы вкладки стояли над контейнером */
+}
+
+.mc-tab {
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border: 2px solid var(--border-color);
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: inset 1px 1px 0px rgba(255,255,255,0.08);
+}
+
+/* Эффект при наведении на пассивную вкладку */
+.mc-tab:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+	
+:root {
+    --bg-color: #1a1a1a;
+    --panel-bg: #242424;
+    --text-color: #e0e0e0;
+    --accent-color: #4caf50;
+    --section-bg: #2d2d2d; /* Фон для внутренних секций */
+    --border-color: #444444; /* Цвет рамок */
+	    /* ДОПИСАТЬ ТОЛЬКО ЭТУ СТРОЧКУ */
+    --window-opacity: 0.85; 
+}
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+			
+    /* ДОПИСАТЬ ЭТИ СТРОЧКИ ДЛЯ ФОНА */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    transition: background-image 0.3s ease;
+}
+.container {
+    position: relative; /* ВАЖНО: держит иконки внутри серой рамки */
+    width: 100%;
+    max-width: 800px;
+    background: var(--panel-bg);
+    color: var(--text-color);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    border: 1px solid var(--border-color);
+}
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+			/* ДОПИСАТЬ ТОЛЬКО ЭТУ СТРОЧКУ */
+			margin-top: 20px; 
+        }
+.section {
+    margin-bottom: 25px;
+    background: var(--section-bg);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--accent-color); /* Та самая левая полоса! */
+    padding: 15px;
+    border-radius: 4px;
+}
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .option-block {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+        }
+        .btn-download {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, transform 0.1s;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        .btn-download:hover {
+            background-color: var(--accent-hover);
+        }
+        .btn-download:active {
+            transform: scale(0.99);
+        }
+        .hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+		div[style*="position: absolute"] button:hover { transform: scale(1.2); }
+
+    </style>
+</head>
+<body>
+
+<!-- ПЛАВАЮЩИЙ ПУЛЬТ НАВИГАЦИИ (ФИКСИРОВАН СЛЕВА ЭКРАНА) -->
+<!-- ПЛАВАЮЩИЙ ПУЛЬТ НАВИГАЦИИ С ЭФФЕКТОМ АВТО-СКРЫТИЯ (ФИКСИРОВАН СЛЕВА) -->
+<div id="fastScrollPanel" style="position: fixed; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 4px; background: var(--section-bg, rgba(0,0,0,0.6)); padding: 6px; border-radius: 6px; border: 1px dashed var(--border-color); z-index: 100000; user-select: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); backdrop-filter: blur(4px); opacity: 0.2; transition: opacity 0.2s ease, transform 0.2s ease;" onmouseover="this.style.opacity='1'; this.style.transform='translateY(-50%) scale(1.05)';" onmouseout="this.style.opacity='0.2'; this.style.transform='translateY(-50%) scale(1)';">
+    <button type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="На самый верх страницы" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">▲</button>
+    <button type="button" onclick="scrollToCenter()" title="В самую середину (К центру формы)" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 4px; color: var(--accent-color); font-weight: bold; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">■</button>
+    <button type="button" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" title="В самый низ страницы" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">▼</button>
+</div>
+
+
+
+<div class="container">
+    <!-- ИГРОВЫЕ ВКЛАДКИ В СТИЛЕ MINECRAFT -->
+    <div class="minecraft-tabs">
+        <!-- Вкладка Диалогов (Активна на старте) -->
+        <div id="tabModuleDialogs" class="mc-tab active" onclick="switchMainModule('dialogs')" style="background: var(--panel-bg); color: var(--accent-color);">
+            📜 Конструктор Диалогов
+        </div>
+        <!-- Вкладка Квестов (Изначально пассивна) -->
+        <div id="tabModuleQuests" class="mc-tab" onclick="switchMainModule('quests')" style="background: rgba(0,0,0,0.3); border-color: transparent; color: #888;">
+            ⚔️ Создание Квестов
+        </div>
+    </div>
+
+    <!-- ГЛАВНЫЙ ОБЩИЙ ЗАГОЛОВОК С СИСТЕМНОЙ ШЕСТЕРЕНКОЙ (ТЕПЕРЬ СТРОГО ВНУТРИ КОНТЕЙНЕРА) -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 25px; margin-bottom: 25px; position: relative; width: 100%;"> 
+        <h1 id="mainTitle" style="margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center;">Конструктор Диалогов CustomNPCs Диктор (Вер. 0.8)</h1>
+        <!-- Шестеренка аккуратно встает в левый угол, не улетая в облака -->
+        <span onclick="toggleSystemMenu(event)" title="Настройки интерфейса и темы" style="font-size: 20px; cursor: pointer; user-select: none; padding: 2px; display: inline-block; transition: transform 0.2s; position: absolute; left: 800px; top: -90px; z-index: 10005;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0deg)'">⚙️</span>
+  
+        <!-- Выпадающее меню тем и прозрачности (Выпадает ровно под шестеренкой) -->
+<div id="systemDesignMenu" style="display: none; position: absolute; top: -120px; left: 80%; transform: translateX(-50%); align-items: center; gap: 12px; background: rgba(0,0,0,0.7); padding: 6px 14px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.4); z-index: 1000; backdrop-filter: blur(4px);">
+              <div style="display: flex; gap: 6px; align-items: center; border-right: 1px solid rgba(255,255,255,0.2); padding-right: 10px;">
+                <button type="button" onclick="setTheme('pipboy')" title="Стиль: Пип-бой" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🖥️</button>
+                <button type="button" onclick="setTheme('melonking')" title="Стиль 1994: MelonKing" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🍉</button>
+                <button type="button" onclick="setTheme('yahoo')" title="Стиль 2000: Yahoo! Japan" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🇯🇵</button>
+                <button type="button" onclick="setTheme('ifindit')" title="Стиль 1997: Windows 95" style="background: none; border: none; font-size: 16px; pointer; padding: 2px;">💾</button>
+                <button type="button" onclick="setTheme('ryanair')" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">✈️</button>
+                <button type="button" onclick="document.getElementById('bgUploaderInput').click()" title="🖼️ Установить свой фон" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">🖼️</button>
+                <input type="file" id="bgUploaderInput" accept="image/*" style="display: none;" onchange="setCustomBackground(event)">
+				<button type="button" onclick="resetCustomBackground()" title="❌ Сбросить фон на дефолтный" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">❌</button>
+                       <button type="button" onclick="toggleNotesDrawer()" title="📝 Открыть заметки сценариста (Notepad++)" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">📝</button>
+</div>
+            <div style="display: flex; align-items: center; gap: 8px; user-select: none;">
+                <span style="font-size: 12px; opacity: 0.8; white-space: nowrap; color: inherit;">Прозрачность:</span>
+                <input type="range" id="opacityRangeInput" min="0.1" max="1" step="0.05" value="0.85" oninput="changeOpacity(this.value)" style="width: 80px; height: 4px; cursor: pointer; margin: 0;">
+                <span id="opacityValueDisplay" style="font-size: 12px; min-width: 28px; text-align: right; color: var(--accent-color); font-weight: bold;">85%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- РАБОЧАЯ ЗОНА ДИАЛОГОВ -->
+    <div id="moduleContentDialogs" style="display: block; width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: -1px;">
+        
+        <!-- ОБЪЕДИНЕННЫЙ ОСНОВНОЙ ДИАЛОГ №1 -->
+        <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; position: relative; padding-top: 20px;">
+  
+    <!-- Шапка со стрелочкой сворачивания и кнопками управления -->
+    <!-- Новая чистая шапка Основного диалога -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none; width: 100%;">
+        <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="toggleMainParamsVisibility()">
+            <span id="mainFoldArrow" style="font-size: 14px;">▼</span> Основной диалог №1 (ID: <span id="displayMainDialogId">1</span>)
+        </div>
+        
+        <!-- Осталась только одна кнопка функций диалога! -->
+        <div style="display: flex; align-items: center;">
+            <span onclick="toggleGearMenu(event)" title="Функции и настройки этого диалога" style="font-size: 21px; cursor: pointer; user-select: none; padding: 2px;">⚙️</span>
+        </div>
+    </div>
+
+    
+    <!-- Выпадающее меню локальной шестеренки (Замочек условий квеста) -->
+<!-- Исправленное меню: теперь замочек вызывает функцию разворачивания панели -->
+    <!-- Расширенное меню первой шестерёнки -->
+    <div style="display: flex; justify-content: flex-end; width: 100%; position: relative;">
+        <div id="gearDropdownMenu" style="display: none; position: absolute; top: -5px; right: 0; align-items: center; gap: 14px; background: rgba(0,0,0,0.5); padding: 6px 12px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.3); z-index: 100; backdrop-filter: blur(4px);">
+            <button type="button" onclick="createNewDialogChainBlock(event)" title="📜 Добавить следующий диалог в ленту" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">📜</button>
+             <button type="button" onclick="generateAndDownload()" title="💾 Скачать этот диалог (.json)" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">💾</button>
+            <button type="button" onclick="toggleAdvancedSettings(event)" title="🔒 Условия доступности диалога" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🔒</button>
+        </div>
+    </div>
+    </div>
+
+    <!-- ТЕЛО ДИАЛОГА (Сворачивается целиком по стрелочке) -->
+    <div id="mainParamsWrapper" style="display: flex; flex-direction: column; gap: 15px; width: 100%; box-sizing: border-box;">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dialogId">ID Диалога (DialogId)</label>
+                <input type="number" id="dialogId" value="1" oninput="const disp = document.getElementById('displayMainDialogId'); if(disp) disp.innerText = this.value;">
+            </div>
+            <div class="form-group">
+                <label for="dialogTitle">Название диалога (DialogTitle)</label>
+                <input type="text" id="dialogTitle" value="Start">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="dialogText">Текст NPC (DialogText)</label>
+            <textarea id="dialogText">Hello {player},\n\nWelcome to our village. I hope you enjoy your stay</textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dialogQuest">ID связанного Квеста (-1 если нет)</label>
+                <input type="number" id="dialogQuest" value="-1">
+            </div>
+            <div class="form-group">
+                <label for="dialogCommand">Консольная команда при открытии</label>
+                <input type="text" id="dialogCommand" value="">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group checkbox-group"><input type="checkbox" id="dialogHideNPC"><label for="dialogHideNPC">Скрывать NPC</label></div>
+            <div class="form-group checkbox-group"><input type="checkbox" id="dialogShowWheel"><label for="dialogShowWheel">Показывать колесом</label></div>
+            <div class="form-group checkbox-group"><input type="checkbox" id="dialogDisableEsc"><label for="dialogDisableEsc">Запретить ESC</label></div>
+        </div>
+<!-- ДОБАВИТЬ ЭТОТ БЛОК СТРОГО ПОД ЧЕКБОКСЫ ОСНОВНОГО ДИАЛОГА -->
+<div id="mainAvailabilityBlock" class="section" style="display: none; margin-top: 15px; margin-bottom: 0; background: rgba(0,0,0,0.15); border-left: 5px solid #ffcc00; padding: 15px; box-sizing: border-box; width: 100%;">
+    <div style="font-size: 14px; font-weight: bold; margin-bottom: 15px; color: inherit; display: flex; align-items: center; gap: 6px; border-bottom: 1px dashed var(--border-color); padding-bottom: 5px;">
+        <span>🔒</span> Доступность (Availability Settings)
+    </div>
+    
+    <!-- Ряд 1: Диалог, Квест, Скорборд -->
+    <div class="form-row" style="margin-bottom: 12px;">
+        <div class="form-group">
+            <label style="font-size: 12px;">Проверка диалога (ID):</label>
+            <input type="number" id="availDialogId" value="-1">
+        </div>
+        <div class="form-group">
+            <label style="font-size: 12px;">Проверка квеста (ID):</label>
+            <input type="number" id="availQuestId" value="-1">
+        </div>
+        <div class="form-group">
+            <label style="font-size: 12px;">Scoreboard Objective:</label>
+            <input type="text" id="availScoreboardObj" value="" placeholder="Имя задачи...">
+        </div>
+    </div>
+
+    <!-- Ряд 2: Две фракции, как в интерфейсе Minecraft -->
+    <div class="form-row" style="margin-bottom: 12px; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.2);">
+        <div class="form-group">
+            <label style="font-size: 11px; color: #ffcc00;">Фракция 1 (ID):</label>
+            <input type="number" id="availFactionId1" value="-1" style="height: 34px;">
+        </div>
+        <div class="form-group">
+            <label style="font-size: 11px; color: #ffcc00;">Репутация 1:</label>
+<select id="availFactionStance1" style="padding: 6px 10px; height: auto; font-size: 14px; box-sizing: border-box; width: 100%;">
+    <option value="0">Дружелюбные (0)</option>
+    <option value="1">Нейтральные (1)</option>
+    <option value="2">Враждебные (2)</option>
+</select>
+        </div>
+        <div style="width: 15px;"></div>
+        <div class="form-group">
+            <label style="font-size: 11px; color: #ffcc00;">Фракция 2 (ID):</label>
+            <input type="number" id="availFactionId2" value="-1" style="height: 34px;">
+        </div>
+        <div class="form-group">
+            <label style="font-size: 11px; color: #ffcc00;">Репутация 2:</label>
+<!-- Исправленный список Репутации 2 -->
+<select id="availFactionStance2" style="padding: 6px 10px; height: auto; font-size: 14px; box-sizing: border-box; width: 100%;">
+    <option value="0">Дружелюбные (0)</option>
+    <option value="1">Нейтральные (1)</option>
+    <option value="2">Враждебные (2)</option>
+</select>
+        </div>
+    </div>
+
+    <!-- Ряд 3: Сутки и Уровень -->
+    <div class="form-row">
+        <div class="form-group">
+            <label style="font-size: 12px;">Время суток (DayTime):</label>
+            <select id="availDayTime" style="height: 38px;">
+                <option value="0">Сутки (0)</option>
+                <option value="1">День (1)</option>
+                <option value="2">Ночь (2)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label style="font-size: 12px;">Минимальный уровень опыта:</label>
+            <input type="number" id="availMinLevel" value="0">
+        </div>
+    </div>
+</div>
+
+        <!-- ВСТАВЛЯЕМ БЛОК ВАРИАНТОВ ОТВЕТОВ СЮДА (ВНУТРЬ ПАРАМЕТРОВ) -->
+        <div class="options-container section" style="width: 100%; box-sizing: border-box; margin-top: 15px; margin-bottom: 0; background: rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; width: 100%; user-select: none;">
+                <span id="optionsTitle" style="font-size: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;" onclick="toggleOptionsVisibility()">
+                    <span id="foldArrow">▼</span> Варианты ответов игрока (Кнопки)
+                </span>
+                <div style="display: flex; gap: 6px;">
+                    <button type="button" onclick="clearAllOptionsForm()" title="Очистить все поля веток" style="width: 32px; height: 32px; padding: 0; background: #ff3333; color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center;">🧹</button>
+                    <button type="button" id="btnDeleteLast" onclick="removeLastOptionButton()" title="Удалить последнюю ветку" style="width: 32px; height: 32px; padding: 0; background: #e0a800; color: #000; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center;">➖</button>
+                    <button type="button" onclick="addNewOptionButton()" title="Добавить новую ветку диалога" style="width: 32px; height: 32px; padding: 0; background: var(--accent-color); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center;">➕</button>
+                </div>
+            </div>
+            <div id="dynamicOptionsWrapper" style="width: 100%; box-sizing: border-box;"></div>
+			<!-- БЛОК БЫСТРЫХ ШАБЛОНОВ ДЛЯ УСКОРЕННОГО ЗАПОЛНЕНИЯ -->
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; background: rgba(0,0,0,0.1); padding: 8px 12px; border-radius: 4px; border: 1px dashed var(--border-color); user-select: none;">
+    <span style="font-size: 12px; opacity: 0.8; white-space: nowrap;">⚡ Быстрые шаблоны:</span>
+    <button type="button" onclick="applyQuickTemplate('guard')" title="Заполнить как диалог со стражником" style="padding: 4px 10px; background: #2b579a; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">⚔️ Стража</button>
+    <button type="button" onclick="applyQuickTemplate('villager')" title="Заполнить как диалог с жителем" style="padding: 4px 10px; background: #e0a800; color: #000; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">🌾 Житель</button>
+    <button type="button" onclick="applyQuickTemplate('trader')" title="Заполнить как диалог с торговцем" style="padding: 4px 10px; background: #1e7145; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">💰 Торговец</button>
+</div>
+        </div>
+    </div> <!-- ИСПРАВЛЕНИЕ: Этот тег закрывает moduleContentDialogs! -->
+
+    <!-- РАБОЧАЯ ЗОНА КВЕСТОВ -->
+		<!-- РАБОЧАЯ ЗОНА КВЕСТОВ (Изначально скрыта от глаз) -->
+<!-- РАБОЧАЯ ЗОНА КВЕСТОВ (УЖЕ С ВИЗУАЛЬНЫМИ ПОЛЯМИ) -->
+<div id="moduleContentQuests" style="display: none; width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: -1px;">
+    
+    <!-- Сворачиваемая карточка параметров квеста (Полная симметрия с диалогами!) -->
+    <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; position: relative;">
+        
+        <!-- Интерактивная шапка со стрелочкой (Текст заголовка меняется по input) -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none; width: 100%;">
+            <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="toggleQuestParamsVisibility()">
+                <span id="questFoldArrow" style="font-size: 14px;">▼</span> Параметры задания: <span id="displayQuestTitle" style="color: var(--accent-color);">Neww</span>
+            </div>
+            <!-- Справа одна локальная шестерёнка для будущих функций (награды, почта) -->
+<!-- Справа в шапке квеста добавляем дискету и шестерёнку -->
+<div style="display: flex; align-items: center; gap: 12px; position: relative;">
+    <button type="button" onclick="generateAndDownloadQuestBase()" title="💾 Скачать базовый квест (.json)" style="background: none; border: none; font-size: 21px; cursor: pointer; padding: 2px; line-height: 1;">💾</button>
+    <span onclick="toggleQuestGearMenu(event)" title="Функции и настройки этого квеста" style="font-size: 21px; cursor: pointer; user-select: none; padding: 2px; line-height: 1;">⚙️</span>
+    
+    <!-- Выпадающее меню локальной шестерёнки квеста -->
+    <div id="questGearDropdownMenu" style="display: none; position: absolute; top: 30px; right: 0; align-items: center; gap: 14px; background: rgba(0,0,0,0.5); padding: 6px 12px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.3); z-index: 100; backdrop-filter: blur(4px);">
+        <button type="button" onclick="createNewQuestChainBlock(event)" title="⚔️ Добавить следующее задание в цепочку" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">⚔️</button>
+    </div>
+</div>
+
+
+        </div>
+
+        <!-- Тело квеста (Сворачивается по клику на стрелочку) -->
+        <div id="questParamsWrapper" style="display: flex; flex-direction: column; gap: 15px; width: 100%; box-sizing: border-box;">
+            
+            <!-- Ряд 1: Название квеста и Кто принимает -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="questTitle">Название квеста (Title)</label>
+                    <input type="text" id="questTitle" value="Neww" oninput="const disp = document.getElementById('displayQuestTitle'); if(disp) disp.innerText = this.value || 'Без названия';">
+                </div>
+                <div class="form-group">
+                    <label for="questCompleter">Кто принимает квест (CompleterNpc)</label>
+                    <input type="text" id="questCompleter" value="Takeda Nobunao" placeholder="Имя NPC в игре...">
+                </div>
+            </div>
+
+            <!-- Большое текстовое поле: Описание задания -->
+            <div class="form-group">
+                <label for="questText">Описание задания для журнала игрока (Text)</label>
+                <textarea id="questText" placeholder="Что нужно сделать игроку... Опишите суть квеста подробнее."></textarea>
+            </div>
+
+            <!-- Ряд 2: Повторяемость и Логика завершения -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="questRepeat">Повторяемость квеста (QuestRepeat)</label>
+                    <select id="questRepeat" style="height: 38px;">
+    <option value="0">Нет (0)</option>
+    <option value="1">Да / Постоянно (1)</option>
+    <option value="2">Ежедневно (2)</option>
+    <option value="3">Еженедельно (3)</option>
+    <option value="4">Игровой День (4)</option>
+    <option value="5">Игровая Неделя (5)</option>
+</select>
+                </div>
+<div class="form-group">
+    <label for="questType">Тип задания (Type)</label>
+    <select id="questType" style="height: 38px;">
+        <option value="0">Принести вещи (0)</option>
+        <option value="1">Зона убийства (1)</option>
+        <option value="2">На Диалог (2)</option>
+        <option value="3">Manual (3)</option>
+        <option value="4">На локацию (4)</option>
+    </select>
+</div>
+
+            </div>
+
+            <!-- Ряд 3: Награда опытом и Связанный следующий квест -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="questRewardExp">Награда: Опыт игрока (RewardExp)</label>
+                    <input type="number" id="questRewardExp" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="questNextId">ID следующего квеста в цепочке (-1 если нет)</label>
+                    <input type="number" id="questNextId" value="-1">
+                </div>
+            </div>
+
+            <!-- Большое текстовое поле: Текст при успешном завершении -->
+            <div class="form-group">
+                <label for="questCompleteText">Текст NPC при сдаче квеста (CompleteText)</label>
+                <textarea id="questCompleteText" placeholder="Спасибо тебе, выручил! Вот твоя обещанная награда..."></textarea>
+            </div>
+            <!-- Новое поле консольной команды квеста -->
+            <div class="form-group" style="margin-top: 5px;">
+                <label for="questCommand">Консольная команда при завершении задания (QuestCommand)</label>
+                <input type="text" id="questCommand" placeholder="Команда консоли при сдаче (без косой черты), например: give @dp diamond 5..." style="width: 100%; box-sizing: border-box; padding: 10px;">
+                <small style="font-size: 11px; opacity: 0.6; display: block; margin-top: 4px; color: inherit;">Подсказка мода: Используйте @dp для применения на игрока, активировавшего это событие.</small>
+            </div>
+            <!-- Чекбоксы тонких настроек задания мода -->
+             <!-- Чекбоксы тонких настроек задания мода -->
+            <div class="form-row">
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="questRandomReward">
+                    <label for="questRandomReward">Случайная награда (RandomReward)</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="questIgnoreNBT">
+                    <label for="questIgnoreNBT">Игнорировать NBT предметов</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="questLeaveItems">
+                    <label for="questLeaveItems">Оставлять предметы квеста</label>
+                </div>
+            </div>
+
+        </div><!-- Конец questParamsWrapper -->
+    </div><!-- Конец карточки .section параметров квеста -->
+    
+    <!-- КУДА БУДУТ СЛЕТАТЬСЯ НОВЫЕ КВЕСТЫ ИЗ ЦЕПОЧКИ -->
+    <div id="dynamicQuestsWrapper" style="width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px;"></div>
+    
+</div><!-- Конец moduleContentQuests -->
+
+<!-- И только ПОСЛЕ этого закрываем главный контейнер и открываем скрипты -->
+</div> <!-- Этот тег закрывает главный .container -->
+
+<!-- ==========================================================================
+   ИЗОЛИРОВАННЫЙ ВЫДВИЖНОЙ БЛОКНОТ NOTEPAD++ (ВСТАВЛЯТЬ СТРОГО СЮДА!)
+   ========================================================================== -->
+<div id="notesDrawerPanel" class="section" style="position: fixed; top: 0; right: -320px; width: 300px; height: 100vh; background: var(--panel-bg, #c0c0c0); border: none; border-left: 3px double var(--accent-color, #000080); box-shadow: -5px 0 15px rgba(0,0,0,0.3); z-index: 999999; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; transition: right 0.3s ease;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed var(--border-color, #808080); padding-bottom: 8px;">
+        <span style="font-weight: bold; font-size: 14px; color: inherit;">📝 Заметки сценариста</span>
+        <button type="button" onclick="toggleNotesDrawer()" style="background: none; border: none; color: #ff3333; cursor: pointer; font-size: 14px; font-weight: bold;">[❌]</button>
+    </div>
+    <!-- Панель вкладок Notepad++ -->
+    <div style="display: flex; gap: 2px; margin-bottom: 0; border-bottom: 1px solid var(--border-color, #808080); user-select: none;">
+        <div id="tabNotes0" onclick="switchNotesTab(0)" style="padding: 4px 6px; font-size: 11px; cursor: pointer; border: 1px solid var(--border-color, #808080); border-bottom: none; background: var(--section-bg, #d9d9d9); font-weight: bold;">📜 Сюжет</div>
+        <div id="tabNotes1" onclick="switchNotesTab(1)" style="padding: 4px 6px; font-size: 11px; cursor: pointer; border: 1px solid transparent; background: transparent;">⚔️ Задания</div>
+        <div id="tabNotes2" onclick="switchNotesTab(2)" style="padding: 4px 6px; font-size: 11px; cursor: pointer; border: 1px solid transparent; background: transparent;">📌 Памятки</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 5px; margin: 8px 0;">
+        <span style="font-size: 13px; user-select: none;">🔍</span>
+        <input type="text" id="notesSearchInput" oninput="searchInNotes()" placeholder="Поиск слова..." style="padding: 4px 6px; font-size: 11px; flex: 1;">
+        <button type="button" onclick="navigateSearch(-1)" style="padding: 2px 5px; background: #333; color: #fff; border: 1px solid #555; border-radius: 3px; cursor: pointer; font-size: 10px;">◀</button>
+        <button type="button" onclick="navigateSearch(1)" style="padding: 2px 5px; background: #333; color: #fff; border: 1px solid #555; border-radius: 3px; cursor: pointer; font-size: 10px;">▶</button>
+    </div>
+    <textarea id="authorNotes" placeholder="Пишите пометки здесь..." style="flex: 1; resize: none; font-family: 'Courier New', monospace; font-size: 12px; padding: 8px; box-sizing: border-box; width: 100%; color: inherit; background: inherit;"></textarea>
+    <div id="notesSearchStatus" style="font-size: 10px; opacity: 0.6; margin-top: 4px; text-align: right;">Notepad++ v0.1</div>
+</div>
+
+
+<!--button class="download-btn" id="mainDownloadButton" onclick="handleMainDownload()">💾 СКАЧАТЬ ФАЙЛ ДИАЛОГА (.JSON)</button !-->
+<script>
+
+// Функция применения быстрых шаблонов для доп. диалогов в ленте
+function applyExtraQuickTemplate(extraId, type) {
+    const dTitle = document.getElementById(`extraDialogTitle_${extraId}`);
+    const dText = document.getElementById(`extraDialogText_${extraId}`);
+    if (!confirm("Перезаписать тексты веток этого диалога готовым шаблоном?")) return;
+
+    if (type === 'guard') {
+        if(dTitle) dTitle.value = "Guard_Chain_Part";
+        if(dText) dText.value = "Отреагируй быстрее, путник! Стража не любит долгих раздумий. Либо ты подчиняешься приказам, либо мы применим силу.";
+        setupExtraOptionRow(extraId, 0, "Я подчиняюсь (Уйти)", 0, -1);
+        setupExtraOptionRow(extraId, 1, "Кто ваш капитан?", 1, 12);
+        setupExtraOptionRow(extraId, 2, "Вы пожалеете об этом! (Напасть)", 0, -1);
+        
+        // Записываем команду атаки в текстовое поле команды для Слота 2
+        const cmdInp = document.getElementById(`extra_${extraId}_optCmd_2`);
+        if (cmdInp) cmdInp.value = "npc attack";
+    } 
+    else if (type === 'villager') {
+        if(dTitle) dTitle.value = "Villager_Chain_Part";
+        if(dText) dText.value = "Старейшина деревни говорит, что судьба нашей общины висит на волоске... Ты кажешься сильным воином, поможешь ли уберечь наши дома?";
+        setupExtraOptionRow(extraId, 0, "Я согласен помочь вам", 1, 26);
+        setupExtraOptionRow(extraId, 1, "У меня нет на это времени", 0, -1);
+        setupExtraOptionRow(extraId, 2, "Сколько вы мне заплатите?", 1, 27);
+    } 
+    else if (type === 'trader') {
+        if(dTitle) dTitle.value = "Merchant_Chain_Part";
+        if(dText) dText.value = "Кстати, если у тебя скопился лишний хлам или трофеи из подземелий, я с радостью скуплю их по хорошей цене. Договоримся?";
+        setupExtraOptionRow(extraId, 0, "Открыть окно продажи предметов", 2, -1);
+        setupExtraOptionRow(extraId, 1, "Что у тебя есть уникального?", 1, 31);
+        setupExtraOptionRow(extraId, 2, "Мне ничего не нужно", 0, -1);
+    }
+}
+
+// Вспомогательная утилита заливки текстов для доп. веток ленты
+function setupExtraOptionRow(extraId, slot, title, type, nextDialog) {
+    const titleInp = document.getElementById(`extra_${extraId}_optTitle_${slot}`);
+    const typeInp = document.getElementById(`extra_${extraId}_optType_${slot}`);
+    const dialogInp = document.getElementById(`extra_${extraId}_optDialog_${slot}`);
+    if (titleInp) titleInp.value = title;
+    if (typeInp) typeInp.value = type;
+    if (dialogInp) dialogInp.value = nextDialog !== undefined ? nextDialog : -1;
+}
+
+function applyQuickTemplate(type) {
+    const dialogTitle = document.getElementById('dialogTitle');
+    const dialogText = document.getElementById('dialogText');
+    
+    if (!confirm("Вы уверены? Это действие автоматически перезапишет тексты и настройки текущих веток ответов!")) return;
+
+    if (type === 'guard') {
+        if(dialogTitle) dialogTitle.value = "Guard_Greeting";
+        if(dialogText) dialogText.value = "Стой, путник! Назови свои цели или держи оружие в ножнах. В городе объявлен комендантский час, стража следит за каждым твоим шагом.";
+        
+        // Быстро настраиваем первые 3 базовые кнопки под стражу
+        setupOptionRow(0, "Я просто осматриваюсь (Уйти)", 0, -1, ""); // Закрыть окно
+        setupOptionRow(1, "Где здесь таверна?", 1, 10, "");            // Переход к диалогу ID 10
+        setupOptionRow(2, "[Подкупить стражника] Вот, возьми (50 золотых)", 1, 11, "money take 50"); // Команда + Переход
+    } 
+    else if (type === 'villager') {
+        if(dialogTitle) dialogTitle.value = "Villager_Talk";
+        if(dialogText) dialogText.value = "Приветствую тебя, {player}! Какими судьбами в наших краях? Погода нынче чудесная, урожай обещает быть богатым, если разбойники с холмов снова не совершат набег...";
+        
+        setupOptionRow(0, "Рад встрече, хорошего дня! (Уйти)", 0, -1, "");
+        setupOptionRow(1, "Расскажи о здешних местах", 1, 20, "");
+        setupOptionRow(2, "Нужна ли какая-то помощь?", 1, 25, ""); // Намек на квест
+    } 
+    else if (type === 'trader') {
+        if(dialogTitle) dialogTitle.value = "Merchant_Shop";
+        if(dialogText) dialogText.value = "А, свежие монеты в моем магазине! Заходи, не стесняйся. У меня лучшие товары со всего королевства. Покупаешь что-то или просто глазеешь на витрины?";
+        
+        setupOptionRow(0, "Показать товары (Открыть Роль)", 2, -1, ""); // OptionType = 2 (Открыть Роль NPC / Торговлю)
+        setupOptionRow(1, "У тебя есть редкие вещи?", 1, 30, "");
+        setupOptionRow(2, "Я зайду позже (Уйти)", 0, -1, "");
+    }
+}
+
+// Вспомогательная утилита для чистой заливки полей веток
+function setupOptionRow(slot, title, type, nextDialog, command) {
+    const titleInp = document.getElementById('optTitle' + slot);
+    const typeInp = document.getElementById('optType' + slot);
+    const dialogInp = document.getElementById('optDialog' + slot);
+    const cmdInp = document.getElementById('optCmd' + slot);
+
+    if (titleInp) titleInp.value = title;
+    if (typeInp) typeInp.value = type;
+    if (dialogInp) dialogInp.value = nextDialog;
+    if (cmdInp) cmdInp.value = command;
+}
+
+// Функция вызова меню дизайна на верхней шестеренке
+function toggleSystemMenu(event) {
+    if (event) event.stopPropagation();
+    const menu = document.getElementById('systemDesignMenu');
+    if (!menu) return;
+    menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
+}
+
+// Функция вызова и скрытия всплывающего меню эмодзи на шестеренке
+function toggleGearMenu(event) {
+    if (event) event.stopPropagation(); // Запрещаем клику сворачивать основное окно
+    
+    const menu = document.getElementById('gearDropdownMenu');
+    if (!menu) return;
+
+    if (menu.style.display === 'none' || menu.style.display === '') {
+        menu.style.display = 'flex'; // Показываем свиток и замочек в ряд
+    } else {
+        menu.style.display = 'none';
+    }
+}
+
+// Измененная функция для замочка: открывает панель условий доступности
+function toggleAdvancedSettings(event) {
+    if (event) event.stopPropagation();
+    
+    // Ищем только что созданный нами блок по ID
+    const advBlock = document.getElementById('mainAvailabilityBlock');
+    if (!advBlock) return;
+
+    // Сворачиваем или разворачиваем его
+    if (advBlock.style.display === 'none') {
+        advBlock.style.display = 'block';
+        advBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+        advBlock.style.display = 'none';
+    }
+    
+    // Прячем выпадающее меню, чтобы не мешалось
+    const gearMenu = document.getElementById('gearDropdownMenu');
+    if (gearMenu) gearMenu.style.display = 'none';
+}
+
+
+// ВРЕМЕННАЯ ФУНКЦИЯ-ЗАГЛУШКА ДЛЯ СВИТКА (Для добавления второго диалога)
+// Счетчик для уникальных ID дополнительных диалогов в ленте
+let extraDialogCount = 0;
+
+function createNewDialogChainBlock(event) {
+    if (event) event.stopPropagation();
+    
+    const gearMenu = document.getElementById('gearDropdownMenu');
+    if (gearMenu) gearMenu.style.display = 'none';
+
+    const container = document.querySelector('.container');
+    if (!container) return;
+
+    extraDialogCount++;
+    const currentExtraId = extraDialogCount;
+
+    const baseIdVal = parseInt(document.getElementById('dialogId').value) || 1;
+    const nextDialogId = baseIdVal + currentExtraId;
+
+    const extraBlock = document.createElement('div');
+    extraBlock.className = 'section';
+    extraBlock.id = `extraDialogBlock_${currentExtraId}`;
+    extraBlock.style.cssText = "margin-top: 25px; border-left: 5px solid var(--accent-color); position: relative; width: 100%; box-sizing: border-box;";
+
+    // ВШИВАЕМ ПАРАМЕТРЫ И СЕКЦИЮ ВАРИАНТОВ ОТВЕТОВ В ОДИН ШАБЛОН
+    extraBlock.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none;">
+            <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold;" onclick="document.getElementById('extraParamsWrapper_${currentExtraId}').style.display = document.getElementById('extraParamsWrapper_${currentExtraId}').style.display === 'none' ? 'flex' : 'none'">
+                ▼ Дополнительный диалог №${currentExtraId + 1} (ID: ${nextDialogId})
+            </div>
+            <!-- Правая зона: Сбор кнопок доп. диалога (Дискета, Удаление, и локальная Шестерёнка ⚙️) -->
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <button type="button" onclick="downloadExtraDialogJson(${currentExtraId})" title="Скачать этот диалог (.json)" style="background: none; border: none; font-size: 21px; font-weight: 900; cursor: pointer; padding: 2px; line-height: 1;">💾</button>
+ <span onclick="safeRemoveExtraDialog(${currentExtraId})" title="Удалить этот диалог" style="font-size: 18px; cursor: pointer; color: #ff3333; font-weight: bold; line-height: 1; user-select: none;">❌</span>
+                <span onclick="toggleExtraAdvancedSettings(${currentExtraId}, event)" title="🔒 Условия доступности этого диалога" style="font-size: 21px; cursor: pointer; user-select: none; padding: 2px; line-height: 1;">🔒</span>
+            </div>
+        </div>
+        
+        <div id="extraParamsWrapper_${currentExtraId}" style="display: flex; flex-direction: column; gap: 15px;">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ID Диалога (DialogId)</label>
+                    <input type="number" id="extraDialogId_${currentExtraId}" value="${nextDialogId}">
+                </div>
+                <div class="form-group">
+                    <label>Название диалога (DialogTitle)</label>
+                    <input type="text" id="extraDialogTitle_${currentExtraId}" value="Chain Part ${currentExtraId + 1}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Текст NPC (DialogText)</label>
+                <textarea id="extraDialogText_${currentExtraId}" placeholder="Что скажет NPC...">Продолжение истории...</textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ID Квеста (-1 если нет)</label>
+                    <input type="number" id="extraDialogQuest_${currentExtraId}" value="-1">
+                </div>
+                <div class="form-group">
+                    <label>Консольная команда при открытии</label>
+                    <input type="text" id="extraDialogCommand_${currentExtraId}" value="">
+                </div>
+            </div>
+
+            <!-- Доп. функция: Чекбоксы настроек -->
+            <div class="form-row">
+                <div class="form-group checkbox-group"><input type="checkbox" id="extraDialogHideNPC_${currentExtraId}"><label for="extraDialogHideNPC_${currentExtraId}">Скрывать NPC</label></div>
+                <div class="form-group checkbox-group"><input type="checkbox" id="extraDialogShowWheel_${currentExtraId}"><label for="extraDialogShowWheel_${currentExtraId}">Показывать колесом</label></div>
+                <div class="form-group checkbox-group"><input type="checkbox" id="extraDialogDisableEsc_${currentExtraId}"><label for="extraDialogDisableEsc_${currentExtraId}">Запретить ESC</label></div>
+            </div>
+
+            <!-- ИСПРАВЛЕНО: НОВЫЙ БЛОК УСЛОВИЙ ДОСТУПНОСТИ ДЛЯ ДОП. ДИАЛОГА -->
+            <div id="extraAvailabilityBlock_${currentExtraId}" class="section extra-avail-node" style="display: none; margin-top: 5px; margin-bottom: 0; background: rgba(0,0,0,0.15); border-left: 5px solid #ffcc00; padding: 15px; box-sizing: border-box; width: 100%;">
+                <div style="font-size: 13px; font-weight: bold; margin-bottom: 12px; color: inherit; display: flex; align-items: center; gap: 6px; border-bottom: 1px dashed var(--border-color); padding-bottom: 4px;">
+                    <span>🔒</span> Доступность (Availability Settings)
+                </div>
+                <div class="form-row" style="margin-bottom: 12px;">
+                    <div class="form-group"><label style="font-size: 11px;">Проверка диалога (ID):</label><input type="number" id="extraAvailDialogId_${currentExtraId}" value="-1"></div>
+                    <div class="form-group"><label style="font-size: 11px;">Проверка квеста (ID):</label><input type="number" id="extraAvailQuestId_${currentExtraId}" value="-1"></div>
+                    <div class="form-group"><label style="font-size: 11px;">Scoreboard Objective:</label><input type="text" id="extraAvailScoreboardObj_${currentExtraId}" value="" placeholder="Имя задачи..."></div>
+                </div>
+                <div class="form-row" style="margin-bottom: 12px; background: rgba(255,255,255,0.02); padding: 8px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.2);">
+                    <div class="form-group"><label style="font-size: 10px; color: #ffcc00;">Фракция 1 (ID):</label><input type="number" id="extraAvailFactionId1_${currentExtraId}" value="-1" style="height:32px;"></div>
+                    <div class="form-group"><label style="font-size: 10px; color: #ffcc00;">Репутация 1:</label><select id="extraAvailFactionStance1_${currentExtraId}" style="padding: 4px 8px; height: auto; font-size: 13px; width: 100%;"><option value="0">Дружелюбные (0)</option><option value="1">Нейтральные (1)</option><option value="2">Враждебные (2)</option></select></div>
+                    <div style="width: 10px;"></div>
+                    <div class="form-group"><label style="font-size: 10px; color: #ffcc00;">Фракция 2 (ID):</label><input type="number" id="extraAvailFactionId2_${currentExtraId}" value="-1" style="height:32px;"></div>
+                    <div class="form-group"><label style="font-size: 10px; color: #ffcc00;">Репутация 2:</label><select id="extraAvailFactionStance2_${currentExtraId}" style="padding: 4px 8px; height: auto; font-size: 13px; width: 100%;"><option value="0">Дружелюбные (0)</option><option value="1">Нейтральные (1)</option><option value="2">Враждебные (2)</option></select></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label style="font-size: 11px;">Время суток (DayTime):</label><select id="extraAvailDayTime_${currentExtraId}" style="padding: 6px; height: 34px; width: 100%;"><option value="0">Сутки (0)</option><option value="1">День (1)</option><option value="2">Ночь (2)</option></select></div>
+                    <div class="form-group"><label style="font-size: 11px;">Минимальный уровень опыта:</label><input type="number" id="extraAvailMinLevel_${currentExtraId}" value="0"></div>
+                </div>
+            </div>
+
+            <!-- ГРАФА ВАРИАНТОВ ОТВЕТОВ ДЛЯ ДОПОЛНИТЕЛЬНОГО ДИАЛОГА -->
+            <div class="options-container section" style="width: 100%; box-sizing: border-box; margin-top: 15px; margin-bottom: 0; background: rgba(0,0,0,0.05);">
+                
+                <!-- ИСПРАВЛЕНО: ДОБАВЛЕН БЛОК БЫСТРЫХ ШАБЛОНОВ ДЛЯ ДОП. ДИАЛОГА -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; background: rgba(0,0,0,0.1); padding: 6px 10px; border-radius: 4px; border: 1px dashed var(--border-color); font-size: 11px;">
+                    <span style="opacity: 0.8; white-space: nowrap;">⚡ Шаблоны веток:</span>
+                    <button type="button" onclick="applyExtraQuickTemplate(${currentExtraId}, 'guard')" style="padding: 2px 8px; background: #2b579a; color: #fff; border: none; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 11px;">⚔️ Стража</button>
+                    <button type="button" onclick="applyExtraQuickTemplate(${currentExtraId}, 'villager')" style="padding: 2px 8px; background: #e0a800; color: #000; border: none; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 11px;">🌾 Житель</button>
+                    <button type="button" onclick="applyExtraQuickTemplate(${currentExtraId}, 'trader')" style="padding: 2px 8px; background: #1e7145; color: #fff; border: none; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 11px;">💰 Торг</button>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; width: 100%;">
+                    <span style="font-size: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; user-select: none;" onclick="document.getElementById('extraOptionsWrapper_${currentExtraId}').style.display = document.getElementById('extraOptionsWrapper_${currentExtraId}').style.display === 'none' ? 'block' : 'none'">
+                        ▼ Варианты ответов игрока (Кнопки)
+                    </span>
+                    <div style="display: flex; gap: 4px;">
+                        <button type="button" onclick="clearExtraOptionsForm(${currentExtraId})" title="Очистить поля веток" style="width: 26px; height: 26px; padding: 0; background: #ff3333; color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; font-size: 11px; display: flex; align-items: center; justify-content: center;">🧹</button>
+                        <button type="button" onclick="removeLastExtraOptionButton(${currentExtraId})" title="Удалить последнюю ветку" style="width: 26px; height: 26px; padding: 0; background: #e0a800; color: #000; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; cursor: pointer; font-size: 11px; display: flex; align-items: center; justify-content: center;">➖</button>
+                        <button type="button" onclick="addOptionToExtraDialog(${currentExtraId})" title="Добавить новую ветку" style="width: 26px; height: 26px; padding: 0; background: var(--accent-color, #4caf50); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; font-size: 11px; display: flex; align-items: center; justify-content: center;">➕</button>
+                    </div>
+					
+                </div>
+                <div id="extraOptionsWrapper_${currentExtraId}" style="width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px;"></div>
+            </div>
+        </div>
+    `;
+
+// ИСПРАВЛЕНИЕ: Вставляем доп. диалоги строго внутрь рабочей зоны диалогов
+const dialogsWrapper = document.getElementById('moduleContentDialogs');
+if (dialogsWrapper) {
+    dialogsWrapper.appendChild(extraBlock);
+} else {
+    const container = document.querySelector('.container');
+    if (container) container.appendChild(extraBlock);
+}
+
+
+    // Автоматически генерируем 3 стартовые ретро-кнопки ответов для этого нового блока
+    addOptionToExtraDialog(currentExtraId);
+    addOptionToExtraDialog(currentExtraId);
+    addOptionToExtraDialog(currentExtraId);
+
+    const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
+    if (typeof setTheme === 'function') setTheme(savedTheme);
+}
+
+function setTheme(theme) {
+    // Сбрасываем лишние верхние полосы-разделители
+    const headerRow = document.querySelector('.header-row');
+    if (headerRow) headerRow.style.borderBottom = 'none';
+
+    localStorage.setItem('customNpcTheme', theme);
+
+    // 2. ОБЯЗАТЕЛЬНО СНАЧАЛА ОБЪЯВЛЯЕМ ПЕРЕМЕННЫЕ (Перенесли эти строки наверх!)
+    const root = document.documentElement;
+    const body = document.body;
+    const container = document.querySelector('.container');
+    const mainTitle = document.getElementById('mainTitle') || document.querySelector('h1');
+    const downloadBtn = document.querySelector('.download-btn');
+    const labels = document.querySelectorAll('label');
+    const sectionTitles = document.querySelectorAll('.section-title, h2, h3');
+    const optionsTitle = document.getElementById('optionsTitle');
+    const btnDeleteLast = document.getElementById('btnDeleteLast');
+
+// 3. И ТОЛЬКО ТЕПЕРЬ НАКАТЫВАЕМ ФОН (Теперь body уже объявлен и ошибка исчезнет!)
+    if (userSavedBackground && userSavedBackground !== "") {
+        body.style.backgroundImage = userSavedBackground;
+        body.style.backgroundSize = 'cover';
+        body.style.backgroundPosition = 'center';
+        body.style.backgroundAttachment = 'fixed';
+        body.style.backgroundRepeat = 'no-repeat';
+    } else {
+        if (theme === 'melonking') {
+            body.style.backgroundImage = 'radial-gradient(circle, #2b1111 10%, transparent 11%)';
+            body.style.backgroundSize = '20px 20px';
+        } else {
+            body.style.backgroundImage = 'none';
+        }
+    }
+
+
+    if (theme === 'pipboy') {
+        body.style.backgroundColor = '#1a1a1a';
+        body.style.color = '#e0e0e0';
+        if(container) { 
+            container.style.backgroundColor = '#242424'; 
+            container.style.border = '1px solid #444444'; 
+            container.style.boxShadow = '0 4px 15px rgba(0,0,0,0.5)'; // ЖЕСТКИЙ СБРОС БЕЛОЙ ТЕНИ
+        }
+        if(mainTitle) mainTitle.style.color = '#4caf50';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#4caf50';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#e0a800'; btnDeleteLast.style.color = '#000'; btnDeleteLast.style.border = '1px solid rgba(0,0,0,0.2)'; btnDeleteLast.style.boxShadow = 'none'; }
+        
+        // Меняем переменные в :root под Пип-бой
+        root.style.setProperty('--bg-color', '#1a1a1a');
+        root.style.setProperty('--panel-bg', '#242424');
+        root.style.setProperty('--text-color', '#e0e0e0');
+        root.style.setProperty('--accent-color', '#4caf50');
+        root.style.setProperty('--section-bg', '#2d2d2d');
+        root.style.setProperty('--border-color', '#444444');
+    } 
+    else if (theme === 'melonking') {
+        // ИСПРАВЛЕНИЕ: Если кастомных обоев нет — включаем фирменный цвет и сетку MelonKing.
+        // Если обои загружены — не красим body в сплошной цвет, чтобы не перекрыть их!
+        if (!userSavedBackground || userSavedBackground === "") {
+            body.style.backgroundColor = '#0f0505';
+            body.style.backgroundImage = 'radial-gradient(circle, #2b1111 10%, transparent 11%)';
+            body.style.backgroundSize = '20px 20px';
+        } else {
+            body.style.backgroundColor = 'transparent'; // Прозрачный пол, чтобы просвечивали обои
+        }
+        
+        body.style.color = '#ffcc00';
+        if(container) { 
+            container.style.backgroundColor = '#1c0c0c'; 
+            container.style.border = '3px double #ff5500'; 
+            container.style.boxShadow = 'none'; 
+        }
+        if(mainTitle) mainTitle.style.color = '#ff5500';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#ff5500';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#e0a800'; btnDeleteLast.style.color = '#000'; btnDeleteLast.style.border = '1px solid rgba(0,0,0,0.2)'; btnDeleteLast.style.boxShadow = 'none'; }
+        
+        // Меняем переменные в :root под 1994
+        root.style.setProperty('--bg-color', '#0f0505');
+        root.style.setProperty('--panel-bg', '#1c0c0c');
+        root.style.setProperty('--text-color', '#ffcc00');
+        root.style.setProperty('--accent-color', '#ff5500');
+        root.style.setProperty('--section-bg', '#110202');
+        root.style.setProperty('--border-color', '#ff5500');
+    } 
+    else if (theme === 'yahoo') {
+        body.style.backgroundColor = '#f5f5f5';
+        body.style.color = '#000000';
+        if(container) { 
+            container.style.backgroundColor = '#ffffff'; 
+            container.style.border = '1px solid #ccccff'; 
+            container.style.boxShadow = '0 2px 8px rgba(0,0,0,0.05)'; // ЖЕСТКИЙ СБРОС БЕЛОЙ ТЕНИ
+        }
+        if(mainTitle) mainTitle.style.color = '#ff0033';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#ff0033';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#e0a800'; btnDeleteLast.style.color = '#000'; btnDeleteLast.style.border = '1px solid #999999'; btnDeleteLast.style.boxShadow = 'none'; }
+        
+        // Меняем переменные в :root под Yahoo!
+        root.style.setProperty('--bg-color', '#f5f5f5');
+        root.style.setProperty('--panel-bg', '#ffffff');
+        root.style.setProperty('--text-color', '#000000');
+        root.style.setProperty('--accent-color', '#ff0033');
+        root.style.setProperty('--section-bg', '#f9f9f9');
+        root.style.setProperty('--border-color', '#ccccff');
+    }
+    else if (theme === 'ryanair') {
+        body.style.backgroundColor = '#ebf3fc';
+        body.style.color = '#003399';
+        if(container) { 
+            container.style.backgroundColor = '#ffcc00'; 
+            container.style.border = '4px solid #003399'; 
+            container.style.boxShadow = 'none'; // ЖЕСТКИЙ СБРОС БЕЛОЙ ТЕНИ
+        }
+        if(mainTitle) mainTitle.style.color = '#003399';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#003399';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#003399'; btnDeleteLast.style.color = '#ffffff'; btnDeleteLast.style.border = '1px solid #ffffff'; btnDeleteLast.style.boxShadow = 'none'; }
+        
+        // Меняем переменные в :root под Ryanair
+        root.style.setProperty('--bg-color', '#ebf3fc');
+        root.style.setProperty('--panel-bg', '#ffcc00');
+        root.style.setProperty('--text-color', '#003399');
+        root.style.setProperty('--accent-color', '#003399');
+        root.style.setProperty('--section-bg', '#ffe680');
+        root.style.setProperty('--border-color', '#003399');
+    }
+    else if (theme === 'ifindit') {
+        body.style.backgroundColor = '#808080';
+        body.style.color = '#000000';
+        if(container) { 
+            container.style.backgroundColor = '#c0c0c0'; 
+            container.style.border = '2px solid #ffffff'; 
+            container.style.boxShadow = 'inset -2px -2px #000, inset 2px 2px #fff'; // ТУТ БЕЛАЯ ТЕНЬ НА СВОЕМ МЕСТЕ
+        }
+        if(mainTitle) mainTitle.style.color = '#000080';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#000080';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#c0c0c0'; btnDeleteLast.style.color = '#000000'; btnDeleteLast.style.boxShadow = 'inset -1px -1px #000, inset 1px 1px #fff'; btnDeleteLast.style.border = '1px solid #808080'; }
+        
+        // Меняем переменные в :root под Win95
+        root.style.setProperty('--bg-color', '#808080');
+        root.style.setProperty('--panel-bg', '#c0c0c0');
+        root.style.setProperty('--text-color', '#000000');
+        root.style.setProperty('--accent-color', '#000080');
+        root.style.setProperty('--section-bg', '#d9d9d9');
+        root.style.setProperty('--border-color', '#808080');
+    }
+
+    // Считываем обновленные цвета напрямую из переменных :root
+    const accentColor = root.style.getPropertyValue('--accent-color');
+    const sectionBg = root.style.getPropertyValue('--section-bg');
+    const textColor = root.style.getPropertyValue('--text-color');
+    const borderColor = root.style.getPropertyValue('--border-color');
+
+    // Насильно красим надписи (label) и заголовки в каноничный цвет темы
+    labels.forEach(l => l.style.color = accentColor);
+    sectionTitles.forEach(t => t.style.color = textColor);
+    if(optionsTitle) optionsTitle.style.color = textColor;
+
+    // ИСПРАВЛЕНО: Перекрашиваем фоны и рамки внутренних секций, включая карточку квестов!
+    document.querySelectorAll('.section:not(.container), .options-container, .option-block, #notesDrawerPanel, #mainAvailabilityBlock, #moduleContentQuests .section').forEach(el => {
+        el.style.backgroundColor = sectionBg;
+        el.style.borderLeftColor = accentColor;
+        el.style.borderColor = borderColor;
+    });
+
+    // ИСПРАВЛЕНО: Жёстко возвращаем 100% видимость и контраст буквам внутри полей ввода (Включая инпуты квестов!)
+    const isLight = ["yahoo", "ryanair", "ifindit"].includes(theme);
+    document.querySelectorAll('input[type="text"], input[type="number"], textarea, select, #moduleContentQuests input, #moduleContentQuests textarea, #moduleContentQuests select').forEach(el => {
+        el.style.opacity = "1"; // Убираем блёклость
+        el.style.color = isLight ? '#000000' : '#ffffff'; // Чёрный на светлом, белый на тёмном
+        el.style.backgroundColor = isLight ? '#ffffff' : '#333333';
+        el.style.borderColor = borderColor;
+    });
+
+    // ИСПРАВЛЕНИЕ: Автоматически применяем прозрачность из ползунка при смене темы!
+    const opacityInput = document.getElementById('opacityRangeInput');
+    if (opacityInput) {
+        // Берем текущее значение ползунка и насильно накатываем rgba поверх включенной темы
+        changeOpacity(opacityInput.value); 
+    }
+    
+    // Автоматически перекрашиваем рамки активной вкладки при смене ретро-тем
+    const currentModule = (document.getElementById('moduleContentDialogs') && document.getElementById('moduleContentDialogs').style.display === 'none') ? 'quests' : 'dialogs';
+    
+    // ВНИМАНИЕ: Чтобы разорвать бесконечную петлю и убрать ошибку "Maximum call stack size exceeded",
+    // мы НЕ вызываем здесь тяжелую switchMainModule(currentModule), а просто красим рамки вкладок!
+    const tabDialogs = document.getElementById('tabModuleDialogs');
+    const tabQuests = document.getElementById('tabModuleQuests');
+    if (tabDialogs && tabQuests) {
+        if (currentModule === 'dialogs') {
+            tabDialogs.style.background = 'var(--panel-bg)';
+            tabDialogs.style.borderColor = borderColor;
+            tabDialogs.style.color = accentColor;
+        } else {
+            tabQuests.style.background = 'var(--panel-bg)';
+            tabQuests.style.borderColor = borderColor;
+            tabQuests.style.color = accentColor;
+        }
+    }
+
+} // <-- Конец функции setTheme, Это самая последняя скобка, закрывающая функцию setTheme
+
+
+// АВТОЗАГРУЗКА: Выполняется сразу при открытии или обновлении страницы
+document.addEventListener("DOMContentLoaded", function() {
+    // СНАЧАЛА СОЗДАЕМ 3 БАЗОВЫЕ КНОПКИ ПО УМОЛЧАНИЮ
+    addNewOptionButton();
+    addNewOptionButton();
+    addNewOptionButton();
+    // Проверяем, есть ли сохраненная тема в памяти браузера
+    const savedTheme = localStorage.getItem('customNpcTheme');
+    
+    if (savedTheme) {
+        // Если нашли тему в памяти — включаем её
+        setTheme(savedTheme);
+    } else {
+        // Если открыли впервые — включаем ваш любимый стиль Windows 95 по умолчанию!
+        setTheme('ifindit');
+    }
+});
+
+// Глобальный счетчик веток
+let optionCount = 0;
+let userSavedBackground = ""; // Сюда мы сохраним картинку
+
+
+// Функция автоматического добавления кнопок-опций
+function addNewOptionButton() {
+    const wrapper = document.getElementById('dynamicOptionsWrapper');
+    if (!wrapper) return;
+
+    if (optionCount >= 34) {
+        alert("Достигнут лимит веток для одного диалога (34 шт)!");
+        return;
+    }
+
+    const slot = optionCount;
+    const optionBlock = document.createElement('div');
+    optionBlock.className = 'option-block';
+    optionBlock.id = `optionBlock_${slot}`;
+    
+    // ИСПРАВЛЕНО: Ширина 100%, авто-подстройка отступов и левая граница привязана к переменной темы --accent-color!
+    optionBlock.style.cssText = "background: rgba(255,255,255,0.02); padding: 15px; margin-bottom: 15px; border-radius: 4px; border: 1px solid var(--border-color, #444); border-left: 5px solid var(--accent-color, #4caf50); width: 100%; box-sizing: border-box;";
+
+    optionBlock.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <strong style="color: inherit; font-size: 14px;">Кнопка ${slot + 1} (Слот ${slot})</strong>
+            ${slot >= 3 ? `<button type="button" onclick="removeOptionButton(${slot})" style="background:none; border:none; color:#ff3333; cursor:pointer; font-size:12px;">❌ Удалить ветку</button>` : ''}
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; box-sizing: border-box;">
+            <div>
+                <label for="optTitle${slot}" style="font-size:12px; margin-bottom:4px; display:block;">Текст ответа:</label>
+                <input type="text" id="optTitle${slot}" placeholder="Текст, который выберет игрок..." style="width:100%; box-sizing:border-box; padding: 10px;">
+            </div>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optType${slot}" style="font-size:12px; margin-bottom:4px; display:block;">Действие (OptionType):</label>
+                    <select id="optType${slot}" style="width:100%; box-sizing:border-box; padding: 10px; height: 38px;">
+                        <option value="1">Переход к диалогу (1)</option>
+                        <option value="0">Закрыть диалог (0)</option>
+                        <option value="2">Открыть Роль NPC (2)</option>
+                        <option value="3">Показать Фракцию (3)</option>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optDialog${slot}" style="font-size:12px; margin-bottom:4px; display:block;">ID следующего диалога:</label>
+                    <input type="number" id="optDialog${slot}" value="-1" style="width:100%; box-sizing:border-box; padding: 10px;">
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optColor${slot}" style="font-size:12px; margin-bottom:4px; display:block;">Цвет текста кнопки (Decimal):</label>
+                    <input type="text" id="optColor${slot}" value="14737632" style="width:100%; box-sizing:border-box; padding: 10px;">
+                </div>
+            </div>
+            <div>
+                <label for="optCmd${slot}" style="font-size:12px; margin-bottom:4px; display:block;">Команда кнопки:</label>
+                <input type="text" id="optCmd${slot}" placeholder="Команда консоли при нажатии..." style="width:100%; box-sizing:border-box; padding: 10px;">
+            </div>
+			            <!-- ВНУТРИ ШАБЛОНА КАРТОЧКИ ВЕТКИ: БЛОК НАСТРОЙКИ РЕПУТАЦИИ ФРАКЦИИ -->
+            <div style="margin-top: 8px; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 2; min-width: 120px;">
+                    <label for="optFactionId${slot}" style="font-size:11px; margin-bottom:2px; display:block;">Изменить фракцию (ID):</label>
+                    <input type="number" id="optFactionId${slot}" value="-1" style="padding: 6px; height: 32px;">
+                </div>
+                <div style="flex: 1; min-width: 80px;">
+                    <label for="optFactionPoints${slot}" style="font-size:11px; margin-bottom:2px; display:block;">Очки:</label>
+                    <input type="number" id="optFactionPoints${slot}" value="100" style="padding: 6px; height: 32px;">
+                </div>
+                <div style="flex: 1; min-width: 110px; display: flex; align-items: center; margin-top: 12px;">
+                    <input type="checkbox" id="optFactionDec${slot}" style="width:16px; height:16px; cursor:pointer; margin-right:6px;">
+                    <label for="optFactionDec${slot}" style="font-size:11px; margin-bottom:0; cursor:pointer; white-space:nowrap;">Отнимать очки</label>
+                </div>
+            </div>
+        </div>
+    `;
+
+    wrapper.appendChild(optionBlock);
+    optionCount++;
+
+    // Мгновенно синхронизируем цвета новой карточки с активной ретро-темой
+    const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
+    setTheme(savedTheme);
+}
+
+// Функция удаления добавленной ветки
+function removeOptionButton(slot) {
+    const block = document.getElementById(`optionBlock_${slot}`);
+    if (block) block.remove();
+}
+// Функция удаления строго последней созданной ветки (но не уменьшаем базу ниже 3 кнопок)
+function removeLastOptionButton() {
+    if (optionCount <= 3) {
+        alert("Нельзя удалить базовые 3 кнопки диалога!");
+        return;
+    }
+    
+    // Ищем последний существующий блок на странице
+    const lastSlot = optionCount - 1;
+    const lastBlock = document.getElementById(`optionBlock_${lastSlot}`);
+    
+    if (lastBlock) {
+        lastBlock.remove();
+        optionCount--; // Безопасно уменьшаем общий счетчик
+    }
+}
+
+// Функция быстрой очистки всех заполненных текстов во всех ветках
+function clearAllOptionsForm() {
+    if (confirm("Вы уверены, что хотите полностью очистить текст всех созданных веток ответов?")) {
+        for (let i = 0; i < optionCount; i++) {
+            const titleInput = document.getElementById('optTitle' + i);
+            const cmdInput = document.getElementById('optCmd' + i);
+            const dialogInput = document.getElementById('optDialog' + i);
+            
+            if (titleInput) titleInput.value = "";
+            if (cmdInput) cmdInput.value = "";
+            if (dialogInput) dialogInput.value = "-1"; // Сбрасываем переход в дефолт
+        }
+    }
+}
+
+// Сворачивание и разворачивание блока вариантов ответов
+function toggleOptionsVisibility() {
+    const wrapper = document.getElementById('dynamicOptionsWrapper');
+    const arrow = document.getElementById('foldArrow');
+    if (!wrapper || !arrow) return;
+
+    if (wrapper.style.display === 'none') {
+        wrapper.style.display = 'block';
+        arrow.textContent = '▼';
+    } else {
+        wrapper.style.display = 'none';
+        arrow.textContent = '►';
+    }
+}
+// Переменные для хранения текстов трех разных вкладок Notepad++
+let notesData = ["", "", ""];
+let currentNotesTab = 0;
+
+function toggleMainParamsVisibility() {
+    const wrapper = document.getElementById('mainParamsWrapper');
+    const arrow = document.getElementById('mainFoldArrow');
+    if (!wrapper || !arrow) return;
+
+    if (wrapper.style.display === 'none') {
+        wrapper.style.display = 'flex';
+        arrow.textContent = '▼';
+    } else {
+        wrapper.style.display = 'none';
+        arrow.textContent = '►';
+    }
+}
+
+// Функция переключения вкладок в блокноте
+function switchNotesTab(tabIndex) {
+    const notesField = document.getElementById('authorNotes');
+    if (!notesField) return;
+
+    // Сохраняем текущий текст перед переключением
+    notesData[currentNotesTab] = notesField.value;
+    localStorage.setItem(`customNpcNotes_tab${currentNotesTab}`, notesField.value);
+
+    // Меняем индекс активной вкладки
+    currentNotesTab = tabIndex;
+
+    // Обновляем визуальный стиль вкладок (Notepad++ эффект)
+    for (let i = 0; i < optionCount; i++) {
+        const tab = document.getElementById(`tabNotes${i}`);
+        if (tab) {
+            if (i === tabIndex) {
+                tab.style.background = 'var(--section-bg, #d9d9d9)';
+                tab.style.borderColor = 'var(--border-color, #808080)';
+                tab.style.borderBottom = 'none';
+                tab.style.fontWeight = 'bold';
+            } else {
+                tab.style.background = 'transparent';
+                tab.style.borderColor = 'transparent';
+                tab.style.borderBottom = 'none';
+                tab.style.fontWeight = 'normal';
+            }
+        }
+    }
+
+    // Подставляем сохраненный текст выбранной вкладки
+    notesField.value = notesData[tabIndex] || "";
+    document.getElementById('notesSearchInput').value = ""; // Очищаем строку поиска
+    document.getElementById('notesSearchStatus').textContent = `Вкладка ${tabIndex + 1} открыта`;
+}
+
+// Интеллектуальный поиск слов с лупой а-ля Notepad++
+// Переменные для слежения за индексами совпадений поиска
+let searchMatches = [];
+let currentMatchIndex = -1;
+
+// Функция сканирования текста при вводе
+function searchInNotes() {
+    const query = document.getElementById('notesSearchInput').value.toLowerCase();
+    const notesField = document.getElementById('authorNotes');
+    const status = document.getElementById('notesSearchStatus');
+    if (!notesField || !status) return;
+
+    const text = notesField.value.toLowerCase();
+    searchMatches = []; // Сбрасываем старые совпадения
+    currentMatchIndex = -1;
+
+    if (query.trim() === "" || query.length < 2) {
+        status.textContent = "Notepad++ v0.1";
+        status.style.color = 'inherit';
+        return;
+    }
+
+    // Ищем все вхождения слова в текст и сохраняем их позиции
+    let pos = text.indexOf(query);
+    while (pos !== -1) {
+        searchMatches.push(pos);
+        pos = text.indexOf(query, pos + 1);
+    }
+
+    // Выводим статус совпадений
+    if (searchMatches.length > 0) {
+        status.style.color = 'inherit';
+        status.textContent = `Найдено совпадений: ${searchMatches.length}`;
+    } else {
+        status.style.color = '#ff3333';
+        status.textContent = "Совпадений не найдено";
+    }
+}
+
+// Интеллектуальный переход к слову по стрелочкам с фокусом и автоскроллом
+function navigateSearch(direction) {
+    const query = document.getElementById('notesSearchInput').value;
+    const notesField = document.getElementById('authorNotes');
+    const status = document.getElementById('notesSearchStatus');
+    if (!notesField || searchMatches.length === 0) return;
+
+    // Сдвигаем индекс вперед или назад по кругу
+    currentMatchIndex += direction;
+    if (currentMatchIndex >= searchMatches.length) currentMatchIndex = 0;
+    if (currentMatchIndex < 0) currentMatchIndex = searchMatches.length - 1;
+
+    const startPos = searchMatches[currentMatchIndex];
+    const endPos = startPos + query.length;
+
+    // Фокусируемся на поле и выделяем найденное слово курсором
+    notesField.focus();
+    notesField.setSelectionRange(startPos, endPos);
+
+    // Расчет автоскролла: сдвигаем ползунок блокнота прямо к выделенному слову
+    const lineHeight = 18; // Примерная высота строки в пикселях
+    const textBefore = notesField.value.substring(0, startPos);
+    const lineNumber = textBefore.split('\n').length;
+    notesField.scrollTop = (lineNumber - 2) * lineHeight;
+
+    // Обновляем плашку статуса внизу (например: [1 из 4])
+    if(status) {
+        status.textContent = `Совпадение: ${currentMatchIndex + 1} из ${searchMatches.length}`;
+    }
+}
+
+
+// Загрузка и инициализация вкладок блокнота при старте страницы
+document.addEventListener("DOMContentLoaded", function() {
+    const notesField = document.getElementById('authorNotes');
+    if (notesField) {
+        // Загружаем данные для всех 3-х вкладок из памяти браузера
+        for (let i = 0; i < 3; i++) {
+            notesData[i] = localStorage.getItem(`customNpcNotes_tab${i}`) || "";
+        }
+        
+        // Отображаем текст первой вкладки
+        notesField.value = notesData[0];
+
+        // Слушаем ввод текста и мгновенно сохраняем в localStorage
+        notesField.addEventListener('input', function() {
+            notesData[currentNotesTab] = notesField.value;
+            localStorage.setItem(`customNpcNotes_tab${currentNotesTab}`, notesField.value);
+        });
+    }
+    // Восстанавливаем кастомный фон из памяти браузера
+    const cachedBg = localStorage.getItem('customNpcBgImage');
+    if (cachedBg) {
+        userSavedBackground = cachedBg;
+        document.body.style.backgroundImage = cachedBg;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed';
+        document.body.style.backgroundRepeat = 'no-repeat';
+    }
+
+    // Восстанавливаем положение ползунка прозрачности
+    const cachedOpacity = localStorage.getItem('customNpcOpacityValue');
+    const opacityInput = document.getElementById('opacityRangeInput');
+    if (cachedOpacity && opacityInput) {
+        opacityInput.value = cachedOpacity;
+        const display = document.getElementById('opacityValueDisplay');
+        if (display) display.innerText = Math.round(cachedOpacity * 100) + '%';
+    }
+
+    // Включаем тему (она сама подхватит и обои, и прозрачность благодаря коду выше!)
+    const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
+    setTheme(savedTheme);
+});
+
+function generateAndDownload() {
+    // Считывание условий замочка
+    const availDialogId = parseInt(document.getElementById('availDialogId').value) || -1;
+    const availQuestId = parseInt(document.getElementById('availQuestId').value) || -1;
+    const availScoreboardObj = document.getElementById('availScoreboardObj').value || "";
+    const availFactionId1 = parseInt(document.getElementById('availFactionId1').value) || -1;
+    const availFactionStance1 = parseInt(document.getElementById('availFactionStance1').value) || 0;
+    const availFactionId2 = parseInt(document.getElementById('availFactionId2').value) || -1;
+    const availFactionStance2 = parseInt(document.getElementById('availFactionStance2').value) || 0;
+    const availDayTime = parseInt(document.getElementById('availDayTime').value) || 0;
+    const availMinLevel = parseInt(document.getElementById('availMinLevel').value) || 0;
+
+    // Безопасное чтение базовых инпутов с защитой от пустых значений (null)
+    const dIdEl = document.getElementById('dialogId');
+    const dTitleEl = document.getElementById('dialogTitle');
+    const dTextEl = document.getElementById('dialogText');
+    const dQuestEl = document.getElementById('dialogQuest');
+    const dCmdEl = document.getElementById('dialogCommand');
+
+    const dialogId = dIdEl ? (parseInt(dIdEl.value) || 1) : 1;
+    const dialogTitle = dTitleEl ? (dTitleEl.value || "Start") : "Start";
+    const dialogText = dTextEl ? (dTextEl.value || "") : "";
+    const dialogQuest = dQuestEl ? (parseInt(dQuestEl.value) || -1) : -1;
+    const dialogCommand = dCmdEl ? dCmdEl.value : "";
+    
+    // Безопасное чтение чекбоксов настроек окна
+    const hideNpcEl = document.getElementById('dialogHideNPC');
+    const showWheelEl = document.getElementById('dialogShowWheel');
+    const disableEscEl = document.getElementById('dialogDisableEsc');
+
+    const dialogHideNPC = (hideNpcEl && hideNpcEl.checked) ? "1b" : "0b";
+    const dialogShowWheel = (showWheelEl && showWheelEl.checked) ? "1b" : "0b";
+    const dialogDisableEsc = (disableEscEl && disableEscEl.checked) ? "1b" : "0b";
+
+    // Сборка кнопок ответов игрока (Опции)
+    const options = [];
+    // Стало правильно (скачивает абсолютно все созданные ветки от 1 до 34):
+for (let i = 0; i < optionCount; i++) {
+        const titleInput = document.getElementById('optTitle' + i);
+        
+        // Если поле текста кнопки существует и оно не пустое — собираем данные кнопки
+        if (titleInput && titleInput.value.trim() !== "") {
+            const title = titleInput.value.trim();
+            
+            // Защищенное считывание остальных полей кнопки (даже если id поменялись, скрипт не упадет)
+            const typeInput = document.getElementById('optType' + i) || document.getElementById('optAction' + i);
+            const dialogInput = document.getElementById('optDialog' + i) || document.getElementById('optNext' + i);
+            const colorInput = document.getElementById('optColor' + i);
+            const cmdInput = document.getElementById('optCmd' + i) || document.getElementById('optCommand' + i);
+
+            const type = typeInput ? (parseInt(typeInput.value) || 0) : 0;
+            const nextDialog = dialogInput ? (parseInt(dialogInput.value) || -1) : -1;
+            const color = colorInput ? (parseInt(colorInput.value) || 14737632) : 14737632;
+            const cmd = cmdInput ? cmdInput.value : "";
+
+            // ДОПИСАТЬ СБОР ФРАКЦИЙ ВНУТРЬ ЦИКЛА ГЕНЕРАТОРА:
+            const factionIdInp = document.getElementById('optFactionId' + i);
+            const factionPointsInp = document.getElementById('optFactionPoints' + i);
+            const factionDecInp = document.getElementById('optFactionDec' + i);
+
+            const factionId = factionIdInp ? (parseInt(factionIdInp.value) || -1) : -1;
+            const factionPoints = factionPointsInp ? (parseInt(factionPointsInp.value) || 100) : 100;
+            const factionDec = (factionDecInp && factionDecInp.checked) ? "1b" : "0b";
+
+
+            options.push({
+                "OptionSlot": i,
+                "Option": {
+                    "Title": title,
+                    "OptionType": type,
+                    "Dialog": nextDialog,
+                    "DialogColor": color,
+                    "DialogCommand": cmd,
+                    // ВОТ ЭТИ СТРОЧКИ ПРИВЯЗЫВАЕМ К МОДУ CUSTOMNPCs:
+                    "OptionFactions1": factionId,
+                    "OptionFactions2": -1,
+                    "OptionFaction1Points": factionPoints,
+                    "OptionFaction2Points": 100,
+                    "DecreaseFaction1Points": factionDec,
+                    "DecreaseFaction2Points": "0b"
+                }
+            });
+
+        }
+    }
+
+    // Каноничный шаблон структуры CustomNPCs
+    const fullNbtStructure = {
+        "DialogId": dialogId,
+        "DialogTitle": dialogTitle,
+        "DialogText": dialogText,
+        "DialogQuest": dialogQuest,
+        "DialogCommand": dialogCommand,
+        "DialogMail": {
+            "Subject": "",
+            "Sender": "",
+            "Time": "0L",
+            "BeenRead": "0b",
+            "Message": {},
+            "TimePast": "1786471546922L",
+            "MailQuest": -1,
+            "MailItems": []
+        },
+        "DialogHideNPC": dialogHideNPC,
+        "DialogShowWheel": dialogShowWheel,
+        "DialogDisableEsc": dialogDisableEsc,
+        "Options": options,
+        "ModRev": 18,
+        
+        // --- Изменено под окно условий квестов ---
+        "AvailabilityDialog": availDialogId !== -1 ? 1 : 0, // Включаем проверку, если ID не равен -1
+        "AvailabilityDialog2": 0,
+        "AvailabilityDialog3": 0,
+        "AvailabilityDialog4": 0,
+        "AvailabilityDialogId": availDialogId, // Привязали к ID диалога из формы
+        "AvailabilityDialog2Id": -1,
+        "AvailabilityDialog3Id": -1,
+        "AvailabilityDialog4Id": -1,
+        
+        "AvailabilityQuest": availQuestId !== -1 ? 1 : 0, // Включаем проверку, если ID не равен -1
+        "AvailabilityQuest2": 0,
+        "AvailabilityQuest3": 0,
+        "AvailabilityQuest4": 0,
+        "AvailabilityQuestId": availQuestId, // Привязали к ID квеста из формы
+        "AvailabilityQuest2Id": -1,
+        "AvailabilityQuest3Id": -1,
+        "AvailabilityQuest4Id": -1,
+        
+        "AvailabilityFaction": availFactionId1 !== -1 ? 1 : 0,
+        "AvailabilityFaction2": availFactionId2 !== -1 ? 1 : 0,
+        "AvailabilityFactionStance": availFactionStance1, // Привязали к репутации 1
+        "AvailabilityFaction2Stance": availFactionStance2, // Привязали к репутации 2
+        "AvailabilityFactionId": availFactionId1, // Привязали к ID фракции 1
+        "AvailabilityFaction2Id": availFactionId2, // Привязали к ID фракции 2
+        
+        "AvailabilityScoreboardObjective": availScoreboardObj, // Привязали к тексту скорборда
+        "AvailabilityScoreboard2Objective": "",
+        "AvailabilityScoreboardType": 1,
+        "AvailabilityScoreboard2Type": 1,
+        "AvailabilityScoreboardValue": 1,
+        "AvailabilityScoreboard2Value": 1,
+        
+        "AvailabilityDayTime": availDayTime, // Привязали к выбору времени суток (Сутки/День/Ночь)
+        "AvailabilityMinPlayerLevel": availMinLevel, // Привязали к уровню опыта
+        // ----------------------------------------
+
+        "OptionFactions1": -1,
+        "OptionFactions2": -1,
+        "OptionFaction1Points": 100,
+        "OptionFaction2Points": 100,
+        "DecreaseFaction1Points": "0b",
+        "DecreaseFaction2Points": "0b"
+    };
+
+    // Сериализация и хак типов NBT под требования CustomNPCs
+    let jsonString = JSON.stringify(fullNbtStructure, null, 4);
+    jsonString = jsonString.split('"0b"').join('0b');
+    jsonString = jsonString.split('"1b"').join('1b');
+    jsonString = jsonString.split('"0L"').join('0L');
+    jsonString = jsonString.split('"1786471546922L"').join('1786471546922L');
+
+    // Генерация и скачивание файла диалога
+    const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "dialog_" + dialogId + ".json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Функция быстрой очистки верхнего текстового поля NPC
+function clearNpcTextField() {
+    const dialogText = document.getElementById('dialogText');
+    if (dialogText) {
+        if (dialogText.value.trim() !== "") {
+            if (confirm("Вы уверены, что хотите полностью стереть текст реплики NPC?")) {
+                dialogText.value = "";
+            }
+        }
+    }
+}
+// Функция точечного скачивания дополнительного диалога из ленты
+// Функция точечного скачивания дополнительного диалога из ленты (ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ)
+function downloadExtraDialogJson(extraId) {
+    // Сбор условий доступности для дополнительного диалога из ленты
+    const avDId = parseInt(document.getElementById(`extraAvailDialogId_${extraId}`).value) || -1;
+    const avQId = parseInt(document.getElementById(`extraAvailQuestId_${extraId}`).value) || -1;
+    const avScoreboard = document.getElementById(`extraAvailScoreboardObj_${extraId}`).value || "";
+    const avFact1 = parseInt(document.getElementById(`extraAvailFactionId1_${extraId}`).value) || -1;
+    const avStance1 = parseInt(document.getElementById(`extraAvailFactionStance1_${extraId}`).value) || 0;
+    const avFact2 = parseInt(document.getElementById(`extraAvailFactionId2_${extraId}`).value) || -1;
+    const avStance2 = parseInt(document.getElementById(`extraAvailFactionStance2_${extraId}`).value) || 0;
+    const avTime = parseInt(document.getElementById(`extraAvailDayTime_${extraId}`).value) || 0;
+    const avLevel = parseInt(document.getElementById(`extraAvailMinLevel_${extraId}`).value) || 0;
+
+
+    const dialogId = parseInt(document.getElementById(`extraDialogId_${extraId}`).value) || 1;
+    const dialogTitle = document.getElementById(`extraDialogTitle_${extraId}`).value || "Chain Part";
+    const dialogText = document.getElementById(`extraDialogText_${extraId}`).value || "";
+    const dialogQuest = parseInt(document.getElementById(`extraDialogQuest_${extraId}`).value) || -1;
+    const dialogCommand = document.getElementById(`extraDialogCommand_${extraId}`).value || "";
+
+    // Сбор галочек чекбоксов для дополнительного диалога
+    const hideNpcEl = document.getElementById(`extraDialogHideNPC_${extraId}`);
+    const showWheelEl = document.getElementById(`extraDialogShowWheel_${extraId}`);
+    const disableEscEl = document.getElementById(`extraDialogDisableEsc_${extraId}`);
+
+    const dialogHideNPC = (hideNpcEl && hideNpcEl.checked) ? "1b" : "0b";
+    const dialogShowWheel = (showWheelEl && showWheelEl.checked) ? "1b" : "0b";
+    const dialogDisableEsc = (disableEscEl && disableEscEl.checked) ? "1b" : "0b";
+	
+    // Автономный сбор кнопок ответов игрока
+    const options = [];
+    const wrapper = document.getElementById(`extraOptionsWrapper_${extraId}`);
+    if (wrapper) {
+        const count = wrapper.children.length;
+        let activeSlotIndex = 0;
+        
+        for (let slot = 0; slot < count; slot++) {
+            const titleInput = document.getElementById(`extra_${extraId}_optTitle_${slot}`);
+            if (titleInput && titleInput.value.trim() !== "") {
+                const title = titleInput.value.trim();
+                const type = parseInt(document.getElementById(`extra_${extraId}_optType_${slot}`).value) || 0;
+                const nextD = parseInt(document.getElementById(`extra_${extraId}_optDialog_${slot}`).value) || -1;
+                const color = parseInt(document.getElementById(`extra_${extraId}_optColor_${slot}`).value) || 14737632;
+                const cmd = document.getElementById(`extra_${extraId}_optCmd_${slot}`).value || "";
+
+                options.push({
+                    "OptionSlot": activeSlotIndex,
+                    "Option": {
+                        "Title": title, "OptionType": type, "Dialog": nextD, "DialogColor": color, "DialogCommand": cmd
+                    }
+                });
+                activeSlotIndex++;
+            }
+        }
+    }
+
+    // ИСПРАВЛЕНО: Переменные привязаны к структуре вместо жёстких "0b"
+    const structure = {
+        "DialogId": dialogId,
+        "DialogTitle": dialogTitle,
+        "DialogText": dialogText,
+        "DialogQuest": dialogQuest,
+        "DialogCommand": dialogCommand,
+        "DialogMail": { "Subject": "", "Sender": "", "Time": "0L", "BeenRead": "0b", "Message": {}, "TimePast": "1786471546922L", "MailQuest": -1, "MailItems": [] },
+        "DialogHideNPC": dialogHideNPC,
+        "DialogShowWheel": dialogShowWheel,
+        "DialogDisableEsc": dialogDisableEsc,
+        "Options": options,
+        "ModRev": 18,
+        "AvailabilityDialog": avDId !== -1 ? 1 : 0,
+        "AvailabilityDialog2": 0,
+        "AvailabilityDialog3": 0,
+        "AvailabilityDialog4": 0,
+        "AvailabilityDialogId": avDId,
+        "AvailabilityDialog2Id": -1,
+        "AvailabilityDialog3Id": -1,
+        "AvailabilityDialog4Id": -1,
+        
+        "AvailabilityQuest": avQId !== -1 ? 1 : 0,
+        "AvailabilityQuest2": 0,
+        "AvailabilityQuest3": 0,
+        "AvailabilityQuest4": 0,
+        "AvailabilityQuestId": avQId,
+        "AvailabilityQuest2Id": -1,
+        "AvailabilityQuest3Id": -1,
+        "AvailabilityQuest4Id": -1,
+        
+        "AvailabilityFaction": avFact1 !== -1 ? 1 : 0,
+        "AvailabilityFaction2": avFact2 !== -1 ? 1 : 0,
+        "AvailabilityFactionStance": avStance1,
+        "AvailabilityFaction2Stance": avStance2,
+        "AvailabilityFactionId": avFact1,
+        "AvailabilityFaction2Id": avFact2,
+        
+        "AvailabilityScoreboardObjective": avScoreboard, // ИСПРАВЛЕНО: Переменная на своем месте!
+        "AvailabilityScoreboard2Objective": "",
+        "AvailabilityScoreboardType": 1,
+        "AvailabilityScoreboard2Type": 1,
+        "AvailabilityScoreboardValue": 1,
+        "AvailabilityScoreboard2Value": 1,
+        
+        "AvailabilityDayTime": avTime,
+        "AvailabilityMinPlayerLevel": avLevel,
+        "OptionFactions1": -1, "OptionFactions2": -1, "OptionFaction1Points": 100, "OptionFaction2Points": 100, "DecreaseFaction1Points": "0b", "DecreaseFaction2Points": "0b"
+    };
+
+    let jsonString = JSON.stringify(structure, null, 4);
+    jsonString = jsonString.split('"0b"').join('0b');
+    jsonString = jsonString.split('"1b"').join('1b'); // Добавлена замена для включенных чекбоксов
+    jsonString = jsonString.split('"0l"').join('0L');
+    jsonString = jsonString.split('"0L"').join('0L');
+    jsonString = jsonString.split('"1786471546922L"').join('1786471546922L');
+
+    const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "dialog_" + dialogId + ".json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Логика плавного выдвижения боковой панели заметок (БРОНЕБОЙНАЯ)
+// 1. Создаем переменную-флаг СТРОГО ВЫШЕ самой функции (вне её тела)
+let isNotesOpen = false;
+
+// 2. Сама бронебойная функция открытия
+function toggleNotesDrawer() {
+    const panel = document.getElementById('notesDrawerPanel');
+    if (!panel) return;
+
+    // Гарантируем, что блокнот имеет правильное блочное отображение flex
+    panel.style.setProperty('display', 'flex', 'important');
+
+    if (isNotesOpen) {
+        panel.style.right = '-320px'; // Прячем обратно за экран
+        isNotesOpen = false;
+    } else {
+        panel.style.right = '0px'; // Плавно выдвигаем на экран
+        isNotesOpen = true;
+    }
+}
+
+
+// Функция добавления новой ветки кнопок внутрь ДОПОЛНИТЕЛЬНОГО диалога
+function addOptionToExtraDialog(extraDialogId) {
+    const wrapper = document.getElementById(`extraOptionsWrapper_${extraDialogId}`);
+    if (!wrapper) return;
+
+    const currentOptionsCount = wrapper.children.length;
+    if (currentOptionsCount >= 34) {
+        alert("Достигнут лимит веток для одного диалога (34 шт)!");
+        return;
+    }
+
+    const slot = currentOptionsCount;
+    const optionBlock = document.createElement('div');
+    optionBlock.className = 'option-block';
+    optionBlock.id = `extraBlock_${extraDialogId}_opt_${slot}`;
+    optionBlock.style.cssText = "background: rgba(255,255,255,0.01); padding: 12px; border-radius: 4px; border: 1px solid var(--border-color); border-left: 5px solid var(--accent-color); width: 100%; box-sizing: border-box; position: relative;";
+
+    // Безопасно генерируем кнопку удаления строкой (появится только начиная со Слота 3)
+    let deleteBtnHtml = '';
+    if (slot >= 3) {
+        deleteBtnHtml = `<button type="button" onclick="removeSpecificExtraOption(${extraDialogId}, ${slot})" style="background:none; border:none; color:#ff3333; cursor:pointer; font-size:12px; font-weight:bold;">❌ Удалить ветку</button>`;
+    }
+
+    optionBlock.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; user-select: none;">
+            <strong>Кнопка ${slot + 1} (Слот ${slot})</strong>
+            ${deleteBtnHtml}
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box;">
+            <input type="text" id="extra_${extraDialogId}_optTitle_${slot}" placeholder="Текст ответа игрока..." style="width:100%; padding: 8px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%;">
+                <div style="flex: 2; min-width: 110px;">
+                    <select id="extra_${extraDialogId}_optType_${slot}" style="width:100%; padding: 6px; height: 34px;">
+                        <option value="1">Переход к диалогу (1)</option>
+                        <option value="0">Закрыть окно (0)</option>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 60px;"><input type="number" id="extra_${extraDialogId}_optDialog_${slot}" value="-1" style="width:100%; padding: 6px;"></div>
+                <div style="flex: 1; min-width: 90px;"><input type="text" id="extra_${extraDialogId}_optColor_${slot}" value="14737632" style="width:100%; padding: 6px;"></div>
+            </div>
+            <input type="text" id="extra_${extraDialogId}_optCmd_${slot}" placeholder="Консольная команда при нажатии кнопки..." style="width:100%; padding: 6px;">
+            
+            <div style="margin-top: 8px; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 2; min-width: 120px;">
+                    <label for="extra_${extraDialogId}_optFactionId_${slot}" style="font-size:11px; margin-bottom:2px; display:block;">Изменить фракцию (ID):</label>
+                    <input type="number" id="extra_${extraDialogId}_optFactionId_${slot}" value="-1" style="padding: 6px; height: 32px;">
+                </div>
+                <div style="flex: 1; min-width: 80px;">
+                    <label for="extra_${extraDialogId}_optFactionPoints_${slot}" style="font-size:11px; margin-bottom:2px; display:block;">Очки:</label>
+                    <input type="number" id="extra_${extraDialogId}_optFactionPoints_${slot}" value="100" style="padding: 6px; height: 32px;">
+                </div>
+                <div style="flex: 1; min-width: 110px; display: flex; align-items: center; margin-top: 12px;">
+                    <input type="checkbox" id="extra_${extraDialogId}_optFactionDec_${slot}" style="width:16px; height:16px; cursor:pointer; margin-right:6px;">
+                    <label for="extra_${extraDialogId}_optFactionDec_${slot}" style="font-size:11px; margin-bottom:0; cursor:pointer; white-space:nowrap;">Отнимать очки</label>
+                </div>
+            </div>
+		</div>
+    `;
+
+    wrapper.appendChild(optionBlock);
+    const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
+    if (typeof setTheme === 'function') setTheme(savedTheme);
+}
+
+function removeSpecificExtraOption(extraDialogId, targetSlot) {
+    // ИСПРАВЛЕНИЕ: Добавляем окно предупреждения для одиночной ветки дополнительного диалога ленты
+    if (!confirm(`Вы уверены, что хотите удалить Кнопку ${targetSlot + 1} (Слот ${targetSlot}) из этого диалога?`)) return;
+
+    const block = document.getElementById(`extraBlock_${extraDialogId}_opt_${targetSlot}`);
+    if (!block) return;
+    
+    block.remove();
+
+    const wrapper = document.getElementById(`extraOptionsWrapper_${extraDialogId}`);
+    if (!wrapper) return;
+    const remainingBlocks = wrapper.children;
+    
+    // Переиндексируем оставшиеся кнопки, чтобы не ломался JSON при выгрузке
+    for (let i = 0; i < remainingBlocks.length; i++) {
+        const currentBlock = remainingBlocks[i];
+        currentBlock.id = `extraBlock_${extraDialogId}_opt_${i}`;
+        
+        const strongLabel = currentBlock.querySelector('strong');
+        if (strongLabel) strongLabel.innerText = `Кнопка ${i + 1} (Слот ${i})`;
+        
+        let delBtn = currentBlock.querySelector('button[onclick^="removeSpecificExtraOption"]');
+        if (i < 3) {
+            if (delBtn) delBtn.remove();
+        } else {
+            if (!delBtn) {
+                const headerDiv = currentBlock.firstElementChild;
+                headerDiv.insertAdjacentHTML('beforeend', `<button type="button" onclick="removeSpecificExtraOption(${extraDialogId}, ${i})" style="background:none; border:none; color:#ff3333; cursor:pointer; font-size:12px; font-weight: bold;">❌ Удалить ветку</button>`);
+            } else {
+                delBtn.setAttribute('onclick', `removeSpecificExtraOption(${extraDialogId}, ${i})`);
+            }
+        }
+        
+        // Корректируем ID всех полей ввода под новый индекс массива
+        currentBlock.querySelector(`input[id^="extra_${extraDialogId}_optTitle_"]`).id = `extra_${extraDialogId}_optTitle_${i}`;
+        currentBlock.querySelector(`select[id^="extra_${extraDialogId}_optType_"]`).id = `extra_${extraDialogId}_optType_${i}`;
+        currentBlock.querySelector(`input[id^="extra_${extraDialogId}_optDialog_"]`).id = `extra_${extraDialogId}_optDialog_${i}`;
+        currentBlock.querySelector(`input[id^="extra_${extraDialogId}_optColor_"]`).id = `extra_${extraDialogId}_optColor_${i}`;
+        currentBlock.querySelector(`input[id^="extra_${extraDialogId}_optCmd_"]`).id = `extra_${extraDialogId}_optCmd_${i}`;
+        currentBlock.querySelector(`input[id^="extra_${extraDialogId}_optFactionId_"]`).id = `extra_${extraDialogId}_optFactionId_${i}`;
+        currentBlock.querySelector(`input[id^="extra_${extraDialogId}_optFactionPoints_"]`).id = `extra_${extraDialogId}_optFactionPoints_${i}`;
+        currentBlock.querySelector(`input[id^="extra_${extraDialogId}_optFactionDec_"]`).id = `extra_${extraDialogId}_optFactionDec_${i}`;
+    }
+}
+
+
+// Безопасное удаление диалога из ленты с подтверждением
+function safeRemoveExtraDialog(extraId) {
+    if (confirm("Вы уверены, что хотите полностью удалить этот дополнительный диалог со всеми его ветками?")) {
+        const targetBlock = document.getElementById(`extraDialogBlock_${extraId}`);
+        if (targetBlock) {
+            targetBlock.remove();
+        }
+    }
+}
+
+
+// Функция удаления строго последней ветки кнопок из доп. диалога
+// Функция удаления строго последней ветки кнопок из доп. диалога (ЗАЩИЩЕННАЯ)
+function removeLastExtraOptionButton(extraDialogId) {
+    const wrapper = document.getElementById(`extraOptionsWrapper_${extraDialogId}`);
+    if (!wrapper) return;
+    
+    const count = wrapper.children.length;
+    if (count <= 3) {
+        alert("Нельзя удалить базовые 3 кнопки диалога!");
+        return;
+    }
+    
+    // ИСПРАВЛЕНИЕ: Предупреждаем перед удалением последней кнопки по кнопке "Минус"
+    const lastSlotIndex = count - 1;
+    if (confirm(`Вы уверены, что хотите удалить последнюю Кнопку ${count} (Слот ${lastSlotIndex})?`)) {
+        wrapper.lastChild.remove();
+    }
+}
+
+
+// Функция очистки текстовых полей кнопок доп. диалога
+function clearExtraOptionsForm(extraDialogId) {
+    const wrapper = document.getElementById(`extraOptionsWrapper_${extraDialogId}`);
+    if (wrapper && confirm("Очистить все ответы этого диалога?")) {
+        const count = wrapper.children.length;
+        for (let slot = 0; slot < count; slot++) {
+            const titleInput = document.getElementById(`extra_${extraDialogId}_optTitle_${slot}`);
+            const cmdInput = document.getElementById(`extra_${extraDialogId}_optCmd_${slot}`);
+            const dialogInput = document.getElementById(`extra_${extraDialogId}_optDialog_${slot}`);
+            if (titleInput) titleInput.value = "";
+            if (cmdInput) cmdInput.value = "";
+            if (dialogInput) dialogInput.value = "-1";
+        }
+    }
+}
+// Функция плавного изменения прозрачности на лету
+// Функция плавного изменения прозрачности на лету (Проверьте её у себя!)
+function changeOpacity(val) {
+    document.documentElement.style.setProperty('--window-opacity', val);
+    const display = document.getElementById('opacityValueDisplay');
+    if (display) display.innerText = Math.round(val * 100) + '%';
+    
+    // Получаем элементы интерфейса
+    const container = document.querySelector('.container');
+    
+    // Смотрим, какая ретро-тема сейчас активна в памяти браузера
+    const currentTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
+    
+    // Базовые RGB цвета для главного окна (r, g, b) и внутренних секций (sr, sg, sb)
+    let r = 36, g = 36, b = 36;    // По умолчанию Pip-Boy (#242424)
+    let sr = 45, sg = 45, sb = 45; // Внутренние секции Pip-Boy (#2d2d2d)
+    
+    // Подменяем базовые RGB цифры под каждую тему, чтобы прозрачность красила в правильный тон
+    if (currentTheme === 'melonking') { r = 28; g = 12; b = 12; sr = 17; sg = 2; sb = 2; }
+    else if (currentTheme === 'yahoo') { r = 255; g = 255; b = 255; sr = 249; sg = 249; sb = 249; }
+    else if (currentTheme === 'ryanair') { r = 255; g = 204; b = 0; sr = 255; sg = 230; sb = 128; }
+    else if (currentTheme === 'ifindit') { r = 192; g = 192; b = 192; sr = 217; sg = 217; sb = 217; }
+
+    // Накатываем прозрачный rgba() на главный контейнер
+    if (container) container.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${val})`;
+    
+    // Накатываем прозрачный rgba() на все подсекции, блоки ответов и блокнот сценариста
+    document.querySelectorAll('.section:not(.container), .options-container, .option-block, #notesDrawerPanel').forEach(el => {
+        el.style.backgroundColor = `rgba(${sr}, ${sg}, ${sb}, ${val})`;
+    });
+
+    // Сохраняем уровень, чтобы он не слетал после перезагрузки
+    localStorage.setItem('customNpcOpacityValue', val);
+}
+
+// Функция раскрытия замочка условий для дополнительных диалогов в ленте (ЖЕСТКАЯ УСТАНОВКА)
+function toggleExtraAdvancedSettings(extraId, event) {
+    if (event) event.stopPropagation();
+    
+    // Ищем блок условий конкретного дополнительного диалога по его ID
+    const advBlock = document.getElementById(`extraAvailabilityBlock_${extraId}`);
+    if (!advBlock) return;
+    
+    // Переключаем видимость
+    if (advBlock.style.display === 'none' || advBlock.style.display === '') {
+        advBlock.style.display = 'block';
+    } else {
+        advBlock.style.display = 'none';
+    }
+}
+// Функция установки обоев
+// Функция установки обоев (ИСПРАВЛЕННАЯ)
+// Функция установки обоев
+// Функция установки обоев (ИСПРАВЛЕННАЯ)
+function setCustomBackground(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            userSavedBackground = `url(${e.target.result})`;
+            
+            // Жестко форсируем правильное отображение обоев
+            document.body.style.backgroundImage = userSavedBackground;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundAttachment = 'fixed';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            
+            localStorage.setItem('customNpcBgImage', userSavedBackground);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Функция полного сброса кастомного фона к дефолту темы
+function resetCustomBackground() {
+    if (confirm("Вы уверены, что хотите удалить свой фон и вернуть стандартный стиль темы?")) {
+        userSavedBackground = ""; // Стираем переменную в памяти
+        localStorage.removeItem('customNpcBgImage'); // Удаляем из кэша браузера
+        
+        // Перезапускаем текущую тему, чтобы она сама включила свой стандартный фон
+        const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
+        setTheme(savedTheme);
+    }
+}
+
+
+// Конец функции setCustomBackground
+// Функция переключения глобальных модулей (Диалоги / Квесты)
+function switchMainModule(moduleType) {
+    const tabDialogs = document.getElementById('tabModuleDialogs');
+    const tabQuests = document.getElementById('tabModuleQuests');
+    const contentDialogs = document.getElementById('moduleContentDialogs');
+    const contentQuests = document.getElementById('moduleContentQuests');
+    const container = document.querySelector('.container');
+    
+    if (!tabDialogs || !tabQuests || !contentDialogs || !contentQuests) return;
+
+    // Хак выравнивания верстки (Оставляем без изменений)
+    if (container && contentQuests.parentElement !== container) {
+        container.appendChild(contentQuests);
+    }
+
+    const bColor = document.documentElement.style.getPropertyValue('--border-color') || '#444';
+    const accent = document.documentElement.style.getPropertyValue('--accent-color') || '#4caf50';
+
+    if (moduleType === 'dialogs') {
+        // Показываем диалоги, скрываем квесты
+        contentDialogs.style.display = 'block';
+        contentQuests.style.display = 'none';
+        
+        tabDialogs.style.background = 'var(--panel-bg)';
+        tabDialogs.style.borderColor = bColor;
+        tabDialogs.style.borderBottom = 'none';
+        tabDialogs.style.color = accent;
+        
+        tabQuests.style.background = 'rgba(0,0,0,0.3)';
+        tabQuests.style.borderColor = 'transparent';
+        tabQuests.style.color = '#888';
+
+        // ИСПРАВЛЕНИЕ: Меняем название шапки для диалогов
+        if (mainTitle) mainTitle.innerText = "Конструктор Диалогов CustomNPCs Диктор (Вер. 0.8)";
+
+        // Показываем все дополнительные ДИАЛОГИ
+        document.querySelectorAll('div[id^="extraDialogBlock_"]').forEach(el => {
+            el.style.display = 'block';
+        });
+
+        // ==========================================================================
+        // ВСТАВКА ИЗ КАРТИНКИ №1: Скрываем все дополнительные КВЕСТЫ, когда уходим в диалоги
+        // ==========================================================================
+        document.querySelectorAll('div[id^="extraQuestBlock_"]').forEach(el => {
+            el.style.display = 'none';
+        });
+
+    } else if (moduleType === 'quests') {
+        // Показываем квесты, скрываем диалоги
+        contentDialogs.style.display = 'none';
+        contentQuests.style.display = 'block';
+        
+        tabQuests.style.background = 'var(--panel-bg)';
+        tabQuests.style.borderColor = bColor;
+        tabQuests.style.borderBottom = 'none';
+        tabQuests.style.color = accent;
+
+        tabDialogs.style.background = 'rgba(0,0,0,0.3)';
+        tabDialogs.style.borderColor = 'transparent';
+        tabDialogs.style.color = '#888';
+
+        // Скрываем все дополнительные ДИАЛОГИ
+        document.querySelectorAll('div[id^="extraDialogBlock_"]').forEach(el => {
+            el.style.display = 'none';
+        });
+        if (mainTitle) mainTitle.innerText = "Конструктор Заданий CustomNPCs Ацтек (Вер. 0.2)";
+        // ==========================================================================
+        // ВСТАВКА ИЗ КАРТИНКИ №2: Показываем дополнительные КВЕСТЫ, когда пришли в создание заданий
+        // ==========================================================================
+        document.querySelectorAll('div[id^="extraQuestBlock_"]').forEach(el => {
+            el.style.display = 'block';
+        });
+    }
+
+    // Мягко обновляем тему и прозрачность
+    const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
+    if (typeof setTheme === 'function') setTheme(savedTheme);
+}
+
+
+
+
+// Функция сворачивания и разворачивания параметров квеста
+function toggleQuestParamsVisibility() {
+    const wrapper = document.getElementById('questParamsWrapper');
+    const arrow = document.getElementById('questFoldArrow');
+    if (!wrapper || !arrow) return;
+
+    if (wrapper.style.display === 'none') {
+        wrapper.style.display = 'flex';
+        arrow.textContent = '▼';
+    } else {
+        wrapper.style.display = 'none';
+        arrow.textContent = '►';
+    }
+}
+// Функция генерации и скачивания структуры квеста для CustomNPCs
+// Функция скачивания БАЗОВОГО квеста
+function generateAndDownloadQuest() {
+    const qTitle = document.getElementById('questTitle') ? document.getElementById('questTitle').value : "Neww";
+    const qCompleter = document.getElementById('questCompleter') ? document.getElementById('questCompleter').value : "";
+    const qText = document.getElementById('questText') ? document.getElementById('questText').value : "";
+    const qRewardExp = document.getElementById('questRewardExp') ? (parseInt(document.getElementById('questRewardExp').value) || 0) : 0;
+    const qNextId = document.getElementById('questNextId') ? (parseInt(document.getElementById('questNextId').value) || -1) : -1;
+    const qCompleteText = document.getElementById('questCompleteText') ? document.getElementById('questCompleteText').value : "";
+    const qRepeat = document.getElementById('questRepeat') ? (parseInt(document.getElementById('questRepeat').value) || 0) : 0;
+    const qCompletion = document.getElementById('questCompletion') ? (parseInt(document.getElementById('questCompletion').value) || 0) : 0;
+    
+    // БРОНЕБОЙНАЯ ЗАЩИТА: Если инпутов типа и команды ещё нет в HTML, скрипт запишет дефолты и не выдаст ошибку!
+    const qType = document.getElementById('questType') ? (parseInt(document.getElementById('questType').value) || 0) : 0;
+    const qCommand = document.getElementById('questCommand') ? document.getElementById('questCommand').value : "";
+
+    // Чекбоксы тонких настроек задания
+    const rwdEl = document.getElementById('questRandomReward');
+    const ignEl = document.getElementById('questIgnoreNBT');
+    const lveEl = document.getElementById('questLeaveItems');
+
+    const questRandomReward = (rwdEl && rwdEl.checked) ? "1b" : "0b";
+    const questIgnoreNBT = (ignEl && ignEl.checked) ? "1b" : "0b";
+    const questLeaveItems = (lveEl && lveEl.checked) ? "1b" : "0b";
+
+    // Идеальная NBT структура файла квеста (на 100% совпадающая с оригиналом из игры)
+    const questNbtStructure = {
+        "CompleterNpc": qCompleter,
+        "NextQuestId": qNextId,
+        "RandomReward": questRandomReward,
+        "QuestRepeat": qRepeat,
+        "QuestCompletion": qCompletion,
+        "IgnoreNBT": questIgnoreNBT,
+        "Title": qTitle,
+        "Text": qText,
+        "QuestFactionPoints": {
+            "DecreaseFaction1Points": "0b",
+            "OptionFaction2Points": 100,
+            "OptionFactions1": -1,
+            "OptionFactions2": -1,
+            "OptionFaction1Points": 100,
+            "DecreaseFaction2Points": "0b"
+        },
+        "RewardExp": qRewardExp,
+        "QuestCommand": qCommand,
+        "ModRev": 18,
+        "Type": qType,
+        "QuestMail": {
+            "Sender": "",
+            "BeenRead": "0b",
+            "Message": {},
+            "MailItems": [],
+            "MailQuest": -1,
+            "TimePast": "1789608206550L",
+            "Time": "0L",
+            "Subject": ""
+        },
+        "IgnoreDamage": "0b",
+        "Rewards": {
+            "NpcMiscInv": []
+        },
+        "Items": {
+            "NpcMiscInv": []
+        },
+        "LeaveItems": questLeaveItems,
+        "CompleteText": qCompleteText,
+        "NextQuestTitle": ""
+    };
+
+    // Сериализация и хак типов NBT под требования CustomNPCs
+    let jsonString = JSON.stringify(questNbtStructure, null, 4);
+    jsonString = jsonString.split('"0b"').join('0b');
+    jsonString = jsonString.split('"1b"').join('1b');
+    jsonString = jsonString.split('"0L"').join('0L');
+    jsonString = jsonString.split('"1789608206550L"').join('1789608206550L');
+    
+    // Раскрытие пустых скобок для стопроцентной симметрии с оригиналом
+    jsonString = jsonString.split('"Message": {}').join('"Message": {\n        }');
+    jsonString = jsonString.split('"MailItems": []').join('"MailItems": [\n        ]');
+    jsonString = jsonString.split('"NpcMiscInv": []').join('"NpcMiscInv": [\n        ]');
+
+    // Генерация файла для скачивания
+    const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    
+    const fileId = qNextId !== -1 ? qNextId - 1 : 1;
+    a.download = "quest_" + fileId + ".json";
+    
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Функция интеллектуальной перемотки ровно на середину текущей высоты страницы
+function scrollToCenter() {
+    const middleOfPage = document.body.scrollHeight / 2;
+    // Делаем поправку на половину высоты экрана, чтобы центр формы встал ровно в глаза
+    const targetScrollY = middleOfPage - (window.innerHeight / 2);
+    
+    window.scrollTo({
+        top: targetScrollY > 0 ? targetScrollY : middleOfPage,
+        behavior: 'smooth'
+    });
+}
+// Счетчик дополнительных квестов в цепочке
+let extraQuestCount = 0;
+
+// Открытие локального меню шестеренки квеста
+function toggleQuestGearMenu(event) {
+    if (event) event.stopPropagation();
+    const menu = document.getElementById('questGearDropdownMenu');
+    if (!menu) return;
+    menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
+}
+
+// Функция создания нового квеста со связыванием ID
+function createNewQuestChainBlock(event) {
+    if (event) event.stopPropagation();
+    
+    const menu = document.getElementById('questGearDropdownMenu');
+    if (menu) menu.style.display = 'none';
+
+    const wrapper = document.getElementById('dynamicQuestsWrapper');
+    if (!wrapper) return;
+
+    extraQuestCount++;
+    const currentExtraId = extraQuestCount;
+
+    // Автоматическая связка: смотрим ID предыдущего квеста
+    // Если это первый доп. квест, берем из базового поля questNextId, иначе из предыдущего доп. квеста
+    let prevInput = null;
+    if (currentExtraId === 1) {
+        prevInput = document.getElementById('questNextId');
+    } else {
+        prevInput = document.getElementById(`extraQuestNextId_${currentExtraId - 1}`);
+    }
+
+    // Рассчитываем ID для нового квеста
+    let baseIdVal = 1;
+    if (currentExtraId === 1) {
+        baseIdVal = parseInt(document.getElementById('questNextId').value);
+        if (baseIdVal === -1 || isNaN(baseIdVal)) {
+            baseIdVal = 2; // Если стояло -1, ставим авто-продолжение 2
+            document.getElementById('questNextId').value = 2; // Связываем базовый квест с этим
+        }
+    } else {
+        baseIdVal = parseInt(prevInput.value);
+        if (baseIdVal === -1 || isNaN(baseIdVal)) {
+            const prevRealId = parseInt(document.getElementById(`extraQuestId_${currentExtraId - 1}`).value) || 1;
+            baseIdVal = prevRealId + 1;
+            prevInput.value = baseIdVal; // Связываем предыдущий квест с текущим новым
+        }
+    }
+
+    const nextQuestIdForNew = baseIdVal + 1;
+
+    const extraBlock = document.createElement('div');
+    extraBlock.className = 'section';
+    extraBlock.id = `extraQuestBlock_${currentExtraId}`;
+    extraBlock.style.cssText = "margin-top: 5px; border-left: 5px solid var(--accent-color); position: relative; width: 100%; box-sizing: border-box;";
+
+    extraBlock.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none;">
+            <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold;" onclick="document.getElementById('extraQuestParamsWrapper_${currentExtraId}').style.display = document.getElementById('extraQuestParamsWrapper_${currentExtraId}').style.display === 'none' ? 'flex' : 'none'">
+                ▼ Дополнительное задание №${currentExtraId + 1} (ID: <span id="displayExtraQuestId_${currentExtraId}">${baseIdVal}</span>)
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <button type="button" onclick="downloadExtraQuestJson(${currentExtraId})" title="Скачать этот квест (.json)" style="background: none; border: none; font-size: 21px; font-weight: 900; cursor: pointer; padding: 2px; line-height: 1;">💾</button>
+                <span onclick="safeRemoveExtraQuest(${currentExtraId})" title="Удалить это задание" style="font-size: 18px; cursor: pointer; color: #ff3333; font-weight: bold; line-height: 1;">❌</span>
+            </div>
+        </div>
+        
+        <div id="extraQuestParamsWrapper_${currentExtraId}" style="display: flex; flex-direction: column; gap: 15px;">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ID Квеста (QuestId)</label>
+                    <input type="number" id="extraQuestId_${currentExtraId}" value="${baseIdVal}" oninput="document.getElementById('displayExtraQuestId_${currentExtraId}').innerText = this.value;">
+                </div>
+                <div class="form-group">
+                    <label>Название квеста (Title)</label>
+                    <input type="text" id="extraQuestTitle_${currentExtraId}" value="Chain Quest Part ${currentExtraId + 1}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Описание задания для журнала игрока (Text)</label>
+                <textarea id="extraQuestText_${currentExtraId}" placeholder="Что нужно сделать игроку..."></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Кто принимает квест (CompleterNpc)</label>
+                    <input type="text" id="extraQuestCompleter_${currentExtraId}" value="Takeda Nobunao">
+                </div>
+                <div class="form-group">
+                    <label>ID следующего квеста в цепочке (-1 если нет)</label>
+                    <input type="number" id="extraQuestNextId_${currentExtraId}" value="${nextQuestIdForNew}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Повторяемость квеста</label>
+                    <select id="extraQuestRepeat_${currentExtraId}" style="height: 38px;">
+                        <option value="0">Нет (0)</option>
+                        <option value="1">Да / Постоянно (1)</option>
+                        <option value="2">Ежедневно (2)</option>
+                        <option value="3">Еженедельно (3)</option>
+                        <option value="4">Игровой День (4)</option>
+                        <option value="5">Игровая Неделя (5)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Тип задания (Type)</label>
+                    <select id="extraQuestType_${currentExtraId}" style="height: 38px;">
+                        <option value="0">Принести вещи (0)</option>
+                        <option value="1">Зона убийства (1)</option>
+                        <option value="2">На Диалог (2)</option>
+                        <option value="3">Manual (3)</option>
+                        <option value="4">На локацию (4)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Логика завершения</label>
+                    <select id="extraQuestCompletion_${currentExtraId}" style="height: 38px;">
+                        <option value="0">У NPC из поля выше (0)</option>
+                        <option value="1">Мгновенно в логе заданий (1)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Текст NPC при сдаче квеста (CompleteText)</label>
+                <textarea id="extraQuestCompleteText_${currentExtraId}" placeholder="Отличная работа воина..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Консольная команда при завершении задания (QuestCommand)</label>
+                <input type="text" id="extraQuestCommand_${currentExtraId}" placeholder="Команда консоли при сдаче (например: give @dp diamond 5)..." style="width: 100%; box-sizing: border-box; padding: 10px;">
+            </div>
+            <div class="form-row">
+                <div class="form-group checkbox-group"><input type="checkbox" id="extraQuestRandomReward_${currentExtraId}"><label for="extraQuestRandomReward_${currentExtraId}">Случайная награда</label></div>
+                <div class="form-group checkbox-group"><input type="checkbox" id="extraQuestIgnoreNBT_${currentExtraId}"><label for="extraQuestIgnoreNBT_${currentExtraId}">Игнорировать NBT предметов</label></div>
+                <div class="form-group checkbox-group"><input type="checkbox" id="extraQuestLeaveItems_${currentExtraId}"><label for="extraQuestLeaveItems_${currentExtraId}">Оставлять предметы квеста</label></div>
+            </div>
+        </div>
+    `;
+
+
+    wrapper.appendChild(extraBlock);
+    
+    // Синхронизируем цвета под текущую тему
+    const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
+    if (typeof setTheme === 'function') setTheme(savedTheme);
+}
+
+// Безопасное удаление квеста из цепочки
+function safeRemoveExtraQuest(extraId) {
+    if (confirm("Вы уверены, что хотите удалить этот квест из цепочки? Связи ID предыдущих квестов останутся нетронутыми.")) {
+        const block = document.getElementById(`extraQuestBlock_${extraId}`);
+        if (block) block.remove();
+    }
+}
+
+// Переименовываем старую базовую скачку, чтобы она не конфликтовала
+function generateAndDownloadQuestBase() {
+    // Вызывает вашу старую функцию (которую мы переписали под оригинальный NBT квеста)
+    generateAndDownloadQuest(); 
+}
+
+// Функция точечного скачивания дополнительного квеста из ленты
+// Функция скачивания ДОПОЛНИТЕЛЬНОГО квеста из ленты
+function downloadExtraQuestJson(extraId) {
+    const qId = parseInt(document.getElementById(`extraQuestId_${extraId}`).value) || 1;
+    const qTitle = document.getElementById(`extraQuestTitle_${extraId}`).value || "";
+    const qText = document.getElementById(`extraQuestText_${extraId}`).value || "";
+    const qCompleter = document.getElementById(`extraQuestCompleter_${extraId}`).value || "";
+    const qNextId = parseInt(document.getElementById(`extraQuestNextId_${extraId}`).value) || -1;
+    const qRepeat = parseInt(document.getElementById(`extraQuestRepeat_${extraId}`).value) || 0;
+    const qCompletion = parseInt(document.getElementById(`extraQuestCompletion_${extraId}`).value) || 0;
+    const qCompleteText = document.getElementById(`extraQuestCompleteText_${extraId}`).value || "";
+    
+    // Доп. поля для цепочки
+    const qType = document.getElementById(`extraQuestType_${extraId}`) ? parseInt(document.getElementById(`extraQuestType_${extraId}`).value) : 0;
+    const qCommand = document.getElementById(`extraQuestCommand_${extraId}`) ? document.getElementById(`extraQuestCommand_${extraId}`).value : "";
+    const qRewardExp = document.getElementById(`extraQuestRewardExp_${extraId}`) ? parseInt(document.getElementById(`extraQuestRewardExp_${extraId}`).value) : 0;
+
+    const rwdEl = document.getElementById(`extraQuestRandomReward_${extraId}`);
+    const ignEl = document.getElementById(`extraQuestIgnoreNBT_${extraId}`);
+    const lveEl = document.getElementById(`extraQuestLeaveItems_${extraId}`);
+
+    const questRandomReward = (rwdEl && rwdEl.checked) ? "1b" : "0b";
+    const questIgnoreNBT = (ignEl && ignEl.checked) ? "1b" : "0b";
+    const questLeaveItems = (lveEl && lveEl.checked) ? "1b" : "0b";
+
+    const structure = {
+        "CompleterNpc": qCompleter,
+        "NextQuestId": qNextId,
+        "RandomReward": questRandomReward,
+        "QuestRepeat": qRepeat,
+        "QuestCompletion": qCompletion,
+        "IgnoreNBT": questIgnoreNBT,
+        "Title": qTitle,
+        "Text": qText,
+        "QuestFactionPoints": {
+            "DecreaseFaction1Points": "0b", "OptionFaction2Points": 100, "OptionFactions1": -1, "OptionFactions2": -1, "OptionFaction1Points": 100, "DecreaseFaction2Points": "0b"
+        },
+        "RewardExp": qRewardExp,
+        "QuestCommand": qCommand,
+        "ModRev": 18,
+        "Type": qType,
+        "QuestMail": { "Sender": "", "BeenRead": "0b", "Message": {}, "MailItems": [], "MailQuest": -1, "TimePast": "1789608206550L", "Time": "0L", "Subject": "" },
+        "IgnoreDamage": "0b",
+        "Rewards": { "NpcMiscInv": [] },
+        "Items": { "NpcMiscInv": [] },
+        "LeaveItems": questLeaveItems,
+        "CompleteText": qCompleteText,
+        "NextQuestTitle": ""
+    };
+
+    let jsonString = JSON.stringify(structure, null, 4);
+    jsonString = jsonString.split('"0b"').join('0b');
+    jsonString = jsonString.split('"1b"').join('1b');
+    jsonString = jsonString.split('"0L"').join('0L');
+    jsonString = jsonString.split('"1789608206550L"').join('1789608206550L');
+    jsonString = jsonString.split('"Message": {}').join('"Message": {\n        }');
+    jsonString = jsonString.split('"MailItems": []').join('"MailItems": [\n        ]');
+    jsonString = jsonString.split('"NpcMiscInv": []').join('"NpcMiscInv": [\n        ]');
+
+    const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "quest_" + qId + ".json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+} // <-- СКОБКА, КОТОРАЯ ЗАКРЫВАЕТ ФУНКЦИЮ СКАЧИВАНИЯ ДОП. КВЕСТА!
+
+
+
+</script>
+</body>
+</html>
