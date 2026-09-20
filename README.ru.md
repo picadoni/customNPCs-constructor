@@ -1,3 +1,6 @@
+Выбор языка / Language: 🇷🇺 [Русский](README.md) | 🇬🇧 [English](README.en.md) | 🇨🇳 [中文 (Китайский)](README.zh.md) | 🇯🇵 [日本語 (Японский)](README.ja.md)
+
+---
 # CustomNPCs-constructor
 Визуальный конструктор диалогов, квестов и скриптов для мода Custom NPCs в Minecraft.
 
