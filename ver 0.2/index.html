@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+:root {
+    --bg-color: #1a1a1a;
+    --panel-bg: #242424;
+    --text-color: #e0e0e0;
+    --accent-color: #4caf50;
+    --section-bg: #2d2d2d; /* Фон для внутренних секций */
+    --border-color: #444444; /* Цвет рамок */
+}
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+.container {
+    width: 100%;
+    max-width: 800px;
+    background: var(--panel-bg);
+    color: var(--text-color);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    border: 1px solid var(--border-color);
+}
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+.section {
+    margin-bottom: 25px;
+    background: var(--section-bg);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--accent-color); /* Та самая левая полоса! */
+    padding: 15px;
+    border-radius: 4px;
+}
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .option-block {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+        }
+        .btn-download {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, transform 0.1s;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        .btn-download:hover {
+            background-color: var(--accent-hover);
+        }
+        .btn-download:active {
+            transform: scale(0.99);
+        }
+        .hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+		div[style*="position: absolute"] button:hover { transform: scale(1.2); }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Конструктор Диалогов CustomNPCs Управитель (Вер. 0.2)</h1>
+    <!-- Кнопки выбора стиля в виде иконок в правом верхнем углу -->
+<!-- Кнопки выбора стиля в виде иконок с подсказками -->
+<!-- Идеальный блок выбора стиля в углу -->
+<div style="position: relative; width: 100%; margin-bottom: 10px;">
+    <div style="position: absolute; top: 0px; right: 0; display: flex; gap: 8px; background: rgba(0,0,0,0.15); padding: 5px 8px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.2); z-index: 99;">
+        <button type="button" onclick="setTheme('pipboy')" title="Стиль: Пип-бой" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🖥️</button>
+        <button type="button" onclick="setTheme('melonking')" title="Стиль 1994: MelonKing" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🍉</button>
+        <button type="button" onclick="setTheme('yahoo')" title="Стиль 2000: Yahoo! Japan" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🇯🇵</button>
+        <button type="button" onclick="setTheme('ifindit')" title="Стиль 1997: Windows 95" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">💾</button>
+        <button type="button" onclick="setTheme('ryanair')" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">✈️</button>
+    </div>
+</div>
+
+
+
+    <!-- Основные настройки -->
+    <div class="section">
+        <div class="section-title">Основные параметры диалога</div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dialogId">ID Диалога (DialogId)</label>
+                <input type="number" id="dialogId" value="1">
+            </div>
+            <div class="form-group">
+                <label for="dialogTitle">Название диалога (DialogTitle)</label>
+                <input type="text" id="dialogTitle" value="Start">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="dialogText">Текст NPC (DialogText)</label>
+            <textarea id="dialogText">Hello {player},
+
+Welcome to our village. I hope you enjoy your stay</textarea>
+            <div class="hint">Можно использовать {player} для имени игрока. Для переноса строки используйте обычный Enter.</div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dialogQuest">ID связанного Квеста (-1 если нет)</label>
+                <input type="number" id="dialogQuest" value="-1">
+            </div>
+            <div class="form-group">
+                <label for="dialogCommand">Консольная команда при открытии</label>
+                <input type="text" id="dialogCommand" value="">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="dialogHideNPC">
+                <label for="dialogHideNPC">Скрывать NPC (DialogHideNPC)</label>
+            </div>
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="dialogShowWheel">
+                <label for="dialogShowWheel">Показывать колесом (DialogShowWheel)</label>
+            </div>
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="dialogDisableEsc">
+                <label for="dialogDisableEsc">Запретить ESC (DialogDisableEsc)</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Варианты ответов игрока -->
+<!-- Динамический раздел вариантов ответов с возможностью сворачивания -->
+<div class="options-container" style="position: relative;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+<!-- Исправленный заголовок с ID для точечной перекраски текста -->
+<!-- Контейнер с возвращенной каноничной рамкой -->
+<div class="options-container section" style="box-sizing: border-box; width: 100%;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; width: 100%;">
+        <span id="optionsTitle" style="font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; user-select: none; outline: none;" onclick="toggleOptionsVisibility()">
+            <span id="foldArrow">▼</span> Варианты ответов игрока (Кнопки)
+        </span>
+        
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" id="btnReset" onclick="clearAllOptionsForm()" style="padding: 5px 12px; background: #ff3333; color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold;">🧹 Очистить всё</button>
+            <button type="button" id="btnDeleteLast" onclick="removeLastOptionButton()" style="padding: 5px 12px; background: #e0a800; color: #000; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold;">➖ Удалить последнюю</button>
+            <button type="button" id="btnAddOption" onclick="addNewOptionButton()" style="padding: 5px 12px; background: var(--accent-color, #4caf50); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold;">➕ Добавить ветку</button>
+        </div>
+    </div>
+    
+    <!-- Внутренний контейнер для динамических карточек -->
+    <div id="dynamicOptionsWrapper" style="width: 100%; box-sizing: border-box;"></div>
+</div>
+
+
+    
+    <!-- Сюда JavaScript будет добавлять кнопки. Изначально генерируем 3 базовых -->
+    <div id="dynamicOptionsWrapper">
+        <!-- Кнопки сгенерируются автоматически скриптом при загрузке страницы -->
+    </div>
+</div>
+
+
+    <!-- Кнопка Скачать -->
+    <button class="btn-download" onclick="generateAndDownload()">💾 Скачать файл диалога (.json)</button>
+</div>
+
+<script>
+function setTheme(theme) {
+    // Сбрасываем лишние верхние полосы-разделители
+    const headerRow = document.querySelector('.header-row');
+    if (headerRow) headerRow.style.borderBottom = 'none';
+
+    localStorage.setItem('customNpcTheme', theme);
+
+    const root = document.documentElement;
+    const body = document.body;
+    const container = document.querySelector('.container');
+    const mainTitle = document.getElementById('mainTitle') || document.querySelector('h1');
+    const downloadBtn = document.querySelector('.download-btn');
+    const labels = document.querySelectorAll('label');
+    const sectionTitles = document.querySelectorAll('.section-title, h2, h3');
+    const optionsTitle = document.getElementById('optionsTitle');
+    const btnDeleteLast = document.getElementById('btnDeleteLast');
+
+    // Сброс ретро-текстуры MelonKing
+    body.style.backgroundImage = 'none';
+
+    if (theme === 'pipboy') {
+        body.style.backgroundColor = '#1a1a1a';
+        body.style.color = '#e0e0e0';
+        if(container) { 
+            container.style.backgroundColor = '#242424'; 
+            container.style.border = '1px solid #444444'; 
+            container.style.boxShadow = '0 4px 15px rgba(0,0,0,0.5)'; // ЖЕСТКИЙ СБРОС БЕЛОЙ ТЕНИ
+        }
+        if(mainTitle) mainTitle.style.color = '#4caf50';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#4caf50';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#e0a800'; btnDeleteLast.style.color = '#000'; btnDeleteLast.style.border = '1px solid rgba(0,0,0,0.2)'; btnDeleteLast.style.boxShadow = 'none'; }
+        
+        // Меняем переменные в :root под Пип-бой
+        root.style.setProperty('--bg-color', '#1a1a1a');
+        root.style.setProperty('--panel-bg', '#242424');
+        root.style.setProperty('--text-color', '#e0e0e0');
+        root.style.setProperty('--accent-color', '#4caf50');
+        root.style.setProperty('--section-bg', '#2d2d2d');
+        root.style.setProperty('--border-color', '#444444');
+    } 
+    else if (theme === 'melonking') {
+        body.style.backgroundColor = '#0f0505';
+        body.style.backgroundImage = 'radial-gradient(circle, #2b1111 10%, transparent 11%)';
+        body.style.backgroundSize = '20px 20px';
+        body.style.color = '#ffcc00';
+        if(container) { 
+            container.style.backgroundColor = '#1c0c0c'; 
+            container.style.border = '3px double #ff5500'; 
+            container.style.boxShadow = 'none'; // ЖЕСТКИЙ СБРОС БЕЛОЙ ТЕНИ
+        }
+        if(mainTitle) mainTitle.style.color = '#ff5500';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#ff5500';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#e0a800'; btnDeleteLast.style.color = '#000'; btnDeleteLast.style.border = '1px solid rgba(0,0,0,0.2)'; btnDeleteLast.style.boxShadow = 'none'; }
+        
+        // Меняем переменные в :root под 1994
+        root.style.setProperty('--bg-color', '#0f0505');
+        root.style.setProperty('--panel-bg', '#1c0c0c');
+        root.style.setProperty('--text-color', '#ffcc00');
+        root.style.setProperty('--accent-color', '#ff5500');
+        root.style.setProperty('--section-bg', '#110202');
+        root.style.setProperty('--border-color', '#ff5500');
+    } 
+    else if (theme === 'yahoo') {
+        body.style.backgroundColor = '#f5f5f5';
+        body.style.color = '#000000';
+        if(container) { 
+            container.style.backgroundColor = '#ffffff'; 
+            container.style.border = '1px solid #ccccff'; 
+            container.style.boxShadow = '0 2px 8px rgba(0,0,0,0.05)'; // ЖЕСТКИЙ СБРОС БЕЛОЙ ТЕНИ
+        }
+        if(mainTitle) mainTitle.style.color = '#ff0033';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#ff0033';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#e0a800'; btnDeleteLast.style.color = '#000'; btnDeleteLast.style.border = '1px solid #999999'; btnDeleteLast.style.boxShadow = 'none'; }
+        
+        // Меняем переменные в :root под Yahoo!
+        root.style.setProperty('--bg-color', '#f5f5f5');
+        root.style.setProperty('--panel-bg', '#ffffff');
+        root.style.setProperty('--text-color', '#000000');
+        root.style.setProperty('--accent-color', '#ff0033');
+        root.style.setProperty('--section-bg', '#f9f9f9');
+        root.style.setProperty('--border-color', '#ccccff');
+    }
+    else if (theme === 'ryanair') {
+        body.style.backgroundColor = '#ebf3fc';
+        body.style.color = '#003399';
+        if(container) { 
+            container.style.backgroundColor = '#ffcc00'; 
+            container.style.border = '4px solid #003399'; 
+            container.style.boxShadow = 'none'; // ЖЕСТКИЙ СБРОС БЕЛОЙ ТЕНИ
+        }
+        if(mainTitle) mainTitle.style.color = '#003399';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#003399';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#003399'; btnDeleteLast.style.color = '#ffffff'; btnDeleteLast.style.border = '1px solid #ffffff'; btnDeleteLast.style.boxShadow = 'none'; }
+        
+        // Меняем переменные в :root под Ryanair
+        root.style.setProperty('--bg-color', '#ebf3fc');
+        root.style.setProperty('--panel-bg', '#ffcc00');
+        root.style.setProperty('--text-color', '#003399');
+        root.style.setProperty('--accent-color', '#003399');
+        root.style.setProperty('--section-bg', '#ffe680');
+        root.style.setProperty('--border-color', '#003399');
+    }
+    else if (theme === 'ifindit') {
+        body.style.backgroundColor = '#808080';
+        body.style.color = '#000000';
+        if(container) { 
+            container.style.backgroundColor = '#c0c0c0'; 
+            container.style.border = '2px solid #ffffff'; 
+            container.style.boxShadow = 'inset -2px -2px #000, inset 2px 2px #fff'; // ТУТ БЕЛАЯ ТЕНЬ НА СВОЕМ МЕСТЕ
+        }
+        if(mainTitle) mainTitle.style.color = '#000080';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#000080';
+        if(btnDeleteLast) { btnDeleteLast.style.backgroundColor = '#c0c0c0'; btnDeleteLast.style.color = '#000000'; btnDeleteLast.style.boxShadow = 'inset -1px -1px #000, inset 1px 1px #fff'; btnDeleteLast.style.border = '1px solid #808080'; }
+        
+        // Меняем переменные в :root под Win95
+        root.style.setProperty('--bg-color', '#808080');
+        root.style.setProperty('--panel-bg', '#c0c0c0');
+        root.style.setProperty('--text-color', '#000000');
+        root.style.setProperty('--accent-color', '#000080');
+        root.style.setProperty('--section-bg', '#d9d9d9');
+        root.style.setProperty('--border-color', '#808080');
+    }
+
+    // Считываем обновленные цвета напрямую из переменных :root
+    const accentColor = root.style.getPropertyValue('--accent-color');
+    const sectionBg = root.style.getPropertyValue('--section-bg');
+    const textColor = root.style.getPropertyValue('--text-color');
+    const borderColor = root.style.getPropertyValue('--border-color');
+
+    // Насильно красим надписи (label) и заголовки в каноничный цвет темы
+    labels.forEach(l => l.style.color = accentColor);
+    sectionTitles.forEach(t => t.style.color = textColor);
+    if(optionsTitle) optionsTitle.style.color = textColor;
+
+    // ИСПРАВЛЕНО: Перекрашиваем фоны и рамки внутренних секций, обходя стороной главный .container
+    document.querySelectorAll('.section:not(.container), .options-container, .option-block').forEach(el => {
+        el.style.backgroundColor = sectionBg;
+        el.style.borderLeftColor = accentColor;
+        el.style.borderColor = borderColor;
+    });
+
+    // Настраиваем внутренности полей ввода (инпутов и селектов)
+    const isLight = ["yahoo", "ryanair", "ifindit"].includes(theme);
+    document.querySelectorAll('input[type="text"], input[type="number"], textarea, select').forEach(el => {
+        el.style.color = isLight ? '#000000' : '#ffffff';
+        el.style.backgroundColor = isLight ? '#ffffff' : '#333333';
+        el.style.borderColor = borderColor;
+    });
+}
+
+
+
+// АВТОЗАГРУЗКА: Выполняется сразу при открытии или обновлении страницы
+document.addEventListener("DOMContentLoaded", function() {
+    // СНАЧАЛА СОЗДАЕМ 3 БАЗОВЫЕ КНОПКИ ПО УМОЛЧАНИЮ
+    addNewOptionButton();
+    addNewOptionButton();
+    addNewOptionButton();
+    // Проверяем, есть ли сохраненная тема в памяти браузера
+    const savedTheme = localStorage.getItem('customNpcTheme');
+    
+    if (savedTheme) {
+        // Если нашли тему в памяти — включаем её
+        setTheme(savedTheme);
+    } else {
+        // Если открыли впервые — включаем ваш любимый стиль Windows 95 по умолчанию!
+        setTheme('ifindit');
+    }
+});
+
+// Глобальный счетчик веток
+let optionCount = 0;
+
+// Функция автоматического добавления кнопок-опций
+function addNewOptionButton() {
+    const wrapper = document.getElementById('dynamicOptionsWrapper');
+    if (!wrapper) return;
+
+    if (optionCount >= 34) {
+        alert("Достигнут лимит веток для одного диалога (34 шт)!");
+        return;
+    }
+
+    const slot = optionCount;
+    const optionBlock = document.createElement('div');
+    optionBlock.className = 'option-block';
+    optionBlock.id = `optionBlock_${slot}`;
+    
+    // ИСПРАВЛЕНО: Ширина 100%, авто-подстройка отступов и левая граница привязана к переменной темы --accent-color!
+    optionBlock.style.cssText = "background: rgba(255,255,255,0.02); padding: 15px; margin-bottom: 15px; border-radius: 4px; border: 1px solid var(--border-color, #444); border-left: 5px solid var(--accent-color, #4caf50); width: 100%; box-sizing: border-box;";
+
+    optionBlock.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <strong style="color: inherit; font-size: 14px;">Кнопка ${slot + 1} (Слот ${slot})</strong>
+            ${slot >= 3 ? `<button type="button" onclick="removeOptionButton(${slot})" style="background:none; border:none; color:#ff3333; cursor:pointer; font-size:12px;">❌ Удалить ветку</button>` : ''}
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; box-sizing: border-box;">
+            <div>
+                <label for="optTitle${slot}" style="font-size:12px; margin-bottom:4px; display:block;">Текст ответа:</label>
+                <input type="text" id="optTitle${slot}" placeholder="Текст, который выберет игрок..." style="width:100%; box-sizing:border-box; padding: 10px;">
+            </div>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optType${slot}" style="font-size:12px; margin-bottom:4px; display:block;">Действие (OptionType):</label>
+                    <select id="optType${slot}" style="width:100%; box-sizing:border-box; padding: 10px; height: 38px;">
+                        <option value="1">Переход к диалогу (1)</option>
+                        <option value="0">Закрыть диалог (0)</option>
+                        <option value="2">Открыть Роль NPC (2)</option>
+                        <option value="3">Показать Фракцию (3)</option>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optDialog${slot}" style="font-size:12px; margin-bottom:4px; display:block;">ID следующего диалога:</label>
+                    <input type="number" id="optDialog${slot}" value="-1" style="width:100%; box-sizing:border-box; padding: 10px;">
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optColor${slot}" style="font-size:12px; margin-bottom:4px; display:block;">Цвет текста кнопки (Decimal):</label>
+                    <input type="text" id="optColor${slot}" value="14737632" style="width:100%; box-sizing:border-box; padding: 10px;">
+                </div>
+            </div>
+            <div>
+                <label for="optCmd${slot}" style="font-size:12px; margin-bottom:4px; display:block;">Команда кнопки:</label>
+                <input type="text" id="optCmd${slot}" placeholder="Команда консоли при нажатии..." style="width:100%; box-sizing:border-box; padding: 10px;">
+            </div>
+        </div>
+    `;
+
+    wrapper.appendChild(optionBlock);
+    optionCount++;
+
+    // Мгновенно синхронизируем цвета новой карточки с активной ретро-темой
+    const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
+    setTheme(savedTheme);
+}
+
+
+// Функция удаления добавленной ветки
+function removeOptionButton(slot) {
+    const block = document.getElementById(`optionBlock_${slot}`);
+    if (block) block.remove();
+}
+// Функция удаления строго последней созданной ветки (но не уменьшаем базу ниже 3 кнопок)
+function removeLastOptionButton() {
+    if (optionCount <= 3) {
+        alert("Нельзя удалить базовые 3 кнопки диалога!");
+        return;
+    }
+    
+    // Ищем последний существующий блок на странице
+    const lastSlot = optionCount - 1;
+    const lastBlock = document.getElementById(`optionBlock_${lastSlot}`);
+    
+    if (lastBlock) {
+        lastBlock.remove();
+        optionCount--; // Безопасно уменьшаем общий счетчик
+    }
+}
+
+// Функция быстрой очистки всех заполненных текстов во всех ветках
+function clearAllOptionsForm() {
+    if (confirm("Вы уверены, что хотите полностью очистить текст всех созданных веток ответов?")) {
+        for (let i = 0; i < optionCount; i++) {
+            const titleInput = document.getElementById('optTitle' + i);
+            const cmdInput = document.getElementById('optCmd' + i);
+            const dialogInput = document.getElementById('optDialog' + i);
+            
+            if (titleInput) titleInput.value = "";
+            if (cmdInput) cmdInput.value = "";
+            if (dialogInput) dialogInput.value = "-1"; // Сбрасываем переход в дефолт
+        }
+    }
+}
+
+// Сворачивание и разворачивание блока вариантов ответов
+function toggleOptionsVisibility() {
+    const wrapper = document.getElementById('dynamicOptionsWrapper');
+    const arrow = document.getElementById('foldArrow');
+    if (!wrapper || !arrow) return;
+
+    if (wrapper.style.display === 'none') {
+        wrapper.style.display = 'block';
+        arrow.textContent = '▼';
+    } else {
+        wrapper.style.display = 'none';
+        arrow.textContent = '►';
+    }
+}
+
+
+
+function generateAndDownload() {
+    // Безопасное чтение базовых инпутов с защитой от пустых значений (null)
+    const dIdEl = document.getElementById('dialogId');
+    const dTitleEl = document.getElementById('dialogTitle');
+    const dTextEl = document.getElementById('dialogText');
+    const dQuestEl = document.getElementById('dialogQuest');
+    const dCmdEl = document.getElementById('dialogCommand');
+
+    const dialogId = dIdEl ? (parseInt(dIdEl.value) || 1) : 1;
+    const dialogTitle = dTitleEl ? (dTitleEl.value || "Start") : "Start";
+    const dialogText = dTextEl ? (dTextEl.value || "") : "";
+    const dialogQuest = dQuestEl ? (parseInt(dQuestEl.value) || -1) : -1;
+    const dialogCommand = dCmdEl ? dCmdEl.value : "";
+    
+    // Безопасное чтение чекбоксов настроек окна
+    const hideNpcEl = document.getElementById('dialogHideNPC');
+    const showWheelEl = document.getElementById('dialogShowWheel');
+    const disableEscEl = document.getElementById('dialogDisableEsc');
+
+    const dialogHideNPC = (hideNpcEl && hideNpcEl.checked) ? "1b" : "0b";
+    const dialogShowWheel = (showWheelEl && showWheelEl.checked) ? "1b" : "0b";
+    const dialogDisableEsc = (disableEscEl && disableEscEl.checked) ? "1b" : "0b";
+
+    // Сборка кнопок ответов игрока (Опции)
+    const options = [];
+    for (let i = 0; i < 3; i++) {
+        const titleInput = document.getElementById('optTitle' + i);
+        
+        // Если поле текста кнопки существует и оно не пустое — собираем данные кнопки
+        if (titleInput && titleInput.value.trim() !== "") {
+            const title = titleInput.value.trim();
+            
+            // Защищенное считывание остальных полей кнопки (даже если id поменялись, скрипт не упадет)
+            const typeInput = document.getElementById('optType' + i) || document.getElementById('optAction' + i);
+            const dialogInput = document.getElementById('optDialog' + i) || document.getElementById('optNext' + i);
+            const colorInput = document.getElementById('optColor' + i);
+            const cmdInput = document.getElementById('optCmd' + i) || document.getElementById('optCommand' + i);
+
+            const type = typeInput ? (parseInt(typeInput.value) || 0) : 0;
+            const nextDialog = dialogInput ? (parseInt(dialogInput.value) || -1) : -1;
+            const color = colorInput ? (parseInt(colorInput.value) || 14737632) : 14737632;
+            const cmd = cmdInput ? cmdInput.value : "";
+
+            options.push({
+                "OptionSlot": i,
+                "Option": {
+                    "Title": title,
+                    "OptionType": type,
+                    "Dialog": nextDialog,
+                    "DialogColor": color,
+                    "DialogCommand": cmd
+                }
+            });
+        }
+    }
+
+    // Каноничный шаблон структуры CustomNPCs
+    const fullNbtStructure = {
+        "DialogId": dialogId,
+        "DialogTitle": dialogTitle,
+        "DialogText": dialogText,
+        "DialogQuest": dialogQuest,
+        "DialogCommand": dialogCommand,
+        "DialogMail": {
+            "Subject": "",
+            "Sender": "",
+            "Time": "0L",
+            "BeenRead": "0b",
+            "Message": {},
+            "TimePast": "1786471546922L",
+            "MailQuest": -1,
+            "MailItems": []
+        },
+        "DialogHideNPC": dialogHideNPC,
+        "DialogShowWheel": dialogShowWheel,
+        "DialogDisableEsc": dialogDisableEsc,
+        "Options": options,
+        "ModRev": 18,
+        "AvailabilityDialog": 0,
+        "AvailabilityDialog2": 0,
+        "AvailabilityDialog3": 0,
+        "AvailabilityDialog4": 0,
+        "AvailabilityDialogId": -1,
+        "AvailabilityDialog2Id": -1,
+        "AvailabilityDialog3Id": -1,
+        "AvailabilityDialog4Id": -1,
+        "AvailabilityQuest": 0,
+        "AvailabilityQuest2": 0,
+        "AvailabilityQuest3": 0,
+        "AvailabilityQuest4": 0,
+        "AvailabilityQuestId": -1,
+        "AvailabilityQuest2Id": -1,
+        "AvailabilityQuest3Id": -1,
+        "AvailabilityQuest4Id": -1,
+        "AvailabilityFaction": 0,
+        "AvailabilityFaction2": 0,
+        "AvailabilityFactionStance": 0,
+        "AvailabilityFaction2Stance": 0,
+        "AvailabilityFactionId": -1,
+        "AvailabilityFaction2Id": -1,
+        "AvailabilityScoreboardObjective": "",
+        "AvailabilityScoreboard2Objective": "",
+        "AvailabilityScoreboardType": 1,
+        "AvailabilityScoreboard2Type": 1,
+        "AvailabilityScoreboardValue": 1,
+        "AvailabilityScoreboard2Value": 1,
+        "AvailabilityDayTime": 0,
+        "AvailabilityMinPlayerLevel": 0,
+        "OptionFactions1": -1,
+        "OptionFactions2": -1,
+        "OptionFaction1Points": 100,
+        "OptionFaction2Points": 100,
+        "DecreaseFaction1Points": "0b",
+        "DecreaseFaction2Points": "0b"
+    };
+
+    // Сериализация и хак типов NBT под требования CustomNPCs
+    let jsonString = JSON.stringify(fullNbtStructure, null, 4);
+    jsonString = jsonString.split('"0b"').join('0b');
+    jsonString = jsonString.split('"1b"').join('1b');
+    jsonString = jsonString.split('"0L"').join('0L');
+    jsonString = jsonString.split('"1786471546922L"').join('1786471546922L');
+
+    // Генерация и скачивание файла диалога
+    const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "dialog_" + dialogId + ".json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+
+</script>
+
+
+</body>
+</html>

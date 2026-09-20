@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+:root {
+    --bg-color: #1a1a1a;
+    --panel-bg: #242424;
+    --text-color: #e0e0e0;
+    --accent-color: #4caf50;
+    --section-bg: #2d2d2d; /* Фон для внутренних секций */
+    --border-color: #444444; /* Цвет рамок */
+}
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+.container {
+    width: 100%;
+    max-width: 800px;
+    background: var(--panel-bg);
+    color: var(--text-color);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    border: 1px solid var(--border-color);
+}
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+.section {
+    margin-bottom: 25px;
+    background: var(--section-bg);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--accent-color); /* Та самая левая полоса! */
+    padding: 15px;
+    border-radius: 4px;
+}
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .option-block {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+        }
+        .btn-download {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, transform 0.1s;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        .btn-download:hover {
+            background-color: var(--accent-hover);
+        }
+        .btn-download:active {
+            transform: scale(0.99);
+        }
+        .hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+		div[style*="position: absolute"] button:hover { transform: scale(1.2); }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Конструктор Диалогов CustomNPCs Звездочёт (Версия 0.1)</h1>
+    <!-- Кнопки выбора стиля в виде иконок в правом верхнем углу -->
+<!-- Кнопки выбора стиля в виде иконок с подсказками -->
+<!-- Идеальный блок выбора стиля в углу -->
+<div style="position: relative; width: 100%; margin-bottom: 10px;">
+    <div style="position: absolute; top: 0px; right: 0; display: flex; gap: 8px; background: rgba(0,0,0,0.15); padding: 5px 8px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.2); z-index: 99;">
+        <button type="button" onclick="setTheme('pipboy')" title="Стиль: Пип-бой" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🖥️</button>
+        <button type="button" onclick="setTheme('melonking')" title="Стиль 1994: MelonKing" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🍉</button>
+        <button type="button" onclick="setTheme('yahoo')" title="Стиль 2000: Yahoo! Japan" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🇯🇵</button>
+        <button type="button" onclick="setTheme('ifindit')" title="Стиль 1997: Windows 95" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">💾</button>
+        <button type="button" onclick="setTheme('ryanair')" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">✈️</button>
+    </div>
+</div>
+
+
+
+    <!-- Основные настройки -->
+    <div class="section">
+        <div class="section-title">Основные параметры диалога</div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dialogId">ID Диалога (DialogId)</label>
+                <input type="number" id="dialogId" value="1">
+            </div>
+            <div class="form-group">
+                <label for="dialogTitle">Название диалога (DialogTitle)</label>
+                <input type="text" id="dialogTitle" value="Start">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="dialogText">Текст NPC (DialogText)</label>
+            <textarea id="dialogText">Hello {player},
+
+Welcome to our village. I hope you enjoy your stay</textarea>
+            <div class="hint">Можно использовать {player} для имени игрока. Для переноса строки используйте обычный Enter.</div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dialogQuest">ID связанного Квеста (-1 если нет)</label>
+                <input type="number" id="dialogQuest" value="-1">
+            </div>
+            <div class="form-group">
+                <label for="dialogCommand">Консольная команда при открытии</label>
+                <input type="text" id="dialogCommand" value="">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="dialogHideNPC">
+                <label for="dialogHideNPC">Скрывать NPC (DialogHideNPC)</label>
+            </div>
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="dialogShowWheel">
+                <label for="dialogShowWheel">Показывать колесом (DialogShowWheel)</label>
+            </div>
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="dialogDisableEsc">
+                <label for="dialogDisableEsc">Запретить ESC (DialogDisableEsc)</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Варианты ответов игрока -->
+    <div class="section">
+        <div class="section-title">Варианты ответов игрока (Кнопки)</div>
+        
+        <!-- Опция 1 -->
+        <div class="option-block">
+            <div style="font-weight: bold; margin-bottom: 10px; color: #4caf50;">Кнопка 1 (Слот 0)</div>
+            <div class="form-group">
+                <label for="optTitle0">Текст ответа</label>
+                <input type="text" id="optTitle0" value="Who are you?">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="optType0">Действие (OptionType)</label>
+                    <select id="optType0">
+                        <option value="1">Переход к диалогу (1)</option>
+                        <option value="0">Закрыть диалог (0)</option>
+                        <option value="2">Роль (2)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="optDialog0">ID следующего диалога</label>
+                    <input type="number" id="optDialog0" value="3">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="optColor0">Цвет текста кнопки (Decimal)</label>
+                    <input type="number" id="optColor0" value="14737632">
+                </div>
+                <div class="form-group">
+                    <label for="optCmd0">Команда кнопки</label>
+                    <input type="text" id="optCmd0" value="">
+                </div>
+            </div>
+        </div>
+
+        <!-- Опция 2 -->
+        <div class="option-block">
+            <div style="font-weight: bold; margin-bottom: 10px; color: #4caf50;">Кнопка 2 (Слот 1)</div>
+            <div class="form-group">
+                <label for="optTitle1">Текст ответа</label>
+                <input type="text" id="optTitle1" value="Tell me something about this village">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="optType1">Действие (OptionType)</label>
+                    <select id="optType1">
+                        <option value="1">Переход к диалогу (1)</option>
+                        <option value="0">Закрыть диалог (0)</option>
+                        <option value="2">Роль (2)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="optDialog1">ID следующего диалога</label>
+                    <input type="number" id="optDialog1" value="2">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="optColor1">Цвет текста кнопки (Decimal)</label>
+                    <input type="number" id="optColor1" value="14737632">
+                </div>
+                <div class="form-group">
+                    <label for="optCmd1">Команда кнопки</label>
+                    <input type="text" id="optCmd1" value="">
+                </div>
+            </div>
+        </div>
+
+        <!-- Опция 3 -->
+        <div class="option-block">
+            <div style="font-weight: bold; margin-bottom: 10px; color: #4caf50;">Кнопка 3 (Слот 2)</div>
+            <div class="form-group">
+                <label for="optTitle2">Текст ответа (Оставьте пустым, если кнопка не нужна)</label>
+                <input type="text" id="optTitle2" value="Goodbye">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="optType2">Действие (OptionType)</label>
+                    <select id="optType2">
+                        <option value="0">Закрыть диалог (0)</option>
+                        <option value="1">Переход к диалогу (1)</option>
+                        <option value="2">Роль (2)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="optDialog2">ID следующего диалога</label>
+                    <input type="number" id="optDialog2" value="-1">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="optColor2">Цвет текста кнопки (Decimal)</label>
+                    <input type="number" id="optColor2" value="14737632">
+                </div>
+                <div class="form-group">
+                    <label for="optCmd2">Команда кнопки</label>
+                    <input type="text" id="optCmd2" value="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка Скачать -->
+    <button class="btn-download" onclick="generateAndDownload()">💾 Скачать файл диалога (.json)</button>
+</div>
+
+<script>
+function setTheme(theme) {
+    // ЗАПОМИНАЕМ ВЫБРАННЫЙ СТИЛЬ В ПАМЯТЬ БРАУЗЕРА
+    localStorage.setItem('customNpcTheme', theme);
+    const body = document.body;
+    const container = document.querySelector('.container');
+    const mainTitle = document.getElementById('mainTitle') || document.querySelector('h1');
+    const downloadBtn = document.querySelector('.download-btn');
+    const labels = document.querySelectorAll('label');
+    const sectionTitles = document.querySelectorAll('.section-title, h2, h3');
+    
+    // Находим все упрямые внутренние карточки разделов
+    const sections = document.querySelectorAll('.section, .options-container');
+
+    // Сброс ретро-текстуры MelonKing
+    body.style.backgroundImage = 'none';
+    if(container) {
+        container.style.border = 'none';
+        container.style.boxShadow = '0 4px 15px rgba(0,0,0,0.5)';
+    }
+
+    // Базовые переменные для стилей (По умолчанию Пип-бой)
+    let stripeColor = '#4caf50';
+    let titleTextColor = '#ffffff'; 
+    let sectionBgColor = '#2d2d2d'; // Темный фон для внутренних блоков
+    let labelColor = '#4caf50';
+
+    if (theme === 'pipboy') {
+        body.style.backgroundColor = '#1a1a1a';
+        body.style.color = '#e0e0e0';
+        if(container) {
+            container.style.backgroundColor = '#242424';
+            container.style.border = '1px solid #444444';
+        }
+        if(mainTitle) mainTitle.style.color = '#4caf50';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#4caf50';
+        labelColor = '#4caf50';
+        stripeColor = '#4caf50';
+        titleTextColor = '#ffffff';
+        sectionBgColor = '#2d2d2d';
+    } 
+    else if (theme === 'melonking') {
+        body.style.backgroundColor = '#0f0505';
+        body.style.backgroundImage = 'radial-gradient(circle, #2b1111 10%, transparent 11%)';
+        body.style.backgroundSize = '20px 20px';
+        body.style.color = '#ffcc00';
+        if(container) {
+            container.style.backgroundColor = '#1c0c0c';
+            container.style.border = '3px double #ff5500';
+        }
+        if(mainTitle) mainTitle.style.color = '#ff5500';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#ff5500';
+        labelColor = '#ff5500';
+        stripeColor = '#ff5500';
+        titleTextColor = '#ffcc00';
+        sectionBgColor = '#110202'; // Угольно-черный для MelonKing
+    } 
+    else if (theme === 'yahoo') {
+        body.style.backgroundColor = '#f5f5f5';
+        body.style.color = '#000000';
+        if(container) {
+            container.style.backgroundColor = '#ffffff';
+            container.style.border = '1px solid #ccccff';
+        }
+        if(mainTitle) mainTitle.style.color = '#ff0033';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#ff0033';
+        labelColor = '#0000cc';
+        stripeColor = '#ff0033';
+        titleTextColor = '#000000'; 
+        sectionBgColor = '#f9f9f9'; // Мягкий светлый фон для карточек Yahoo!
+    }
+    else if (theme === 'ryanair') {
+        body.style.backgroundColor = '#ebf3fc';
+        body.style.color = '#003399';
+        if(container) {
+            container.style.backgroundColor = '#ffcc00';
+            container.style.border = '4px solid #003399';
+        }
+        if(mainTitle) mainTitle.style.color = '#003399';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#003399';
+        labelColor = '#003399';
+        stripeColor = '#003399';
+        titleTextColor = '#003399';
+        sectionBgColor = '#ffe680'; // Приятный желтый фон полей для 2007
+    }
+    else if (theme === 'ifindit') {
+        body.style.backgroundColor = '#808080';
+        body.style.color = '#000000';
+        if(container) {
+            container.style.backgroundColor = '#c0c0c0';
+            container.style.boxShadow = 'inset -2px -2px #000, inset 2px 2px #fff';
+            container.style.border = '2px solid #ffffff';
+        }
+        if(mainTitle) mainTitle.style.color = '#000080';
+        if(downloadBtn) downloadBtn.style.backgroundColor = '#000080';
+        labelColor = '#000080';
+        stripeColor = '#000080';
+        titleTextColor = '#000000';
+        sectionBgColor = '#d9d9d9'; // Классический серый Windows 95
+    }
+
+    // Красим подписи (label) и заголовки разделов
+    labels.forEach(l => l.style.color = labelColor);
+    sectionTitles.forEach(t => t.style.color = titleTextColor);
+
+    // Перекрашиваем фоны и левые полосы у внутренних карточек (.section)
+    sections.forEach(s => {
+        s.style.backgroundColor = sectionBgColor;
+        s.style.borderLeftColor = stripeColor;
+    });
+
+    // Настраиваем поля ввода инпутов
+    const isLight = ["yahoo", "ryanair", "ifindit"].includes(theme);
+    const borderStyleColor = isLight ? '#999999' : '#444444';
+    
+    document.querySelectorAll('input[type="text"], input[type="number"], textarea, select').forEach(el => {
+        el.style.color = isLight ? '#000000' : '#ffffff';
+        el.style.backgroundColor = isLight ? '#ffffff' : '#333333';
+        el.style.borderColor = borderStyleColor;
+    });
+}
+// АВТОЗАГРУЗКА: Выполняется сразу при открытии или обновлении страницы
+document.addEventListener("DOMContentLoaded", function() {
+    // Проверяем, есть ли сохраненная тема в памяти браузера
+    const savedTheme = localStorage.getItem('customNpcTheme');
+    
+    if (savedTheme) {
+        // Если нашли тему в памяти — включаем её
+        setTheme(savedTheme);
+    } else {
+        // Если открыли впервые — включаем ваш любимый стиль Windows 95 по умолчанию!
+        setTheme('ifindit');
+    }
+});
+
+
+
+
+function generateAndDownload() {
+    // Безопасное чтение базовых инпутов с защитой от пустых значений (null)
+    const dIdEl = document.getElementById('dialogId');
+    const dTitleEl = document.getElementById('dialogTitle');
+    const dTextEl = document.getElementById('dialogText');
+    const dQuestEl = document.getElementById('dialogQuest');
+    const dCmdEl = document.getElementById('dialogCommand');
+
+    const dialogId = dIdEl ? (parseInt(dIdEl.value) || 1) : 1;
+    const dialogTitle = dTitleEl ? (dTitleEl.value || "Start") : "Start";
+    const dialogText = dTextEl ? (dTextEl.value || "") : "";
+    const dialogQuest = dQuestEl ? (parseInt(dQuestEl.value) || -1) : -1;
+    const dialogCommand = dCmdEl ? dCmdEl.value : "";
+    
+    // Безопасное чтение чекбоксов настроек окна
+    const hideNpcEl = document.getElementById('dialogHideNPC');
+    const showWheelEl = document.getElementById('dialogShowWheel');
+    const disableEscEl = document.getElementById('dialogDisableEsc');
+
+    const dialogHideNPC = (hideNpcEl && hideNpcEl.checked) ? "1b" : "0b";
+    const dialogShowWheel = (showWheelEl && showWheelEl.checked) ? "1b" : "0b";
+    const dialogDisableEsc = (disableEscEl && disableEscEl.checked) ? "1b" : "0b";
+
+    // Сборка кнопок ответов игрока (Опции)
+    const options = [];
+    for (let i = 0; i < 3; i++) {
+        const titleInput = document.getElementById('optTitle' + i);
+        
+        // Если поле текста кнопки существует и оно не пустое — собираем данные кнопки
+        if (titleInput && titleInput.value.trim() !== "") {
+            const title = titleInput.value.trim();
+            
+            // Защищенное считывание остальных полей кнопки (даже если id поменялись, скрипт не упадет)
+            const typeInput = document.getElementById('optType' + i) || document.getElementById('optAction' + i);
+            const dialogInput = document.getElementById('optDialog' + i) || document.getElementById('optNext' + i);
+            const colorInput = document.getElementById('optColor' + i);
+            const cmdInput = document.getElementById('optCmd' + i) || document.getElementById('optCommand' + i);
+
+            const type = typeInput ? (parseInt(typeInput.value) || 0) : 0;
+            const nextDialog = dialogInput ? (parseInt(dialogInput.value) || -1) : -1;
+            const color = colorInput ? (parseInt(colorInput.value) || 14737632) : 14737632;
+            const cmd = cmdInput ? cmdInput.value : "";
+
+            options.push({
+                "OptionSlot": i,
+                "Option": {
+                    "Title": title,
+                    "OptionType": type,
+                    "Dialog": nextDialog,
+                    "DialogColor": color,
+                    "DialogCommand": cmd
+                }
+            });
+        }
+    }
+
+    // Каноничный шаблон структуры CustomNPCs
+    const fullNbtStructure = {
+        "DialogId": dialogId,
+        "DialogTitle": dialogTitle,
+        "DialogText": dialogText,
+        "DialogQuest": dialogQuest,
+        "DialogCommand": dialogCommand,
+        "DialogMail": {
+            "Subject": "",
+            "Sender": "",
+            "Time": "0L",
+            "BeenRead": "0b",
+            "Message": {},
+            "TimePast": "1786471546922L",
+            "MailQuest": -1,
+            "MailItems": []
+        },
+        "DialogHideNPC": dialogHideNPC,
+        "DialogShowWheel": dialogShowWheel,
+        "DialogDisableEsc": dialogDisableEsc,
+        "Options": options,
+        "ModRev": 18,
+        "AvailabilityDialog": 0,
+        "AvailabilityDialog2": 0,
+        "AvailabilityDialog3": 0,
+        "AvailabilityDialog4": 0,
+        "AvailabilityDialogId": -1,
+        "AvailabilityDialog2Id": -1,
+        "AvailabilityDialog3Id": -1,
+        "AvailabilityDialog4Id": -1,
+        "AvailabilityQuest": 0,
+        "AvailabilityQuest2": 0,
+        "AvailabilityQuest3": 0,
+        "AvailabilityQuest4": 0,
+        "AvailabilityQuestId": -1,
+        "AvailabilityQuest2Id": -1,
+        "AvailabilityQuest3Id": -1,
+        "AvailabilityQuest4Id": -1,
+        "AvailabilityFaction": 0,
+        "AvailabilityFaction2": 0,
+        "AvailabilityFactionStance": 0,
+        "AvailabilityFaction2Stance": 0,
+        "AvailabilityFactionId": -1,
+        "AvailabilityFaction2Id": -1,
+        "AvailabilityScoreboardObjective": "",
+        "AvailabilityScoreboard2Objective": "",
+        "AvailabilityScoreboardType": 1,
+        "AvailabilityScoreboard2Type": 1,
+        "AvailabilityScoreboardValue": 1,
+        "AvailabilityScoreboard2Value": 1,
+        "AvailabilityDayTime": 0,
+        "AvailabilityMinPlayerLevel": 0,
+        "OptionFactions1": -1,
+        "OptionFactions2": -1,
+        "OptionFaction1Points": 100,
+        "OptionFaction2Points": 100,
+        "DecreaseFaction1Points": "0b",
+        "DecreaseFaction2Points": "0b"
+    };
+
+    // Сериализация и хак типов NBT под требования CustomNPCs
+    let jsonString = JSON.stringify(fullNbtStructure, null, 4);
+    jsonString = jsonString.split('"0b"').join('0b');
+    jsonString = jsonString.split('"1b"').join('1b');
+    jsonString = jsonString.split('"0L"').join('0L');
+    jsonString = jsonString.split('"1786471546922L"').join('1786471546922L');
+
+    // Генерация и скачивание файла диалога
+    const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "dialog_" + dialogId + ".json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+
+</script>
+
+
+</body>
+</html>
