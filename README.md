@@ -7,11 +7,11 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 
 ## Version History (Clickable 🌐)
 
-### [Версия 0.0]([https://github.io](https://picadoni.github.io/customNPCs-constructor/ver%200.1/))
+### [Версия 0.0][https://github.io](https://picadoni.github.io/customNPCs-constructor/ver%200.1/))
 **CustomNPCs Dialogue Constructor "Herald" (Глашатай)**
 * **Project Start:** Added basic tabs for designing dialogues.
 
-### [Version 0.1]([https://github.io](https://picadoni.github.io/customNPCs-constructor/ver%200.1/))
+### [Version 0.1][https://github.io](https://picadoni.github.io/customNPCs-constructor/ver%200.1/))
 **CustomNPCs Dialogue Constructor "Stargazer" (Звездочёт)**
 * **Update:** Added 5 different UI themes/styles.
 
