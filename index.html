@@ -417,7 +417,7 @@
             <input type="number" id="availFactionId1" value="-1" style="height: 34px;">
         </div>
         <div class="form-group">
-            label style="font-size: 11px; color: #ffcc00;" data-i18n="lbl_avail_r1">Репутация 1:</label>
+            <label style="font-size: 11px; color: #ffcc00;" data-i18n="lbl_avail_r1">Репутация 1:</label>
 <select id="availFactionStance1" style="padding: 6px 10px; height: auto; font-size: 14px; box-sizing: border-box; width: 100%;">
                         <option value="0" data-i18n="opt_rep_0">Дружелюбные (0)</option>
                         <option value="1" data-i18n="opt_rep_1">Нейтральные (1)</option>
@@ -1663,6 +1663,10 @@ function removeLastOptionButton() {
 }
 
 // Функция быстрой очистки всех заполненных текстов во всех ветках
+	function clearAllOptionsForm() {
+    if (!confirm("Вы уверены, что хотите полностью очистить все ветки ответов?")) return;
+    // далее ваш код очистки...
+}
 function clearAllOptionsForm() {
     if (confirm("Вы уверены, что хотите полностью очистить текст всех созданных веток ответов?")) {
         for (let i = 0; i < optionCount; i++) {
