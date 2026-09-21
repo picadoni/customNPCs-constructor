@@ -1,4 +1,4 @@
-Выбор языка / Language: 🇬🇧 [English](README.md) | 🇨🇳 [中文 (Китайский)](README.zh.md) | 🇯🇵 [日本語 (Японский)](README.ja.md)
+Выбор языка / Language: 🇷🇺 [Русский](README.ru.md) | 🇬🇧 [English](README.md) | 🇨🇳 [中文](README.zh.md) | 🇯🇵 [日本語](README.ja.md)
 
 ---
 
