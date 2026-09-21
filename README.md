@@ -114,7 +114,7 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 *(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
 * **Bug Fixes:** Fully resolved localization bugs. Tab headers now display correctly in the selected language.
 
-### [Version 1.6 (Current)](https://github.io)
+### [Version 1.6 (Current)](https://picadoni.github.io/customNPCs-constructor/)
 **Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Secretary" (v0.7) / Scripting Module "Overlord" (v0.7)**
 *(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
 * **New Features:** Added toggleable ambient background particle effects (smoothly falling sakura petals, snow, or autumn leaves).
