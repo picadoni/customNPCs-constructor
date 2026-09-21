@@ -101,7 +101,7 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
   * **Scripting Module:** Added new preset functions (Change NPC size, Siren/Alarm mode, Meteor shower).
 
 ### [Version 1.4](https://picadoni.github.io/customNPCs-constructor/ver%201.4/)
-**Dialogue Constructor "The Great" (v1.0) / ... / Scripting Module "Cosmos" (v0.5)**
+**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Priest" (v0.5) / Scripting Module "Cosmos" (v0.5)**
 *(Dialogue constructor did not receive a new name as its functionality was not updated in this release).*
 * **Global Code Update:** Implemented multi-language core support:
   1. English
@@ -110,7 +110,7 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 * **Note:** Localization is partially implemented. Bug present: main tab headers remain in Russian.
 
 ### [Version 1.5](https://picadoni.github.io/customNPCs-constructor/ver%201.5/)
-**Dialogue Constructor "The Great" (v1.0) / ... / Scripting Module "Servant" (v0.6)**
+**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Secretary" (v0.6) / Scripting Module "Servant" (v0.6)**
 *(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
 * **Bug Fixes:** Fully resolved localization bugs. Tab headers now display correctly in the selected language.
 
