@@ -105,7 +105,7 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 *(Dialogue constructor did not receive a new name as its functionality was not updated in this release).*
 * **Global Code Update:** Implemented multi-language core support:
   1. English
-  2. Traditional Chinese
+  2. Simplified Chinese
   3. Japanese (日本語)
 * **Note:** Localization is partially implemented. Bug present: main tab headers remain in Russian.
 
