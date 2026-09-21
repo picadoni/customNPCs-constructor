@@ -198,10 +198,37 @@
     </style>
 </head>
 <body>
+<body>
     <!-- ЭФФЕКТ ПАДАЮЩИХ ЧАСТИЦ: Прозрачный холст на весь экран -->
     <canvas id="fallingParticlesCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999998; pointer-events: none;"></canvas>
 <!-- КНОПКА АВТОРА (Человечек) -->
 <button type="button" onclick="toggleAuthorModal(true)" data-i18n-title="ttl_author_btn" title="🧍 Об авторе и контакты для багов" style="position: fixed; top: 15px; right: 15px; width: 28px; height: 24px; background: rgba(0,0,0,0.6); color: #fff; border: 1px dashed var(--border-color, #808080); border-radius: 4px; cursor: pointer; font-size: 14px; z-index: 1000005; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px);">🧍</button>
+<!-- МОДАЛЬНОЕ ОКНО-МОНИТОР ДЛЯ ДЕМО-ПРОСМОТРА ЧАСТИЦ -->
+<div id="particlePreviewModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; justify-content: center; align-items: center; user-select: none;">
+    <div style="background: #141414; border: 2px solid #ffcc00; padding: 15px; border-radius: 6px; width: 340px; text-align: center; box-shadow: 0 0 20px rgba(255,204,0,0.3); font-family: 'Minecraft', sans-serif;">
+        
+        <!-- Шапка окна -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #333; padding-bottom: 8px;">
+            <span style="color: #ffcc00; font-size: 14px; font-weight: bold;">📺 Монитор частиц API 1.12.2</span>
+            <span onclick="closeParticlePreviewer()" style="cursor: pointer; color: #ff3333; font-weight: bold; font-size: 16px;">❌</span>
+        </div>
+
+        <!-- Селектор выбора эффекта -->
+        <select id="previewParticleSelect" onchange="changePreviewParticle(this.value)" style="width: 100%; background: #222; color: #fff; border: 1px solid #444; padding: 6px; border-radius: 4px; margin-bottom: 12px; cursor: pointer; font-size: 13px;">
+            <option value="flame">🔥 Огненное пламя (flame)</option>
+            <option value="hugeexplosion">💥 Взрыв Босса (hugeexplosion)</option>
+            <option value="note">🎵 Ноты Лутбокса (note)</option>
+            <option value="happyVillager">✨ Изумрудная удача (happyVillager)</option>
+            <option value="lava">☄️ Искры лавы / Метеор (lava)</option>
+            <option value="reddust">🚨 Тревожная пыль (reddust)</option>
+        </select>
+
+        <!-- Сам холст-экран для симуляции -->
+        <canvas id="previewCanvas" width="300" height="200" style="background: #080808; border: 1px solid #ffcc00; border-radius: 4px; display: block; margin: 0 auto 10px;"></style></canvas>
+        
+        <div style="color: #888; font-size: 11px;">Кликните по холсту, чтобы повторить эффект</div>
+    </div>
+</div>
 
 <!-- МОДАЛЬНОЕ ОКНО С КОНТАКТАМИ (Изначально скрыто) -->
 <div id="authorContactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.75); z-index: 2000000; align-items: center; justify-content: center; backdrop-filter: blur(4px);" onclick="toggleAuthorModal(false)">
@@ -222,7 +249,7 @@
             <a href="https://bsky.app/profile/picadoni.bsky.social" target="_blank" style="display: flex; align-items: center; gap: 8px; color: #ffcc00; text-decoration: none; font-size: 13px; font-weight: bold; background: rgba(255,255,255,0.03); padding: 8px; border-radius: 4px; border: 1px solid rgba(128,128,128,0.2);">
                 🦋 <span data-i18n="lnk_bs">BlueSky</span>
             </a>
-            <a href="https://github.com/picadoni" target="_blank" style="display: flex; align-items: center; gap: 8px; color: #ffcc00; text-decoration: none; font-size: 13px; font-weight: bold; background: rgba(255,255,255,0.03); padding: 8px; border-radius: 4px; border: 1px solid rgba(128,128,128,0.2);">
+            <a href="https://discordapp.com" target="_blank" style="display: flex; align-items: center; gap: 8px; color: #ffcc00; text-decoration: none; font-size: 13px; font-weight: bold; background: rgba(255,255,255,0.03); padding: 8px; border-radius: 4px; border: 1px solid rgba(128,128,128,0.2);">
                 🐱 <span data-i18n="lnk_gt">GitHub</span>
             </a>
 			 <a href="https://www.youtube.com/channel/UCbC_VXGOBW2I-JmjMCWQw-w" target="_blank" style="display: flex; align-items: center; gap: 8px; color: #ffcc00; text-decoration: none; font-size: 13px; font-weight: bold; background: rgba(255,255,255,0.03); padding: 8px; border-radius: 4px; border: 1px solid rgba(128,128,128,0.2);">
@@ -264,10 +291,11 @@
      <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 25px; margin-bottom: 25px; position: relative; width: 100%;"> 
         <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для динамической шапки -->
 <h1 id="mainTitle" data-i18n="main_title" style="margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center;">Конструктор Диалогов CustomNPCs Глашатай (Вер. 0.0)</h1>
+<!-- Глобальная кнопка симулятора -->
 
         <!-- Шестеренка аккуратно встает в левый угол, не улетая в облака -->
 <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для всплывающей подсказки шестерёнки -->
-<span onclick="toggleSystemMenu(event)" data-i18n-title="ttl_sys_gear" title="Настройки интерфейса и темы" style="font-size: 20px; cursor: pointer; user-select: none; padding: 2px; display: inline-block; transition: transform 0.2s; position: absolute; left: -20px; top: -90px; z-index: 10005;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0deg)'">⚙️</span>
+<span onclick="toggleSystemMenu(event)" data-i18n-title="ttl_sys_gear" title="Настройки интерфейса и темы" style="font-size: 20px; cursor: pointer; user-select: none; padding: 2px; display: inline-block; transition: transform 0.2s; position: absolute; left: -20px; top: -90px; z-index: 10005;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0deg)'">⚙</span>
   <div style="display: flex; gap: 10px; align-items: center; margin-left: 15px;">
   </div>
     <!-- Кнопка Блокнота -->
@@ -285,6 +313,8 @@
 <button type="button" onclick="setTheme('yahoo')" data-i18n-title="ttl_theme_yahoo" title="Стиль 2000: Yahoo! Japan" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🇯🇵</button>
 <button type="button" onclick="setTheme('ifindit')" data-i18n-title="ttl_theme_win" title="Стиль 1997: Windows 95" style="background: none; border: none; font-size: 16px; pointer; padding: 2px;">💾</button>
 <button type="button" onclick="setTheme('ryanair')" data-i18n-title="ttl_theme_ryan" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">✈️</button>
+<!-- Вариант для кнопки в Основном диалоге -->
+<span onclick="alert('🎮 Монитор сюжета: Модуль интерактивного демо-просмотра квестов находится в разработке и появится в ver 2.0! Нажмите 💾 для экспорта в игру.')" title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
 
                 <button type="button" onclick="document.getElementById('bgUploaderInput').click()" title="🖼️ Установить свой фон" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">🖼️</button>
                 <input type="file" id="bgUploaderInput" accept="image/*" style="display: none;" onchange="setCustomBackground(event)">
@@ -324,9 +354,8 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none; width: 100%;">
 <!-- ИСПРАВЛЕНО: Стрелка защищена, переводится только сам текст! -->
 <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="toggleMainParamsVisibility()">
-    <span id="mainFoldArrow" style="font-size: 14px; user-select: none;">▼</span> 
-<span data-i18n="main_dialog_header">Основной диалог №1</span> (ID: <span id="displayMainDialogId">1</span>)
-</div>
+    <span id="mainFoldArrow" style="font-weight: 900; font-size: 16px; display: inline-block; transform: scaleX(1.2);">▶</span>
+<span></span> <span data-i18n="main_dialog_header">Основной диалог</span> (ID: 1)<span id="mainDialogTitleSpan" style="color: #ffcc00; font-weight: bold; margin-left: 5px;"> — [Main Start]</span></div>
 
         
         <!-- Осталась только одна кнопка функций диалога! -->
@@ -341,6 +370,8 @@
     <div style="display: flex; justify-content: flex-end; width: 100%; position: relative;">
         <div id="gearDropdownMenu" style="display: none; position: absolute; top: -5px; right: 0; align-items: center; gap: 14px; background: rgba(0,0,0,0.5); padding: 6px 12px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.3); z-index: 100; backdrop-filter: blur(4px);">
             <!-- ИСПРАВЛЕНО: Добавлены маркеры data-i18n-title, иконки в безопасности -->
+			<!-- Кнопка локального теста диалога -->
+<!-- Обновленный вариант кнопки в плашке Основного диалога -->
             <button type="button" onclick="createNewDialogChainBlock(event)" data-i18n-title="ttl_add_chain" title="📜 Добавить следующий диалог в ленту" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">📜</button>
             <button type="button" onclick="generateAndDownload()" data-i18n-title="ttl_download_dial" title="💾 Скачать этот диалог (.json)" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">💾</button>
             <button type="button" onclick="toggleAdvancedSettings(event)" data-i18n-title="ttl_avail_settings" title="🔒 Условия доступности диалога" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🔒</button>
@@ -362,7 +393,9 @@
 <!-- Было: <label for="dialogTitle">Название диалога (DialogTitle)</label> -->
 <!-- Стало: -->
                 <label for="dialogTitle" data-i18n="lbl_dialog_title">Название диалога (DialogTitle)</label>
-                <input type="text" id="dialogTitle" value="Start">
+                <!-- Ищите поле ввода названия основного диалога -->
+<input type="text" id="dialogTitle" value="Main Start" oninput="const span = document.getElementById('mainDialogTitleSpan'); if(span) span.textContent = this.value ? ' — [' + this.value + ']' : '';" ...>
+
             </div>
         </div>
         <div class="form-group">
@@ -374,7 +407,7 @@
         </div>
         <div class="form-row">
             <div class="form-group">
-               <label for="dialogQuest" data-i18n="lbl_dialog_quest">ID связанного Квеста (-1 если нет)</label>
+               <label for="dialogCommand" data-i18n="lbl_dialog_command">Консольная команда при открытии</label>
                 <input type="number" id="dialogQuest" value="-1">
             </div>
             <div class="form-group">
@@ -417,7 +450,7 @@
             <input type="number" id="availFactionId1" value="-1" style="height: 34px;">
         </div>
         <div class="form-group">
-            <label style="font-size: 11px; color: #ffcc00;" data-i18n="lbl_avail_r1">Репутация 1:</label>
+            label style="font-size: 11px; color: #ffcc00;" data-i18n="lbl_avail_r1">Репутация 1:</label>
 <select id="availFactionStance1" style="padding: 6px 10px; height: auto; font-size: 14px; box-sizing: border-box; width: 100%;">
                         <option value="0" data-i18n="opt_rep_0">Дружелюбные (0)</option>
                         <option value="1" data-i18n="opt_rep_1">Нейтральные (1)</option>
@@ -471,7 +504,8 @@
                  </div>
 
             </div>
-            <div id="dynamicOptionsWrapper" style="width: 100%; box-sizing: border-box;"></div>
+<div id="dynamicOptionsWrapper_0" style="width: 100%; box-sizing: border-box;"></div>
+
 			<!-- БЛОК БЫСТРЫХ ШАБЛОНОВ ДЛЯ УСКОРЕННОГО ЗАПОЛНЕНИЯ -->
 <!-- БЛОК БЫСТРЫХ ШАБЛОНОВ ДЛЯ УСКОРЕННОГО ЗАПОЛНЕНИЯ -->
 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; background: rgba(0,0,0,0.1); padding: 8px 12px; border-radius: 4px; border: 1px dashed var(--border-color); user-select: none;">
@@ -558,8 +592,32 @@
                 <button type="button" onclick="insertScriptTemplate('scale')" data-i18n="btn_lib_scale" style="padding: 6px 12px; background: #00aba9; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🦖 Изменить размер NPC</button>
                 <button type="button" onclick="insertScriptTemplate('alarm')" data-i18n="btn_lib_alarm" style="padding: 6px 12px; background: #e51400; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🚨 Режим Сирены / Тревоги</button>
                 <button type="button" onclick="insertScriptTemplate('meteor')" data-i18n="btn_lib_meteor" style="padding: 6px 12px; background: #60a917; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">💥 Метеоритный дождь</button>
+				<!-- Кнопка вызова мини-плеера частиц -->
+<button type="button" onclick="openParticlePreviewer()" title="📺 Открыть монитор просмотра частиц (Превью эффектов)" style="background: #2a2a2a; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 10px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" onmouseout="this.style.background='#2a2a2a'; this.style.color='#ffcc00';">📺</button>
+
             </div>
         </div>
+<!-- МОДАЛЬНОЕ ОКНО-СИМУЛЯТОР ДИАЛОГОВ CUSTOMNPC -->
+<div id="dialogSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20000; justify-content: center; align-items: center; user-select: none; font-family: 'Minecraft', sans-serif;">
+    <div style="background: #141414; border: 2px solid #ffcc00; padding: 20px; border-radius: 8px; width: 500px; box-shadow: 0 0 25px rgba(255,204,0,0.4); position: relative;">
+        
+        <!-- Кнопка закрытия симулятора -->
+        <span onclick="closeDialogSimulation()" style="position: absolute; top: 10px; right: 15px; cursor: pointer; color: #ff3333; font-weight: bold; font-size: 18px;">❌</span>
+
+        <!-- Имя NPC (Блогера) -->
+        <div id="simNpcName" style="color: #ffcc00; font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 15px; border-bottom: 1px dashed #333; padding-bottom: 5px;">🤖 Имя NPC</div>
+
+        <!-- Окно с текстом диалога -->
+        <div id="simDialogText" style="background: #080808; border: 1px solid #444; border-radius: 6px; padding: 15px; min-height: 100px; color: #fff; font-size: 14px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap; max-height: 200px; overflow-y: auto;">
+            Текст диалога...
+        </div>
+
+        <!-- Контейнер для кликабельных кнопок-ответов -->
+        <div id="simOptionsContainer" style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- Сюда JavaScript будет штамповать кнопки вариантов ответов -->
+        </div>
+    </div>
+</div>
 
     </div>
 </div> <!-- ТЕПЕРЬ ВСЁ СТРОГО ЗАКРЫТО И РАБОТАЕТ ИДЕАЛЬНО! -->
@@ -1066,6 +1124,25 @@ function toggleAdvancedSettings(event) {
     // Прячем выпадающее меню, чтобы не мешалось
     const gearMenu = document.getElementById('gearDropdownMenu');
     if (gearMenu) gearMenu.style.display = 'none';
+	
+    // НАШ АДАПТИРОВАННЫЙ ОБРАБОТЧИК ДЛЯ ЖИВОГО НАЗВАНИЯ ПЛАШКИ
+    const titleInput = document.getElementById(`extraDialogTitle_${currentExtraId}`);
+    const headerTitleSpan = document.getElementById(`extraDialogTitleSpan_${currentExtraId}`);
+
+    if (titleInput && headerTitleSpan) {
+        titleInput.addEventListener('input', (e) => {
+            // Магия: при вводе букв текст мгновенно летит в оранжевый заголовок карточки
+            headerTitleSpan.textContent = e.target.value ? ` — [${e.target.value}]` : '';
+        });
+        
+        // Сразу при создании плашки отобразим дефолтное название "Chain Part ..." в заголовке
+        if (titleInput.value) {
+            headerTitleSpan.textContent = ` — [${titleInput.value}]`;
+        }
+    }
+
+
+	
 }
 
 
@@ -1096,9 +1173,15 @@ function createNewDialogChainBlock(event) {
     // ВШИВАЕМ ПАРАМЕТРЫ И СЕКЦИЮ ВАРИАНТОВ ОТВЕТОВ В ОДИН ШАБЛОН (С ПОДДЕРЖКОЙ ЛОКАЛИЗАЦИИ)
     extraBlock.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none;">
-            <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="document.getElementById('extraParamsWrapper_${currentExtraId}').style.display = document.getElementById('extraParamsWrapper_${currentExtraId}').style.display === 'none' ? 'flex' : 'none'">
-                <span>▼</span> <span data-i18n="extra_dialog_header">Дополнительный диалог</span> №${currentExtraId + 1} (ID: ${nextDialogId})
-            </div>
+<!-- Заголовок карточки дополнительного диалога внутри генератора -->
+<!-- Заголовок карточки дополнительного диалога -->
+<div class="section-title" style="margin:0; cursor:pointer;" onclick="toggleExtraParamsVisibility(${currentExtraId})">
+    <span id="extraFoldArrow_${currentExtraId}">▼</span> 
+        <span data-i18n="extra_dialog_header" style="font-size: 14px;">Дополнительный диалог</span>     №${currentExtraId} (ID: ${nextDialogId})</span>
+    <span id="extraDialogTitleSpan_${currentExtraId}" style="color: #ffcc00; font-weight: bold; margin-left: 5px;"> — [Chain Part ${currentExtraId}]</span>
+</div>
+
+
             <!-- Правая зона: Сбор кнопок доп. диалога (Дискета, Удаление, и локальная Шестерёнка ⚙️) -->
             <div style="display: flex; align-items: center; gap: 14px;">
                 <button type="button" onclick="downloadExtraDialogJson(${currentExtraId})" title="Скачать этот диалог (.json)" style="background: none; border: none; font-size: 21px; font-weight: 900; cursor: pointer; padding: 2px; line-height: 1;">💾</button>
@@ -1113,11 +1196,11 @@ function createNewDialogChainBlock(event) {
                     <label data-i18n="lbl_dialog_id">ID Диалога (DialogId)</label>
                     <input type="number" id="extraDialogId_${currentExtraId}" value="${nextDialogId}">
                 </div>
-                <div class="form-group">
-                    <label data-i18n="lbl_dialog_title">Название диалога (DialogTitle)</label>
-                    <input type="text" id="extraDialogTitle_${currentExtraId}" value="Chain Part ${currentExtraId + 1}">
-                </div>
-            </div>
+              <div class="form-group">
+    <label data-i18n="lbl_dialog_title">Название диалога (DialogTitle)</label>
+    <input type="text" id="extraDialogTitle_${currentExtraId}" value="Chain Part ${currentExtraId}" oninput="const span = document.getElementById('extraDialogTitleSpan_${currentExtraId}'); if(span) span.textContent = this.value ? ' — [' + this.value + ']' : '';">
+</div>
+  </div>
             <div class="form-group">
                 <label data-i18n="lbl_dialog_text">Текст NPC (DialogText)</label>
                 <textarea id="extraDialogText_${currentExtraId}" placeholder="Что скажет NPC...">Продолжение истории...</textarea>
@@ -1180,8 +1263,8 @@ function createNewDialogChainBlock(event) {
                         <button type="button" id="btnDeleteLastExtra_${currentExtraId}" onclick="removeLastExtraOptionButton(${currentExtraId})" title="Удалить последнюю ветку" style="width: 24px; height: 24px; padding: 0; background: #e0a800; color: #000; border: none; border-radius: 3px; cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; justify-content: center;">➖</button>
                         
                         <!-- Кнопка 3: Плюс (Добавить ветку в этот блок) -->
-                       <button type="button" onclick="addNewOptionButton()" data-i18n-title="ttl_add_new" title="Добавить новую ветку диалога" style="...">➕</button>
-</div>
+                        <button type="button" onclick="addOptionToExtraDialog(${currentExtraId})" title="Добавить новую ветку диалога" style="width: 24px; height: 24px; padding: 0; background: var(--accent-color); color: #fff; border: none; border-radius: 3px; cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; justify-content: center;">➕</button>
+                    </div>
                 </div>
 
                 <!-- Контейнер-приемник, куда улетают созданные кнопки -->
@@ -1209,6 +1292,8 @@ if (dialogsWrapper) {
 
     const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
     if (typeof setTheme === 'function') setTheme(savedTheme);
+	
+	
 }
 
 function setTheme(theme) {
@@ -1438,7 +1523,10 @@ let userSavedBackground = ""; // Сюда мы сохраним картинку
 
 // Функция автоматического добавления кнопок-опций
 function addNewOptionButton() {
-    const wrapper = document.getElementById('dynamicOptionsWrapper');
+// Было: const wrapper = document.getElementById('dynamicOptionsWrapper');
+// Стало:
+const wrapper = document.getElementById('dynamicOptionsWrapper_0');
+
     if (!wrapper) return;
 
     if (optionCount >= 34) {
@@ -1663,10 +1751,6 @@ function removeLastOptionButton() {
 }
 
 // Функция быстрой очистки всех заполненных текстов во всех ветках
-	function clearAllOptionsForm() {
-    if (!confirm("Вы уверены, что хотите полностью очистить все ветки ответов?")) return;
-    // далее ваш код очистки...
-}
 function clearAllOptionsForm() {
     if (confirm("Вы уверены, что хотите полностью очистить текст всех созданных веток ответов?")) {
         for (let i = 0; i < optionCount; i++) {
@@ -1683,18 +1767,18 @@ function clearAllOptionsForm() {
 
 // Сворачивание и разворачивание блока вариантов ответов
 function toggleOptionsVisibility() {
-    const wrapper = document.getElementById('dynamicOptionsWrapper');
+    const wrapper = document.getElementById('dynamicOptionsWrapper_0');
     const arrow = document.getElementById('foldArrow');
-    if (!wrapper || !arrow) return;
-
+    
     if (wrapper.style.display === 'none') {
         wrapper.style.display = 'block';
         arrow.textContent = '▼';
     } else {
         wrapper.style.display = 'none';
-        arrow.textContent = '►';
+        arrow.textContent = '▶';
     }
 }
+
 // Переменные для хранения текстов трех разных вкладок Notepad++
 let notesData = ["", "", ""];
 let currentNotesTab = 0;
@@ -3167,6 +3251,7 @@ function generateNpcScriptCode() {
 }
 
 // Пополняемый блок-библиотека готовых шаблонов (Памятка функций)
+// Пополняемый блок-библиотека готовых шаблонов (Памятка функций)
 function insertScriptTemplate(type) {
     const area = document.getElementById('scriptCodeArea');
     if (!area) return;
@@ -3175,25 +3260,26 @@ function insertScriptTemplate(type) {
     if (type === 'msg') {
         template = `// Функция отправки сообщения игроку на экран\nevent.player.message("§6[Квест]:§f Задание обновлено!");\n`;
     } else if (type === 'sound') {
-        template = `// Воспроизведение звука игроку\nevent.player.world.playSound(event.player.getX(), event.player.getY(), event.player.getZ(), "minecraft:ui.toast.challenge.complete", 1, 1);\n`;
+        template = `// Воспроизведение звука игроку (без координат, прямо в уши по API 1.12.2)\nevent.player.playSound("minecraft:ui.toast.challenge_complete", 1.0, 1.0);\n`;
     } else if (type === 'particle') {
-        template = `// Эффект огненного пламени\nevent.npc.world.spawnParticle("flame", event.npc.getX(), event.npc.getY(), event.npc.getZ(), 0.2, 0.2, 0.2, 0.05, 20);\n`;
+        template = `// Эффект огненного пламени вокруг NPC\nvar world = event.npc.getWorld();\nif (world) {\n    world.spawnParticle("flame", event.npc.getX(), event.npc.getY() + 1, event.npc.getZ(), 0.2, 0.2, 0.2, 0.05, 20);\n}\n`;
     } else if (type === 'potion') {
-        template = `// Наложить эффект зелья (ИД_эффекта, время_в_секундах, уровень_эффекта)\nevent.player.addPotionEffect(1, 30, 1, false);\n`;
+        template = `// Наложить эффект зелья через команду (Намного надежнее Java-классов в 1.12.2)\nevent.npc.executeCommand("effect @p minecraft:speed 30 1"); // Скорость II на 30 секунд\n`;
     } else if (type === 'random') {
         template = `// Функция случайного набора событий (Рандом)\nfunction interact(event) {\n    var chance = Math.random();\n    if (chance < 0.3) {\n        event.npc.say("У меня отличное настроение сегодня!");\n    } else {\n        event.npc.say("Оставь меня в покое...");\n    }\n}\n`;
     } else if (type === 'scale') {
-        template = `// ЮТУБЕРСКАЯ ФИШКА: Изменение размера NPC (1-обычный, 5-гигант, 0.5-кроха)\nevent.npc.display.setSize(5); // Делает NPC огромным Боссом!\nevent.npc.say("§4§lЯ ПРОБУДИЛ СВОЮ ИСТИННУЮ ФОРМУ!");\n`;
+        template = `// ЮТУБЕРСКАЯ ФИШКА: Изменение размера NPC через getDisplay() по API 1.12.2\nevent.npc.getDisplay().setSize(8); // Делает NPC огромным Боссом! (Дефолт = 5)\nevent.npc.say("§4§lЯ ПРОБУДИЛ СВОЮ ИСТИННУЮ ФОРМУ!");\n`;
     }
     else if (type === 'alarm') {
-        template = `// РЕЖИМ СИРЕНЫ: Мягкое мигание красной пыли и жуткий эмбиент вокруг\nevent.player.world.playSound(event.npc.getX(), event.npc.getY(), event.npc.getZ(), "minecraft:ambient.cave", 1, 0.5);\n// Спавнить частицы редстоуна (мигающая тревога)\nevent.npc.world.spawnParticle("reddust", event.npc.getX(), event.npc.getY() + 2, event.npc.getZ(), 1, 0.5, 1, 0, 30);\n`;
+        template = `// РЕЖИМ СИРЕНЫ: Жуткий эмбиент и мигание красной пыли (редстоуна) вокруг NPC\nvar world = event.npc.getWorld();\nif (world) {\n    event.npc.executeCommand("playsound minecraft:ambient.cave master @p " + event.npc.getX() + " " + event.npc.getY() + " " + event.npc.getZ() + " 1 0.5");\n    world.spawnParticle("reddust", event.npc.getX(), event.npc.getY() + 2, event.npc.getZ(), 1.0, 0.5, 1.0, 0.0, 30);\n}\n`;
     }
     else if (type === 'meteor') {
-        template = `// МЕТЕОРИТНЫЙ ДОЖДЬ: Серия эпичных взрывов вокруг NPC\nfor (var i = 0; i < 5; i++) {\n    var offset_x = (Math.random() - 0.5) * 6;\n    var offset_z = (Math.random() - 0.5) * 6;\n    event.npc.world.spawnParticle("hugeexplosion", event.npc.getX() + offset_x, event.npc.getY(), event.npc.getZ() + offset_z, 0.2, 0.2, 0.2, 0, 1);\n}\nevent.player.world.playSound(event.npc.getX(), event.npc.getY(), event.npc.getZ(), "minecraft:entity.generic.explode", 1, 1);\n`;
+        template = `// МЕТЕОРИТНЫЙ ДОЖДЬ: Серия эпичных взрывов вокруг NPC\nvar world = event.npc.getWorld();\nif (world) {\n    for (var i = 0; i < 5; i++) {\n        var offset_x = (Math.random() - 0.5) * 6;\n        var offset_z = (Math.random() - 0.5) * 6;\n        world.spawnParticle("hugeexplosion", event.npc.getX() + offset_x, event.npc.getY(), event.npc.getZ() + offset_z, 0.2, 0.2, 0.2, 0.0, 1);\n    }\n    event.npc.executeCommand("playsound minecraft:entity.generic.explode master @p " + event.npc.getX() + " " + event.npc.getY() + " " + event.npc.getZ() + " 1 1");\n}\n`;
     }
 
     area.value += template + "\n";
 }
+
 
 // Скачивание файла скрипта на компьютер (.js)
 function downloadNpcScript() {
@@ -3268,38 +3354,43 @@ function generateRandomNpcScript() {
 
     // Собираем чистую функцию interact для CustomNPCs
     // ВСТАВЬТЕ ЭТОТ ВАРИАНТ ВЗАМЕН СТАРОГО:
+    // Собираем чистую функцию interact для CustomNPCs под API 1.12.2
     let scriptResult = `// ЮТУБЕРСКИЙ СКРИПТ-ШАБЛОН (Случайная генерация)\n`;
     scriptResult += `function interact(event) {\n`;
+    scriptResult += `    var world = event.npc.getWorld();\n`;
+    scriptResult += `    var player = event.player;\n`;
+    scriptResult += `    if (!player) return;\n\n`;
     scriptResult += `    // NPC говорит случайную фразу\n`;
     scriptResult += `    event.npc.say("${phrase}");\n\n`;
 
     // А теперь добавляем настоящее действие под текст фразы!
     if (phrase.includes("БОСС")) {
         scriptResult += `    // Эффект Босса: Спавним огромный взрыв частиц вокруг NPC\n`;
-        scriptResult += `    event.npc.world.spawnParticle("hugeexplosion", event.npc.getX(), event.npc.getY() + 1, event.npc.getZ(), 0.5, 0.5, 0.5, 0, 5);\n`;
-        scriptResult += `    event.player.addPotionEffect(15, 3, 1, false); // Ослепление игрока на 3 секунды\n`;
+        scriptResult += `    world.spawnParticle("hugeexplosion", event.npc.getX(), event.npc.getY() + 1, event.npc.getZ(), 0.5, 0.5, 0.5, 0, 5);\n`;
+        scriptResult += `    event.npc.executeCommand("effect @p minecraft:blindness 3 1"); // Безопасное ослепление игрока на 3 секунды командой\n`;
     } 
     else if (phrase.includes("ЯРОСТЬ")) {
         scriptResult += `    // Эффект Ярости: Выдаем NPC скорость IV и поджигаем пол огненными частицами\n`;
-        scriptResult += `    event.npc.addPotionEffect(1, 10, 3, false);\n`;
-        scriptResult += `    event.npc.world.spawnParticle("flame", event.npc.getX(), event.npc.getY(), event.npc.getZ(), 0.3, 0.1, 0.3, 0.05, 20);\n`;
+        scriptResult += `    event.npc.executeCommand("effect @e[type=customnpcs:customnpc,c=1] minecraft:speed 10 3"); // Скорость для NPC\n`;
+        scriptResult += `    world.spawnParticle("flame", event.npc.getX(), event.npc.getY(), event.npc.getZ(), 0.3, 0.1, 0.3, 0.05, 20);\n`;
     } 
     else if (phrase.includes("ПАРКУР")) {
         scriptResult += `    // Эффект Паркура: Проигрываем игроку триумфальный звук победы блогера\n`;
-        scriptResult += `    event.player.world.playSound(event.player.getX(), event.player.getY(), event.player.getZ(), "minecraft:ui.toast.challenge.complete", 1, 1);\n`;
-        scriptResult += `    event.npc.world.spawnParticle("happyVillager", event.player.getX(), event.player.getY(), event.player.getZ(), 0.4, 0.2, 0.4, 0, 10);\n`;
+        scriptResult += `    player.playSound("minecraft:ui.toast.challenge_complete", 1.0, 1.0);\n`;
+        scriptResult += `    world.spawnParticle("happyVillager", player.getX(), player.getY() + 1, player.getZ(), 0.4, 0.2, 0.4, 0, 10);\n`;
     } 
     else if (phrase.includes("ЛУТ-БОКС")) {
         scriptResult += `    // Эффект Лутбокса: Спавним нотные частицы удачи и выдаем алмазы командой\n`;
-        scriptResult += `    event.npc.world.spawnParticle("note", event.npc.getX(), event.npc.getY() + 1, event.npc.getZ(), 0.4, 0.4, 0.4, 0.1, 15);\n`;
-        scriptResult += `    event.npc.executeCommand("give @dp minecraft:diamond 3");\n`;
+        scriptResult += `    world.spawnParticle("note", event.npc.getX(), event.npc.getY() + 1, event.npc.getZ(), 0.4, 0.4, 0.4, 0.1, 15);\n`;
+        scriptResult += `    event.npc.executeCommand("give @p minecraft:diamond 3"); // Заменили @dp на валидный @p\n`;
     } 
     else {
         scriptResult += `    // Для обычных фраз пишем стандартное RPG-уведомление на экран\n`;
-        scriptResult += `    event.player.message("§6[Система]:§f Диалог с жителем успешно завершен.");\n`;
+        scriptResult += `    player.message("§6[Система]:§f Диалог с жителем успешно завершен.");\n`;
     }
 
     scriptResult += `}\n\n`;
+
 
 
     // Вставляем сгенерированный код в начало текстового поля
@@ -3352,10 +3443,10 @@ function changeLanguage(lang) {
 const langData = {
     ru: {
         tab_dialogs: "📜 Конструктор Диалогов", tab_quests: "⚔️ Создание Квестов", tab_scripts: "💻 Редактор Скриптов",
-        main_dialog_header: "Основной диалог №1", lbl_dialog_id: "ID Диалога (DialogId)", lbl_dialog_title: "Название диалога (DialogTitle)", lbl_dialog_text: "Текст NPC (DialogText)",
+        main_dialog_header: "Основной диалог №0", lbl_dialog_id: "ID Диалога (DialogId)", lbl_dialog_title: "Название диалога (DialogTitle)", lbl_dialog_text: "Текст NPC (DialogText)",
         quest_header: "Параметры задания", lbl_q_title: "Название квеста (Title)", lbl_q_npc: "Кто принимает квест (CompleterNpc)", lbl_q_text: "Описание задания для журнала игрока (Text)",
         lbl_q_repeat: "Повторяемость квеста (QuestRepeat)", lbl_q_type: "Тип задания (Type)", lbl_q_exp: "Награда: Опыт игрока (RewardExp)", lbl_q_next: "ID следующего квеста в цепочке (-1 если нет)",
-        script_editor_title: "💻 JavaScript Редактор (ECMAScript)", script_generator_title: "⚡ Автогенератор скрипта:", lbl_s_event: "1. When triggers (Event):", lbl_s_action: "2. What to do (Action):", lbl_s_value: "3. Value (Message text or X Y Z coords):", lbl_s_area: "Код скрипта (Напишите свой или используйте генератор):",
+        script_editor_title: "💻 JavaScript Редактор (ECMAScript)", script_generator_title: "⚡ Автогенератор скрипта:", lbl_s_event: "1. При срабатывании триггеров (событие):", lbl_s_action: "2. Что делать (Действие):", lbl_s_value: "3. Значение (текст сообщения или координаты X, Y, Z):", lbl_s_area: "Код скрипта (Напишите свой или используйте генератор):",
         notes_title: "📝 Заметки сценариста", cheat_title: "📖 Справочник команд 1.12.2",btn_gen_code: "Сгенерировать код в окно ниже ⚡", btn_gen_rand: "🎲 Сгенерировать случайный скрипт-событие", lib_title: "📌 Библиотека готовых Java-функций (Кликните для вставки):",extra_dialog_header: "Дополнительный диалог",
 		opt_ev_interact: "Игрок кликнул на NPC (interact)", opt_ev_init: "NPC появился в мире (init)", opt_ev_damaged: "NPC получил урон (damaged)", opt_ev_died: "NPC умер / Босс пал (died)", opt_ev_update: "Каждую секунду / Постоянно (update)", opt_ev_target: "NPC заметил врага или игрока (target)",
 opt_act_say: "NPC скажет сообщение в чат", opt_act_tp: "Телепортировать игрока на XYZ", opt_act_particle: "Создать эффект взрыва / частиц", opt_act_kill: "Убить игрока на месте (Ловушка)", opt_act_rage: "Включить РЕЖИМ ЯРОСТИ (Скорость + Огонь)", opt_act_blind: "Ослепить игрока на экране (Эффект Босса)", opt_act_loot: "Выдать супер-награду (Алмазы + Звук)",
@@ -3437,9 +3528,9 @@ lbl_opt_type: "Действие (OptionType):", opt_type_1: "Переход к �
 lbl_opt_next: "ID следующего диалога:", lbl_opt_color: "Цвет текста кнопки (Decimal):",
 lbl_opt_cmd: "Команда кнопки:", ph_opt_cmd: "Команда консоли при нажатии...",
 lbl_opt_fac_id: "Изменить фракцию (ID):", lbl_opt_fac_pts: "Очки:", lbl_opt_fac_dec: "Отнимать очки", note_tab_plot: "Сюжет", note_tab_quests: "Задания", note_tab_memos: "Памятки", ph_notes_area: "Пишите пометки здесь...",
-title_dialogs: "Конструктор Диалогов CustomNPCs Великий (Вер. 1.0)",
+title_dialogs: "Конструктор Диалогов CustomNPCs Лес (Вер. 1.1)",
 title_quests: "Конструктор Заданий CustomNPCs Секретарь (Вер. 0.7)",
-title_scripts: "Скриптовый Модуль CustomNPCs Повелитель (Вер. 0.7)",
+title_scripts: "Скриптовый Модуль CustomNPCs Смотрящий (Вер. 0.8)",
 lbl_particles: "Эффекты:", opt_part_none: "Выкл. ❌", opt_part_sakura: "Сакура 🌸", opt_part_snow: "Снегопад ❄️", opt_part_leaves: "Листопад 🍁",
 ttl_quest_gear: "Функции и настройки этого квеста", ttl_sys_gear: "Настройки интерфейса и темы", ttl_clear_all: "Очистить все поля веток", ttl_del_last: "Удалить последнюю ветку", ttl_add_new: "Добавить новую ветку диалога",
 ttl_add_chain: "📜 Добавить следующий диалог в ленту",
@@ -3459,28 +3550,17 @@ ttl_author_btn: "🧍 Об авторе и контакты для багов", 
     en: {
         tab_dialogs: "📜 Dialogue Creator", tab_quests: "⚔️ Quest Creator", tab_scripts: "💻 Script Editor",btn_gen_code: "Generate code into window below ⚡",
         btn_gen_rand: "🎲 Generate random script-event", lib_title: "📌 Ready Java-functions library (Click to insert):",
-        main_dialog_header: "Main Dialogue №1", lbl_dialog_id: "Dialogue ID (DialogId)", lbl_dialog_title: "Dialogue Title (DialogTitle)", lbl_dialog_text: "NPC Text (DialogText)",
+        main_dialog_header: "Main Dialogue №0", lbl_dialog_id: "Dialogue ID (DialogId)", lbl_dialog_title: "Dialogue Title (DialogTitle)", lbl_dialog_text: "NPC Text (DialogText)",
         quest_header: "Quest Parameters", lbl_q_title: "Quest Title (Title)", lbl_q_npc: "Completer NPC (CompleterNpc)", lbl_q_text: "Quest description for player journal (Text)",
         lbl_q_repeat: "Quest Repeatability (QuestRepeat)", lbl_q_type: "Quest Type (Type)", lbl_q_exp: "Reward: Player Experience (RewardExp)", lbl_q_next: "Next quest ID in chain (-1 if none)",
         script_editor_title: "💻 JavaScript Editor (ECMAScript)", script_generator_title: "⚡ Script Autogenerator:", lbl_s_event: "1. When triggers (Event):", lbl_s_action: "2. What to do (Action):", lbl_s_value: "3. Value (Message text or X Y Z coords):", lbl_s_area: "Script code (Write your own or use generator):",
         notes_title: "📝 Writer Notes", cheat_title: "📖 1.12.2 Command Book",extra_dialog_header: "Extra Dialogue",
-tab_dialogs: "📜 Dialogue Creator",
-        tab_quests: "⚔️ Quest Creator",
 		ttl_sys_gear: "Interface and theme settings",
-        tab_scripts: "💻 Script Editor",
-        main_dialog_header: "Main Dialogue №1",
 		lbl_opacity: "Opacity:",
 		btn_ai_plot: "🔮 AI Plot Generator",
 ph_avail_sb: "Objective name...",
 options_main_title: "Player Dialogue Options (Buttons)",
-        lbl_dialog_id: "Dialogue ID (DialogId)",
-        lbl_dialog_title: "Dialogue Title (DialogTitle)",
-        lbl_dialog_text: "NPC Text (DialogText)",
-        btn_gen_code: "Generate code into window below ⚡",
-        btn_gen_rand: "🎲 Generate random script-event",
-        lib_title: "📌 Ready Java-functions library (Click to insert):",
-        extra_dialog_header: "Extra Dialogue",
-        lbl_dialog_quest: "Linked Quest ID (-1 if none)",
+       lbl_dialog_quest: "Linked Quest ID (-1 if none)",
         lbl_dialog_command: "Console command on open",
         chk_hide_npc: "Hide NPC",
         chk_show_wheel: "Show as wheel",
@@ -3548,9 +3628,9 @@ lbl_opt_next: "Next Dialog ID:", lbl_opt_color: "Button Text Color (Decimal):",
 lbl_opt_cmd: "Button Command:", ph_opt_cmd: "Console command on click...",
 lbl_opt_fac_id: "Change Faction (ID):", lbl_opt_fac_pts: "Points:", lbl_opt_fac_dec: "Decrease Points", note_tab_plot: "Plot", note_tab_quests: "Quests", note_tab_memos: "Memos", notes_title: "📝 Writer Notes",
 ph_notes_search: "Search word...", ph_notes_area: "Write your notes here...",
-title_dialogs: "CustomNPCs Dialogue Creator Grand (Ver. 1.0)",
-title_quests: "CustomNPCs Quest Creator Secretary (Ver. 0.7)",
-title_scripts: "CustomNPCs Script Module Overlord (Ver. 0.7)",
+title_dialogs: "CustomNPCs Dialogue Constructor - Forest (Ver. 1.1)",
+title_quests: "CustomNPCs Quest Constructor - Secretary (Ver. 0.7)",
+title_scripts: "CustomNPCs Scripting Module - Observer (Ver. 0.8)",
 lbl_particles: "Effects:", opt_part_none: "Off ❌", opt_part_sakura: "Sakura 🌸", opt_part_snow: "Snowfall ❄️", opt_part_leaves: "Leaffall 🍁",
 ttl_theme_pip: "Theme: Pip-Boy", ttl_theme_melon: "Theme 1994: MelonKing", ttl_theme_yahoo: "Theme 2000: Yahoo! Japan", ttl_theme_win: "Theme 1997: Windows 95", ttl_theme_ryan: "Theme 2007: Ryanair",
 ttl_open_notes: "📝 Open Writer Notes (Notepad++)", ttl_open_cheat: "📖 Open Commands Cheat Sheet (Minecraft 1.12.2)",
@@ -3572,14 +3652,12 @@ ttl_author_btn: "🧍 About Author & Bug Reports", mdl_auth_title: "🧍 Project
     },
     ja: {
         tab_dialogs: "📜 对话编辑器", tab_quests: "⚔️ クエスト作成", tab_scripts: "💻 スクリプト編集", btn_gen_code: "下のウィンドウにコードを生成します ⚡", btn_gen_rand: "🎲 ランダムなスクリプトイベントを生成", lib_title: "📌 準備されたJava関数ライブラリ (クリックして挿入):",
-        main_dialog_header: "メイン対話 №1", lbl_dialog_id: "対話ID (DialogId)", lbl_dialog_title: "対話タイトル (DialogTitle)", lbl_dialog_text: "NPCテキスト (DialogText)",
+        main_dialog_header: "メイン対話 №0", lbl_dialog_id: "対話ID (DialogId)", lbl_dialog_title: "対話タイトル (DialogTitle)", lbl_dialog_text: "NPCテキスト (DialogText)",
         quest_header: "クエストパラメータ", lbl_q_title: "クエスト名 (Title)", lbl_q_npc: "クエスト完了NPC (CompleterNpc)", lbl_q_text: "プレイヤーログのクエスト説明 (Text)",
         lbl_q_repeat: "クエストの反復性 (QuestRepeat)", lbl_q_type: "クエストタイプ (Type)", lbl_q_exp: "報酬：プレイヤー経験値 (RewardExp)", lbl_q_next: "チェーン内の次のクエストID（なしの場合は-1）",
         script_editor_title: "💻 JavaScript エディタ (ECMAScript)", script_generator_title: "⚡ スクリプト自動生成機能:", lbl_s_event: "1. トリガー時 (イベント):", lbl_s_action: "2. 何をするか (アクション):", lbl_s_value: "3. 値 (メッセージテキストまたは X Y Z 座標):", lbl_s_area: "スクリプトコード（独自に記述するか、ジェネレータを使用してください）:",
-        notes_title: "シナリオメモ", cheat_title: "📖 1.12.2 コマンドブック",tab_dialogs: "対話エディタ",
-        tab_quests: "クエスト作成",
+        notes_title: "シナリオメモ", cheat_title: "📖 1.12.2 コマンドブック",
         tab_scripts: "スクリプト編集",
-        main_dialog_header: "メイン対話 1",
 		lbl_opacity: "不透明度:",
 ph_avail_sb: "目的名...",
 options_main_title: "プレイヤーの対話オプション (ボタン)",
@@ -3662,9 +3740,9 @@ lbl_opt_next: "次の対話ID:", lbl_opt_color: "ボタンのテキスト色 (De
 lbl_opt_cmd: "ボタンのコマンド:", ph_opt_cmd: "クリック時のコンソールコマンド...",
 lbl_opt_fac_id: "派閥の変更 (ID):", lbl_opt_fac_pts: "ポイント:", lbl_opt_fac_dec: "ポイントを減らす", note_tab_plot: "プロット", note_tab_quests: "クエスト", note_tab_memos: "メモ", notes_title: "📝 シナリオメモ",
 ph_notes_search: "単語を検索...", ph_notes_area: "ここにメモを記入してください...",
-title_dialogs: "CustomNPCs対話コンストラクター「大いなる者」 (Ver. 1.0)",
-title_quests: "CustomNPCsクエストコンストラクター「書記官」 (Ver. 0.7)",
-title_scripts: "CustomNPCsスクリプトモジュール「支配者」 (Ver. 0.7)",
+title_dialogs: "CustomNPCs対話コンストラクター - 森 (Ver. 1.1)",
+title_quests: "CustomNPCsクエストコンストラクター - 秘書 (Ver. 0.7)",
+title_scripts: "CustomNPCsスクリプトモジュール - オブザーバー (Ver. 0.8)",
 lbl_particles: "エフェクト:", opt_part_none: "無効 ❌", opt_part_sakura: "桜 🌸", opt_part_snow: "降雪 ❄️", opt_part_leaves: "落葉 🍁",
 ttl_theme_pip: "スタイル: ピップボーイ", ttl_theme_melon: "スタイル 1994: MelonKing", ttl_theme_yahoo: "スタイル 2000: Yahoo! Japan", ttl_theme_win: "スタイル 1997: Windows 95", ttl_theme_ryan: "スタイル 2007: ライアンエアー",
 ttl_open_notes: "📝 シナリオメモを開く (Notepad++)", ttl_open_cheat: "📖 コマンドチートシートを開く (Minecraft 1.12.2)",
@@ -3681,12 +3759,12 @@ ttl_tmpl_trader: "商人との対話として入力",
 ttl_ai_plot: "🎲 完全なランダムRPGシナリオを生成",
 ttl_quest_chain: "⚔️ チェーンに次のクエストを追加",
 ttl_ai_quest: "🎲 ランダムなストーリークエストを生成 (ホラー / テクノ / RPG)",
-ttl_author_btn: "🧍 著者についてとバグ報告", mdl_auth_title: "🧍 プロジェクト開発者", mdl_auth_desc: "バグや構文エラーを見つけた場合、またはジェネレーターの改善案がある場合は、著者に直接ご連絡ください:", lnk_vk: "VKontakte (VK)", lnk_tg: "Telegram", lnk_ds: "Guithub", lnk_yt: "YouTube"
+ttl_author_btn: "🧍 著者についてとバグ報告", mdl_auth_title: "🧍 プロジェクト開発者", mdl_auth_desc: "バグや構文エラーを見つけた場合、またはジェネレーターの改善案がある場合は、著者に直接ご連絡ください:", lnk_vk: "VKontakte (VK)", lnk_tg: "Telegram", lnk_ds: "Discord", lnk_yt: "YouTube"
 
     },
     zh: {
         tab_dialogs: "📜 对话编辑器", tab_quests: "⚔️ 任务创建", tab_scripts: "💻 脚本编辑器",
-        main_dialog_header: "主对话 №1", lbl_dialog_id: "对话 ID (DialogId)", lbl_dialog_title: "对话标题 (DialogTitle)", lbl_dialog_text: "NPC 文本 (DialogText)", btn_gen_code: "在下方窗口生成代码 ⚡", btn_gen_rand: "🎲 生成随机脚本事件", lib_title: "📌 准备好的Java函数库 (点击插入):",
+        main_dialog_header: "主对话 №0", lbl_dialog_id: "对话 ID (DialogId)", lbl_dialog_title: "对话标题 (DialogTitle)", lbl_dialog_text: "NPC 文本 (DialogText)", btn_gen_code: "在下方窗口生成代码 ⚡", btn_gen_rand: "🎲 生成随机脚本事件", lib_title: "📌 准备好的Java函数库 (点击插入):",
         quest_header: "任务参数", lbl_q_title: "任务名称 (Title)", lbl_q_npc: "谁接受任务 (CompleterNpc)", lbl_q_text: "玩家日志的任务说明 (Text)",
         lbl_q_repeat: "任务重复性 (QuestRepeat)", lbl_q_type: "任务类型 (Type)", lbl_q_exp: "奖励：玩家经验值 (RewardExp)", lbl_q_next: "链 Owl 中的下一个任务 ID（如果没有，则为 -1）",
         script_editor_title: "💻 JavaScript 编辑器 (ECMAScript)", script_generator_title: "⚡ 脚本自动生成器:", lbl_s_event: "1. 触发时 (事件):", lbl_s_action: "2. 要做什么 (操作):", lbl_s_value: "3. 值 (消息文本或 X Y Z 坐标):", lbl_s_area: "脚本代码（编写您自己的代码 or 使用生成器）:",
@@ -3694,7 +3772,7 @@ ttl_author_btn: "🧍 著者についてとバグ報告", mdl_auth_title: "🧍 
         tab_quests: "任务创建",
         tab_scripts: "脚本编辑器",
 		ttl_sys_gear: "界面和主题设置",
-        main_dialog_header: "主对话 1",
+        main_dialog_header: "主对话 0",
         lbl_dialog_id: "对话 ID (DialogId)",
 		btn_ai_plot: "🔮 AI剧情生成器",
         lbl_dialog_title: "对话标题 (DialogTitle)",
@@ -3775,9 +3853,9 @@ lbl_opt_next: "下一个对话 ID:", lbl_opt_color: "按钮文本颜色 (Decimal
 lbl_opt_cmd: "按钮命令:", ph_opt_cmd: "点击时的控制台命令...",
 lbl_opt_fac_id: "更改阵营 (ID):", lbl_opt_fac_pts: "点数:", lbl_opt_fac_dec: "扣除点数", note_tab_plot: "剧情", note_tab_quests: "任务", note_tab_memos: "备忘录", notes_title: "📝 编剧笔记",
 ph_notes_search: "搜索关键词...", ph_notes_area: "在此处编写笔记...",
-title_dialogs: "CustomNPCs 对话生成器 大帝 (Ver. 1.0)",
-title_quests: "CustomNPCs 任务生成器 书记官 (Ver. 0.7)",
-title_scripts: "CustomNPCs 脚本模块 领主 (Ver. 0.7)",
+title_dialogs: "CustomNPCs对话编辑器 - 森林 (Ver. 1.1)",
+title_quests: "CustomNPCs任务编辑器 - 秘书 (Ver. 0.7)",
+title_scripts: "CustomNPCs脚本模块 - 观察者 (Ver. 0.8)",
 lbl_particles: "特效:", opt_part_none: "关闭 ❌", opt_part_sakura: "樱花 🌸", opt_part_snow: "降雪 ❄️", opt_part_leaves: "落叶 🍁",
 ttl_theme_pip: "主题: 哔宝小子", ttl_theme_melon: "主题 1994: MelonKing", ttl_theme_yahoo: "主题 2000: Yahoo! Japan", ttl_theme_win: "主题 1997: Windows 95", ttl_theme_ryan: "主题 2007: 瑞安航空",
 ttl_open_notes: "📝 打开编剧笔记 (Notepad++)", ttl_open_cheat: "📖 打开命令备忘单 (Minecraft 1.12.2)",
@@ -3942,6 +4020,217 @@ function toggleAuthorModal(show) {
     }
 }
 
+
+// ==========================================================================
+// Просмотр партиклов 
+// ==========================================================================
+
+let prevCanvas, prevCtx, prevAnimationId;
+let previewParticles = [];
+let currentPreviewEffect = 'flame';
+
+function openParticlePreviewer() {
+    document.getElementById('particlePreviewModal').style.display = 'flex';
+    prevCanvas = document.getElementById('previewCanvas');
+    prevCtx = prevCanvas.getContext('2d');
+    
+    // Вешаем триггер повтора эффекта при клике по экрану плеера
+    prevCanvas.onclick = () => { triggerPreviewEffect(); };
+    
+    // Запускаем цикл анимации и первый эффект
+    if (!prevAnimationId) {
+        animatePreview();
+    }
+    triggerPreviewEffect();
+}
+
+function closeParticlePreviewer() {
+    document.getElementById('particlePreviewModal').style.display = 'none';
+    if (prevAnimationId) {
+        cancelAnimationFrame(prevAnimationId);
+        prevAnimationId = null;
+    }
+    previewParticles = [];
+}
+
+function changePreviewParticle(value) {
+    currentPreviewEffect = value;
+    triggerPreviewEffect();
+}
+
+// Фабрика генерации пиксельных эффектов
+function triggerPreviewEffect() {
+    previewParticles = [];
+    const cx = prevCanvas.width / 2;
+    const cy = prevCanvas.height / 2;
+
+    if (currentPreviewEffect === 'flame') {
+        // Создаем факельный поток снизу вверх
+        for (let i = 0; i < 40; i++) {
+            setTimeout(() => {
+                if (document.getElementById('particlePreviewModal').style.display === 'none') return;
+                previewParticles.push({
+                    x: cx + (Math.random() - 0.5) * 20,
+                    y: prevCanvas.height - 20,
+                    vx: (Math.random() - 0.5) * 1.5,
+                    vy: -(Math.random() * 2 + 2),
+                    life: 1,
+                    maxLife: Math.random() * 20 + 20,
+                    color: Math.random() > 0.3 ? '#ffcc00' : '#ff3300',
+                    size: Math.random() * 4 + 4
+                });
+            }, i * 30);
+        }
+    } 
+    else if (currentPreviewEffect === 'hugeexplosion') {
+        // Мгновенный круговой взрыв во все стороны
+        for (let i = 0; i < 60; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 4 + 1;
+            previewParticles.push({
+                x: cx,
+                y: cy,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                life: 1,
+                maxLife: Math.random() * 15 + 15,
+                color: Math.random() > 0.5 ? '#8e8e8e' : '#545454',
+                size: Math.random() * 8 + 6
+            });
+        }
+    } 
+    else if (currentPreviewEffect === 'note') {
+        // Разноцветные нотные значки, плавно улетающие вверх
+        const noteColors = ['#00ff00', '#ff00ff', '#00ffff', '#ffff00', '#ff3333'];
+        for (let i = 0; i < 15; i++) {
+            previewParticles.push({
+                x: cx + (Math.random() - 0.5) * 40,
+                y: cy + (Math.random() - 0.5) * 40,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: -(Math.random() * 1 + 1),
+                life: 1,
+                maxLife: Math.random() * 25 + 25,
+                color: noteColors[Math.floor(Math.random() * noteColors.length)],
+                size: 5
+            });
+        }
+    }
+    else if (currentPreviewEffect === 'happyVillager') {
+        // Изумрудные крестики и звездочки удачи жителя
+        for (let i = 0; i < 25; i++) {
+            previewParticles.push({
+                x: cx + (Math.random() - 0.5) * 50,
+                y: cy + (Math.random() - 0.5) * 50,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5 - 0.5,
+                life: 1,
+                maxLife: Math.random() * 30 + 15,
+                color: Math.random() > 0.2 ? '#55ff55' : '#00aa00',
+                size: Math.random() * 3 + 3,
+                isSpark: true
+            });
+        }
+    }
+    else if (currentPreviewEffect === 'lava') {
+        // Разлетающиеся брызги лавы с гравитацией падающие вниз
+        for (let i = 0; i < 30; i++) {
+            previewParticles.push({
+                x: cx,
+                y: cy - 30,
+                vx: (Math.random() - 0.5) * 4,
+                vy: -(Math.random() * 3 + 2),
+                gravity: 0.15,
+                life: 1,
+                maxLife: 40,
+                color: '#ff6600',
+                size: Math.random() * 3 + 3
+            });
+        }
+    }
+    else if (currentPreviewEffect === 'reddust') {
+        // Мигающее редстоун-облако сирены тревоги
+        for (let i = 0; i < 35; i++) {
+            previewParticles.push({
+                x: cx + (Math.random() - 0.5) * 60,
+                y: cy + (Math.random() - 0.5) * 60,
+                vx: (Math.random() - 0.5) * 0.2,
+                vy: (Math.random() - 0.5) * 0.2,
+                life: 1,
+                maxLife: 40,
+                color: '#ff0000',
+                size: Math.random() * 4 + 2
+            });
+        }
+    }
+}
+
+// Математическое ядро отрисовки пикселей в окне
+function animatePreview() {
+    if (document.getElementById('particlePreviewModal').style.display === 'none') return;
+    
+    prevCtx.fillStyle = '#080808';
+    prevCtx.fillRect(0, 0, prevCanvas.width, prevCanvas.height);
+
+    // Рисуем сетку-прицел (как блоки в майнкрафте для понимания центра)
+    prevCtx.strokeStyle = '#141414';
+    prevCtx.lineWidth = 1;
+    prevCtx.beginPath();
+    prevCtx.moveTo(prevCanvas.width / 2, 0); prevCtx.lineTo(prevCanvas.width / 2, prevCanvas.height);
+    prevCtx.moveTo(0, prevCanvas.height / 2); prevCtx.lineTo(prevCanvas.width, prevCanvas.height / 2);
+    prevCtx.stroke();
+
+    previewParticles.forEach((p, index) => {
+        p.life++;
+        
+        // Физика движения
+        if (p.gravity) p.vy += p.gravity;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Визуал (имитация квадратных майнкрафтовских пикселей)
+        prevCtx.fillStyle = p.color;
+        prevCtx.globalAlpha = 1 - (p.life / p.maxLife);
+        
+        if (p.isSpark) {
+            // Рисуем крестик для счастливого жителя
+            prevCtx.fillRect(p.x, p.y - p.size, 2, p.size * 2);
+            prevCtx.fillRect(p.x - p.size, p.y, p.size * 2, 2);
+        } else {
+            // Квадратный пиксель частицы
+            prevCtx.fillRect(p.x - p.size/2, p.y - p.size/2, p.size, p.size);
+        }
+
+        if (p.life >= p.maxLife) {
+            previewParticles.splice(index, 1);
+        }
+    });
+
+    prevCtx.globalAlpha = 1.0;
+    prevAnimationId = requestAnimationFrame(animatePreview);
+}
+
+function toggleExtraParamsVisibility(extraId) {
+    const wrapper = document.getElementById(`extraParamsWrapper_${extraId}`);
+    const arrow = document.getElementById(`extraFoldArrow_${extraId}`);
+    
+    if (!wrapper || !arrow) return;
+
+    if (wrapper.style.display === 'none') {
+        wrapper.style.display = 'flex';
+        arrow.textContent = '▼';
+    } else {
+        wrapper.style.display = 'none';
+        arrow.textContent = '▶';
+    }
+}
+
+
 </script>
+<!-- ВЫНОСИМ СИМУЛЯТОР В ОТДЕЛЬНЫЙ НЕЗАВИСИМЫЙ БЛОК НА ПК -->
+<!-- ИЗОЛИРОВАННЫЙ АВТОНОМНЫЙ ДВИЖОК СИМУЛЯТОРА -->
+<!-- ИЗОЛИРОВАННЫЙ АВТОНОМНЫЙ ДВИЖОК СИМУЛЯТОРА -->
+<!-- АБСОЛЮТНО БЕЗОПАСНЫЙ ИЗОЛИРОВАННЫЙ СИМУЛЯТОР ДИАЛОГОВ -->
+<!-- АБСОЛЮТНО БЕЗОПАСНЫЙ ИЗОЛИРОВАННЫЙ СИМУЛЯТОР ДИАЛОГОВ -->
+
 </body>
 </html>
