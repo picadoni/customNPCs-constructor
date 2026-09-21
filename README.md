@@ -114,8 +114,15 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 *(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
 * **Bug Fixes:** Fully resolved localization bugs. Tab headers now display correctly in the selected language.
 
-### [Version 1.6 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+### [Version 1.6](https://picadoni.github.io/customNPCs-constructor/ver%201.6/)
 **Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Secretary" (v0.7) / Scripting Module "Overlord" (v0.7)**
 *(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
 * **New Features:** Added toggleable ambient background particle effects (smoothly falling sakura petals, snow, or autumn leaves).
 * **Logic Improvement:** Replaced the gear icon on the quest tab with crossed swords. This is more logical since combat and quest parameters are configured inside this menu.
+
+### [Version 1.7 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+**Dialogue Constructor "Forest" (v1.1) / Quest Constructor "Secretary" (v0.7) / Scripting Module "Observer" (v0.8)**
+*(The quest constructor did not receive a new name, as its functionality was not updated in this version).*
+* **New Features:** Dialogues are now signed, and the dialogue title is visible. A mini-player for previewing effects has been added to the scripting module.
+* **Bug Fixes:** Non-working scripts have been fixed; the templates used for auto-generation now function properly.
+* **Improvement:** The gear icon has been replaced with a more stylish one.
