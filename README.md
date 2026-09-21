@@ -7,7 +7,7 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 
 ## Version History (Clickable 🌐)
 
-### [Version 0.0](https://github.io)
+### [Версия 0.0](./ver%200.0/)
 **CustomNPCs Dialogue Constructor "Herald" (Глашатай)**
 * **Project Start:** Added basic tabs for designing dialogues.
 
