@@ -8,15 +8,15 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 ## Version History (Clickable 🌐)
 
 ### [Версия 0.0](https://picadoni.github.io/customNPCs-constructor/ver%200.0/)
-**CustomNPCs Dialogue Constructor "Herald" (Глашатай)**
+**CustomNPCs Dialogue Constructor "Herald"**
 * **Project Start:** Added basic tabs for designing dialogues.
 
 ### [Version 0.1](https://picadoni.github.io/customNPCs-constructor/ver%200.1/)
-**CustomNPCs Dialogue Constructor "Stargazer" (Звездочёт)**
+**CustomNPCs Dialogue Constructor "Stargazer"**
 * **Update:** Added 5 different UI themes/styles.
 
 ### [Version 0.2](https://picadoni.github.io/customNPCs-constructor/ver%200.2/)
-**CustomNPCs Dialogue Constructor "Steward" (Управитель)**
+**CustomNPCs Dialogue Constructor "Steward"**
 * **Update:** Added 4 control buttons:
   1. Clear All
   2. Delete Last
@@ -24,7 +24,7 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 * **Note:** Added a floppy disk icon for downloading dialogues, but it is not functional yet (placeholder). Downloads currently happen via the bottom button.
 
 ### [Version 0.3](https://picadoni.github.io/customNPCs-constructor/ver%200.3/)
-**CustomNPCs Dialogue Constructor "Warden" (Смотритель)**
+**CustomNPCs Dialogue Constructor "Warden"**
 * **Gear Menu Update:**
   1. Create Additional Dialogue (button added, placeholder functionality).
   2. Access Level (button added, placeholder functionality).
@@ -34,16 +34,16 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
   3. Notes
 
 ### [Version 0.4](https://picadoni.github.io/customNPCs-constructor/ver%200.4/)
-**CustomNPCs Dialogue Constructor "Scientist" (Учёный)**
+**CustomNPCs Dialogue Constructor "Scientist"**
 * **Gear Menu Update:** The "Create Additional Dialogue" function is now fully operational.
 
 ### [Version 0.5](https://picadoni.github.io/customNPCs-constructor/ver%200.5/)
-**CustomNPCs Dialogue Constructor "Master" (Мастер)**
+**CustomNPCs Dialogue Constructor "Master"**
 * **Notepad Update:** Changed to a sliding panel to avoid cluttering the interface.
 * **Expanded Functional:** Added the ability to create up to 34 dialogue/response branches in a single window for additional dialogues. Added control buttons: "Clear All", "Delete Last", "Add Branch".
 
 ### [Version 0.6](https://picadoni.github.io/customNPCs-constructor/ver%200.6/)
-**CustomNPCs Dialogue Constructor "Lightning" (Молния)**
+**CustomNPCs Dialogue Constructor "Lightning"**
 * **Removed:** Completely removed the large "Download Dialogue File (.JSON)" button.
 * **Changes:** Themes and other settings moved inside the gear menu.
 * **New Features:** 
