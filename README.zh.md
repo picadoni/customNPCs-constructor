@@ -2,7 +2,7 @@
 
 ---
 
-# CustomNPCs-constructor
+# CustomNPCs-constructor 1.12.2
 适用于 Minecraft（我的世界）Custom NPCs 模组的可视化对话、任务和脚本生成器。
 
 ## 版本历史 (可点击 🌐)
