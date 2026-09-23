@@ -2,7 +2,7 @@ Language Selection / Выбор языка: 🇷🇺 [Русский](README.ru.
 
 ---
 
-# CustomNPCs-constructor
+# CustomNPCs-constructor 1.12.2
 A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in Minecraft.
 
 ## Version History (Clickable 🌐)
