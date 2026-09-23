@@ -2,7 +2,7 @@
 
 ---
 
-# CustomNPCs-constructor
+# CustomNPCs-constructor 1.12.2
 Minecraftの「Custom NPCs」モッドに対応した、対話、クエスト、スクリプトのビジュアルコンストラクター。
 
 ## バージョン履歴 (クリック可能 🌐)
