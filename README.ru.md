@@ -2,7 +2,7 @@
 
 ---
 
-# CustomNPCs-constructor
+# CustomNPCs-constructor 1.12.2
 Визуальный конструктор диалогов, квестов и скриптов для мода Custom NPCs в Minecraft.
 
 ## История версий (Кликабельно 🌐)
