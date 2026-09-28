@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0050)https://picadoni.github.io/customNPCs-constructor/ -->
+<html lang="ru" style="--bg-color: #0f0505; --panel-bg: #1c0c0c; --text-color: #ffcc00; --accent-color: #ff5500; --section-bg: #110202; --border-color: #ff5500; --window-opacity: 0.85;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
 	/* ==========================================================================
@@ -197,15 +197,15 @@
 
     </style>
 </head>
-<body>
-<body>
+<body style="background-image: radial-gradient(circle, rgb(43, 17, 17) 10%, transparent 11%); background-size: 20px 20px; background-color: rgb(15, 5, 5); color: rgb(255, 204, 0);">
+
     <!-- ЭФФЕКТ ПАДАЮЩИХ ЧАСТИЦ: Прозрачный холст на весь экран -->
-    <canvas id="fallingParticlesCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999998; pointer-events: none;"></canvas>
+    <canvas id="fallingParticlesCanvas" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; z-index: 999998; pointer-events: none; display: block;" height="626" width="1024"></canvas>
 <!-- КНОПКА АВТОРА (Человечек) -->
 <button type="button" onclick="toggleAuthorModal(true)" data-i18n-title="ttl_author_btn" title="🧍 Об авторе и контакты для багов" style="position: fixed; top: 15px; right: 15px; width: 28px; height: 24px; background: rgba(0,0,0,0.6); color: #fff; border: 1px dashed var(--border-color, #808080); border-radius: 4px; cursor: pointer; font-size: 14px; z-index: 1000005; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px);">🧍</button>
 <!-- МОДАЛЬНОЕ ОКНО-МОНИТОР ДЛЯ ДЕМО-ПРОСМОТРА ЧАСТИЦ -->
 <div id="particlePreviewModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; justify-content: center; align-items: center; user-select: none;">
-    <div style="background: #141414; border: 2px solid #ffcc00; padding: 15px; border-radius: 6px; width: 340px; text-align: center; box-shadow: 0 0 20px rgba(255,204,0,0.3); font-family: 'Minecraft', sans-serif;">
+    <div style="background: #141414; border: 2px solid #ffcc00; padding: 15px; border-radius: 6px; width: 340px; text-align: center; box-shadow: 0 0 20px rgba(255,204,0,0.3); font-family: &#39;Minecraft&#39;, sans-serif;">
         
         <!-- Шапка окна -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #333; padding-bottom: 8px;">
@@ -214,7 +214,7 @@
         </div>
 
         <!-- Селектор выбора эффекта -->
-        <select id="previewParticleSelect" onchange="changePreviewParticle(this.value)" style="width: 100%; background: #222; color: #fff; border: 1px solid #444; padding: 6px; border-radius: 4px; margin-bottom: 12px; cursor: pointer; font-size: 13px;">
+        <select id="previewParticleSelect" onchange="changePreviewParticle(this.value)" style="width: 100%; background: rgb(51, 51, 51); color: rgb(255, 255, 255); border: 1px solid rgb(255, 85, 0); padding: 6px; border-radius: 4px; margin-bottom: 12px; cursor: pointer; font-size: 13px; opacity: 1;">
             <option value="flame">🔥 Огненное пламя (flame)</option>
             <option value="hugeexplosion">💥 Взрыв Босса (hugeexplosion)</option>
             <option value="note">🎵 Ноты Лутбокса (note)</option>
@@ -224,7 +224,7 @@
         </select>
 
         <!-- Сам холст-экран для симуляции -->
-        <canvas id="previewCanvas" width="300" height="200" style="background: #080808; border: 1px solid #ffcc00; border-radius: 4px; display: block; margin: 0 auto 10px;"></style></canvas>
+        <canvas id="previewCanvas" width="300" height="200" style="background: #080808; border: 1px solid #ffcc00; border-radius: 4px; display: block; margin: 0 auto 10px;"></canvas>
         
         <div style="color: #888; font-size: 11px;">Кликните по холсту, чтобы повторить эффект</div>
     </div>
@@ -237,7 +237,7 @@
         <span onclick="toggleAuthorModal(false)" style="position: absolute; top: 12px; right: 14px; cursor: pointer; color: #ff3333; font-weight: bold; font-size: 14px;">[X]</span>
         
         <!-- Заголовок визитки -->
-        <h3 style="margin: 0 0 10px 0; font-size: 16px; color: var(--accent-color, #ff5500); text-transform: uppercase; letter-spacing: 0.5px;" data-i18n="mdl_auth_title">🧍 Разработчик проекта</h3>
+        <h3 style="margin: 0px 0px 10px; font-size: 16px; color: rgb(255, 204, 0); text-transform: uppercase; letter-spacing: 0.5px;" data-i18n="mdl_auth_title">🧍 Разработчик проекта</h3>
         
         <p style="font-size: 12px; line-height: 1.5; margin: 0 0 15px 0; opacity: 0.9;" data-i18n="mdl_auth_desc">Если вы нашли баг, синтаксическую ошибку или у вас есть идеи по улучшению генераторов — свяжитесь с автором напрямую:</p>
         
@@ -261,41 +261,42 @@
 
 <!-- ПЛАВАЮЩИЙ ПУЛЬТ НАВИГАЦИИ (ФИКСИРОВАН СЛЕВА ЭКРАНА) -->
 <!-- ПЛАВАЮЩИЙ ПУЛЬТ НАВИГАЦИИ С ЭФФЕКТОМ АВТО-СКРЫТИЯ (ФИКСИРОВАН СЛЕВА) -->
-<div id="fastScrollPanel" style="position: fixed; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 4px; background: var(--section-bg, rgba(0,0,0,0.6)); padding: 6px; border-radius: 6px; border: 1px dashed var(--border-color); z-index: 100000; user-select: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); backdrop-filter: blur(4px); opacity: 0.2; transition: opacity 0.2s ease, transform 0.2s ease;" onmouseover="this.style.opacity='1'; this.style.transform='translateY(-50%) scale(1.05)';" onmouseout="this.style.opacity='0.2'; this.style.transform='translateY(-50%) scale(1)';">
-    <button type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="На самый верх страницы" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">▲</button>
-    <button type="button" onclick="scrollToCenter()" title="В самую середину (К центру формы)" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 4px; color: var(--accent-color); font-weight: bold; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">■</button>
-    <button type="button" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" title="В самый низ страницы" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">▼</button>
+<div id="fastScrollPanel" style="position: fixed; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 4px; background: var(--section-bg, rgba(0,0,0,0.6)); padding: 6px; border-radius: 6px; border: 1px dashed var(--border-color); z-index: 100000; user-select: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); backdrop-filter: blur(4px); opacity: 0.2; transition: opacity 0.2s ease, transform 0.2s ease;" onmouseover="this.style.opacity=&#39;1&#39;; this.style.transform=&#39;translateY(-50%) scale(1.05)&#39;;" onmouseout="this.style.opacity=&#39;0.2&#39;; this.style.transform=&#39;translateY(-50%) scale(1)&#39;;">
+    <button type="button" onclick="window.scrollTo({top: 0, behavior: &#39;smooth&#39;})" title="На самый верх страницы" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity=&#39;0.7&#39;" onmouseout="this.style.opacity=&#39;1&#39;">▲</button>
+    <button type="button" onclick="scrollToCenter()" title="В самую середину (К центру формы)" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 4px; color: var(--accent-color); font-weight: bold; transition: opacity 0.2s;" onmouseover="this.style.opacity=&#39;0.7&#39;" onmouseout="this.style.opacity=&#39;1&#39;">■</button>
+    <button type="button" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: &#39;smooth&#39;})" title="В самый низ страницы" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity=&#39;0.7&#39;" onmouseout="this.style.opacity=&#39;1&#39;">▼</button>
 </div>
 
 
 
-<div class="container">
+<div class="container" style="background-color: rgba(28, 12, 12, 0.85); border: 3px double rgb(255, 85, 0); box-shadow: none;">
 
 <!-- БЛОК ЛОКАЛИЗАЦИИ (ФЛАГИ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКОВ) -->
 <div style="position: absolute; top: 15px; right: 20px; display: flex; gap: 8px; z-index: 10001; user-select: none;">
-    <span onclick="changeLanguage('ru')" title="Русский" style="font-size: 18px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">🇷🇺</span>
-    <span onclick="changeLanguage('en')" title="English" style="font-size: 18px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">🇬🇧</span>
-    <span onclick="changeLanguage('ja')" title="日本語" style="font-size: 18px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">🇯🇵</span>
-    <span onclick="changeLanguage('zh')" title="简体中文" style="font-size: 18px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">🇨🇳</span>
+    <span onclick="changeLanguage(&#39;ru&#39;)" title="Русский" style="font-size: 18px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform=&#39;scale(1.2)&#39;" onmouseout="this.style.transform=&#39;scale(1)&#39;">🇷🇺</span>
+    <span onclick="changeLanguage(&#39;en&#39;)" title="English" style="font-size: 18px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform=&#39;scale(1.2)&#39;" onmouseout="this.style.transform=&#39;scale(1)&#39;">🇬🇧</span>
+    <span onclick="changeLanguage(&#39;ja&#39;)" title="日本語" style="font-size: 18px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform=&#39;scale(1.2)&#39;" onmouseout="this.style.transform=&#39;scale(1)&#39;">🇯🇵</span>
+    <span onclick="changeLanguage(&#39;zh&#39;)" title="简体中文" style="font-size: 18px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform=&#39;scale(1.2)&#39;" onmouseout="this.style.transform=&#39;scale(1)&#39;">🇨🇳</span>
 </div>
 
     <!-- ИГРОВЫЕ ВКЛАДКИ В СТИЛЕ MINECRAFT -->
     <div class="minecraft-tabs">
-        <div id="tabModuleDialogs" class="mc-tab active" onclick="switchMainModule('dialogs')" style="background: var(--panel-bg); color: var(--accent-color);" data-i18n="tab_dialogs">📜 Конструктор Диалогов</div>
-        <div id="tabModuleQuests" class="mc-tab" onclick="switchMainModule('quests')" style="background: rgba(0,0,0,0.3); border-color: transparent; color: #888;" data-i18n="tab_quests">⚔️ Создание Квестов</div>
-        <div id="tabModuleScripts" class="mc-tab" onclick="switchMainModule('scripts')" style="background: rgba(0,0,0,0.3); border-color: transparent; color: #888; margin-left: 2px;" data-i18n="tab_scripts">💻 Редактор Скриптов</div>
+        <div id="tabModuleDialogs" class="mc-tab active" onclick="switchMainModule(&#39;dialogs&#39;)" style="background: var(--panel-bg); color: rgb(255, 85, 0); border-color: rgb(255, 85, 0);" data-i18n="tab_dialogs">📜 Конструктор Диалогов</div>
+        <div id="tabModuleQuests" class="mc-tab" onclick="switchMainModule(&#39;quests&#39;)" style="background: rgba(0,0,0,0.3); border-color: transparent; color: #888;" data-i18n="tab_quests">⚔️ Создание Квестов</div>
+        <div id="tabModuleScripts" class="mc-tab" onclick="switchMainModule(&#39;scripts&#39;)" style="background: rgba(0,0,0,0.3); border-color: transparent; color: #888; margin-left: 2px;" data-i18n="tab_scripts">💻 Редактор Скриптов</div>
     </div>
 
 
     <!-- ГЛАВНЫЙ ОБЩИЙ ЗАГОЛОВОК С СИСТЕМНОЙ ШЕСТЕРЕНКОЙ (ТЕПЕРЬ СТРОГО ВНУТРИ КОНТЕЙНЕРА) -->
      <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 25px; margin-bottom: 25px; position: relative; width: 100%;"> 
         <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для динамической шапки -->
-<h1 id="mainTitle" data-i18n="main_title" style="margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center;">Конструктор Диалогов CustomNPCs Глашатай (Вер. 0.0)</h1>
+<h1 id="mainTitle" data-i18n="title_dialogs" style="margin: 0px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: rgb(255, 85, 0);">Конструктор Диалогов CustomNPCs Лес (Вер. 1.1)</h1>
 <!-- Глобальная кнопка симулятора -->
+<button type="button" onclick="startDialogSimulation(1)" title="📋 Запустить симулятор всего сюжета" style="background: none; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" onmouseout="this.style.background='none'; this.style.color='#ffcc00';">📋</button>
 
         <!-- Шестеренка аккуратно встает в левый угол, не улетая в облака -->
 <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для всплывающей подсказки шестерёнки -->
-<span onclick="toggleSystemMenu(event)" data-i18n-title="ttl_sys_gear" title="Настройки интерфейса и темы" style="font-size: 20px; cursor: pointer; user-select: none; padding: 2px; display: inline-block; transition: transform 0.2s; position: absolute; left: -20px; top: -90px; z-index: 10005;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0deg)'">⚙</span>
+<span onclick="toggleSystemMenu(event)" data-i18n-title="ttl_sys_gear" title="Настройки интерфейса и темы" style="font-size: 20px; cursor: pointer; user-select: none; padding: 2px; display: inline-block; transition: transform 0.2s; position: absolute; left: -20px; top: -90px; z-index: 10005;" onmouseover="this.style.transform=&#39;rotate(45deg)&#39;" onmouseout="this.style.transform=&#39;rotate(0deg)&#39;">⚙</span>
   <div style="display: flex; gap: 10px; align-items: center; margin-left: 15px;">
   </div>
     <!-- Кнопка Блокнота -->
@@ -308,15 +309,15 @@
 <div id="systemDesignMenu" style="display: none; position: absolute; top: -120px; left: -20px 80%; transform: translateX(-50%); align-items: center; gap: 1px; background: rgba(0,0,0,0.7); padding: 6px 14px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.4); z-index: 1000; backdrop-filter: blur(4px);">
             <div style="display: flex; gap: 6px; align-items: center; border-right: 1px solid rgba(255,255,255,0.2); padding-right: 10px;">
 <!-- ПРАВИЛЬНЫЙ ВАРИАНТ КНОПОК ТЕМ: Без data-i18n, только с data-i18n-title! -->
-<button type="button" onclick="setTheme('pipboy')" data-i18n-title="ttl_theme_pip" title="Стиль: Пип-бой" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🖥️</button>
-<button type="button" onclick="setTheme('melonking')" data-i18n-title="ttl_theme_melon" title="Стиль 1994: MelonKing" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🍉</button>
-<button type="button" onclick="setTheme('yahoo')" data-i18n-title="ttl_theme_yahoo" title="Стиль 2000: Yahoo! Japan" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🇯🇵</button>
-<button type="button" onclick="setTheme('ifindit')" data-i18n-title="ttl_theme_win" title="Стиль 1997: Windows 95" style="background: none; border: none; font-size: 16px; pointer; padding: 2px;">💾</button>
-<button type="button" onclick="setTheme('ryanair')" data-i18n-title="ttl_theme_ryan" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">✈️</button>
+<button type="button" onclick="setTheme(&#39;pipboy&#39;)" data-i18n-title="ttl_theme_pip" title="Стиль: Пип-бой" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🖥️</button>
+<button type="button" onclick="setTheme(&#39;melonking&#39;)" data-i18n-title="ttl_theme_melon" title="Стиль 1994: MelonKing" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🍉</button>
+<button type="button" onclick="setTheme(&#39;yahoo&#39;)" data-i18n-title="ttl_theme_yahoo" title="Стиль 2000: Yahoo! Japan" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🇯🇵</button>
+<button type="button" onclick="setTheme(&#39;ifindit&#39;)" data-i18n-title="ttl_theme_win" title="Стиль 1997: Windows 95" style="background: none; border: none; font-size: 16px; pointer; padding: 2px;">💾</button>
+<button type="button" onclick="setTheme(&#39;ryanair&#39;)" data-i18n-title="ttl_theme_ryan" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">✈️</button>
 <!-- Вариант для кнопки в Основном диалоге -->
-<span onclick="alert('🎮 Монитор сюжета: Модуль интерактивного демо-просмотра квестов находится в разработке и появится в ver 2.0! Нажмите 💾 для экспорта в игру.')" title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
+<span onclick="alert(&#39;🎮 Монитор сюжета: Модуль интерактивного демо-просмотра квестов находится в разработке и появится в ver 2.0! Нажмите 💾 для экспорта в игру.&#39;)" title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
 
-                <button type="button" onclick="document.getElementById('bgUploaderInput').click()" title="🖼️ Установить свой фон" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">🖼️</button>
+                <button type="button" onclick="document.getElementById(&#39;bgUploaderInput&#39;).click()" title="🖼️ Установить свой фон" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">🖼️</button>
                 <input type="file" id="bgUploaderInput" accept="image/*" style="display: none;" onchange="setCustomBackground(event)">
 				<button type="button" onclick="resetCustomBackground()" title="❌ Сбросить фон на дефолтный" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">❌</button>
 <!-- ИСПРАВЛЕНО: Стерты любые data-i18n, оставлен только data-i18n-title. Квадраты исчезнут! -->
@@ -332,7 +333,7 @@
 			<!-- ДОБАВИТЬ ВНУТРЬ systemDesignMenu РЯДОМ С ПОЛЗУНКОМ ПРОЗРАЧНОСТИ -->
 <div style="display: flex; align-items: center; gap: 6px; user-select: none; margin-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 10px;">
     <span style="font-size: 12px; opacity: 0.8; white-space: nowrap; color: inherit;" data-i18n="lbl_particles">Эффекты:</span>
-    <select id="particleEffectSelect" onchange="changeParticleEffect(this.value)" style="background: rgba(0,0,0,0.5); color: #fff; border: 1px dashed rgba(128,128,128,0.5); padding: 2px 4px; font-size: 11px; border-radius: 3px; cursor: pointer; height: 24px;">
+    <select id="particleEffectSelect" onchange="changeParticleEffect(this.value)" style="background: rgb(51, 51, 51); color: rgb(255, 255, 255); border: 1px dashed rgb(255, 85, 0); padding: 2px 4px; font-size: 11px; border-radius: 3px; cursor: pointer; height: 24px; opacity: 1;">
         <option value="none" data-i18n="opt_part_none">Выкл. ❌</option>
         <option value="sakura" data-i18n="opt_part_sakura">Сакура 🌸</option>
         <option value="snow" data-i18n="opt_part_snow">Снегопад ❄️</option>
@@ -347,20 +348,25 @@
     <div id="moduleContentDialogs" style="display: block; width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: -1px;">
         
         <!-- ОБЪЕДИНЕННЫЙ ОСНОВНОЙ ДИАЛОГ №1 -->
-        <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; position: relative; padding-top: 20px;">
+        <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; position: relative; padding-top: 20px; background-color: rgba(17, 2, 2, 0.85); border-color: rgb(255, 85, 0);">
   
     <!-- Шапка со стрелочкой сворачивания и кнопками управления -->
     <!-- Новая чистая шапка Основного диалога -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none; width: 100%;">
 <!-- ИСПРАВЛЕНО: Стрелка защищена, переводится только сам текст! -->
-<div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="toggleMainParamsVisibility()">
+<!-- ИСПРАВЛЕННЫЙ ЗОЛОТОЙ ЗАГОЛОВОК ДЛЯ ДИАЛОГА №0 -->
+<div class="section-title" style="margin: 0px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; color: #ffcc00;" onclick="toggleMainParamsVisibility()">
     <span id="mainFoldArrow" style="font-weight: 900; font-size: 16px; display: inline-block; transform: scaleX(1.2);">▶</span>
-<span></span> <span data-i18n="main_dialog_header">Основной диалог</span> (ID: 1)<span id="mainDialogTitleSpan" style="color: #ffcc00; font-weight: bold; margin-left: 5px;"> — [Main Start]</span></div>
+<!-- ИСПРАВЛЕННЫЙ ВАРИАНТ: Полная симметрия скобок и цветов с доп-плашками -->
+<span data-i18n="main_dialog_header">Основной диалог №0</span> (ID: 1) — [<span id="mainDialogTitleSpan" style="color: var(--accent-color); font-weight: bold;">Main Start</span>]
+
+</div>
+
 
         
         <!-- Осталась только одна кнопка функций диалога! -->
                 <div style="display: flex; align-items: center;">
-                   <span onclick="toggleGearMenu(event)" data-i18n-title="ttl_main_gear" title="Функции и настройки этого диалога" ...>⚙️</span>
+                   <span onclick="toggleGearMenu(event)" data-i18n-title="ttl_main_gear" title="Функции и настройки этого диалога" ...="">⚙️</span>
  </div>
     </div>
 
@@ -370,7 +376,6 @@
     <div style="display: flex; justify-content: flex-end; width: 100%; position: relative;">
         <div id="gearDropdownMenu" style="display: none; position: absolute; top: -5px; right: 0; align-items: center; gap: 14px; background: rgba(0,0,0,0.5); padding: 6px 12px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.3); z-index: 100; backdrop-filter: blur(4px);">
             <!-- ИСПРАВЛЕНО: Добавлены маркеры data-i18n-title, иконки в безопасности -->
-			<!-- Кнопка локального теста диалога -->
 <!-- Обновленный вариант кнопки в плашке Основного диалога -->
             <button type="button" onclick="createNewDialogChainBlock(event)" data-i18n-title="ttl_add_chain" title="📜 Добавить следующий диалог в ленту" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">📜</button>
             <button type="button" onclick="generateAndDownload()" data-i18n-title="ttl_download_dial" title="💾 Скачать этот диалог (.json)" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">💾</button>
@@ -386,43 +391,43 @@
             <div class="form-group">
                 <!-- Было: <label for="dialogId">ID Диалога (DialogId)</label> -->
 <!-- Стало: -->
- <label for="dialogId" data-i18n="lbl_dialog_id">ID Диалога (DialogId)</label>
-                <input type="number" id="dialogId" value="1" oninput="const disp = document.getElementById('displayMainDialogId'); if(disp) disp.innerText = this.value;">
+ <label for="dialogId" data-i18n="lbl_dialog_id" style="color: rgb(255, 85, 0);">ID Диалога (DialogId)</label>
+                <input type="number" id="dialogId" value="1" oninput="const disp = document.getElementById(&#39;displayMainDialogId&#39;); if(disp) disp.innerText = this.value;" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                         </div>
             <div class="form-group">
 <!-- Было: <label for="dialogTitle">Название диалога (DialogTitle)</label> -->
 <!-- Стало: -->
-                <label for="dialogTitle" data-i18n="lbl_dialog_title">Название диалога (DialogTitle)</label>
+                <label for="dialogTitle" data-i18n="lbl_dialog_title" style="color: rgb(255, 85, 0);">Название диалога (DialogTitle)</label>
                 <!-- Ищите поле ввода названия основного диалога -->
-<input type="text" id="dialogTitle" value="Main Start" oninput="const span = document.getElementById('mainDialogTitleSpan'); if(span) span.textContent = this.value ? ' — [' + this.value + ']' : '';" ...>
+<input type="text" id="dialogTitle" value="Main Start" oninput="const span = document.getElementById(&#39;mainDialogTitleSpan&#39;); if(span) span.textContent = this.value ? &#39; — [&#39; + this.value + &#39;]&#39; : &#39;&#39;;" ...="" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
 
             </div>
         </div>
         <div class="form-group">
 <!-- Было: <label for="dialogText">Текст NPC (DialogText)</label> -->
 <!-- Стало: -->
-            <label for="dialogText" data-i18n="lbl_dialog_text">Текст NPC (DialogText)</label>
+            <label for="dialogText" data-i18n="lbl_dialog_text" style="color: rgb(255, 85, 0);">Текст NPC (DialogText)</label>
 
-            <textarea id="dialogText">Hello {player},\n\nWelcome to our village. I hope you enjoy your stay</textarea>
+            <textarea id="dialogText" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">Hello {player},\n\nWelcome to our village. I hope you enjoy your stay</textarea>
         </div>
         <div class="form-row">
             <div class="form-group">
-               <label for="dialogCommand" data-i18n="lbl_dialog_command">Консольная команда при открытии</label>
-                <input type="number" id="dialogQuest" value="-1">
+               <label for="dialogCommand" data-i18n="lbl_dialog_command" style="color: rgb(255, 85, 0);">Консольная команда при открытии</label>
+                <input type="number" id="dialogQuest" value="-1" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
             </div>
             <div class="form-group">
-                <label for="dialogCommand" data-i18n="lbl_dialog_command">Консольная команда при открытии</label>
-<input type="text" id="dialogCommand" value="">
+                <label for="dialogCommand" data-i18n="lbl_dialog_command" style="color: rgb(255, 85, 0);">Консольная команда при открытии</label>
+<input type="text" id="dialogCommand" value="" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
             </div>
         </div>
 <div class="form-row">
-            <div class="form-group checkbox-group"><input type="checkbox" id="dialogHideNPC"><label for="dialogHideNPC" data-i18n="chk_hide_npc">Скрывать NPC</label></div>
-            <div class="form-group checkbox-group"><input type="checkbox" id="dialogShowWheel"><label for="dialogShowWheel" data-i18n="chk_show_wheel">Показывать колесом</label></div>
-            <div class="form-group checkbox-group"><input type="checkbox" id="dialogDisableEsc"><label for="dialogDisableEsc" data-i18n="chk_disable_esc">Запретить ESC</label></div>
+            <div class="form-group checkbox-group"><input type="checkbox" id="dialogHideNPC"><label for="dialogHideNPC" data-i18n="chk_hide_npc" style="color: rgb(255, 85, 0);">Скрывать NPC</label></div>
+            <div class="form-group checkbox-group"><input type="checkbox" id="dialogShowWheel"><label for="dialogShowWheel" data-i18n="chk_show_wheel" style="color: rgb(255, 85, 0);">Показывать колесом</label></div>
+            <div class="form-group checkbox-group"><input type="checkbox" id="dialogDisableEsc"><label for="dialogDisableEsc" data-i18n="chk_disable_esc" style="color: rgb(255, 85, 0);">Запретить ESC</label></div>
         </div>
 
 <!-- ДОБАВИТЬ ЭТОТ БЛОК СТРОГО ПОД ЧЕКБОКСЫ ОСНОВНОГО ДИАЛОГА -->
-<div id="mainAvailabilityBlock" class="section" style="display: none; margin-top: 15px; margin-bottom: 0; background: rgba(0,0,0,0.15); border-left: 5px solid #ffcc00; padding: 15px; box-sizing: border-box; width: 100%;">
+<div id="mainAvailabilityBlock" class="section" style="display: none; margin-top: 15px; margin-bottom: 0px; background: rgba(17, 2, 2, 0.85); border-left: 5px solid rgb(255, 85, 0); padding: 15px; box-sizing: border-box; width: 100%; border-right-color: rgb(255, 85, 0); border-top-color: rgb(255, 85, 0); border-bottom-color: rgb(255, 85, 0);">
     <div style="font-size: 14px; font-weight: bold; margin-bottom: 15px; color: inherit; display: flex; align-items: center; gap: 6px; border-bottom: 1px dashed var(--border-color); padding-bottom: 5px;">
        <span>🔒</span> <span data-i18n="avail_header">Доступность (Availability Settings)</span>
     </div>
@@ -430,28 +435,28 @@
     <!-- Ряд 1: Диалог, Квест, Скорборд -->
     <div class="form-row" style="margin-bottom: 12px;">
         <div class="form-group">
-            <label style="font-size: 12px;" data-i18n="lbl_avail_dial">Проверка диалога (ID):</label>
-            <input type="number" id="availDialogId" value="-1">
+            <label style="font-size: 12px; color: rgb(255, 85, 0);" data-i18n="lbl_avail_dial">Проверка диалога (ID):</label>
+            <input type="number" id="availDialogId" value="-1" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
         </div>
         <div class="form-group">
-            <label style="font-size: 12px;" data-i18n="lbl_avail_q">Проверка квеста (ID):</label>
-            <input type="number" id="availQuestId" value="-1">
+            <label style="font-size: 12px; color: rgb(255, 85, 0);" data-i18n="lbl_avail_q">Проверка квеста (ID):</label>
+            <input type="number" id="availQuestId" value="-1" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
         </div>
         <div class="form-group">
-            <label style="font-size: 12px;">Scoreboard Objective:</label>
-            <input type="text" id="availScoreboardObj" value="" data-i18n-ph="ph_avail_sb" placeholder="Имя задачи...">
+            <label style="font-size: 12px; color: rgb(255, 85, 0);">Scoreboard Objective:</label>
+            <input type="text" id="availScoreboardObj" value="" data-i18n-ph="ph_avail_sb" placeholder="Имя задачи..." style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
         </div>
     </div>
 
     <!-- Ряд 2: Две фракции, как в интерфейсе Minecraft -->
     <div class="form-row" style="margin-bottom: 12px; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.2);">
         <div class="form-group">
-            <label style="font-size: 11px; color: #ffcc00;" data-i18n="lbl_avail_f1">Фракция 1 (ID):</label>
-            <input type="number" id="availFactionId1" value="-1" style="height: 34px;">
+            <label style="font-size: 11px; color: rgb(255, 85, 0);" data-i18n="lbl_avail_f1">Фракция 1 (ID):</label>
+            <input type="number" id="availFactionId1" value="-1" style="height: 34px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
         </div>
         <div class="form-group">
-            label style="font-size: 11px; color: #ffcc00;" data-i18n="lbl_avail_r1">Репутация 1:</label>
-<select id="availFactionStance1" style="padding: 6px 10px; height: auto; font-size: 14px; box-sizing: border-box; width: 100%;">
+            label style="font-size: 11px; color: #ffcc00;" data-i18n="lbl_avail_r1"&gt;Репутация 1:
+<select id="availFactionStance1" style="padding: 6px 10px; height: auto; font-size: 14px; box-sizing: border-box; width: 100%; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                         <option value="0" data-i18n="opt_rep_0">Дружелюбные (0)</option>
                         <option value="1" data-i18n="opt_rep_1">Нейтральные (1)</option>
                         <option value="2" data-i18n="opt_rep_2">Враждебные (2)</option>
@@ -459,13 +464,13 @@
         </div>
         <div style="width: 15px;"></div>
         <div class="form-group">
-            <label style="font-size: 11px; color: #ffcc00;" data-i18n="lbl_avail_f2">Фракция 2 (ID):</label>
-            <input type="number" id="availFactionId2" value="-1" style="height: 34px;">
+            <label style="font-size: 11px; color: rgb(255, 85, 0);" data-i18n="lbl_avail_f2">Фракция 2 (ID):</label>
+            <input type="number" id="availFactionId2" value="-1" style="height: 34px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
         </div>
         <div class="form-group">
-           <label style="font-size: 11px; color: #ffcc00;" data-i18n="lbl_avail_r2">Репутация 2:</label>
+           <label style="font-size: 11px; color: rgb(255, 85, 0);" data-i18n="lbl_avail_r2">Репутация 2:</label>
 <!-- Исправленный список Репутации 2 -->
-<select id="availFactionStance2" style="padding: 6px 10px; height: auto; font-size: 14px; box-sizing: border-box; width: 100%;">
+<select id="availFactionStance2" style="padding: 6px 10px; height: auto; font-size: 14px; box-sizing: border-box; width: 100%; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                         <option value="0" data-i18n="opt_rep_0">Дружелюбные (0)</option>
                         <option value="1" data-i18n="opt_rep_1">Нейтральные (1)</option>
                         <option value="2" data-i18n="opt_rep_2">Враждебные (2)</option>
@@ -476,43 +481,190 @@
     <!-- Ряд 3: Сутки и Уровень -->
     <div class="form-row">
         <div class="form-group">
-                    <label style="font-size: 12px;" data-i18n="lbl_avail_time">Время суток (DayTime):</label>
-            <select id="availDayTime" style="height: 38px;">
+                    <label style="font-size: 12px; color: rgb(255, 85, 0);" data-i18n="lbl_avail_time">Время суток (DayTime):</label>
+            <select id="availDayTime" style="height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                         <option value="0" data-i18n="opt_time_0">Сутки (0)</option>
                         <option value="1" data-i18n="opt_time_1">День (1)</option>
                         <option value="2" data-i18n="opt_time_2">Ночь (2)</option>
             </select>
         </div>
         <div class="form-group">
-                    <label style="font-size: 12px;" data-i18n="lbl_avail_lvl">Минимальный уровень опыта:</label>
-            <input type="number" id="availMinLevel" value="0">
+                    <label style="font-size: 12px; color: rgb(255, 85, 0);" data-i18n="lbl_avail_lvl">Минимальный уровень опыта:</label>
+            <input type="number" id="availMinLevel" value="0" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
         </div>
     </div>
 </div>
 
         <!-- ВСТАВЛЯЕМ БЛОК ВАРИАНТОВ ОТВЕТОВ СЮДА (ВНУТРЬ ПАРАМЕТРОВ) -->
-        <div class="options-container section" style="width: 100%; box-sizing: border-box; margin-top: 15px; margin-bottom: 0; background: rgba(0,0,0,0.05);">
+        <div class="options-container section" style="width: 100%; box-sizing: border-box; margin-top: 15px; margin-bottom: 0px; background: rgba(17, 2, 2, 0.85); border-color: rgb(255, 85, 0);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; width: 100%; user-select: none;">
-                <span id="optionsTitle" style="font-size: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;" onclick="toggleOptionsVisibility()">
+                <span id="optionsTitle" style="font-size: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; color: rgb(255, 204, 0);" onclick="toggleOptionsVisibility()">
                     <span id="foldArrow">▼</span> <span data-i18n="options_main_title">Варианты ответов игрока (Кнопки)</span>
                 </span>
                 <div style="display: flex; gap: 6px;">
                     <!-- ИСПРАВЛЕНО: Добавлены маркеры data-i18n-title -->
                     <button type="button" onclick="clearAllOptionsForm()" data-i18n-title="ttl_clear_all" title="Очистить все поля веток" style="width: 32px; height: 32px; padding: 0; background: #ff3333; color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center;">🧹</button>
-                    <button type="button" id="btnDeleteLast" onclick="removeLastOptionButton()" data-i18n-title="ttl_del_last" title="Удалить последнюю ветку" style="width: 32px; height: 32px; padding: 0; background: #e0a800; color: #000; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center;">➖</button>
+                    <button type="button" id="btnDeleteLast" onclick="removeLastOptionButton()" data-i18n-title="ttl_del_last" title="Удалить последнюю ветку" style="width: 32px; height: 32px; padding: 0px; background: rgb(224, 168, 0); color: rgb(0, 0, 0); border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center; box-shadow: none;">➖</button>
                     <button type="button" onclick="addNewOptionButton()" data-i18n-title="ttl_add_new" title="Добавить новую ветку диалога" style="width: 32px; height: 32px; padding: 0; background: var(--accent-color); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center;">➕</button>
                  </div>
 
             </div>
-<div id="dynamicOptionsWrapper_0" style="width: 100%; box-sizing: border-box;"></div>
+<div id="dynamicOptionsWrapper_0" style="width: 100%; box-sizing: border-box;"><div class="option-block" id="optionBlock_0" style="background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border-color: rgb(255, 85, 0); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-left-width: ; border-left-style: ; width: 100%; box-sizing: border-box;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <strong style="color: inherit; font-size: 14px;"><span data-i18n="lbl_opt_btn">Кнопка</span> 1 (<span data-i18n="lbl_opt_slot">Слот</span> 0)</strong>
+            
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; box-sizing: border-box;">
+            <div>
+                <label for="optTitle0" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_title">Текст ответа:</label>
+                <input type="text" id="optTitle0" data-i18n-ph="ph_opt_title" placeholder="Текст, который выберет игрок..." style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+            </div>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optType0" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_type">Действие (OptionType):</label>
+                    <select id="optType0" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                        <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
+                        <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
+                        <option value="2" data-i18n="opt_type_2">Открыть Роль NPC (2)</option>
+                        <option value="3" data-i18n="opt_type_3">Показать Фракцию (3)</option>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optDialog0" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_next">ID следующего диалога:</label>
+                    <input type="number" id="optDialog0" value="-1" style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optColor0" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_color">Цвет текста кнопки (Decimal):</label>
+                    <input type="text" id="optColor0" value="14737632" style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+            </div>
+            <div>
+                <label for="optCmd0" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_cmd">Команда кнопки:</label>
+                <input type="text" id="optCmd0" data-i18n-ph="ph_opt_cmd" placeholder="Команда консоли при нажатии..." style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+            </div>
+            <!-- ВНУТРИ ШАБЛОНА КАРТОЧКИ ВЕТКИ: БЛОК НАСТРОЙКИ РЕПУТАЦИИ ФРАКЦИИ -->
+            <div style="margin-top: 8px; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 2; min-width: 120px;">
+                    <label for="optFactionId0" style="font-size: 11px; margin-bottom: 2px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_fac_id">Изменить фракцию (ID):</label>
+                    <input type="number" id="optFactionId0" value="-1" style="padding: 6px; height: 32px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+                <div style="flex: 1; min-width: 80px;">
+                    <label for="optFactionPoints0" style="font-size: 11px; margin-bottom: 2px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_fac_pts">Очки:</label>
+                    <input type="number" id="optFactionPoints0" value="100" style="padding: 6px; height: 32px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+                <div style="flex: 1; min-width: 110px; display: flex; align-items: center; margin-top: 12px;">
+                    <input type="checkbox" id="optFactionDec0" style="width:16px; height:16px; cursor:pointer; margin-right:6px;">
+                    <label for="optFactionDec0" style="font-size: 11px; margin-bottom: 0px; cursor: pointer; white-space: nowrap; color: rgb(255, 85, 0);" data-i18n="lbl_opt_fac_dec">Отнимать очки</label>
+                </div>
+            </div>
+        </div>
+    </div><div class="option-block" id="optionBlock_1" style="background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border-color: rgb(255, 85, 0); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-left-width: ; border-left-style: ; width: 100%; box-sizing: border-box;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <strong style="color: inherit; font-size: 14px;"><span data-i18n="lbl_opt_btn">Кнопка</span> 2 (<span data-i18n="lbl_opt_slot">Слот</span> 1)</strong>
+            
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; box-sizing: border-box;">
+            <div>
+                <label for="optTitle1" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_title">Текст ответа:</label>
+                <input type="text" id="optTitle1" data-i18n-ph="ph_opt_title" placeholder="Текст, который выберет игрок..." style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+            </div>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optType1" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_type">Действие (OptionType):</label>
+                    <select id="optType1" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                        <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
+                        <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
+                        <option value="2" data-i18n="opt_type_2">Открыть Роль NPC (2)</option>
+                        <option value="3" data-i18n="opt_type_3">Показать Фракцию (3)</option>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optDialog1" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_next">ID следующего диалога:</label>
+                    <input type="number" id="optDialog1" value="-1" style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optColor1" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_color">Цвет текста кнопки (Decimal):</label>
+                    <input type="text" id="optColor1" value="14737632" style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+            </div>
+            <div>
+                <label for="optCmd1" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_cmd">Команда кнопки:</label>
+                <input type="text" id="optCmd1" data-i18n-ph="ph_opt_cmd" placeholder="Команда консоли при нажатии..." style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+            </div>
+            <!-- ВНУТРИ ШАБЛОНА КАРТОЧКИ ВЕТКИ: БЛОК НАСТРОЙКИ РЕПУТАЦИИ ФРАКЦИИ -->
+            <div style="margin-top: 8px; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 2; min-width: 120px;">
+                    <label for="optFactionId1" style="font-size: 11px; margin-bottom: 2px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_fac_id">Изменить фракцию (ID):</label>
+                    <input type="number" id="optFactionId1" value="-1" style="padding: 6px; height: 32px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+                <div style="flex: 1; min-width: 80px;">
+                    <label for="optFactionPoints1" style="font-size: 11px; margin-bottom: 2px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_fac_pts">Очки:</label>
+                    <input type="number" id="optFactionPoints1" value="100" style="padding: 6px; height: 32px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+                <div style="flex: 1; min-width: 110px; display: flex; align-items: center; margin-top: 12px;">
+                    <input type="checkbox" id="optFactionDec1" style="width:16px; height:16px; cursor:pointer; margin-right:6px;">
+                    <label for="optFactionDec1" style="font-size: 11px; margin-bottom: 0px; cursor: pointer; white-space: nowrap; color: rgb(255, 85, 0);" data-i18n="lbl_opt_fac_dec">Отнимать очки</label>
+                </div>
+            </div>
+        </div>
+    </div><div class="option-block" id="optionBlock_2" style="background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border-color: rgb(255, 85, 0); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-left-width: ; border-left-style: ; width: 100%; box-sizing: border-box;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <strong style="color: inherit; font-size: 14px;"><span data-i18n="lbl_opt_btn">Кнопка</span> 3 (<span data-i18n="lbl_opt_slot">Слот</span> 2)</strong>
+            
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; box-sizing: border-box;">
+            <div>
+                <label for="optTitle2" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_title">Текст ответа:</label>
+                <input type="text" id="optTitle2" data-i18n-ph="ph_opt_title" placeholder="Текст, который выберет игрок..." style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+            </div>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optType2" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_type">Действие (OptionType):</label>
+                    <select id="optType2" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                        <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
+                        <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
+                        <option value="2" data-i18n="opt_type_2">Открыть Роль NPC (2)</option>
+                        <option value="3" data-i18n="opt_type_3">Показать Фракцию (3)</option>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optDialog2" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_next">ID следующего диалога:</label>
+                    <input type="number" id="optDialog2" value="-1" style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                    <label for="optColor2" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_color">Цвет текста кнопки (Decimal):</label>
+                    <input type="text" id="optColor2" value="14737632" style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+            </div>
+            <div>
+                <label for="optCmd2" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_cmd">Команда кнопки:</label>
+                <input type="text" id="optCmd2" data-i18n-ph="ph_opt_cmd" placeholder="Команда консоли при нажатии..." style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+            </div>
+            <!-- ВНУТРИ ШАБЛОНА КАРТОЧКИ ВЕТКИ: БЛОК НАСТРОЙКИ РЕПУТАЦИИ ФРАКЦИИ -->
+            <div style="margin-top: 8px; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+                <div style="flex: 2; min-width: 120px;">
+                    <label for="optFactionId2" style="font-size: 11px; margin-bottom: 2px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_fac_id">Изменить фракцию (ID):</label>
+                    <input type="number" id="optFactionId2" value="-1" style="padding: 6px; height: 32px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+                <div style="flex: 1; min-width: 80px;">
+                    <label for="optFactionPoints2" style="font-size: 11px; margin-bottom: 2px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_fac_pts">Очки:</label>
+                    <input type="number" id="optFactionPoints2" value="100" style="padding: 6px; height: 32px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                </div>
+                <div style="flex: 1; min-width: 110px; display: flex; align-items: center; margin-top: 12px;">
+                    <input type="checkbox" id="optFactionDec2" style="width:16px; height:16px; cursor:pointer; margin-right:6px;">
+                    <label for="optFactionDec2" style="font-size: 11px; margin-bottom: 0px; cursor: pointer; white-space: nowrap; color: rgb(255, 85, 0);" data-i18n="lbl_opt_fac_dec">Отнимать очки</label>
+                </div>
+            </div>
+        </div>
+    </div></div>
 
 			<!-- БЛОК БЫСТРЫХ ШАБЛОНОВ ДЛЯ УСКОРЕННОГО ЗАПОЛНЕНИЯ -->
 <!-- БЛОК БЫСТРЫХ ШАБЛОНОВ ДЛЯ УСКОРЕННОГО ЗАПОЛНЕНИЯ -->
 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; background: rgba(0,0,0,0.1); padding: 8px 12px; border-radius: 4px; border: 1px dashed var(--border-color); user-select: none;">
-        <span style="font-size: 12px; opacity: 0.8; white-space: nowrap;" data-i18n="tmpl_branches_title">⚡ Быстрые шаблоны:</span>
-    <button type="button" onclick="applyQuickTemplate('guard')" data-i18n-title="ttl_tmpl_guard" title="Заполнить как диалог со стражником" style="padding: 4px 10px; background: #2b579a; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;" data-i18n="btn_tmpl_guard">⚔️ Стража</button>
-    <button type="button" onclick="applyQuickTemplate('villager')" data-i18n-title="ttl_tmpl_villager" title="Заполнить как диалог с жителем" style="padding: 4px 10px; background: #e0a800; color: #000; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;" data-i18n="btn_tmpl_villager">🌾 Житель</button>
-    <button type="button" onclick="applyQuickTemplate('trader')" data-i18n-title="ttl_tmpl_trader" title="Заполнить как диалог с торговцем" style="padding: 4px 10px; background: #1e7145; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;" data-i18n="btn_tmpl_trader">💰 Торговец</button>
+        <span style="font-size: 12px; opacity: 0.8; white-space: nowrap;" data-i18n="tmpl_branches_title">⚡ Шаблоны веток:</span>
+    <button type="button" onclick="applyQuickTemplate(&#39;guard&#39;)" data-i18n-title="ttl_tmpl_guard" title="Заполнить как диалог со стражником" style="padding: 4px 10px; background: #2b579a; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;" data-i18n="btn_tmpl_guard">⚔️ Стража</button>
+    <button type="button" onclick="applyQuickTemplate(&#39;villager&#39;)" data-i18n-title="ttl_tmpl_villager" title="Заполнить как диалог с жителем" style="padding: 4px 10px; background: #e0a800; color: #000; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;" data-i18n="btn_tmpl_villager">🌾 Житель</button>
+    <button type="button" onclick="applyQuickTemplate(&#39;trader&#39;)" data-i18n-title="ttl_tmpl_trader" title="Заполнить как диалог с торговцем" style="padding: 4px 10px; background: #1e7145; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;" data-i18n="btn_tmpl_trader">💰 Торг</button>
     
     <!-- Добавьте эту кнопку рядом с быстрыми шаблонами стражи/жителя -->
     <button type="button" onclick="generateNpcDialogue()" data-i18n-title="ttl_ai_plot" title="🎲 Сгенерировать полноценный случайный RPG сюжет" style="padding: 6px 14px; background: #7e3878; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; margin-left: 5px;" data-i18n="btn_ai_plot">🔮 ИИ-Генератор сюжета</button>
@@ -524,11 +676,11 @@
 <div id="moduleContentScripts" style="display: none; width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: -1px;">
     
     <!-- Карточка редактора -->
-    <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; position: relative;">
+    <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; position: relative; background-color: rgba(17, 2, 2, 0.85); border-color: rgb(255, 85, 0);">
         
         <!-- Шапка с дискетой -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none; width: 100%;">
-<div class="section-title" data-i18n="script_editor_title">💻 JavaScript Редактор (ECMAScript)</div>
+<div class="section-title" data-i18n="script_editor_title" style="color: rgb(255, 204, 0);">💻 JavaScript Редактор (ECMAScript)</div>
             <div style="display: flex; align-items: center; gap: 12px;">
                <!-- ИСПРАВЛЕНО: Добавлен маркер перевода всплывающей подсказки -->
 <button type="button" onclick="downloadNpcScript()" data-i18n-title="ttl_download_script" title="💾 Скачать этот скрипт (.js)" style="background: none; border: none; font-size: 21px; cursor: pointer; padding: 2px; line-height: 1;">💾</button>
@@ -540,8 +692,8 @@
            <span style="font-size: 13px; font-weight: bold;" data-i18n="script_generator_title">⚡ Автогенератор скрипта:</span>
             <div class="form-row" style="margin: 0; gap: 10px;">
                 <div class="form-group" style="flex: 1;">
-                    <label data-i18n="lbl_s_event">1. Когда сработает (Событие):</label>
-                    <select id="genEvent" style="height: 34px; padding: 4px;">
+                    <label data-i18n="lbl_s_event" style="color: rgb(255, 85, 0);">1. При срабатывании триггеров (событие):</label>
+                    <select id="genEvent" style="height: 34px; padding: 4px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                         <option value="interact" data-i18n="opt_ev_interact">Игрок кликнул на NPC (interact)</option>
                         <option value="init" data-i18n="opt_ev_init">NPC появился в мире (init)</option>
                         <option value="damaged" data-i18n="opt_ev_damaged">NPC получил урон (damaged)</option>
@@ -551,8 +703,8 @@
                     </select>
                 </div>
                 <div class="form-group" style="flex: 1;">
-                    <label data-i18n="lbl_s_action">2. Что сделать (Действие):</label>
-                    <select id="genAction" style="height: 34px; padding: 4px;">
+                    <label data-i18n="lbl_s_action" style="color: rgb(255, 85, 0);">2. Что делать (Действие):</label>
+                    <select id="genAction" style="height: 34px; padding: 4px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                         <option value="say" data-i18n="opt_act_say">NPC скажет сообщение в чат</option>
                         <option value="tp" data-i18n="opt_act_tp">Телепортировать игрока на XYZ</option>
                         <option value="particle" data-i18n="opt_act_particle">Создать эффект взрыва / частиц</option>
@@ -564,8 +716,8 @@
                 </div>
             </div>
             <div class="form-group" style="margin: 0;">
-                <label data-i18n="lbl_s_value">3. Значение (Текст сообщения или координаты X Y Z):</label>
-                <input type="text" id="genValue" value="Привет, путник!" data-i18n-ph="ph_s_value" placeholder="Пример: 100 64 -250 или Текст..." style="padding: 8px;">
+                <label data-i18n="lbl_s_value" style="color: rgb(255, 85, 0);">3. Значение (текст сообщения или координаты X, Y, Z):</label>
+                <input type="text" id="genValue" value="Привет, путник!" data-i18n-ph="ph_s_value" placeholder="Припример: 100 64 -250 или Текст..." style="padding: 8px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
             </div>
             <!-- Кнопки генератора скрипта -->
             <button type="button" onclick="generateNpcScriptCode()" data-i18n="btn_gen_code">Сгенерировать код в окно ниже ⚡</button>
@@ -574,8 +726,8 @@
 
         <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
         <div class="form-group">
-            <label for="scriptCodeArea" style="font-weight: bold;" data-i18n="lbl_s_area">Код скрипта (Напишите свой или используйте генератор):</label>
-            <textarea id="scriptCodeArea" data-i18n-ph="ph_s_area" placeholder="// Ваш JavaScript код для CustomNPCs..." style="width: 100%; height: 350px; font-family: 'Courier New', monospace; font-size: 13px; padding: 12px; box-sizing: border-box; resize: vertical; line-height: 1.5;"></textarea>
+            <label for="scriptCodeArea" style="font-weight: bold; color: rgb(255, 85, 0);" data-i18n="lbl_s_area">Код скрипта (Напишите свой или используйте генератор):</label>
+            <textarea id="scriptCodeArea" data-i18n-ph="ph_s_area" placeholder="// Ваш JavaScript код для CustomNPCs..." style="width: 100%; height: 350px; font-family: &quot;Courier New&quot;, monospace; font-size: 13px; padding: 12px; box-sizing: border-box; resize: vertical; line-height: 1.5; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);"></textarea>
         </div>
 
         <!-- ШПОРА-ПАМЯТКА ДЛЯ СКРИПТОВ ВНИЗУ КАРТОЧКИ -->
@@ -583,22 +735,22 @@
             <!-- Заголовок библиотеки -->
             <span data-i18n="lib_title">📌 Библиотека готовых Java-функций (Кликните для вставки):</span>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <button type="button" onclick="insertScriptTemplate('msg')" data-i18n="btn_lib_msg" style="padding: 6px 12px; background: #2b579a; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">💬 Сказать в чат</button>
-                <button type="button" onclick="insertScriptTemplate('sound')" data-i18n="btn_lib_sound" style="padding: 6px 12px; background: #e0a800; color:#000; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🔊 Воспроизвести звук</button>
-                <button type="button" onclick="insertScriptTemplate('particle')" data-i18n="btn_lib_particle" style="padding: 6px 12px; background: #1e7145; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">✨ Взрыв частиц</button>
-                <button type="button" onclick="insertScriptTemplate('potion')" data-i18n="btn_lib_potion" style="padding: 6px 12px; background: #ff5500; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🧪 Выдать эффект зелья</button>
-                <button type="button" onclick="insertScriptTemplate('random')" data-i18n="btn_lib_random" style="padding: 6px 12px; background: #7e3878; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🎲 Случайный набор (Рандом)</button>
+                <button type="button" onclick="insertScriptTemplate(&#39;msg&#39;)" data-i18n="btn_lib_msg" style="padding: 6px 12px; background: #2b579a; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">💬 Сказать в чат</button>
+                <button type="button" onclick="insertScriptTemplate(&#39;sound&#39;)" data-i18n="btn_lib_sound" style="padding: 6px 12px; background: #e0a800; color:#000; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🔊 Воспроизвести звук</button>
+                <button type="button" onclick="insertScriptTemplate(&#39;particle&#39;)" data-i18n="btn_lib_particle" style="padding: 6px 12px; background: #1e7145; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">✨ Взрыв частиц</button>
+                <button type="button" onclick="insertScriptTemplate(&#39;potion&#39;)" data-i18n="btn_lib_potion" style="padding: 6px 12px; background: #ff5500; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🧪 Выдать эффект зелья</button>
+                <button type="button" onclick="insertScriptTemplate(&#39;random&#39;)" data-i18n="btn_lib_random" style="padding: 6px 12px; background: #7e3878; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🎲 Случайный набор (Рандом)</button>
 				<!-- Дописать эти три кнопки прямо в блок кнопок-памяток для скриптов -->
-                <button type="button" onclick="insertScriptTemplate('scale')" data-i18n="btn_lib_scale" style="padding: 6px 12px; background: #00aba9; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🦖 Изменить размер NPC</button>
-                <button type="button" onclick="insertScriptTemplate('alarm')" data-i18n="btn_lib_alarm" style="padding: 6px 12px; background: #e51400; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🚨 Режим Сирены / Тревоги</button>
-                <button type="button" onclick="insertScriptTemplate('meteor')" data-i18n="btn_lib_meteor" style="padding: 6px 12px; background: #60a917; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">💥 Метеоритный дождь</button>
+                <button type="button" onclick="insertScriptTemplate(&#39;scale&#39;)" data-i18n="btn_lib_scale" style="padding: 6px 12px; background: #00aba9; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🦖 Изменить размер NPC</button>
+                <button type="button" onclick="insertScriptTemplate(&#39;alarm&#39;)" data-i18n="btn_lib_alarm" style="padding: 6px 12px; background: #e51400; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🚨 Режим Сирены / Тревоги</button>
+                <button type="button" onclick="insertScriptTemplate(&#39;meteor&#39;)" data-i18n="btn_lib_meteor" style="padding: 6px 12px; background: #60a917; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">💥 Метеоритный дождь</button>
 				<!-- Кнопка вызова мини-плеера частиц -->
-<button type="button" onclick="openParticlePreviewer()" title="📺 Открыть монитор просмотра частиц (Превью эффектов)" style="background: #2a2a2a; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 10px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" onmouseout="this.style.background='#2a2a2a'; this.style.color='#ffcc00';">📺</button>
+<button type="button" onclick="openParticlePreviewer()" title="📺 Открыть монитор просмотра частиц (Превью эффектов)" style="background: #2a2a2a; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 10px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background=&#39;#ffcc00&#39;; this.style.color=&#39;#000&#39;;" onmouseout="this.style.background=&#39;#2a2a2a&#39;; this.style.color=&#39;#ffcc00&#39;;">📺</button>
 
             </div>
         </div>
 <!-- МОДАЛЬНОЕ ОКНО-СИМУЛЯТОР ДИАЛОГОВ CUSTOMNPC -->
-<div id="dialogSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20000; justify-content: center; align-items: center; user-select: none; font-family: 'Minecraft', sans-serif;">
+<div id="dialogSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20000; justify-content: center; align-items: center; user-select: none; font-family: &#39;Minecraft&#39;, sans-serif;">
     <div style="background: #141414; border: 2px solid #ffcc00; padding: 20px; border-radius: 8px; width: 500px; box-shadow: 0 0 25px rgba(255,204,0,0.4); position: relative;">
         
         <!-- Кнопка закрытия симулятора -->
@@ -630,65 +782,49 @@
 <div id="moduleContentQuests" style="display: none; width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: -1px;">
     
     <!-- Сворачиваемая карточка параметров квеста (Полная симметрия с диалогами!) -->
-    <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; position: relative; display: flex; flex-direction: column; gap: 15px;">
-        
-        <!-- КНОПКА ГЕНЕРАТОРА СЮЖЕТНЫХ КВЕСТОВ -->
-        <div style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.1); padding: 8px 12px; border-radius: 4px; border: 1px dashed var(--border-color); user-select: none; width: 100%; box-sizing: border-box;">
-            <span style="font-size: 12px; opacity: 0.8; white-space: nowrap;" data-i18n="lbl_story_quests">⚡ Сюжетные квесты:</span>
-           <!-- ИСПРАВЛЕНО: Добавлен маркер перевода всплывающей подсказки title -->
-<button type="button" onclick="generateRandomQuest()" data-i18n-title="ttl_ai_quest" title="🎲 Сгенерировать случайное сюжетное задание (Хоррор / Техно / RPG)" style="padding: 4px 12px; background: #7e3878; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;" data-i18n="btn_ai_quest">🔮 ИИ-Генератор задания</button>
-   </div>
+    <!-- Сворачиваемая карточка параметров квеста (Новая разметка) -->
+    <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+<!-- ИСПРАВЛЕННЫЙ СТАБИЛЬНЫЙ ЗАГОЛОВОК ПЕРВОГО ЗАДАНИЯ -->
+<div style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 16px; color: rgb(255, 204, 0); user-select: none;" onclick="toggleQuestParamsVisibility()">
+    <span id="questFoldArrow">▼</span> 
+    <span data-i18n="quest_header">Задание</span> №1 (ID: 1) : [<span id="displayQuestTitle" style="color: var(--accent-color);">Логистический Кризис</span>]
+</div>
 
-        <!-- Интерактивная шапка со стрелочкой (Всё выстроено строго в одну горизонтальную линию) -->
-        <div style="display: flex; justify-content: space-between; align-items: center; user-select: none; width: 100%; box-sizing: border-box;">
-            <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="toggleQuestParamsVisibility()">
-                <span id="questFoldArrow" style="font-size: 14px; user-select: none;">▼</span> <span data-i18n="quest_header">Параметры задания</span>: <span id="displayQuestTitle" style="color: var(--accent-color);">Neww</span>
+                <button type="button" onclick="generateRandomQuest()" style="padding: 4px 12px; background: #7e3878; color: #fff; border-radius: 4px; cursor: pointer; font-size: 12px;" data-i18n="btn_ai_quest">🔮 ИИ-Генератор задания</button>
             </div>
-            
-            <!-- Правая зона с дискетой и шестерёнкой жестко зафиксирована в ряд -->
-            <div style="display: flex; align-items: center; gap: 14px; position: relative; white-space: nowrap;">
-               <!-- ИСПРАВЛЕНО: Добавлен маркер перевода всплывающей подсказки -->
-<button type="button" onclick="generateAndDownloadQuestBase()" data-i18n-title="ttl_download_quest" title="💾 Скачать базовый квест (.json)" style="background: none; border: none; font-size: 21px; cursor: pointer; padding: 2px; line-height: 1;">💾</button>
-
-        <!-- Правая зона с дискетой и кнопкой цепочки жестко зафиксирована в ряд (БЕЗ ЛИШНИХ ШЕСТЕРЁНОК!) -->
-        <div style="display: flex; align-items: center; gap: 14px; position: relative; white-space: nowrap;">
-            <!-- Кнопка 1: Создание следующего квеста в цепочке (Доступна сразу в один клик!) -->
-            <button type="button" onclick="createNewQuestChainBlock(event)" data-i18n-title="ttl_quest_chain" title="⚔️ Добавить следующее задание в цепочку" style="background: none; border: none; font-size: 21px; cursor: pointer; padding: 2px; line-height: 1;">⚔️</button>
-        </div>
-
+            <div style="display: flex; align-items: center; gap: 14px; flex-shrink: 0;">
+                <button type="button" onclick="generateAndDownloadQuestBase()" style="background: none; border: none; font-size: 21px; cursor: pointer;">💾</button>
+                <button type="button" onclick="createNewQuestChainBlock(event)" style="background: none; border: none; font-size: 21px; cursor: pointer;">⚔️</button>
             </div>
         </div>
+        <div id="questParamsWrapper" style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
 
-
-
-
-        <!-- Тело квеста (Сворачивается по клику на стрелочку) -->
-        <div id="questParamsWrapper" style="display: flex; flex-direction: column; gap: 15px; width: 100%; box-sizing: border-box;">
-            
             <!-- Ряд 1: Название квеста и Кто принимает -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="questTitle" data-i18n="lbl_q_title">Название квеста (Title)</label>
-                   <input type="text" id="questTitle" value="Neww" oninput="const disp = document.getElementById('displayQuestTitle'); if(disp) disp.innerText = this.value || 'Без названия';">
-               </div>
+                    <label for="questTitle" data-i18n="lbl_q_title" style="color: rgb(255, 85, 0);">Название квеста (Title)</label>
+                   <input type="text" id="questTitle" value="Логистический Кризис" oninput="const disp = document.getElementById('displayQuestTitle'); if(disp) disp.innerText = this.value || 'Без названия';">
+  </div>
                 <div class="form-group">
-                    <label for="questCompleter" data-i18n="lbl_q_npc">Кто принимает квест (CompleterNpc)</label>
-                    <input type="text" id="questCompleter" value="Takeda Nobunao" data-i18n-ph="ph_q_npc" placeholder="Имя NPC в игре...">
+                    <label for="questCompleter" data-i18n="lbl_q_npc" style="color: rgb(255, 85, 0);">Кто принимает квест (CompleterNpc)</label>
+                    <input type="text" id="questCompleter" value="Takeda Nobunao" data-i18n-ph="ph_q_npc" placeholder="Имя NPC в игре..." style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                 </div>
             </div>
 
             <!-- Большое текстовое поле: Описание задания -->
             <div class="form-group">
-                <label for="questText" data-i18n="lbl_q_text">Описание задания для журнала игрока (Text)</label>
-                <textarea id="questText" data-i18n-ph="ph_q_text" placeholder="Что нужно сделать игроку... Опишите суть квеста подробнее."></textarea>
+                <label for="questText" data-i18n="lbl_q_text" style="color: rgb(255, 85, 0);">Описание задания для журнала игрока (Text)</label>
+                <textarea id="questText" data-i18n-ph="ph_q_text" placeholder="Что нужно сделать игроку..." style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);"></textarea>
          </div>
 
             <!-- Ряд 2: Повторяемость и Логика завершения -->
             <div class="form-row">
                 <div class="form-group">
 <!-- Базовые поля первой карточки квестов -->
-<label for="questRepeat" data-i18n="lbl_q_repeat">Повторяемость квеста (QuestRepeat)</label>
-                    <select id="questRepeat" style="height: 38px;">
+<label for="questRepeat" data-i18n="lbl_q_repeat" style="color: rgb(255, 85, 0);">Повторяемость квеста (QuestRepeat)</label>
+                    <select id="questRepeat" style="height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                         <option value="0" data-i18n="opt_repeat_0">Нет (0)</option>
                         <option value="1" data-i18n="opt_repeat_1">Да / Постоянно (1)</option>
                         <option value="2" data-i18n="opt_repeat_2">Ежедневно (2)</option>
@@ -699,8 +835,8 @@
 
                 </div>
 <div class="form-group">
-                    <label for="questType" data-i18n="lbl_q_type">Тип задания (Type)</label>
-                    <select id="questType" style="height: 38px;">
+                    <label for="questType" data-i18n="lbl_q_type" style="color: rgb(255, 85, 0);">Тип задания (Type)</label>
+                    <select id="questType" style="height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                         <option value="0" data-i18n="opt_q_type_0">Принести вещи (0)</option>
                         <option value="1" data-i18n="opt_q_type_1">Зона убийства (1)</option>
                         <option value="2" data-i18n="opt_q_type_2">На Диалог (2)</option>
@@ -715,40 +851,40 @@
             <div class="form-row">
                 <div class="form-row" style="width: 100%; gap: 15px; margin: 0;">
                     <div class="form-group">
-                        <label for="questRewardExp" data-i18n="lbl_q_exp">Награда: Опыт игрока (RewardExp)</label>
-                        <input type="number" id="questRewardExp" value="0" min="0">
+                        <label for="questRewardExp" data-i18n="lbl_q_exp" style="color: rgb(255, 85, 0);">Награда: Опыт игрока (RewardExp)</label>
+                        <input type="number" id="questRewardExp" value="0" min="0" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                     </div>
                     <div class="form-group">
-                        <label for="questNextId" data-i18n="lbl_q_next">ID следующего квеста в цепочке (-1 если нет)</label>
-                        <input type="number" id="questNextId" value="-1">
+                        <label for="questNextId" data-i18n="lbl_q_next" style="color: rgb(255, 85, 0);">ID следующего квеста в цепочке (-1 если нет)</label>
+                        <input type="number" id="questNextId" value="-1" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                     </div>
                 </div>
             </div>
 
             <!-- Большое текстовое поле: Текст при успешном завершении -->
             <div class="form-group">
-                <label for="questCompleteText" data-i18n="lbl_q_comp_text">Текст NPC при сдаче квеста (CompleteText)</label>
-                <textarea id="questCompleteText" data-i18n-ph="ph_q_comp_text" placeholder="Спасибо тебе, выручил! Вот твоя обещанная награда..."></textarea>
+                <label for="questCompleteText" data-i18n="lbl_q_comp_text" style="color: rgb(255, 85, 0);">Текст NPC при сдаче квеста (CompleteText)</label>
+                <textarea id="questCompleteText" data-i18n-ph="ph_q_comp_text" placeholder="Отличная работа воина..." style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);"></textarea>
             </div>
             <!-- Новое поле консольной команды квеста -->
             <div class="form-group" style="margin-top: 5px;">
-                <label for="questCommand" data-i18n="lbl_q_cmd">Консольная команда при завершении задания (QuestCommand)</label>
-                <input type="text" id="questCommand" data-i18n-ph="ph_q_cmd" placeholder="Команда консоли при сдаче (без косой черты), например: give @dp diamond 5..." style="width: 100%; box-sizing: border-box; padding: 10px;">
+                <label for="questCommand" data-i18n="lbl_q_cmd" style="color: rgb(255, 85, 0);">Консольная команда при завершении задания (QuestCommand)</label>
+                <input type="text" id="questCommand" data-i18n-ph="ph_q_cmd" placeholder="Команда консоли при сдаче (например: give @dp diamond 5)..." style="width: 100%; box-sizing: border-box; padding: 10px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
                 <small style="font-size: 11px; opacity: 0.6; display: block; margin-top: 4px; color: inherit;" data-i18n="hint_q_cmd">Подсказка мода: Используйте @dp для применения на игрока, активировавшего это событие.</small>
             </div>
             <!-- Чекбоксы тонких настроек задания мода -->
             <div class="form-row">
                 <div class="form-group checkbox-group">
-                    <input type="checkbox" id="questRandomReward">
-                    <label for="questRandomReward" data-i18n="lbl_q_chk_rand">Случайная награда (RandomReward)</label>
+                    <input type="checkbox" id="questRandomReward" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                    <label for="questRandomReward" data-i18n="lbl_q_chk_rand" style="color: rgb(255, 85, 0);">Случайная награда</label>
                 </div>
                 <div class="form-group checkbox-group">
-                    <input type="checkbox" id="questIgnoreNBT">
-                    <label for="questIgnoreNBT" data-i18n="lbl_q_chk_nbt">Игнорировать NBT предметов</label>
+                    <input type="checkbox" id="questIgnoreNBT" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                    <label for="questIgnoreNBT" data-i18n="lbl_q_chk_nbt" style="color: rgb(255, 85, 0);">Игнорировать NBT предметов</label>
                 </div>
                 <div class="form-group checkbox-group">
-                    <input type="checkbox" id="questLeaveItems">
-                    <label for="questLeaveItems" data-i18n="lbl_q_chk_leave">Оставлять предметы квеста</label>
+                    <input type="checkbox" id="questLeaveItems" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                    <label for="questLeaveItems" data-i18n="lbl_q_chk_leave" style="color: rgb(255, 85, 0);">Оставлять предметы квеста</label>
                 </div>
             </div>
 
@@ -770,7 +906,7 @@
 <!-- ==========================================================================
    ИЗОЛИРОВАННЫЙ ВЫДВИЖНОЙ БЛОКНОТ NOTEPAD++ (ВСТАВЛЯТЬ СТРОГО СЮДА!)
    ========================================================================== -->
-<div id="notesDrawerPanel" class="npc-drawer-right" style="position: fixed; top: 0; right: -320px; width: 300px; height: 100vh; background: #242424; border-left: 2px solid var(--border-color); box-shadow: -5px 0px 15px rgba(0,0,0,0.5); z-index: 999999; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; transition: right 0.3s ease;">    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed var(--border-color, #808080); padding-bottom: 8px;">
+<div id="notesDrawerPanel" class="npc-drawer-right" style="position: fixed; top: 0px; right: -320px; width: 300px; height: 100vh; background: rgb(17, 2, 2); border-left-width: ; border-left-style: ; border-color: rgb(255, 85, 0); box-shadow: rgba(0, 0, 0, 0.5) -5px 0px 15px; z-index: 999999; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; transition: right 0.3s;">    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed var(--border-color, #808080); padding-bottom: 8px;">
        <span style="font-weight: bold;" data-i18n="notes_title">📝 Заметки сценариста</span>
         <button type="button" onclick="toggleNotesDrawer()" style="background: none; border: none; color: #ff3333; cursor: pointer; font-size: 14px; font-weight: bold;">[❌]</button>
     </div>
@@ -792,14 +928,14 @@
     </div>
     <div style="display: flex; align-items: center; gap: 5px; margin: 8px 0;">
         <span style="font-size: 13px; user-select: none;">🔍</span>
-        <input type="text" id="notesSearchInput" data-i18n-ph="ph_notes_search" placeholder="Поиск слова...">
+        <input type="text" id="notesSearchInput" data-i18n-ph="ph_notes_search" placeholder="Поиск слова..." style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
         <button type="button" onclick="navigateSearch(-1)" style="padding: 2px 5px; background: #333; color: #fff; border: 1px solid #555; border-radius: 3px; cursor: pointer; font-size: 10px;">◀</button>
         <button type="button" onclick="navigateSearch(1)" style="padding: 2px 5px; background: #333; color: #fff; border: 1px solid #555; border-radius: 3px; cursor: pointer; font-size: 10px;">▶</button>
     </div>
     <!-- ИСПРАВЛЕНО: Добавлен маркер локализации подсказки ввода -->
     <!-- Текстовое поле блокнота -->
        <!-- Текстовое поле блокнота -->
-    <textarea id="authorNotes" placeholder="Пишите пометки здесь..." style="flex: 1; resize: none; font-family: 'Courier New', monospace; font-size: 12px; padding: 8px; box-sizing: border-box; width: 100%; color: inherit; background: inherit;"></textarea>
+    <textarea id="authorNotes" placeholder="Пишите пометки здесь..." style="flex: 1 1 0%; resize: none; font-family: &quot;Courier New&quot;, monospace; font-size: 12px; padding: 8px; box-sizing: border-box; width: 100%; color: rgb(255, 255, 255); background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(51, 51, 51); opacity: 1; border-color: rgb(255, 85, 0);"></textarea>
     
     <!-- ИСПРАВЛЕНО: Два независимых блока. Название слева защищено, статус справа обновляется! -->
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box; padding: 0 4px; margin-top: 4px; font-size: 10px; opacity: 0.6; user-select: none;">
@@ -810,7 +946,7 @@
 </div>
 
 <!-- ЛЕВАЯ ВЫДВИЖНОЙ ПАНЕЛЬ-ШПАРГАЛКА (Зафиксирована слева экрана) -->
-<div id="cheatSheetDrawerPanel" class="section" style="position: fixed; top: 0; left: -320px; width: 300px; height: 100vh; background: var(--panel-bg, #c0c0c0); border: none; border-right: 3px double var(--accent-color, #000080); box-shadow: 5px 0 15px rgba(0,0,0,0.3); z-index: 999999; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; transition: left 0.3s ease;">
+<div id="cheatSheetDrawerPanel" class="section" style="position: fixed; top: 0px; left: -320px; width: 300px; height: 100vh; background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: ; background-color: rgba(17, 2, 2, 0.85); border-top: none rgb(255, 85, 0); border-bottom: none rgb(255, 85, 0); border-left: none rgb(255, 85, 0); border-image: initial; border-right-width: ; border-right-style: ; border-right-color: rgb(255, 85, 0); box-shadow: rgba(0, 0, 0, 0.3) 5px 0px 15px; z-index: 999999; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; transition: left 0.3s;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed var(--border-color, #808080); padding-bottom: 8px;">
         <span style="font-weight: bold;" data-i18n="cheat_title">📖 Справочник команд 1.12.2</span>
         <button type="button" onclick="toggleCheatSheetDrawer()" style="background: none; border: none; color: #ff3333; cursor: pointer; font-size: 14px; font-weight: bold;">[❌]</button>
@@ -819,7 +955,7 @@
     <!-- Интерактивный живой поиск по шпаргалке -->
     <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 12px;">
         <span style="font-size: 13px; user-select: none;">🔍</span>
-        <input type="text" id="cheatSearchInput" oninput="filterCheatSheet()" placeholder="Фильтр по названию или команде..." style="padding: 4px 6px; font-size: 11px; flex: 1; width: 100%;">
+        <input type="text" id="cheatSearchInput" oninput="filterCheatSheet()" placeholder="Фильтр по названию или команде..." style="padding: 4px 6px; font-size: 11px; flex: 1 1 0%; width: 100%; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
     </div>
 
     <!-- Прокручиваемый список команд -->
@@ -945,7 +1081,7 @@
         
         <!-- Карточка команды 1 (Повторные) -->
         <div class="cheat-item" style="background: rgba(0,0,0,0.1); padding: 8px; border-radius: 4px; border-left: 3px solid var(--accent-color);">
-            <b style="color: var(--accent-color); display: block; margin-bottom: 2px;" data-i18n="ch_t_give">💎 Выдача предметов</b>
+            <b style="color: var(--accent-color); display: block; margin-bottom: 2px;" data-i18n="ch_t_give">💎 Выдача предметов (Give)</b>
             <span style="opacity: 0.8; display: block; margin-bottom: 4px; font-size: 11px;" data-i18n="ch_d_give_alt">Выдаёт ресурсы игроку. Подсказка мода: используйте @dp.</span>
             <code style="background: rgba(0,0,0,0.2); padding: 2px 4px; border-radius: 3px; display: block; word-break: break-all; font-family: monospace;">give @dp minecraft:diamond 5</code>
         </div>
@@ -959,7 +1095,7 @@
 
         <!-- Карточка команды 3 -->
         <div class="cheat-item" style="background: rgba(0,0,0,0.1); padding: 8px; border-radius: 4px; border-left: 3px solid var(--accent-color);">
-            <b style="color: var(--accent-color); display: block; margin-bottom: 2px;" data-i18n="ch_t_xp">✨ Начисление опыта</b>
+            <b style="color: var(--accent-color); display: block; margin-bottom: 2px;" data-i18n="ch_t_xp">✨ Начисление опыта (XP)</b>
             <span style="opacity: 0.8; display: block; margin-bottom: 4px; font-size: 11px;" data-i18n="ch_d_xp_alt">Добавляет очки опыта (points) игроку.</span>
             <code style="background: rgba(0,0,0,0.2); padding: 2px 4px; border-radius: 3px; display: block; word-break: break-all; font-family: monospace;">xp add @dp 500 points</code>
         </div>
@@ -1148,6 +1284,9 @@ function toggleAdvancedSettings(event) {
 
 // ВРЕМЕННАЯ ФУНКЦИЯ-ЗАГЛУШКА ДЛЯ СВИТКА (Для добавления второго диалога)
 // Счетчик для уникальных ID дополнительных диалогов в ленте
+// ИСПРАВЛЕННАЯ ФУНКЦИЯ СОЗДАНИЯ ЦЕПОЧКИ ДИАЛОГОВ
+// ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ ФУНКЦИЯ ЦЕПОЧКИ ДИАЛОГОВ
+// НАДЁЖНАЯ СТАБИЛЬНАЯ ФУНКЦИЯ ДЛЯ ДИАЛОГОВ
 let extraDialogCount = 0;
 
 function createNewDialogChainBlock(event) {
@@ -1162,33 +1301,56 @@ function createNewDialogChainBlock(event) {
     extraDialogCount++;
     const currentExtraId = extraDialogCount;
 
-    const baseIdVal = parseInt(document.getElementById('dialogId').value) || 1;
-    const nextDialogId = baseIdVal + currentExtraId;
+    // 1. Считаем, сколько доп. диалогов уже создано на экране
+    const allExistingExtraDialogs = document.querySelectorAll('[id^="extraParamsWrapper_"]');
+    const displayNum = allExistingExtraDialogs.length + 1;
 
+    // 2. ИСПРАВЛЕННЫЙ НАДЁЖНЫЙ РАСЧЁТ ID ДЛЯ ФАЙЛА (Заменяем старые две строчки на этот блок)
+    let nextDialogId = 2; // По умолчанию, если это первая доп. карточка
+    
+    if (allExistingExtraDialogs.length > 0) {
+        // Если на экране уже есть другие доп. карточки, ищем ID самой последней из них
+        const lastWrapper = allExistingExtraDialogs[allExistingExtraDialogs.length - 1];
+        // Вытаскиваем технический номер последней карточки из её ID
+        const lastIdMatch = lastWrapper.id.match(/\d+/);
+        if (lastIdMatch) {
+            const lastExtraId = lastIdMatch[0];
+            const lastIdInput = document.getElementById(`extraDialogId_${lastExtraId}`);
+            if (lastIdInput) {
+                // Берём значение из инпута последнего живого диалога и прибавляем строго +1
+                nextDialogId = (parseInt(lastIdInput.value) || 1) + 1;
+            }
+        }
+    } else {
+        // Если на экране вообще нет доп. карточек, берём ID из основного диалога №0 и прибавляем строго +1
+        const mainIdInput = document.getElementById('dialogId');
+        if (mainIdInput) {
+            nextDialogId = (parseInt(mainIdInput.value) || 1) + 1;
+        }
+    }
     const extraBlock = document.createElement('div');
     extraBlock.className = 'section';
     extraBlock.id = `extraDialogBlock_${currentExtraId}`;
     extraBlock.style.cssText = "margin-top: 25px; border-left: 5px solid var(--accent-color); position: relative; width: 100%; box-sizing: border-box;";
 
-    // ВШИВАЕМ ПАРАМЕТРЫ И СЕКЦИЮ ВАРИАНТОВ ОТВЕТОВ В ОДИН ШАБЛОН (С ПОДДЕРЖКОЙ ЛОКАЛИЗАЦИИ)
+    // 3. Собираем разметку (Кавычки внутри querySelector убраны, чтобы Notepad++ не красил код в розовый!)
     extraBlock.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none;">
-<!-- Заголовок карточки дополнительного диалога внутри генератора -->
-<!-- Заголовок карточки дополнительного диалога -->
-<div class="section-title" style="margin:0; cursor:pointer;" onclick="toggleExtraParamsVisibility(${currentExtraId})">
-    <span id="extraFoldArrow_${currentExtraId}">▼</span> 
-        <span data-i18n="extra_dialog_header" style="font-size: 14px;">Дополнительный диалог</span>     №${currentExtraId} (ID: ${nextDialogId})</span>
-    <span id="extraDialogTitleSpan_${currentExtraId}" style="color: #ffcc00; font-weight: bold; margin-left: 5px;"> — [Chain Part ${currentExtraId}]</span>
-</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none; width: 100%;">
+            <!-- Заголовок карточки дополнительного диалога -->
+<div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="toggleExtraParamsVisibility(${currentExtraId})">
+                <span id="extraFoldArrow_${currentExtraId}">▼</span> 
+                <span data-i18n="extra_dialog_header">Дополнительный диалог</span> №${displayNum} (ID: <span id="displayDialogId_${currentExtraId}">${nextDialogId}</span>) — [<span id="extraDialogTitleSpan_${currentExtraId}" style="color: var(--accent-color);">Chain Part ${displayNum}</span>]
+            </div>
 
 
             <!-- Правая зона: Сбор кнопок доп. диалога (Дискета, Удаление, и локальная Шестерёнка ⚙️) -->
-            <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 14px; flex-shrink: 0;">
                 <button type="button" onclick="downloadExtraDialogJson(${currentExtraId})" title="Скачать этот диалог (.json)" style="background: none; border: none; font-size: 21px; font-weight: 900; cursor: pointer; padding: 2px; line-height: 1;">💾</button>
                 <span onclick="safeRemoveExtraDialog(${currentExtraId})" title="Удалить этот диалог" style="font-size: 18px; cursor: pointer; color: #ff3333; font-weight: bold; line-height: 1; user-select: none;">❌</span>
                 <span onclick="toggleExtraAdvancedSettings(${currentExtraId}, event)" title="🔒 Условия доступности этого диалога" style="font-size: 21px; cursor: pointer; user-select: none; padding: 2px; line-height: 1;">🔒</span>
             </div>
         </div>
+
         
         <div id="extraParamsWrapper_${currentExtraId}" style="display: flex; flex-direction: column; gap: 15px;">
             <div class="form-row">
@@ -1196,10 +1358,12 @@ function createNewDialogChainBlock(event) {
                     <label data-i18n="lbl_dialog_id">ID Диалога (DialogId)</label>
                     <input type="number" id="extraDialogId_${currentExtraId}" value="${nextDialogId}">
                 </div>
-              <div class="form-group">
-    <label data-i18n="lbl_dialog_title">Название диалога (DialogTitle)</label>
-    <input type="text" id="extraDialogTitle_${currentExtraId}" value="Chain Part ${currentExtraId}" oninput="const span = document.getElementById('extraDialogTitleSpan_${currentExtraId}'); if(span) span.textContent = this.value ? ' — [' + this.value + ']' : '';">
+<div class="form-group" style="flex: 1;">
+    <label data-i18n="lbl_dialog_title" style="color: var(--accent-color); font-weight: bold;">Название диалога (DialogTitle)</label>
+    <!-- ИСПРАВЛЕНО: Теперь value берёт ровный displayNum вместо старого счётчика -->
+    <input type="text" id="extraDialogTitle_${currentExtraId}" value="Chain Part ${displayNum}" oninput="const span = document.getElementById('extraDialogTitleSpan_${currentExtraId}'); if(span) span.textContent = this.value || 'Без названия';" style="width: 100%; padding: 10px; background-color: rgb(51, 51, 51); border: 1px solid var(--border-color); border-radius: 4px; color: #fff;">
 </div>
+
   </div>
             <div class="form-group">
                 <label data-i18n="lbl_dialog_text">Текст NPC (DialogText)</label>
@@ -1273,17 +1437,13 @@ function createNewDialogChainBlock(event) {
         </div>
     `;
 
-
-
-// ИСПРАВЛЕНИЕ: Вставляем доп. диалоги строго внутрь рабочей зоны диалогов
-const dialogsWrapper = document.getElementById('moduleContentDialogs');
-if (dialogsWrapper) {
-    dialogsWrapper.appendChild(extraBlock);
-} else {
-    const container = document.querySelector('.container');
-    if (container) container.appendChild(extraBlock);
-}
-
+    // Вставляем диалог строго внутрь рабочей зоны диалогов
+    const dialogsWrapper = document.getElementById('moduleContentDialogs');
+    if (dialogsWrapper) {
+        dialogsWrapper.appendChild(extraBlock);
+    } else {
+        if (container) container.appendChild(extraBlock);
+    }
 
     // Автоматически генерируем 3 стартовые ретро-кнопки ответов для этого нового блока
     addOptionToExtraDialog(currentExtraId);
@@ -1292,8 +1452,6 @@ if (dialogsWrapper) {
 
     const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
     if (typeof setTheme === 'function') setTheme(savedTheme);
-	
-	
 }
 
 function setTheme(theme) {
@@ -2031,6 +2189,38 @@ function generateRandomQuest() {
         displayTitleSpan.innerText = title;
     }
 }
+
+// Функция ИИ-генератора для ДОПОЛНИТЕЛЬНЫХ заданий
+// ИСПРАВЛЕННАЯ УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ДЛЯ ДОП-ЗАДАНИЙ
+function generateRandomSubQuest(extraId) {
+    const subTemplates = [
+        { title: "Сбор образцов", text: "Соберите 5 единиц радиоактивной руды в заброшенной шахте." },
+        { title: "Зачистка периметра", text: "Униответжьте мутантов, прорвавшихся к нижнему уровню лаборатории." },
+        { title: "Тайная посылка", text: "Найдите заброшенный почтовый ящик около старой башни." }
+    ];
+
+    const randomQuest = subTemplates[Math.floor(Math.random() * subTemplates.length)];
+
+    // ИСПРАВЛЕНО: Ищем инпуты прямо внутри контейнера карточки по её уникальному ID обёртки
+    const wrapper = document.getElementById(`extraQuestParamsWrapper_${extraId}`);
+    if (wrapper) {
+        // Ищем инпут названия и текстовое поле описания по их тегам/классам внутри этого контейнера
+        const titleInput = wrapper.querySelector('input[type="text"]');
+        const textInput = wrapper.querySelector('textarea');
+
+        if (titleInput && textInput) {
+            titleInput.value = randomQuest.title;
+            textInput.value = randomQuest.text;
+
+            // Триггерим события, чтобы обновились заголовки плашек
+            titleInput.dispatchEvent(new Event('input'));
+            textInput.dispatchEvent(new Event('change'));
+            return; // Выходим из функции, всё успешно заполнен
+        }
+    }
+    console.error(`Не удалось найти инпуты для дополнительного задания с ID: ${extraId}`);
+}
+
 
 
 function generateAndDownload() {
@@ -2889,20 +3079,35 @@ function createNewQuestChainBlock(event) {
         prevInput = document.getElementById(`extraQuestNextId_${currentExtraId - 1}`);
     }
 
-    // Рассчитываем ID для нового квеста
-    let baseIdVal = 1;
-    if (currentExtraId === 1) {
-        baseIdVal = parseInt(document.getElementById('questNextId').value);
+    // ПРОВЕРКА: Если на странице физически нет прошлых инпутов доп-заданий, 
+    // принудительно считаем, что мы создаем самое первое доп. задание с чистого листа
+    const allExistingExtras = document.querySelectorAll('[id^="extraQuestParamsWrapper_"]');
+    
+    if (currentExtraId === 1 || allExistingExtras.length === 0) {
+        // Безопасно ищем инпут основного квеста
+        const mainNextIdInput = document.getElementById('questNextId');
+        baseIdVal = mainNextIdInput ? parseInt(mainNextIdInput.value) : 2;
+        
         if (baseIdVal === -1 || isNaN(baseIdVal)) {
             baseIdVal = 2; // Если стояло -1, ставим авто-продолжение 2
-            document.getElementById('questNextId').value = 2; // Связываем базовый квест с этим
+            if (mainNextIdInput) mainNextIdInput.value = 2; // Связываем базовый квест с этим
         }
     } else {
-        baseIdVal = parseInt(prevInput.value);
-        if (baseIdVal === -1 || isNaN(baseIdVal)) {
-            const prevRealId = parseInt(document.getElementById(`extraQuestId_${currentExtraId - 1}`).value) || 1;
+        // Если переменная prevInput была объявлена выше, проверяем, существует ли её элемент на странице
+        if (typeof prevInput !== 'undefined' && prevInput) {
+            baseIdVal = parseInt(prevInput.value);
+            if (baseIdVal === -1 || isNaN(baseIdVal)) {
+                const prevRealIdInput = document.getElementById(`extraQuestId_${currentExtraId - 1}`);
+                const prevRealId = prevRealIdInput ? parseInt(prevRealIdInput.value) : 1;
+                baseIdVal = prevRealId + 1;
+                prevInput.value = baseIdVal; // Связываем предыдущий квест с текущим новым
+            }
+        } else {
+            // Запасной вариант на случай, если prevInput не определен: берем ID последнего реально существующего на экране блока
+            const lastExtraIdSpan = allExistingExtras[allExistingExtras.length - 1].id.split('_')[1];
+            const prevRealIdInput = document.getElementById(`extraQuestId_${lastExtraIdSpan}`);
+            const prevRealId = prevRealIdInput ? parseInt(prevRealIdInput.value) : 1;
             baseIdVal = prevRealId + 1;
-            prevInput.value = baseIdVal; // Связываем предыдущий квест с текущим новым
         }
     }
 
@@ -2916,9 +3121,23 @@ function createNewQuestChainBlock(event) {
         extraBlock.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none;">
             <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="document.getElementById('extraQuestParamsWrapper_${currentExtraId}').style.display = document.getElementById('extraQuestParamsWrapper_${currentExtraId}').style.display === 'none' ? 'flex' : 'none'">
-                <span>▼</span> <span data-i18n="extra_quest_header">Дополнительное задание</span> №${currentExtraId + 1} (ID: <span id="displayExtraQuestId_${currentExtraId}">${baseIdVal}</span>)
+<!-- // ИСПРАВЛЕННЫЙ ВАРИАНТ: Номер плашки теперь рассчитывается динамически от реального количества блоков на экране!-->
+    <!--// ИСПРАВЛЕННЫЙ ВАРИАНТ: И номер плашки, и дефолтное название теперь жестко привязаны к реальному числу блоков на экране! -->
+<span>▼</span> <span data-i18n="extra_quest_header">Доп. задание</span> №${document.querySelectorAll('[id^="extraQuestParamsWrapper_"]').length + 2} (ID: <span id="displayExtraQuestId_${currentExtraId}">${baseIdVal}</span>) : [<span id="displayExtraQuestTitle_${currentExtraId}" style="color: var(--accent-color);">Chain Quest Part ${document.querySelectorAll('[id^="extraQuestParamsWrapper_"]').length + 2}</span>]
+
+
             </div>
+
+            <!-- Кнопка ИИ-генератора для доп. задания -->
             <div style="display: flex; align-items: center; gap: 14px;">
+                <button type="button" 
+                        onclick="generateRandomSubQuest(${currentExtraId})" 
+                        data-i18n-title="ttl_ai_sub_quest" 
+                        title="🎲 Сгенерировать случайное дополнительное задание" 
+                        style="margin-left: 15px; padding: 4px 12px; background: #5a2c63; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;" 
+                        data-i18n="btn_ai_sub_quest">
+                    🔮 ИИ генератор доп-задании
+                </button>
                 <button type="button" onclick="downloadExtraQuestJson(${currentExtraId})" title="Скачать этот квест (.json)" style="background: none; border: none; font-size: 21px; font-weight: 900; cursor: pointer; padding: 2px; line-height: 1;">💾</button>
                 <span onclick="safeRemoveExtraQuest(${currentExtraId})" title="Удалить это задание" style="font-size: 18px; cursor: pointer; color: #ff3333; font-weight: bold; line-height: 1;">❌</span>
             </div>
@@ -2931,8 +3150,17 @@ function createNewQuestChainBlock(event) {
                     <input type="number" id="extraQuestId_${currentExtraId}" value="${baseIdVal}" oninput="document.getElementById('displayExtraQuestId_${currentExtraId}').innerText = this.value;">
                 </div>
                 <div class="form-group">
-                    <label data-i18n="lbl_q_title">Название квеста (Title)</label>
-                    <input type="text" id="extraQuestTitle_${currentExtraId}" value="Chain Quest Part ${currentExtraId + 1}">
+            <!-- Ряд 1: Название квеста и Кто принимает -->
+            <div class="form-row" style="display: flex; gap: 15px; width: 100%; box-sizing: border-box;">
+                <div class="form-group" style="flex: 1;">
+                    <label data-i18n="lbl_q_title" style="color: var(--accent-color); font-weight: bold; margin-bottom: 5px; display: block;">Название квеста (Title)</label>
+                    
+                    <!-- ИСПРАВЛЕННЫЙ ИНПУТ: Кавычки селектора экранированы через \\', чтобы не ломать подсветку Notepad++ -->
+                    <input type="text" 
+                           class="quest-title-input" 
+                           value="Chain Quest Part \${document.querySelectorAll('[id^=extraQuestParamsWrapper_]').length + 2}" 
+                           oninput="const disp = document.getElementById('displayExtraQuestTitle_${currentExtraId}'); if(disp) disp.innerText = this.value || 'Без названия';" 
+                           style="width: 100%; padding: 10px; background-color: rgb(51, 51, 51); border: 1px solid var(--border-color); border-radius: 4px; color: #fff;">
                 </div>
             </div>
             <div class="form-group">
@@ -2983,11 +3211,6 @@ function createNewQuestChainBlock(event) {
                 <label data-i18n="lbl_q_comp_text">Текст NPC при сдаче квеста (CompleteText)</label>
                 <textarea id="extraQuestCompleteText_${currentExtraId}" data-i18n-ph="ph_q_comp_text" placeholder="Отличная работа воина..."></textarea>
             </div>
-            <!-- Перевод полей в шаблоне доп. квестов (ЧИСТЫЙ ВАРИАНТ) -->
-            <div class="form-group">
-                <label for="extraQuestCompleteText_${currentExtraId}" data-i18n="lbl_q_comp_text">Текст NPC при сдаче квеста (CompleteText)</label>
-                <textarea id="extraQuestCompleteText_${currentExtraId}" data-i18n-ph="ph_q_comp_text" placeholder="Отличная работа воина..."></textarea>
-            </div>
             <div class="form-group" style="margin-top: 5px;">
                 <label for="extraQuestCommand_${currentExtraId}" data-i18n="lbl_q_cmd">Консольная команда при завершении задания (QuestCommand)</label>
                 <input type="text" id="extraQuestCommand_${currentExtraId}" data-i18n-ph="ph_q_cmd" placeholder="Команда консоли при сдаче (например: give @dp diamond 5)..." style="width: 100%; box-sizing: border-box; padding: 10px;">
@@ -3002,6 +3225,19 @@ function createNewQuestChainBlock(event) {
     `;
 
 
+// Находим наше поле ввода названия квеста
+const titleInput = document.getElementById(`extraQuestTitle_${currentExtraId}`);
+// Находим место в шапке, куда нужно дублировать текст
+const headerTitle = document.getElementById(`displayExtraQuestTitle_${currentExtraId}`);
+
+if (titleInput && headerTitle) {
+    // Слушаем, когда пользователь что-то печатает
+    titleInput.addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        // Если поле пустое, пишем просто прочерк, если нет — выводим название в квадратных скобках
+        headerTitle.textContent = val ? ` — [${val}]` : '';
+    });
+}
 
     // 1. Сначала прикрепляем карточку квеста к странице
     wrapper.appendChild(extraBlock);
@@ -3444,7 +3680,7 @@ const langData = {
     ru: {
         tab_dialogs: "📜 Конструктор Диалогов", tab_quests: "⚔️ Создание Квестов", tab_scripts: "💻 Редактор Скриптов",
         main_dialog_header: "Основной диалог №0", lbl_dialog_id: "ID Диалога (DialogId)", lbl_dialog_title: "Название диалога (DialogTitle)", lbl_dialog_text: "Текст NPC (DialogText)",
-        quest_header: "Параметры задания", lbl_q_title: "Название квеста (Title)", lbl_q_npc: "Кто принимает квест (CompleterNpc)", lbl_q_text: "Описание задания для журнала игрока (Text)",
+        quest_header: "Задание", lbl_q_title: "Название квеста (Title)", lbl_q_npc: "Кто принимает квест (CompleterNpc)", lbl_q_text: "Описание задания для журнала игрока (Text)",
         lbl_q_repeat: "Повторяемость квеста (QuestRepeat)", lbl_q_type: "Тип задания (Type)", lbl_q_exp: "Награда: Опыт игрока (RewardExp)", lbl_q_next: "ID следующего квеста в цепочке (-1 если нет)",
         script_editor_title: "💻 JavaScript Редактор (ECMAScript)", script_generator_title: "⚡ Автогенератор скрипта:", lbl_s_event: "1. При срабатывании триггеров (событие):", lbl_s_action: "2. Что делать (Действие):", lbl_s_value: "3. Значение (текст сообщения или координаты X, Y, Z):", lbl_s_area: "Код скрипта (Напишите свой или используйте генератор):",
         notes_title: "📝 Заметки сценариста", cheat_title: "📖 Справочник команд 1.12.2",btn_gen_code: "Сгенерировать код в окно ниже ⚡", btn_gen_rand: "🎲 Сгенерировать случайный скрипт-событие", lib_title: "📌 Библиотека готовых Java-функций (Кликните для вставки):",extra_dialog_header: "Дополнительный диалог",
@@ -3503,7 +3739,7 @@ options_main_title: "Варианты ответов игрока (Кнопки)
         opt_time_0: "Сутки (0)", opt_time_1: "День (1)", opt_time_2: "Ночь (2)",
         tmpl_branches_title: "⚡ Шаблоны веток:",
         btn_tmpl_guard: "⚔️ Стража", btn_tmpl_villager: "🌾 Житель", btn_tmpl_trader: "💰 Торг",
-		extra_quest_header: "Дополнительное задание",
+		extra_quest_header: "Доп. задание",
 lbl_q_comp_text: "Текст NPC при сдаче квеста (CompleteText)",
 lbl_q_cmd: "Консольная команда при завершении задания (QuestCommand)",
 lbl_q_completion: "Логика завершения",
@@ -4232,5 +4468,6 @@ function toggleExtraParamsVisibility(extraId) {
 <!-- АБСОЛЮТНО БЕЗОПАСНЫЙ ИЗОЛИРОВАННЫЙ СИМУЛЯТОР ДИАЛОГОВ -->
 <!-- АБСОЛЮТНО БЕЗОПАСНЫЙ ИЗОЛИРОВАННЫЙ СИМУЛЯТОР ДИАЛОГОВ -->
 
-</body>
-</html>
+
+
+</div></body></html>
