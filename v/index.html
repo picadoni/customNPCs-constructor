@@ -17,47 +17,73 @@
 }
 
 /* Общие правила для текста, чтобы textarea и подсветка идеально совпадали */
+/* Общие правила для текста, чтобы textarea и подсветка идеально совпадали */
+/* Общие правила для текста, чтобы textarea и подсветка идеально совпадали */
 .code-editor-textarea, .code-editor-highlight {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 12px;
-    border: none;
-    outline: none;
-    font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 13px;
-    line-height: 1.5;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    box-sizing: border-box;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 12px !important; /* Внутренние отступы */
+    border: none !important;
+    outline: none !important;
+    font-family: 'Consolas', 'Courier New', monospace !important;
+    font-size: 13px !important;
+    
+    /* ЖЕСТКИЙ ФИКС СЕТКИ: Высота каждой строки строго 18 пикселей */
+    line-height: 18px !important; 
+    
+    /* Заставляем длинные строки и пробелы переноситься абсолютно одинаково */
+    white-space: pre-wrap !important; 
+    word-wrap: break-word !important;
+    box-sizing: border-box !important;
+
+    /* ДОБАВИТЬ СЮДА: Отключаем сглаживание шрифтов, которое раздувает пиксели */
+    text-shadow: none !important;
+    font-variant-ligatures: none !important;
+    -webkit-font-smoothing: antialiased !important;
 }
 
 /* Настоящая textarea становится невидимой, но принимает клики и ввод */
+/* Настоящая textarea снова становится нормальной, яркой и послушной */
+/* Настоящая textarea снова становится видимой и яркой */
 .code-editor-textarea {
-    background: transparent;
-    color: transparent;
-    caret-color: #fff; /* Курсор ввода остается видимым! */
+    background: transparent !important;
+    color: #abb2bf !important; /* УБРАЛИ transparent! Теперь текст СНОВА ВИДНО */
+    caret-color: #ffffff !important; /* Курсор на месте */
     z-index: 2;
     resize: none;
+    overflow: auto !important; /* Включаем нормальную прокрутку */
 }
+
+
+
 
 /* Блок под ней отображает раскрашенный текст */
 .code-editor-highlight {
-    color: #abb2bf; /* Обычный текст */
+    color: #abb2bf !important;
+    background: transparent !important;
     z-index: 1;
-    overflow-y: auto;
-    pointer-events: none; /* Пропускаем клики сквозь блок на textarea */
+    overflow: hidden !important; /* Прячем дублирующие скроллбары */
+    pointer-events: none;
 }
 
-/* Цвета для ключевых слов синтаксиса */
-.hl-keyword { color: #c678dd; font-weight: bold; } /* function, var, let, const, if, else, return */
-.hl-api     { color: #e5c07b; font-weight: bold; } /* npc, world, player, event */
-.hl-string  { color: #98c379; }                   /* "строки в кавычках" */
-.hl-comment { color: #5c6370; font-style: italic; } /* // комментарии */
-.hl-number  { color: #d19a66; }                   /* числа 0-9 */
+
+
+
+
+
+/* Цвета для ключевых слов синтаксиса (ИСПРАВЛЕНО: Добавлен !important, чтобы перебить инлайновый белый цвет) */
+/* Цвета для ключевых слов синтаксиса (Жесткий приоритет) */
+.hl-keyword { color: #c678dd !important; font-weight: bold !important; display: inline-block !important; }
+.hl-api     { color: #e5c07b !important; font-weight: bold !important; display: inline-block !important; }
+.hl-string  { color: #98c379 !important; display: inline-block !important; }
+.hl-comment { color: #5c6370 !important; font-style: italic !important; display: inline-block !important; }
+.hl-number  { color: #d19a66 !important; display: inline-block !important; }
+
+
 
 	/* ==========================================================================
    ИГРОВЫЕ ВКЛАДКИ В СТИЛЕ MINECRAFT
@@ -780,11 +806,32 @@
 		</div>
 
         <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
-        <div class="form-group">
-            <label for="scriptCodeArea" style="font-weight: bold; color: rgb(255, 85, 0);" data-i18n="lbl_s_area">Код скрипта (Напишите свой или используйте генератор):</label>
-            <textarea id="scriptCodeArea" data-i18n-ph="ph_s_area" placeholder="// Ваш JavaScript код для CustomNPCs..." style="width: 100%; height: 350px; font-family: &quot;Courier New&quot;, monospace; font-size: 13px; padding: 12px; box-sizing: border-box; resize: vertical; line-height: 1.5; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);"></textarea>
-        <div id="codeHighlightOverlay" class="code-editor-highlight"></div>
-</div>
+                <!-- IСТОРИЯ: ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА С ПОДСВЕТКОЙ -->
+        <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
+            <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
+            <div class="form-group" style="width: 100%; box-sizing: border-box; position: relative;">
+                <label for="scriptCodeArea" style="font-weight: bold; color: rgb(255, 85, 0); margin-bottom: 5px; display: block;" data-i18n="lbl_s_area">Код скрипта (Напишите свой или используйте генератор):</label>
+                
+                <!-- Контейнер-родитель, который заставляет слои накладываться ровно друг на друга -->
+                <div class="code-editor-container" style="position: relative; width: 100%; height: 350px; border: 1px solid var(--border-color); border-radius: 4px; background-color: #222; overflow: hidden;">
+                    
+                    <!-- Невидимая textarea для ввода (Курсор caret-color оставляем белым, добавляем oninput и onscroll) -->
+                    <!-- Невидимая textarea для ввода (Курсор caret-color оставляем белым, добавляем oninput и onscroll) -->
+                    <textarea id="scriptCodeArea" 
+                              class="code-editor-textarea" 
+                              oninput="updateCodeHighlighting()" 
+                              onscroll="const target = document.getElementById('codeHighlightOverlay'); if(target) { target.scrollTop = this.scrollTop; target.scrollLeft = this.scrollLeft; target.style.height = this.scrollHeight + 'px'; }"
+                              data-i18n-ph="ph_s_area" 
+                              placeholder="// Ваш JavaScript код для CustomNPCs..."></textarea>
+
+                    
+                    <!-- Задний оверлей, который принимает раскрашенные span-теги -->
+                    <div id="codeHighlightOverlay" class="code-editor-highlight"></div>
+                </div>
+            </div>
+
+
+
 
         <!-- ШПОРА-ПАМЯТКА ДЛЯ СКРИПТОВ ВНИЗУ КАРТОЧКИ -->
         <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px; user-select: none;">
@@ -1709,6 +1756,12 @@ function setTheme(theme) {
             tabQuests.style.color = accentColor;
         }
     }
+// ВСТАВИТЬ В САМЫЙ КОНЕЦ ФУНКЦИИ СМЕНЫ ТЕМ:
+const scriptArea = document.getElementById('scriptCodeArea');
+if (scriptArea) {
+    scriptArea.style.setProperty('color', 'transparent', 'important');
+    scriptArea.style.setProperty('background-color', 'transparent', 'important');
+}
 
 } // <-- Конец функции setTheme, Это самая последняя скобка, закрывающая функцию setTheme
 
@@ -3526,32 +3579,66 @@ function generateNpcScriptCode() {
 // Пополняемый блок-библиотека готовых шаблонов (Памятка функций)
 // Пополняемый блок-библиотека готовых шаблонов (Памятка функций)
 function insertScriptTemplate(type) {
-    const area = document.getElementById('scriptCodeArea');
-    if (!area) return;
+    const textarea = document.getElementById('scriptCodeArea');
+    if (!textarea) return;
 
     let template = "";
-    if (type === 'msg') {
-        template = `// Функция отправки сообщения игроку на экран\nevent.player.message("§6[Квест]:§f Задание обновлено!");\n`;
-    } else if (type === 'sound') {
-        template = `// Воспроизведение звука игроку (без координат, прямо в уши по API 1.12.2)\nevent.player.playSound("minecraft:ui.toast.challenge_complete", 1.0, 1.0);\n`;
-    } else if (type === 'particle') {
-        template = `// Эффект огненного пламени вокруг NPC\nvar world = event.npc.getWorld();\nif (world) {\n    world.spawnParticle("flame", event.npc.getX(), event.npc.getY() + 1, event.npc.getZ(), 0.2, 0.2, 0.2, 0.05, 20);\n}\n`;
-    } else if (type === 'potion') {
-        template = `// Наложить эффект зелья через команду (Намного надежнее Java-классов в 1.12.2)\nevent.npc.executeCommand("effect @p minecraft:speed 30 1"); // Скорость II на 30 секунд\n`;
-    } else if (type === 'random') {
-        template = `// Функция случайного набора событий (Рандом)\nfunction interact(event) {\n    var chance = Math.random();\n    if (chance < 0.3) {\n        event.npc.say("У меня отличное настроение сегодня!");\n    } else {\n        event.npc.say("Оставь меня в покое...");\n    }\n}\n`;
-    } else if (type === 'scale') {
-        template = `// ЮТУБЕРСКАЯ ФИШКА: Изменение размера NPC через getDisplay() по API 1.12.2\nevent.npc.getDisplay().setSize(8); // Делает NPC огромным Боссом! (Дефолт = 5)\nevent.npc.say("§4§lЯ ПРОБУДИЛ СВОЮ ИСТИННУЮ ФОРМУ!");\n`;
-    }
-    else if (type === 'alarm') {
-        template = `// РЕЖИМ СИРЕНЫ: Жуткий эмбиент и мигание красной пыли (редстоуна) вокруг NPC\nvar world = event.npc.getWorld();\nif (world) {\n    event.npc.executeCommand("playsound minecraft:ambient.cave master @p " + event.npc.getX() + " " + event.npc.getY() + " " + event.npc.getZ() + " 1 0.5");\n    world.spawnParticle("reddust", event.npc.getX(), event.npc.getY() + 2, event.npc.getZ(), 1.0, 0.5, 1.0, 0.0, 30);\n}\n`;
-    }
-    else if (type === 'meteor') {
-        template = `// МЕТЕОРИТНЫЙ ДОЖДЬ: Серия эпичных взрывов вокруг NPC\nvar world = event.npc.getWorld();\nif (world) {\n    for (var i = 0; i < 5; i++) {\n        var offset_x = (Math.random() - 0.5) * 6;\n        var offset_z = (Math.random() - 0.5) * 6;\n        world.spawnParticle("hugeexplosion", event.npc.getX() + offset_x, event.npc.getY(), event.npc.getZ() + offset_z, 0.2, 0.2, 0.2, 0.0, 1);\n    }\n    event.npc.executeCommand("playsound minecraft:entity.generic.explode master @p " + event.npc.getX() + " " + event.npc.getY() + " " + event.npc.getZ() + " 1 1");\n}\n`;
+
+    // Ваша существующая логика выбора шаблонов (оставляем её без изменений)
+    switch(type) {
+        case 'msg':
+            template = `// Сказать сообщение в чат от имени NPC\nfunction interact(event) {\n    event.npc.say("Привет, путник!");\n}`;
+            break;
+        case 'sound':
+            template = `// Воспроизвести звук игроку\nfunction interact(event) {\n    event.world.playSound(event.player.getX(), event.player.getY(), event.player.getZ(), "minecraft:entity.player.levelup", 1.0, 1.0);\n}`;
+            break;
+        case 'particle':
+            template = `// Создать эффект взрыва частиц\nfunction interact(event) {\n    event.world.spawnParticle("hugeexplosion", event.npc.getX(), event.npc.getY() + 1, event.npc.getZ(), 0.5, 0.5, 0.5, 0.0, 1);\n}`;
+            break;
+        case 'potion':
+            template = `// Выдать эффект зелья игроку (Скорость II на 10 секунд)\nfunction interact(event) {\n    event.player.addPotionEffect(1, 10, 1, false);\n}`;
+            break;
+        case 'random':
+            template = `// Случайный выбор действия (Рандом)\nfunction interact(event) {\n    var chance = Math.floor(Math.random() * 100) + 1;\n    if (chance <= 50) {\n        event.npc.say("Тебе повезло!");\n    } else {\n        event.npc.say("Не повезло...");\n    }\n}`;
+            break;
+        case 'scale':
+            template = `// Изменить размер NPC\nfunction init(event) {\n    event.npc.setSize(8); // Обычный размер = 5, гигант = 8+, карлик = 1-4\n}`;
+            break;
+        case 'alarm':
+            template = `// Режим Сирены / Тревоги\nfunction target(event) {\n    event.world.playSound(event.npc.getX(), event.npc.getY(), event.npc.getZ(), "minecraft:block.redstone_torch.burnout", 1.5, 0.5);\n    event.npc.say("⚠️ ОБНАРУЖЕН НАРУШИТЕЛЬ периметра: " + event.player.getName());\n}`;
+            break;
+        case 'meteor':
+            template = `// Метеоритный дождь\nfunction update(event) {\n    var x = event.npc.getX() + (Math.random() * 20 - 10);\n    var z = event.npc.getZ() + (Math.random() * 20 - 10);\n    event.world.spawnParticle("lava", x, event.npc.getY() + 10, z, 0.1, 0.5, 0.1, 0.5, 10);\n}`;
+            break;
     }
 
-    area.value += template + "\n";
+// НАКОПИТЕЛЬНЫЙ ФИКС (Вставка вместо полной очистки):
+
+
+    // Проверяем, если поле не пустое и мы вставляем код, добавим перенос строки для красоты
+    const textToInsert = oldText.length > 0 ? "\n\n" + template : template;
+
+    if (startPos || startPos === 0) {
+        // Вставляем шаблон ровно туда, где сейчас стоит курсор пользователя
+        textarea.value = oldText.substring(0, startPos) + textToInsert + oldText.substring(endPos, oldText.length);
+        
+        // Перемещаем курсор в конец только что вставленного куска кода
+        textarea.selectionStart = startPos + textToInsert.length;
+        textarea.selectionEnd = startPos + textToInsert.length;
+    } else {
+        // Если поле пустое или курсор потерян — просто дописываем код в самый конец
+        textarea.value += textToInsert;
+    }
+
+    // Фокусируем внимание браузера обратно на редактор кода
+    textarea.focus();
+
+    // ПРИНУДИТЕЛЬНО перекрашиваем обновленный текст, чтобы он сразу стал цветным!
+    if (typeof updateCodeHighlighting === "function") {
+        updateCodeHighlighting();
+    }
 }
+
 
 
 // Скачивание файла скрипта на компьютер (.js)
@@ -3666,14 +3753,20 @@ function generateRandomNpcScript() {
 
 
 
-    // Вставляем сгенерированный код в начало текстового поля
-    area.value = scriptResult + area.value;
+    // Вставляем скрипт Лепрекона в начало поля ввода
+    area.value = leprechaunCode + area.value;
+    
+    // ИСПРАВЛЕНО: Принудительно запускаем раскраску букв на экране!
+    if (typeof updateCodeHighlighting === 'function') {
+        updateCodeHighlighting();
+    }
     
     // Мягко моргнем рамкой в знак успеха
     const originalBorder = area.style.borderColor;
     area.style.borderColor = 'var(--accent-color)';
     setTimeout(() => { area.style.borderColor = originalBorder; }, 400);
 }
+
 
 function changeLanguage(lang) {
     // Сохраняем выбранный язык в память браузера
@@ -3751,18 +3844,25 @@ function interact(event) {
             monster.setAttackTarget(player);
         }
     }
-	updateCodeHighlighting();
+}
+\n\n`; // Конец текста лепрекона! Кавычка закрыта!
 
-}\n\n`;
-
-    // Вставляем скрипт Лепрекона в поле ввода
+    // Вставляем скрипт Лепрекона в начало поля ввода
     area.value = leprechaunCode + area.value;
     
-    // Моргнем рамкой в знак успеха
+    // ИСПРАВЛЕНО: Принудительно запускаем раскраску букв на экране!
+    if (typeof updateCodeHighlighting === 'function') {
+        updateCodeHighlighting();
+    }
+    
+    // Мягко моргнем рамкой в знак успеха
     const originalBorder = area.style.borderColor;
     area.style.borderColor = 'var(--accent-color)';
     setTimeout(() => { area.style.borderColor = originalBorder; }, 400);
 }
+
+
+
 
 
 // ==========================================================================
@@ -4564,41 +4664,43 @@ function updateCodeHighlighting() {
 
     let code = textarea.value;
 
-    // Экранируем HTML-символы, чтобы пользовательский код не ломал теги страницы
+    // 1. Экранируем HTML-символы, чтобы код не ломал теги страницы
     code = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-    // 1. Подсвечиваем ключевые слова JavaScript (var, let, const, function, if, else, return)
-    code = code.replace(/\b(function|var|let|const|if|else|return|typeof|new|if|return)\b/g, '<span class="hl-keyword">$1</span>');
-
-    // 2. Подсвечиваем объекты API мода CustomNPCs (event, npc, player, world)
-    code = code.replace(/\b(event|npc|player|world)\b/g, '<span class="hl-api">$1</span>');
-
-    // 3. Подсвечиваем числа
-    code = code.replace(/\b(\d+)\b/g, '<span class="hl-number">$1</span>');
-
-    // 4. Подсвечиваем строки в двойных и одинарных кавычках ("..." или '...')
+    // 2. Подсвечиваем строки в двойных и одинарных кавычках
     code = code.replace(/(["'])(.*?)\1/g, '<span class="hl-string">$1$2$1</span>');
 
-    // 5. Подсвечиваем однострочные комментарии (начинающиеся с //)
+    // 3. Подсвечиваем однострочные комментарии (начинающиеся с //)
     code = code.replace(/(\/\/.*)/g, '<span class="hl-comment">$1</span>');
 
-    // Выводим раскрашенный код в оверлей
+    // 4. Подсвечиваем ключевые слова JavaScript
+    code = code.replace(/\b(function|var|let|const|if|else|return|typeof|new|switch|case|break)\b/g, '<span class="hl-keyword">$1</span>');
+
+    // 5. Подсвечиваем объекты API мода CustomNPCs
+    code = code.replace(/\b(event|npc|player|world|pos)\b/g, '<span class="hl-api">$1</span>');
+
+    // 6. Подсвечиваем числа
+    code = code.replace(/\b(\d+)\b/g, '<span class="hl-number">$1</span>');
+
+    // ФИКС СДВИГА ВВЕРХ: Полностью убрали замену на <br>!
+    // В режиме 'white-space: pre-wrap' стандартные переносы строк \n 
+    // работают идеально сами по себе, не создавая двойных межстрочных интервалов.
+
+    // Выводим окончательно раскрашенный код в оверлей
     overlay.innerHTML = code;
     
     // Синхронизируем прокрутку (скролл) оверлея вслед за textarea
     overlay.scrollTop = textarea.scrollTop;
+    overlay.scrollLeft = textarea.scrollLeft;
+	
+	// Вставить в самый конец функции updateCodeHighlighting() перед overlay.scrollTop:
+    overlay.style.height = textarea.clientHeight + 'px';
+    overlay.style.width = textarea.clientWidth + 'px';
+
 }
 
-// Связываем скролл textarea с оверлеем принудительно, если пользователь крутит колесико мыши
-document.addEventListener("DOMContentLoaded", () => {
-    const textarea = document.getElementById('scriptCodeArea');
-    const overlay = document.getElementById('codeHighlightOverlay');
-    if (textarea && overlay) {
-        textarea.addEventListener('scroll', () => {
-            overlay.scrollTop = textarea.scrollTop;
-        });
-    }
-});
+
+
 
 </script>
 <!-- ВЫНОСИМ СИМУЛЯТОР В ОТДЕЛЬНЫЙ НЕЗАВИСИМЫЙ БЛОК НА ПК -->
