@@ -3082,7 +3082,8 @@ function createNewQuestChainBlock(event) {
     // ПРОВЕРКА: Если на странице физически нет прошлых инпутов доп-заданий, 
     // принудительно считаем, что мы создаем самое первое доп. задание с чистого листа
     const allExistingExtras = document.querySelectorAll('[id^="extraQuestParamsWrapper_"]');
-    
+    const displayQuestNum = allExistingExtras.length + 2; // +2, так как №1 — это основное задание
+
     if (currentExtraId === 1 || allExistingExtras.length === 0) {
         // Безопасно ищем инпут основного квеста
         const mainNextIdInput = document.getElementById('questNextId');
@@ -3121,11 +3122,7 @@ function createNewQuestChainBlock(event) {
         extraBlock.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none;">
             <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="document.getElementById('extraQuestParamsWrapper_${currentExtraId}').style.display = document.getElementById('extraQuestParamsWrapper_${currentExtraId}').style.display === 'none' ? 'flex' : 'none'">
-<!-- // ИСПРАВЛЕННЫЙ ВАРИАНТ: Номер плашки теперь рассчитывается динамически от реального количества блоков на экране!-->
-    <!--// ИСПРАВЛЕННЫЙ ВАРИАНТ: И номер плашки, и дефолтное название теперь жестко привязаны к реальному числу блоков на экране! -->
-<span>▼</span> <span data-i18n="extra_quest_header">Доп. задание</span> №${document.querySelectorAll('[id^="extraQuestParamsWrapper_"]').length + 2} (ID: <span id="displayExtraQuestId_${currentExtraId}">${baseIdVal}</span>) : [<span id="displayExtraQuestTitle_${currentExtraId}" style="color: var(--accent-color);">Chain Quest Part ${document.querySelectorAll('[id^="extraQuestParamsWrapper_"]').length + 2}</span>]
-
-
+                <span>▼</span> <span data-i18n="extra_quest_header">Дополнительное задание</span> №${currentExtraId + 1} (ID: [<span id="displayExtraQuestTitle_${currentExtraId}" style="color: var(--accent-color); font-weight: bold;">Chain Quest Part ${displayQuestNum}</span>]
             </div>
 
             <!-- Кнопка ИИ-генератора для доп. задания -->
@@ -3150,17 +3147,9 @@ function createNewQuestChainBlock(event) {
                     <input type="number" id="extraQuestId_${currentExtraId}" value="${baseIdVal}" oninput="document.getElementById('displayExtraQuestId_${currentExtraId}').innerText = this.value;">
                 </div>
                 <div class="form-group">
-            <!-- Ряд 1: Название квеста и Кто принимает -->
-            <div class="form-row" style="display: flex; gap: 15px; width: 100%; box-sizing: border-box;">
-                <div class="form-group" style="flex: 1;">
-                    <label data-i18n="lbl_q_title" style="color: var(--accent-color); font-weight: bold; margin-bottom: 5px; display: block;">Название квеста (Title)</label>
-                    
-                    <!-- ИСПРАВЛЕННЫЙ ИНПУТ: Кавычки селектора экранированы через \\', чтобы не ломать подсветку Notepad++ -->
-                    <input type="text" 
-                           class="quest-title-input" 
-                           value="Chain Quest Part \${document.querySelectorAll('[id^=extraQuestParamsWrapper_]').length + 2}" 
-                           oninput="const disp = document.getElementById('displayExtraQuestTitle_${currentExtraId}'); if(disp) disp.innerText = this.value || 'Без названия';" 
-                           style="width: 100%; padding: 10px; background-color: rgb(51, 51, 51); border: 1px solid var(--border-color); border-radius: 4px; color: #fff;">
+                    <label data-i18n="lbl_q_title">Название квеста (Title)</label>
+                    <!-- ДОБАВЛЕН ONINPUT ДЛЯ ОБНОВЛЕНИЯ НАЗВАНИЯ В ШАПКЕ -->
+                    <input type="text" id="extraQuestTitle_${currentExtraId}" value="Chain Quest Part ${currentExtraId + 1}" oninput="document.getElementById('displayExtraQuestTitle_${currentExtraId}').innerText = this.value ? ' — [' + this.value + ']' : '';">
                 </div>
             </div>
             <div class="form-group">
@@ -3224,22 +3213,8 @@ function createNewQuestChainBlock(event) {
         </div>
     `;
 
-
-// Находим наше поле ввода названия квеста
-const titleInput = document.getElementById(`extraQuestTitle_${currentExtraId}`);
-// Находим место в шапке, куда нужно дублировать текст
-const headerTitle = document.getElementById(`displayExtraQuestTitle_${currentExtraId}`);
-
-if (titleInput && headerTitle) {
-    // Слушаем, когда пользователь что-то печатает
-    titleInput.addEventListener('input', (e) => {
-        const val = e.target.value.trim();
-        // Если поле пустое, пишем просто прочерк, если нет — выводим название в квадратных скобках
-        headerTitle.textContent = val ? ` — [${val}]` : '';
-    });
-}
-
     // 1. Сначала прикрепляем карточку квеста к странице
+
     wrapper.appendChild(extraBlock);
 
     // 2. Красим её в цвета выбранной темы (Пип-бой, MelonKing и т.д.)
