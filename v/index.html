@@ -781,10 +781,12 @@
     <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; display: flex; flex-direction: column; gap: 15px;">
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 15px;">
             <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="toggleQuestParamsVisibility()">
-                    <span id="questFoldArrow">▼</span> 
-                    <span data-i18n="quest_header">Параметры задания</span>:  №1 (ID: 1) : [<span id="displayQuestTitle" style="color: var(--accent-color);">Логистический Кризис</span>]
-                </div>
+<!-- ИСПРАВЛЕННЫЙ СТАБИЛЬНЫЙ ЗАГОЛОВОК ПЕРВОГО ЗАДАНИЯ -->
+<div style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 16px; color: rgb(255, 204, 0); user-select: none;" onclick="toggleQuestParamsVisibility()">
+    <span id="questFoldArrow">▼</span> 
+    <span data-i18n="quest_header">Задание</span> №1 (ID: 1) : [<span id="displayQuestTitle" style="color: var(--accent-color);">Логистический Кризис</span>]
+</div>
+
                 <button type="button" onclick="generateRandomQuest()" style="padding: 4px 12px; background: #7e3878; color: #fff; border-radius: 4px; cursor: pointer; font-size: 12px;" data-i18n="btn_ai_quest">🔮 ИИ-Генератор задания</button>
             </div>
             <div style="display: flex; align-items: center; gap: 14px; flex-shrink: 0;">
@@ -1277,6 +1279,7 @@ function toggleAdvancedSettings(event) {
 
 // ВРЕМЕННАЯ ФУНКЦИЯ-ЗАГЛУШКА ДЛЯ СВИТКА (Для добавления второго диалога)
 // Счетчик для уникальных ID дополнительных диалогов в ленте
+// ИСПРАВЛЕННАЯ ФУНКЦИЯ СОЗДАНИЯ ЦЕПОЧКИ ДИАЛОГОВ
 let extraDialogCount = 0;
 
 function createNewDialogChainBlock(event) {
@@ -1291,6 +1294,7 @@ function createNewDialogChainBlock(event) {
     extraDialogCount++;
     const currentExtraId = extraDialogCount;
 
+    // Рассчитываем правильный ID для новой карточки диалога
     const baseIdVal = parseInt(document.getElementById('dialogId').value) || 1;
     const nextDialogId = baseIdVal + currentExtraId;
 
@@ -1299,25 +1303,23 @@ function createNewDialogChainBlock(event) {
     extraBlock.id = `extraDialogBlock_${currentExtraId}`;
     extraBlock.style.cssText = "margin-top: 25px; border-left: 5px solid var(--accent-color); position: relative; width: 100%; box-sizing: border-box;";
 
-    // ВШИВАЕМ ПАРАМЕТРЫ И СЕКЦИЮ ВАРИАНТОВ ОТВЕТОВ В ОДИН ШАБЛОН (С ПОДДЕРЖКОЙ ЛОКАЛИЗАЦИИ)
+    // Собираем идеальную, чистую разметку БЕЗ конфликтов кавычек
     extraBlock.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none;">
-<!-- Заголовок карточки дополнительного диалога внутри генератора -->
-<!-- Заголовок карточки дополнительного диалога -->
-<div class="section-title" style="margin:0; cursor:pointer;" onclick="toggleExtraParamsVisibility(${currentExtraId})">
-    <span id="extraFoldArrow_${currentExtraId}">▼</span> 
-        <span data-i18n="extra_dialog_header" style="font-size: 14px;">Дополнительный диалог</span>     №${currentExtraId} (ID: ${nextDialogId})</span>
-    <span id="extraDialogTitleSpan_${currentExtraId}" style="color: #ffcc00; font-weight: bold; margin-left: 5px;"> — [Chain Part ${currentExtraId}]</span>
-</div>
-
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none; width: 100%;">
+            <!-- Заголовок карточки дополнительного диалога -->
+            <div class="section-title" style="margin: 0; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;" onclick="toggleExtraParamsVisibility(${currentExtraId})">
+                <span id="extraFoldArrow_${currentExtraId}">▼</span> 
+               <span data-i18n="extra_dialog_header">Дополнительный диалог</span> №${document.querySelectorAll('[id^=extraParamsWrapper_]').length + 1} (ID: <span id="displayDialogId_${currentExtraId}">${baseIdVal}</span>) — [<span id="extraDialogTitleSpan_${currentExtraId}" style="color: var(--accent-color);">Chain Part ${document.querySelectorAll('[id^=extraParamsWrapper_]').length + 1}</span>]
+            </div>
 
             <!-- Правая зона: Сбор кнопок доп. диалога (Дискета, Удаление, и локальная Шестерёнка ⚙️) -->
-            <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 14px; flex-shrink: 0;">
                 <button type="button" onclick="downloadExtraDialogJson(${currentExtraId})" title="Скачать этот диалог (.json)" style="background: none; border: none; font-size: 21px; font-weight: 900; cursor: pointer; padding: 2px; line-height: 1;">💾</button>
                 <span onclick="safeRemoveExtraDialog(${currentExtraId})" title="Удалить этот диалог" style="font-size: 18px; cursor: pointer; color: #ff3333; font-weight: bold; line-height: 1; user-select: none;">❌</span>
                 <span onclick="toggleExtraAdvancedSettings(${currentExtraId}, event)" title="🔒 Условия доступности этого диалога" style="font-size: 21px; cursor: pointer; user-select: none; padding: 2px; line-height: 1;">🔒</span>
             </div>
         </div>
+
         
         <div id="extraParamsWrapper_${currentExtraId}" style="display: flex; flex-direction: column; gap: 15px;">
             <div class="form-row">
@@ -1325,10 +1327,11 @@ function createNewDialogChainBlock(event) {
                     <label data-i18n="lbl_dialog_id">ID Диалога (DialogId)</label>
                     <input type="number" id="extraDialogId_${currentExtraId}" value="${nextDialogId}">
                 </div>
-              <div class="form-group">
+<div class="form-group">
     <label data-i18n="lbl_dialog_title">Название диалога (DialogTitle)</label>
-    <input type="text" id="extraDialogTitle_${currentExtraId}" value="Chain Part ${currentExtraId}" oninput="const span = document.getElementById('extraDialogTitleSpan_${currentExtraId}'); if(span) span.textContent = this.value ? ' — [' + this.value + ']' : '';">
+    <input type="text" id="extraDialogTitle_${currentExtraId}" value="Chain Part ${document.getElementsByClassName('option-block').length + 1}" oninput="const span = document.getElementById('extraDialogTitleSpan_${currentExtraId}'); if(span) span.textContent = this.value ? ' — [' + this.value + ']' : '';">
 </div>
+
   </div>
             <div class="form-group">
                 <label data-i18n="lbl_dialog_text">Текст NPC (DialogText)</label>
@@ -2162,48 +2165,36 @@ function generateRandomQuest() {
 }
 
 // Функция ИИ-генератора для ДОПОЛНИТЕЛЬНЫХ заданий
+// ИСПРАВЛЕННАЯ УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ДЛЯ ДОП-ЗАДАНИЙ
 function generateRandomSubQuest(extraId) {
-    // 1. Массив случайных шаблонов (вы можете дополнить его своими квестами)
     const subTemplates = [
-        {
-            title: "Сбор образцов",
-            text: "Соберите 5 единиц радиоактивной руды в заброшенной шахте для дальнейшего анализа. Будьте осторожны, датчик Гейгера зашкаливает."
-        },
-        {
-            title: "Зачистка периметра",
-            text: "Уничтожьте мутантов, прорвавшихся к нижнему уровню лаборатории, пока они не повредили главный генератор питания."
-        },
-        {
-            title: "Тайная посылка",
-            text: "Найдите заброшенный почтовый ящик около старой водонапорной башни и заберите оттуда зашифрованный КПК."
-        },
-        {
-            title: "Поиск выживших",
-            text: "Обыщите полуразрушенный бункер на окраине леса. По слухам, там укрылась группа выживших инженеров."
-        }
+        { title: "Сбор образцов", text: "Соберите 5 единиц радиоактивной руды в заброшенной шахте." },
+        { title: "Зачистка периметра", text: "Униответжьте мутантов, прорвавшихся к нижнему уровню лаборатории." },
+        { title: "Тайная посылка", text: "Найдите заброшенный почтовый ящик около старой башни." }
     ];
 
-    // 2. Выбираем случайный квест из списка
     const randomQuest = subTemplates[Math.floor(Math.random() * subTemplates.length)];
 
-    // 3. Ищем инпуты ИМЕННО внутри нужной карточки дополнительного задания по её extraId
-    // Находим инпут названия
-    const titleInput = document.getElementById(`extraQuestTitle_${extraId}`);
-    // Находим текстовое поле описания
-    const textInput = document.getElementById(`extraQuestText_${extraId}`);
+    // ИСПРАВЛЕНО: Ищем инпуты прямо внутри контейнера карточки по её уникальному ID обёртки
+    const wrapper = document.getElementById(`extraQuestParamsWrapper_${extraId}`);
+    if (wrapper) {
+        // Ищем инпут названия и текстовое поле описания по их тегам/классам внутри этого контейнера
+        const titleInput = wrapper.querySelector('input[type="text"]');
+        const textInput = wrapper.querySelector('textarea');
 
-    // 4. Заполняем поля данными и принудительно обновляем превью
-    if (titleInput && textInput) {
-        titleInput.value = randomQuest.title;
-        textInput.value = randomQuest.text;
+        if (titleInput && textInput) {
+            titleInput.value = randomQuest.title;
+            textInput.value = randomQuest.text;
 
-        // Триггерим события изменения, чтобы текст сразу обновился в заголовке карточки
-        titleInput.dispatchEvent(new Event('input'));
-        textInput.dispatchEvent(new Event('change'));
-    } else {
-        console.error(`Не удалось найти инпуты для дополнительного задания с ID: ${extraId}`);
+            // Триггерим события, чтобы обновились заголовки плашек
+            titleInput.dispatchEvent(new Event('input'));
+            textInput.dispatchEvent(new Event('change'));
+            return; // Выходим из функции, всё успешно заполнен
+        }
     }
+    console.error(`Не удалось найти инпуты для дополнительного задания с ID: ${extraId}`);
 }
+
 
 
 function generateAndDownload() {
@@ -3133,10 +3124,17 @@ function createNewQuestChainBlock(event) {
                     <input type="number" id="extraQuestId_${currentExtraId}" value="${baseIdVal}" oninput="document.getElementById('displayExtraQuestId_${currentExtraId}').innerText = this.value;">
                 </div>
                 <div class="form-group">
-                    <label data-i18n="lbl_q_title">Название квеста (Title)</label>
-                    <!-- ДОБАВЛЕН ONINPUT ДЛЯ ОБНОВЛЕНИЯ НАЗВАНИЯ В ШАПКЕ -->
-<input type="text" class="quest-title-input" value="Chain Quest Part ${document.querySelectorAll('[id^="extraQuestParamsWrapper_"]').length + 2}" oninput="const disp = document.getElementById('displayExtraQuestTitle_${currentExtraId}'); if(disp) disp.innerText = this.value || 'Без названия';">
-
+            <!-- Ряд 1: Название квеста и Кто принимает -->
+            <div class="form-row" style="display: flex; gap: 15px; width: 100%; box-sizing: border-box;">
+                <div class="form-group" style="flex: 1;">
+                    <label data-i18n="lbl_q_title" style="color: var(--accent-color); font-weight: bold; margin-bottom: 5px; display: block;">Название квеста (Title)</label>
+                    
+                    <!-- ИСПРАВЛЕННЫЙ ИНПУТ: Кавычки селектора экранированы через \\', чтобы не ломать подсветку Notepad++ -->
+                    <input type="text" 
+                           class="quest-title-input" 
+                           value="Chain Quest Part \${document.querySelectorAll('[id^=extraQuestParamsWrapper_]').length + 2}" 
+                           oninput="const disp = document.getElementById('displayExtraQuestTitle_${currentExtraId}'); if(disp) disp.innerText = this.value || 'Без названия';" 
+                           style="width: 100%; padding: 10px; background-color: rgb(51, 51, 51); border: 1px solid var(--border-color); border-radius: 4px; color: #fff;">
                 </div>
             </div>
             <div class="form-group">
