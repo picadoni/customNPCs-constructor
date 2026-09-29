@@ -143,6 +143,6 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 
 ### [Version 2.0 (Current)](https://picadoni.github.io/customNPCs-constructor/)
 **Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Guild" (v0.8) / Script Module "Terminal" (v0.9)**
-*(The scripting module did not receive a new name, as its functionality was not updated in this version).*
+*(The task builder and script module did not receive new names, as their functionality was not updated in this version).*
 * **New Features:** Added a dialogue simulation feature directly inside the constructor to test how the sequence will look and play in-game.
 * **Bug Fixes:** Discovered bugs in the plot generator and the 'Add response branch' button, which had been a critical issue since version 1.7. This critical code error has been successfully fixed.
