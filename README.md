@@ -134,7 +134,7 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 * **Bug Fixes:** Dialogue IDs are now dynamic again, the bug has been fixed.
 * **Improvement:** Quests, much like dialogues, now display their title in the header and have a different color.
 
-### [Version 1.8 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+### [Version 1.9 (Current)](https://picadoni.github.io/customNPCs-constructor/)
 **Dialogue Constructor 'Grotto' (v1.3) / Quest Constructor 'Guild' (v0.8) / Script Module 'Terminal' (v0.9)**
 *(The scripting module did not receive a new name, as its functionality was not updated in this version).*
 * **New Features:** Added 'Leprechaun's Luck' template to the script module.
