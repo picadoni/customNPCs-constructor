@@ -316,6 +316,32 @@
 </head>
 <body style="background-image: radial-gradient(circle, rgb(43, 17, 17) 10%, transparent 11%); background-size: 20px 20px; background-color: rgb(15, 5, 5); color: rgb(255, 204, 0);">
 
+<!-- МОДАЛЬНОЕ ОКНО: Интерактивный симулятор диалогов 2.0 -->
+<div id="dialogSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; font-family: 'Consolas', monospace;">
+    <div style="background: #1a1a1a; border: 2px solid var(--accent-color); border-radius: 8px; width: 650px; max-width: 90%; padding: 25px; box-shadow: 0 0 20px rgba(0,0,0,0.7); position: relative; color: #fff;">
+        
+        <!-- Шапка симулятора -->
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; margin-bottom: 20px;">
+            <span style="font-weight: bold; color: #ffcc00; font-size: 14px;">📺 СИМУЛЯТОР ДИАЛОГОВ CustomNPCs (Ver 2.0)</span>
+            <button type="button" onclick="closeDialogSimulator()" style="background: #ff3333; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px;">✕ ЗАКРЫТЬ</button>
+        </div>
+
+        <!-- Экран реплики NPC -->
+        <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 4px; margin-bottom: 20px; min-height: 80px;">
+            <div id="simNpcName" style="color: #55ff55; font-weight: bold; margin-bottom: 6px; font-size: 15px;">NPC:</div>
+            <div id="simNpcText" style="color: #e0e0e0; font-size: 14px; white-space: pre-wrap; line-height: 1.4;">Текст диалога...</div>
+        </div>
+
+        <!-- Контейнер интерактивных Кнопок Выбора игрока -->
+        <div style="font-size: 12px; color: #aaa; margin-bottom: 8px; font-weight: bold;">[ Варианты ответов игрока ]:</div>
+        <div id="simOptionsWrapper" style="display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; padding-right: 5px;">
+            <!-- Сюда JS будет штамповать игровые кнопки -->
+        </div>
+
+    </div>
+</div>
+
+
     <!-- ЭФФЕКТ ПАДАЮЩИХ ЧАСТИЦ: Прозрачный холст на весь экран -->
     <canvas id="fallingParticlesCanvas" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; z-index: 999998; pointer-events: none; display: block;" height="626" width="1024"></canvas>
 <!-- КНОПКА АВТОРА (Человечек) -->
@@ -407,7 +433,7 @@
     <!-- ГЛАВНЫЙ ОБЩИЙ ЗАГОЛОВОК С СИСТЕМНОЙ ШЕСТЕРЕНКОЙ (ТЕПЕРЬ СТРОГО ВНУТРИ КОНТЕЙНЕРА) -->
      <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 25px; margin-bottom: 25px; position: relative; width: 100%;"> 
         <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для динамической шапки -->
-<h1 id="mainTitle" data-i18n="title_dialogs" style="margin: 0px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: rgb(255, 85, 0);">Конструктор Диалогов CustomNPCs Лес (Вер. 1.1)</h1>
+<h1 id="mainTitle" data-i18n="title_dialogs" style="margin: 0px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: rgb(255, 85, 0);">Конструктор Диалогов CustomNPCs Планетарий (Вер. 1.4)</h1>
 <!-- Глобальная кнопка симулятора -->
 <button type="button" onclick="startDialogSimulation(1)" title="📋 Запустить симулятор всего сюжета" style="background: none; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" onmouseout="this.style.background='none'; this.style.color='#ffcc00';">📋</button>
 
@@ -432,7 +458,8 @@
 <button type="button" onclick="setTheme(&#39;ifindit&#39;)" data-i18n-title="ttl_theme_win" title="Стиль 1997: Windows 95" style="background: none; border: none; font-size: 16px; pointer; padding: 2px;">💾</button>
 <button type="button" onclick="setTheme(&#39;ryanair&#39;)" data-i18n-title="ttl_theme_ryan" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">✈️</button>
 <!-- Вариант для кнопки в Основном диалоге -->
-<span onclick="alert(&#39;🎮 Монитор сюжета: Модуль интерактивного демо-просмотра квестов находится в разработке и появится в ver 2.0! Нажмите 💾 для экспорта в игру.&#39;)" title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
+<!-- Исправленный вариант для кнопки в Основном диалоге (Версия 2.0) -->
+<span onclick="openStoryMonitor()" title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
 
                 <button type="button" onclick="document.getElementById(&#39;bgUploaderInput&#39;).click()" title="🖼️ Установить свой фон" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">🖼️</button>
                 <input type="file" id="bgUploaderInput" accept="image/*" style="display: none;" onchange="setCustomBackground(event)">
@@ -1832,95 +1859,111 @@ let userSavedBackground = ""; // Сюда мы сохраним картинку
 
 // Функция автоматического добавления кнопок-опций
 function addNewOptionButton() {
-// Было: const wrapper = document.getElementById('dynamicOptionsWrapper');
-// Стало:
-const wrapper = document.getElementById('dynamicOptionsWrapper_0');
-
+    const wrapper = document.getElementById('dynamicOptionsWrapper_0');
     if (!wrapper) return;
 
-    if (optionCount >= 34) {
+    // КРИТИЧЕСКИЙ ФИКС: Считаем индекс строго по реальному количеству детей в контейнере!
+    const slot = wrapper.children.length;
+
+    // Защита от дурака: в игре CustomNPCs не может быть больше 34 веток в одном окне
+    if (slot >= 34) {
         alert("Достигнут лимит веток для одного диалога (34 шт)!");
         return;
     }
 
-    const slot = optionCount;
     const optionBlock = document.createElement('div');
     optionBlock.className = 'option-block';
+    // Намертво склеиваем ID блока с его реальным порядковым номером, чтобы избежать круга
     optionBlock.id = `optionBlock_${slot}`;
-    
-    // ИСПРАВЛЕНО: Ширина 100%, авто-подстройка отступов и левая граница привязана к переменной темы --accent-color!
-    optionBlock.style.cssText = "background: rgba(255,255,255,0.02); padding: 15px; margin-bottom: 15px; border-radius: 4px; border: 1px solid var(--border-color, #444); border-left: 5px solid var(--accent-color, #4caf50); width: 100%; box-sizing: border-box;";
+    optionBlock.style.cssText = "background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;";
 
+    // Условие для кнопки удаления (появляется только у кастомных веток, начиная со Слота 3)
+    let deleteBtnHtml = '';
+    if (slot >= 3) {
+        deleteBtnHtml = `<button type="button" onclick="removeMainOptionButton(${slot})" style="background:none; border:none; color:#ff3333; cursor:pointer; font-size:12px; font-weight:bold; margin-left: auto;">❌ Удалить ветку</button>`;
+    }
+
+    const currentLang = localStorage.getItem('customNpcLanguage') || 'ru';
+    const lang = langData[currentLang] || langData['ru'];
+
+    // Генерируем внутренности с ЖЕСТКОЙ привязкой слота к ID инпутов, перебивая старый круг
     optionBlock.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <strong style="color: inherit; font-size: 14px;"><span data-i18n="lbl_opt_btn">Кнопка</span> ${slot + 1} (<span data-i18n="lbl_opt_slot">Слот</span> ${slot})</strong>
-            ${slot >= 3 ? `<button type="button" onclick="removeOptionButton(\${slot})" style="background:none; border:none; color:#ff3333; cursor:pointer; font-size:12px;" data-i18n="btn_remove_branch">❌ Удалить ветку</button>` : ''}
+            <strong style="color: inherit; font-size: 14px;"><span data-i18n="lbl_opt_btn">${lang.lbl_opt_btn || "Кнопка"}</span> ${slot + 1} (<span data-i18n="lbl_opt_slot">${lang.lbl_opt_slot || "Слот"}</span> ${slot})</strong>
+            ${deleteBtnHtml}
         </div>
         <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; box-sizing: border-box;">
             <div>
-                <label for="optTitle${slot}" style="font-size:12px; margin-bottom:4px; display:block;" data-i18n="lbl_opt_title">Текст ответа:</label>
-                <input type="text" id="optTitle${slot}" data-i18n-ph="ph_opt_title" placeholder="Текст, который выберет игрок..." style="width:100%; box-sizing:border-box; padding: 10px;">
+                <label for="extra_0_optTitle_${slot}" style="font-size: 12px; margin-bottom: 4px; display: block; color: var(--accent-color);" data-i18n="lbl_opt_title">${lang.lbl_opt_title || "Текст ответа:"}</label>
+                <input type="text" id="extra_0_optTitle_${slot}" data-i18n-ph="ph_opt_title" placeholder="${lang.ph_opt_title || "Текст, который выберет игрок..."}" style="width: 100%; box-sizing: border-box; padding: 10px;">
             </div>
             <div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
                 <div style="flex: 1; min-width: 140px;">
-                    <label for="optType${slot}" style="font-size:12px; margin-bottom:4px; display:block;" data-i18n="lbl_opt_type">Действие (OptionType):</label>
-                    <select id="optType${slot}" style="width:100%; box-sizing:border-box; padding: 10px; height: 38px;">
-                        <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
-                        <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
-                        <option value="2" data-i18n="opt_type_2">Открыть Роль NPC (2)</option>
-                        <option value="3" data-i18n="opt_type_3">Показать Фракцию (3)</option>
+                    <label for="extra_0_optType_${slot}" style="font-size: 12px; margin-bottom: 4px; display: block; color: var(--accent-color);" data-i18n="lbl_opt_type">${lang.lbl_opt_type || "Действие (OptionType):"}</label>
+                    <select id="extra_0_optType_${slot}" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px;">
+                        <option value="1">${lang.opt_type_1 || "Переход к диалогу (1)"}</option>
+                        <option value="0">${lang.opt_type_0 || "Закрыть диалог (0)"}</option>
+                        <option value="2">${lang.opt_type_2 || "Открыть Роль NPC (2)"}</option>
+                        <option value="3">${lang.opt_type_3 || "Показать Фракцию (3)"}</option>
                     </select>
                 </div>
                 <div style="flex: 1; min-width: 140px;">
-                    <label for="optDialog${slot}" style="font-size:12px; margin-bottom:4px; display:block;" data-i18n="lbl_opt_next">ID следующего диалога:</label>
-                    <input type="number" id="optDialog${slot}" value="-1" style="width:100%; box-sizing:border-box; padding: 10px;">
+                    <label for="extra_0_optDialog_${slot}" style="font-size: 12px; margin-bottom: 4px; display: block; color: var(--accent-color);" data-i18n="lbl_opt_next">${lang.lbl_opt_next || "ID следующего диалога:"}</label>
+                    <input type="number" id="extra_0_optDialog_${slot}" value="-1" style="width: 100%; box-sizing: border-box; padding: 10px;">
                 </div>
                 <div style="flex: 1; min-width: 140px;">
-                    <label for="optColor${slot}" style="font-size:12px; margin-bottom:4px; display:block;" data-i18n="lbl_opt_color">Цвет текста кнопки (Decimal):</label>
-                    <input type="text" id="optColor${slot}" value="14737632" style="width:100%; box-sizing:border-box; padding: 10px;">
+                    <label for="extra_0_optColor_${slot}" style="font-size: 12px; margin-bottom: 4px; display: block; color: var(--accent-color);" data-i18n="lbl_opt_color">${lang.lbl_opt_color || "Цвет текста кнопки:"}</label>
+                    <input type="text" id="extra_0_optColor_${slot}" value="14737632" style="width: 100%; box-sizing: border-box; padding: 10px;">
                 </div>
             </div>
             <div>
-                <label for="optCmd${slot}" style="font-size:12px; margin-bottom:4px; display:block;" data-i18n="lbl_opt_cmd">Команда кнопки:</label>
-                <input type="text" id="optCmd${slot}" data-i18n-ph="ph_opt_cmd" placeholder="Команда консоли при нажатии..." style="width:100%; box-sizing:border-box; padding: 10px;">
+                <label for="extra_0_optCmd_${slot}" style="font-size: 12px; margin-bottom: 4px; display: block; color: var(--accent-color);" data-i18n="lbl_opt_cmd">${lang.lbl_opt_cmd || "Команда кнопки:"}</label>
+                <input type="text" id="extra_0_optCmd_${slot}" data-i18n-ph="ph_opt_cmd" placeholder="${lang.ph_opt_cmd || "Команда консоли при нажатии..."}" style="width: 100%; box-sizing: border-box; padding: 10px;">
             </div>
-            <!-- ВНУТРИ ШАБЛОНА КАРТОЧКИ ВЕТКИ: БЛОК НАСТРОЙКИ РЕПУТАЦИИ ФРАКЦИИ -->
             <div style="margin-top: 8px; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
                 <div style="flex: 2; min-width: 120px;">
-                    <label for="optFactionId${slot}" style="font-size:11px; margin-bottom:2px; display:block;" data-i18n="lbl_opt_fac_id">Изменить фракцию (ID):</label>
-                    <input type="number" id="optFactionId${slot}" value="-1" style="padding: 6px; height: 32px;">
+                    <label for="extra_0_optFactionId_${slot}" style="font-size:11px; margin-bottom:2px; display:block; color: var(--accent-color);" data-i18n="lbl_opt_fac_id">${lang.lbl_opt_fac_id || "Изменить фракцию (ID):"}</label>
+                    <input type="number" id="extra_0_optFactionId_${slot}" value="-1" style="padding: 6px; height: 32px; width: 100%;">
                 </div>
                 <div style="flex: 1; min-width: 80px;">
-                    <label for="optFactionPoints${slot}" style="font-size:11px; margin-bottom:2px; display:block;" data-i18n="lbl_opt_fac_pts">Очки:</label>
-                    <input type="number" id="optFactionPoints${slot}" value="100" style="padding: 6px; height: 32px;">
+                    <label for="extra_0_optFactionPoints_${slot}" style="font-size:11px; margin-bottom:2px; display:block; color: var(--accent-color);" data-i18n="lbl_opt_fac_pts">${lang.lbl_opt_fac_pts || "Очки:"}</label>
+                    <input type="number" id="extra_0_optFactionPoints_${slot}" value="100" style="padding: 6px; height: 32px; width: 100%;">
                 </div>
                 <div style="flex: 1; min-width: 110px; display: flex; align-items: center; margin-top: 12px;">
-                    <input type="checkbox" id="optFactionDec${slot}" style="width:16px; height:16px; cursor:pointer; margin-right:6px;">
-                    <label for="optFactionDec${slot}" style="font-size:11px; margin-bottom:0; cursor:pointer; white-space:nowrap;" data-i18n="lbl_opt_fac_dec">Отнимать очки</label>
+                    <input type="checkbox" id="extra_0_optFactionDec_${slot}" style="width:16px; height:16px; cursor:pointer; margin-right:6px;">
+                    <label for="extra_0_optFactionDec_${slot}" style="font-size:11px; margin-bottom:0; cursor:pointer; white-space:nowrap; color: var(--accent-color);" data-i18n="lbl_opt_fac_dec">${lang.lbl_opt_fac_dec || "Отнимать очки"}</label>
                 </div>
             </div>
         </div>
     `;
 
-
-
-
     wrapper.appendChild(optionBlock);
-    optionCount++;
 
-    // Мгновенно синхронизируем цвета новой карточки с активной ретро-темой
+    // Глобальное обновление счетчика (если вы используете переменную глобально)
+    if (typeof optionCount !== 'undefined') {
+        optionCount = wrapper.children.length;
+    }
+
+    // Обновляем перевод и тему
+    if (typeof changeLanguage === 'function') changeLanguage(currentLang);
     const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
-    setTheme(savedTheme);
-	const currentLang = localStorage.getItem('customNpcLanguage') || 'ru';
-if (typeof changeLanguage === 'function') changeLanguage(currentLang);
-
+    if (typeof setTheme === 'function') setTheme(savedTheme);
 }
-
-// Функция удаления добавленной ветки
-function removeOptionButton(slot) {
+// Функция удаления добавленной ветки основного диалога
+function removeMainOptionButton(slot) {
     const block = document.getElementById(`optionBlock_${slot}`);
-    if (block) block.remove();
+    if (block) {
+        block.remove();
+        
+        // Корректируем глобальный счетчик количества кнопок
+        const wrapper = document.getElementById('dynamicOptionsWrapper_0');
+        if (wrapper && typeof optionCount !== 'undefined') {
+            optionCount = wrapper.children.length;
+        }
+    }
 }
+
+
 
 function generateNpcDialogue() {
     const titleInput = document.getElementById('dialogTitle');
@@ -1931,65 +1974,62 @@ function generateNpcDialogue() {
     titleInput.value = dialogueTitles[Math.floor(Math.random() * dialogueTitles.length)];
     textInput.value = dialogueNpcTexts[Math.floor(Math.random() * dialogueNpcTexts.length)];
 
-    // 2. АВТО-РАСШИРЕНИЕ ФОРМЫ: Если создано меньше 7 кнопок, докидываем их в интерфейс автоматом
-    // Обращаемся к вашему глобальному счетчику optionCount
-    while (optionCount < 7) {
-        if (typeof addNewOptionButton === 'function') {
-            addNewOptionButton(); // Автоматически вызываем вашу функцию создания блоков
-        } else {
-            break;
-        }
-		const currentLang = localStorage.getItem('customNpcLanguage') || 'ru';
-		if (typeof changeLanguage === 'function') changeLanguage(currentLang);
+    // 🟢 ИСПРАВЛЕНО (Убрали размножение окон): 
+    // Вместо цикла while, который плодил до 7 кнопок и ломал ID,
+    // мы работаем строго в пределах 3 базовых кнопок (Слоты 0, 1, 2), которые уже есть на экране.
 
-    }
-
-    // 3. Выбираем случайные фразы из всех 7 массивов
+    // 2. Выбираем случайные фразы для 3 слотов веток
     const replies = [
         opt0Replies[Math.floor(Math.random() * opt0Replies.length)],
         opt1Replies[Math.floor(Math.random() * opt1Replies.length)],
-        opt2Replies[Math.floor(Math.random() * opt2Replies.length)],
-        opt3Replies[Math.floor(Math.random() * opt3Replies.length)],
-        opt4Replies[Math.floor(Math.random() * opt4Replies.length)],
-        opt5Replies[Math.floor(Math.random() * opt5Replies.length)],
-        opt6Replies[Math.floor(Math.random() * opt6Replies.length)]
+        opt2Replies[Math.floor(Math.random() * opt2Replies.length)]
     ];
 
-    // 4. Заливаем данные во все 7 слотов веток
-    for (let slot = 0; slot < 7; slot++) {
-        const titleInp = document.getElementById('optTitle' + slot);
-        const typeInp = document.getElementById('optType' + slot);
-        const dialogInp = document.getElementById('optDialog' + slot);
-        const cmdInp = document.getElementById('optCmd' + slot);
+    // 3. Заливаем данные строго в 3 существующие ветки (0, 1, 2)
+    for (let slot = 0; slot < 3; slot++) {
+        // Проверяем новые составные ID, либо старые классические
+        const titleInp = document.getElementById(`extra_0_optTitle_${slot}`) || document.getElementById('optTitle' + slot);
+        const typeInp = document.getElementById(`extra_0_optType_${slot}`) || document.getElementById('optType' + slot);
+        const dialogInp = document.getElementById(`extra_0_optDialog_${slot}`) || document.getElementById('optDialog' + slot);
+        const cmdInp = document.getElementById(`extra_0_optCmd_${slot}`) || document.getElementById('optCmd' + slot);
 
-        if (titleInp) titleInp.value = replies[slot];
+        if (titleInp) titleInp.value = replies[slot] || `Option ${slot + 1}`;
         
-        // Разнообразим действия для кнопок, чтобы было интереснее
+        // Разнообразим действия для 3 кнопок
         if (typeInp && dialogInp) {
-            if (slot === 0 || slot === 3 || slot === 5) {
+            if (slot === 0) {
                 typeInp.value = "1"; // Переход к диалогу
-                dialogInp.value = 10 + slot; // Например, ID диалогов 10, 13, 15
+                dialogInp.value = "2"; // Ведёт на ID 2 (следующий доп. диалог)
             } else if (slot === 1) {
                 typeInp.value = "2"; // Открыть Роль / Торговлю
                 dialogInp.value = "-1";
-            } else if (slot === 6 && cmdInp) {
-                typeInp.value = "0"; // Закрыть окно
-                dialogInp.value = "-1";
-                cmdInp.value = "playsound minecraft:ui.toast.challenge.complete master @dp"; // Ютуберский звук при выходе!
             } else {
-                typeInp.value = "0"; // Просто закрыть диалог
+                typeInp.value = "0"; // Закрыть диалог (Quit)
                 dialogInp.value = "-1";
+                if (cmdInp) cmdInp.value = ""; // Очищаем команду для дефолтного выхода
             }
         }
     }
 
-    // 5. Синхронизируем отображение ID в шапке формы
+    // 4. Синхронизируем отображение текста и ID в шапке формы
+    const mainTitleSpan = document.getElementById('mainDialogTitleSpan');
+    if (mainTitleSpan) {
+        mainTitleSpan.textContent = titleInput.value;
+    }
+
     const disp = document.getElementById('displayMainDialogId');
     if (disp) {
         const dId = document.getElementById('dialogId').value || "1";
         disp.innerText = dId;
     }
+
+    // Глобальный фикс i18n: прогоняем перевод, чтобы зафиксировать вёрстку
+    if (typeof changeLanguage === 'function') {
+        const currentLang = localStorage.getItem('customNpcLanguage') || 'ru';
+        changeLanguage(currentLang);
+    }
 }
+
 
 // ==========================================================================
 // БАЗА ДАННЫХ ДЛЯ АВТОГЕНЕРАЦИИ КВЕСТОВ (3 РАЗНЫХ ЖАНРА)
@@ -4117,7 +4157,7 @@ const langData = {
 		note_tab_quests: "Задания", 
 		note_tab_memos: "Памятки",
 		ph_notes_area: "Пишите пометки здесь...",
-		title_dialogs: "Конструктор Диалогов CustomNPCs Грот (Вер. 1.3)",
+		title_dialogs: "Конструктор Диалогов CustomNPCs Планетарий (Вер. 1.4)",
 		title_quests: "Конструктор Заданий CustomNPCs Гильдия (Вер. 0.8)",
 		title_scripts: "Скриптовый Модуль CustomNPCs Терминал (Вер. 0.9)",
 		lbl_particles: "Эффекты:", 
@@ -5209,6 +5249,154 @@ function updateCodeHighlighting() {
     overlay.scrollTop = textarea.scrollTop;
     overlay.scrollLeft = textarea.scrollLeft;
 }
+
+
+// ==========================================================================
+// Глобальная переменная, где симулятор будет хранить всю карту созданного сюжета 
+// ==========================================================================
+let currentStoryMap = {};
+
+function openStoryMonitor() {
+    // 1. Собираем данные Главного Диалога №0
+    const mainId = parseInt(document.getElementById('dialogId')?.value) || 1;
+    const mainTitle = document.getElementById('dialogTitle')?.value || "Start";
+    const mainText = document.getElementById('dialogText')?.value || "";
+
+    // Очищаем и подготавливаем карту сюжета
+    currentStoryMap = {};
+
+    // Записываем главный диалог в карту по его ID
+    currentStoryMap[mainId] = {
+        title: mainTitle,
+        text: mainText,
+        options: []
+    };
+
+    // Собираем кнопки главного диалога (Слоты 0, 1, 2)
+    for (let slot = 0; slot < 3; slot++) {
+        const optTitle = document.getElementById(`extra_0_optTitle_${slot}`)?.value || document.getElementById(`optTitle${slot}`)?.value;
+        const optDialog = parseInt(document.getElementById(`extra_0_optDialog_${slot}`)?.value || document.getElementById(`optDialog${slot}`)?.value);
+        const optType = parseInt(document.getElementById(`extra_0_optType_${slot}`)?.value || document.getElementById(`optType${slot}`)?.value || 1);
+        
+        if (optTitle && optTitle.trim() !== "") {
+            currentStoryMap[mainId].options.push({
+                title: optTitle,
+                nextDialogId: optDialog,
+                type: optType
+            });
+        }
+    }
+
+    // 2. Сканируем все созданные ДОПОЛНИТЕЛЬНЫЕ диалоги цепочки
+    const extraBlocks = document.querySelectorAll('div[id^="extraDialogBlock_"]');
+    extraBlocks.forEach(block => {
+        const extraId = block.id.replace('extraDialogBlock_', '');
+        
+        const dId = parseInt(document.getElementById(`extraDialogId_${extraId}`)?.value);
+        const dTitle = document.getElementById(`extraDialogTitle_${extraId}`)?.value || `Chain Part ${extraId}`;
+        const dText = document.getElementById(`extraDialogText_${extraId}`)?.value || "";
+
+        if (!isNaN(dId)) {
+            currentStoryMap[dId] = {
+                title: dTitle,
+                text: dText,
+                options: []
+            };
+
+            // Сканируем динамические кнопки внутри этого конкретного доп. диалога
+            const optionsWrapper = document.getElementById(`extraOptionsWrapper_${extraId}`);
+            if (optionsWrapper) {
+                const optionBlocks = optionsWrapper.querySelectorAll('.option-block');
+                optionBlocks.forEach((optBlock, slot) => {
+                    const optTitle = document.getElementById(`extra_${extraId}_optTitle_${slot}`)?.value;
+                    const optDialog = parseInt(document.getElementById(`extra_${extraId}_optDialog_${slot}`)?.value);
+                    const optType = parseInt(document.getElementById(`extra_${extraId}_optType_${slot}`)?.value || 1);
+
+                    if (optTitle && optTitle.trim() !== "") {
+                        currentStoryMap[dId].options.push({
+                            title: optTitle,
+                            nextDialogId: optDialog,
+                            type: optType
+                        });
+                    }
+                });
+            }
+        }
+    });
+
+    // 3. Запускаем симулятор с Самого Первого (Главного) диалога!
+    showSimulatorDialog(mainId);
+}
+
+// Функция отрисовки конкретного диалога в игровом окне симулятора
+function showSimulatorDialog(dialogId) {
+    const modal = document.getElementById('dialogSimulatorModal');
+    const nameNode = document.getElementById('simNpcName');
+    const textNode = document.getElementById('simNpcText');
+    const optionsWrapper = document.getElementById('simOptionsWrapper');
+
+    if (!modal || !optionsWrapper) return;
+
+    // Включаем модалку (flex режим для центрирования)
+    modal.style.display = 'flex';
+    optionsWrapper.innerHTML = "";
+
+    const dialogData = currentStoryMap[dialogId];
+
+    // Если картодел указал переход на несуществующий ID диалога
+    if (!dialogData) {
+        nameNode.textContent = "⚠️ СИСТЕМА ОШИБОК";
+        textNode.textContent = `Диалог с ID: ${dialogId} не найден в вашей цепочке!\nПроверьте поле 'ID следующего диалога' в кнопках ответа.`;
+        
+        // Кнопка возврата в начало
+        optionsWrapper.innerHTML = `<button type="button" onclick="openStoryMonitor()" style="width: 100%; text-align: left; padding: 10px; background: #333; color: #ffcc00; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-weight: bold;">↩ Вернуться в начало цепочки</button>`;
+        return;
+    }
+
+    // Выводим имя и текст NPC
+    nameNode.textContent = `💬 NPC [${dialogData.title}] (ID: ${dialogId}):`;
+    textNode.textContent = dialogData.text || "[Текст NPC пуст]";
+
+    // Если у диалога вообще нет вариантов ответа
+    if (dialogData.options.length === 0) {
+        optionsWrapper.innerHTML = `<div style="color: #ff3333; font-style: italic; padding: 5px;">[Тупик: Кнопки ответа отсутствуют. Диалог завершится]</div>`;
+        return;
+    }
+
+    // Генерируем кликабельные RPG-кнопки
+    dialogData.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = "button";
+        btn.style.cssText = "width: 100%; text-align: left; padding: 10px; background: rgba(255,255,255,0.02); color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-family: inherit; transition: all 0.2s; font-size: 13px; display: flex; align-items: center; justify-content: space-between;";
+        
+        // Подсвечиваем кнопки при наведении в стиле игры
+        btn.onmouseover = function() { this.style.background = "var(--accent-color)"; this.style.borderColor = "var(--accent-color)"; };
+        btn.onmouseout = function() { this.style.background = "rgba(255,255,255,0.02)"; this.style.borderColor = "rgba(255,255,255,0.1)"; };
+
+        // Логика переходов при клике на кнопку симулятора
+        if (opt.type === 0) {
+            // Тип 0: Закрыть окно
+            btn.innerHTML = `<span>⚡ ${opt.title}</span> <span style="color: #ff3333; font-size: 11px; font-weight: bold;">[ЗАКРЫТЬ ОКНО]</span>`;
+            btn.onclick = function() { closeDialogSimulator(); };
+        } else if (opt.type === 2) {
+            // Тип 2: Роль (Торговец, Банкир и т.д.)
+            btn.innerHTML = `<span>💼 ${opt.title}</span> <span style="color: #00aba9; font-size: 11px; font-weight: bold;">[ОТКРЫТЬ РОЛЬ]</span>`;
+            btn.onclick = function() { alert(`[Симулятор 2.0]: Скрипт успешно триггерит Роль/Торговлю NPC!`); closeDialogSimulator(); };
+        } else {
+            // Тип 1 или 3: Обычный переход на следующий диалог цепочки
+            btn.innerHTML = `<span>▶ ${opt.title}</span> <span style="color: #ffcc00; font-size: 11px;">➔ на ID: ${opt.nextDialogId}</span>`;
+            btn.onclick = function() { showSimulatorDialog(opt.nextDialogId); };
+        }
+
+        optionsWrapper.appendChild(btn);
+    });
+}
+
+function closeDialogSimulator() {
+    const modal = document.getElementById('dialogSimulatorModal');
+    if (modal) modal.style.display = 'none';
+}
+
 
 </script>
 <!-- ВЫНОСИМ СИМУЛЯТОР В ОТДЕЛЬНЫЙ НЕЗАВИСИМЫЙ БЛОК НА ПК -->
