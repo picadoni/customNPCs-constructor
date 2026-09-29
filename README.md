@@ -127,9 +127,16 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 * **Bug Fixes:** Non-working scripts have been fixed; the templates used for auto-generation now function properly.
 * **Improvement:** The gear icon has been replaced with a more stylish one.
 
-### [Version 1.8 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+### [Version 1.8](https://picadoni.github.io/customNPCs-constructor/ver%201.8/)
 **Dialogue Constructor "Waterfall" (v1.2) / Quest Constructor "Guild" (v0.8) / Scripting Module "Observer" (v0.8)**
 *(The scripting module did not receive a new name, as its functionality was not updated in this version).*
 * **New Features:** An AI generator for sub-quests was added to extra tasks; tabs in the quest creator were renamed to shorter variants (Russian language only, other languages remain unchanged).
 * **Bug Fixes:** Dialogue IDs are now dynamic again, the bug has been fixed.
 * **Improvement:** Quests, much like dialogues, now display their title in the header and have a different color.
+
+### [Version 1.8 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+**Dialogue Constructor 'Grotto' (v1.3) / Quest Constructor 'Guild' (v0.8) / Script Module 'Terminal' (v0.9)**
+*(The scripting module did not receive a new name, as its functionality was not updated in this version).*
+* **New Features:** Added 'Leprechaun's Luck' template to the script module.
+* **Bug Fixes:** Fixed a critical bug from version 1.8 that caused duplicate dialogue responses and could corrupt files during creation/saving; all functions now work correctly.
+* **Improvement:** Added syntax highlighting in the script module for better usability.
