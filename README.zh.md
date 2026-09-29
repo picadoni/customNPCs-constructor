@@ -134,7 +134,7 @@
 * **缺陷修复：** 对话ID重新恢复为动态形式，该错误已被修复。
 * **优化改进：** 任务现在和对话一样，会在页眉/标题栏中显示其名称，并且更换 victory 了不同的颜色。
 
-* ### [1.8 版本 (当前)](https://picadoni.github.io/customNPCs-constructor)
+* ### [1.9 版本 (当前)](https://picadoni.github.io/customNPCs-constructor)
 **对话生成器 'Grotto' (v1.3) / 任务生成器 'Guild' (v0.8) / 脚本模块 'Terminal' (v0.9)**
 *（任务编辑器由于在此版本中未进行功能更新，因此未获得新名称）。*
 * **新功能：** 在脚本模块中增加了“勒普雷康的幸运”模板。
