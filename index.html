@@ -4,6 +4,123 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+	
+	/* Стили для редактора кода с подсветкой синтаксиса */
+.code-editor-container {
+    position: relative;
+    width: 100%;
+    height: 320px; /* Высота вашей текущей textarea */
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: #222;
+    overflow: hidden;
+}
+
+/* Общие правила для текста, чтобы textarea и подсветка идеально совпадали */
+/* Общие правила для текста, чтобы textarea и подсветка идеально совпадали */
+/* Общие правила для текста, чтобы textarea и подсветка идеально совпадали */
+.code-editor-textarea, .code-editor-highlight {
+    position: absolute;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 12px !important; /* Внутренние отступы */
+    border: none !important;
+    outline: none !important;
+    font-family: 'Consolas', 'Courier New', monospace !important;
+    font-size: 13px !important;
+    
+    /* ЖЕСТКИЙ ФИКС СЕТКИ: Высота каждой строки строго 18 пикселей */
+    line-height: 18px !important; 
+    
+    /* Заставляем длинные строки и пробелы переноситься абсолютно одинаково */
+    white-space: pre !important; 
+    word-wrap: break-word !important;
+    box-sizing: border-box !important;
+
+    /* ДОБАВИТЬ СЮДА: Отключаем сглаживание шрифтов, которое раздувает пиксели */
+    text-shadow: none !important;
+    font-variant-ligatures: none !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+/* Настоящая textarea становится невидимой, но принимает клики и ввод */
+/* Настоящая textarea снова становится нормальной, яркой и послушной */
+/* Настоящая textarea снова становится видимой и яркой */
+.code-editor-textarea {
+    background: transparent !important;
+    color: transparent !important; /* КРИТИЧЕСКИЙ ФИКС: текстtextarea становится невидимым */
+    caret-color: #ffffff !important; /* Курсор при этом остается белым и ярким */
+    z-index: 2;
+    resize: none;
+    overflow: auto !important;
+}
+
+
+
+
+
+/* Блок под ней отображает раскрашенный текст */
+.code-editor-highlight {
+    color: #abb2bf !important;
+    background: transparent !important;
+    z-index: 1;
+    overflow: hidden !important; /* Прячем дублирующие скроллбары */
+    pointer-events: none;
+}
+
+
+
+
+
+
+/* Цвета для ключевых слов синтаксиса (ИСПРАВЛЕНО: Добавлен !important, чтобы перебить инлайновый белый цвет) */
+/* Цвета для ключевых слов синтаксиса (Жесткий приоритет) */
+.hl-keyword { color: #c678dd !important; font-weight: bold !important; display: inline-block !important; }
+.hl-api     { color: #e5c07b !important; font-weight: bold !important; display: inline-block !important; }
+.hl-string  { color: #98c379 !important; display: inline-block !important; }
+.hl-comment { color: #5c6370 !important; font-style: italic !important; display: inline-block !important; }
+.hl-number  { color: #d19a66 !important; display: inline-block !important; }
+
+
+/* 1. Дополнительный запрет на заливку букв в textarea для WebKit-браузеров */
+.code-editor-textarea {
+    background: transparent !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: none !important;
+    caret-color: #ffffff !important;
+    z-index: 2;
+    resize: none;
+    box-sizing: border-box !important;
+    overflow-y: scroll !important;
+    overflow-x: auto !important;
+}
+
+.code-editor-textarea::selection {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+/* Дублируем для совместимости с Mozilla Firefox */
+.code-editor-textarea::-moz-selection {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: transparent !important;
+}
+.code-editor-highlight {
+    overflow-y: scroll !important;
+    overflow-x: auto !important;
+    box-sizing: border-box !important;
+}
+
+.code-editor-highlight::-webkit-scrollbar {
+    width: 16px !important;
+    background: transparent !important;
+}
+
 	/* ==========================================================================
    ИГРОВЫЕ ВКЛАДКИ В СТИЛЕ MINECRAFT
    ========================================================================== */
@@ -725,10 +842,32 @@
 		</div>
 
         <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
-        <div class="form-group">
-            <label for="scriptCodeArea" style="font-weight: bold; color: rgb(255, 85, 0);" data-i18n="lbl_s_area">Код скрипта (Напишите свой или используйте генератор):</label>
-            <textarea id="scriptCodeArea" data-i18n-ph="ph_s_area" placeholder="// Ваш JavaScript код для CustomNPCs..." style="width: 100%; height: 350px; font-family: &quot;Courier New&quot;, monospace; font-size: 13px; padding: 12px; box-sizing: border-box; resize: vertical; line-height: 1.5; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);"></textarea>
-        </div>
+                <!-- IСТОРИЯ: ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА С ПОДСВЕТКОЙ -->
+        <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
+            <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
+            <div class="form-group" style="width: 100%; box-sizing: border-box; position: relative;">
+                <label for="scriptCodeArea" style="font-weight: bold; color: rgb(255, 85, 0); margin-bottom: 5px; display: block;" data-i18n="lbl_s_area">Код скрипта (Напишите свой или используйте генератор):</label>
+                
+                <!-- Контейнер-родитель, который заставляет слои накладываться ровно друг на друга -->
+                <div class="code-editor-container" style="position: relative; width: 100%; height: 350px; border: 1px solid var(--border-color); border-radius: 4px; background-color: #222; overflow: hidden;">
+                    
+                    <!-- Невидимая textarea для ввода (Курсор caret-color оставляем белым, добавляем oninput и onscroll) -->
+                    <!-- Невидимая textarea для ввода (Курсор caret-color оставляем белым, добавляем oninput и onscroll) -->
+                    <textarea id="scriptCodeArea" 
+                              class="code-editor-textarea" 
+                              oninput="updateCodeHighlighting()" 
+                              onscroll="const target = document.getElementById('codeHighlightOverlay'); if(target) { target.scrollTop = this.scrollTop; target.scrollLeft = this.scrollLeft; target.style.height = this.scrollHeight + 'px'; }"
+                              data-i18n-ph="ph_s_area" 
+                              placeholder="// Ваш JavaScript код для CustomNPCs..."></textarea>
+
+                    
+                    <!-- Задний оверлей, который принимает раскрашенные span-теги -->
+                    <div id="codeHighlightOverlay" class="code-editor-highlight"></div>
+                </div>
+            </div>
+
+
+
 
         <!-- ШПОРА-ПАМЯТКА ДЛЯ СКРИПТОВ ВНИЗУ КАРТОЧКИ -->
         <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px; user-select: none;">
@@ -739,12 +878,15 @@
                 <button type="button" onclick="insertScriptTemplate(&#39;sound&#39;)" data-i18n="btn_lib_sound" style="padding: 6px 12px; background: #e0a800; color:#000; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🔊 Воспроизвести звук</button>
                 <button type="button" onclick="insertScriptTemplate(&#39;particle&#39;)" data-i18n="btn_lib_particle" style="padding: 6px 12px; background: #1e7145; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">✨ Взрыв частиц</button>
                 <button type="button" onclick="insertScriptTemplate(&#39;potion&#39;)" data-i18n="btn_lib_potion" style="padding: 6px 12px; background: #ff5500; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🧪 Выдать эффект зелья</button>
+				<!-- Изменяем onclick, чтобы он вызывал общий рабочий шаблон -->
+<button type="button" onclick="insertScriptTemplate('leprechaun')" style="padding: 6px 12px; background: #2e7d32; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px;"> 🍀 Удача лепрекона</button>
+
                 <button type="button" onclick="insertScriptTemplate(&#39;random&#39;)" data-i18n="btn_lib_random" style="padding: 6px 12px; background: #7e3878; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🎲 Случайный набор (Рандом)</button>
 				<!-- Дописать эти три кнопки прямо в блок кнопок-памяток для скриптов -->
                 <button type="button" onclick="insertScriptTemplate(&#39;scale&#39;)" data-i18n="btn_lib_scale" style="padding: 6px 12px; background: #00aba9; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🦖 Изменить размер NPC</button>
                 <button type="button" onclick="insertScriptTemplate(&#39;alarm&#39;)" data-i18n="btn_lib_alarm" style="padding: 6px 12px; background: #e51400; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🚨 Режим Сирены / Тревоги</button>
                 <button type="button" onclick="insertScriptTemplate(&#39;meteor&#39;)" data-i18n="btn_lib_meteor" style="padding: 6px 12px; background: #60a917; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">💥 Метеоритный дождь</button>
-				<!-- Кнопка вызова мини-плеера частиц -->
+								<!-- Кнопка вызова мини-плеера частиц -->
 <button type="button" onclick="openParticlePreviewer()" title="📺 Открыть монитор просмотра частиц (Превью эффектов)" style="background: #2a2a2a; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 10px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background=&#39;#ffcc00&#39;; this.style.color=&#39;#000&#39;;" onmouseout="this.style.background=&#39;#2a2a2a&#39;; this.style.color=&#39;#ffcc00&#39;;">📺</button>
 
             </div>
@@ -1652,16 +1794,24 @@ function setTheme(theme) {
             tabQuests.style.color = accentColor;
         }
     }
+// ВСТАВИТЬ В САМЫЙ КОНЕЦ ФУНКЦИИ СМЕНЫ ТЕМ:
+const scriptArea = document.getElementById('scriptCodeArea');
+if (scriptArea) {
+    scriptArea.style.setProperty('color', 'transparent', 'important');
+    scriptArea.style.setProperty('background-color', 'transparent', 'important');
+}
 
 } // <-- Конец функции setTheme, Это самая последняя скобка, закрывающая функцию setTheme
 
 
 // АВТОЗАГРУЗКА: Выполняется сразу при открытии или обновлении страницы
 document.addEventListener("DOMContentLoaded", function() {
-    // СНАЧАЛА СОЗДАЕМ 3 БАЗОВЫЕ КНОПКИ ПО УМОЛЧАНИЮ
-    addNewOptionButton();
-    addNewOptionButton();
-    addNewOptionButton();
+    // 🟢 КРИТИЧЕСКИЙ ФИКС: Удаляем или комментируем эти 3 строчки, 
+    // так как кнопки уже созданы руками в HTML-коде выше!
+    // addNewOptionButton();
+    // addNewOptionButton();
+    // addNewOptionButton();
+
     // Проверяем, есть ли сохраненная тема в памяти браузера
     const savedTheme = localStorage.getItem('customNpcTheme');
     
@@ -1673,6 +1823,7 @@ document.addEventListener("DOMContentLoaded", function() {
         setTheme('ifindit');
     }
 });
+
 
 // Глобальный счетчик веток
 let optionCount = 0;
@@ -3469,32 +3620,73 @@ function generateNpcScriptCode() {
 // Пополняемый блок-библиотека готовых шаблонов (Памятка функций)
 // Пополняемый блок-библиотека готовых шаблонов (Памятка функций)
 function insertScriptTemplate(type) {
-    const area = document.getElementById('scriptCodeArea');
-    if (!area) return;
+    const textarea = document.getElementById('scriptCodeArea');
+    if (!textarea) return;
 
     let template = "";
-    if (type === 'msg') {
-        template = `// Функция отправки сообщения игроку на экран\nevent.player.message("§6[Квест]:§f Задание обновлено!");\n`;
-    } else if (type === 'sound') {
-        template = `// Воспроизведение звука игроку (без координат, прямо в уши по API 1.12.2)\nevent.player.playSound("minecraft:ui.toast.challenge_complete", 1.0, 1.0);\n`;
-    } else if (type === 'particle') {
-        template = `// Эффект огненного пламени вокруг NPC\nvar world = event.npc.getWorld();\nif (world) {\n    world.spawnParticle("flame", event.npc.getX(), event.npc.getY() + 1, event.npc.getZ(), 0.2, 0.2, 0.2, 0.05, 20);\n}\n`;
-    } else if (type === 'potion') {
-        template = `// Наложить эффект зелья через команду (Намного надежнее Java-классов в 1.12.2)\nevent.npc.executeCommand("effect @p minecraft:speed 30 1"); // Скорость II на 30 секунд\n`;
-    } else if (type === 'random') {
-        template = `// Функция случайного набора событий (Рандом)\nfunction interact(event) {\n    var chance = Math.random();\n    if (chance < 0.3) {\n        event.npc.say("У меня отличное настроение сегодня!");\n    } else {\n        event.npc.say("Оставь меня в покое...");\n    }\n}\n`;
-    } else if (type === 'scale') {
-        template = `// ЮТУБЕРСКАЯ ФИШКА: Изменение размера NPC через getDisplay() по API 1.12.2\nevent.npc.getDisplay().setSize(8); // Делает NPC огромным Боссом! (Дефолт = 5)\nevent.npc.say("§4§lЯ ПРОБУДИЛ СВОЮ ИСТИННУЮ ФОРМУ!");\n`;
-    }
-    else if (type === 'alarm') {
-        template = `// РЕЖИМ СИРЕНЫ: Жуткий эмбиент и мигание красной пыли (редстоуна) вокруг NPC\nvar world = event.npc.getWorld();\nif (world) {\n    event.npc.executeCommand("playsound minecraft:ambient.cave master @p " + event.npc.getX() + " " + event.npc.getY() + " " + event.npc.getZ() + " 1 0.5");\n    world.spawnParticle("reddust", event.npc.getX(), event.npc.getY() + 2, event.npc.getZ(), 1.0, 0.5, 1.0, 0.0, 30);\n}\n`;
-    }
-    else if (type === 'meteor') {
-        template = `// МЕТЕОРИТНЫЙ ДОЖДЬ: Серия эпичных взрывов вокруг NPC\nvar world = event.npc.getWorld();\nif (world) {\n    for (var i = 0; i < 5; i++) {\n        var offset_x = (Math.random() - 0.5) * 6;\n        var offset_z = (Math.random() - 0.5) * 6;\n        world.spawnParticle("hugeexplosion", event.npc.getX() + offset_x, event.npc.getY(), event.npc.getZ() + offset_z, 0.2, 0.2, 0.2, 0.0, 1);\n    }\n    event.npc.executeCommand("playsound minecraft:entity.generic.explode master @p " + event.npc.getX() + " " + event.npc.getY() + " " + event.npc.getZ() + " 1 1");\n}\n`;
+
+    // Ваша существующая логика выбора шаблонов (оставляем её без изменений)
+    switch(type) {
+        case 'msg':
+            template = `// Сказать сообщение в чат от имени NPC\nfunction interact(event) {\n    event.npc.say("Привет, путник!");\n}`;
+            break;
+        case 'sound':
+            template = `// Воспроизвести звук игроку\nfunction interact(event) {\n    event.world.playSound(event.player.getX(), event.player.getY(), event.player.getZ(), "minecraft:entity.player.levelup", 1.0, 1.0);\n}`;
+            break;
+        case 'particle':
+            template = `// Создать эффект взрыва частиц\nfunction interact(event) {\n    event.world.spawnParticle("hugeexplosion", event.npc.getX(), event.npc.getY() + 1, event.npc.getZ(), 0.5, 0.5, 0.5, 0.0, 1);\n}`;
+            break;
+        case 'potion':
+            template = `// Выдать эффект зелья игроку (Скорость II на 10 секунд)\nfunction interact(event) {\n    event.player.addPotionEffect(1, 10, 1, false);\n}`;
+            break;
+        case 'random':
+            template = `// Случайный выбор действия (Рандом)\nfunction interact(event) {\n    var chance = Math.floor(Math.random() * 100) + 1;\n    if (chance <= 50) {\n        event.npc.say("Тебе повезло!");\n    } else {\n        event.npc.say("Не повезло...");\n    }\n}`;
+            break;
+        case 'scale':
+            template = `// Изменить размер NPC\nfunction init(event) {\n    event.npc.setSize(8); // Обычный размер = 5, гигант = 8+, карлик = 1-4\n}`;
+            break;
+        case 'alarm':
+            template = `// Режим Сирены / Тревоги\nfunction target(event) {\n    event.world.playSound(event.npc.getX(), event.npc.getY(), event.npc.getZ(), "minecraft:block.redstone_torch.burnout", 1.5, 0.5);\n    event.npc.say("⚠️ ОБНАРУЖЕН НАРУШИТЕЛЬ периметра: " + event.player.getName());\n}`;
+            break;
+        case 'meteor':
+            template = `// Метеоритный дождь\nfunction update(event) {\n    var x = event.npc.getX() + (Math.random() * 20 - 10);\n    var z = event.npc.getZ() + (Math.random() * 20 - 10);\n    event.world.spawnParticle("lava", x, event.npc.getY() + 10, z, 0.1, 0.5, 0.1, 0.5, 10);\n}`;
+            break;
+        case 'leprechaun':
+            template = `// ==== СКРИПТ: Удача лепрекона (Случайное событие) ====\nfunction interact(event) {\n    var npc = event.npc;\n    var player = event.player;\n    var world = npc.getWorld();\n    var pos = npc.getPos();\n    \n    var chance = Math.floor(Math.random() * 100) + 1;\n    player.sendMessage("§2[Лепрекон]:§a Крутим колесо фортуны...");\n    \n    if (chance <= 30) {\n        player.sendMessage("§2[Удача]:§7 Сегодня не твой день. Держи грязь!");\n        world.spawnParticle("cloud", pos.getX(), pos.getY() + 2, pos.getZ(), 0.5, 0.5, 0.5, 0.1, 20);\n        npc.executeCommand("/give " + player.getName() + " minecraft:dirt 16");\n    } else if (chance > 30 && chance <= 70) {\n        player.sendMessage("§2[Удача]:§e Неплохо! Держи ресурсы.");\n        world.spawnParticle("reddust", pos.getX(), pos.getY() + 2, pos.getZ(), 0.5, 1.0, 0.5, 0.0, 30);\n        npc.executeCommand("/give " + player.getName() + " minecraft:iron_ingot 8");\n    } else if (chance > 70 && chance <= 90) {\n        player.sendMessage("§2[Удача]:§b§l ДЖЕКПОТ! Горшок с золотом!");\n        world.spawnParticle("totem", pos.getX(), pos.getY() + 1, pos.getZ(), 1.0, 1.0, 1.0, 0.2, 50);\n        npc.executeCommand("/give " + player.getName() + " minecraft:diamond 3");\n    } else {\n        player.sendMessage("§2[Удача]:§c§l ОЙ! Спавн монстра-стража!");\n        world.spawnParticle("explode", pos.getX(), pos.getY() + 1, pos.getZ(), 0.5, 0.5, 0.5, 0.1, 15);\n        var monster = world.createEntity("minecraft:zombie");\n        if (monster) {\n            monster.setPos(pos.getX() + 1, pos.getY(), pos.getZ());\n            monster.spawn();\n            monster.setAttackTarget(player);\n        }\n    }\n}`;
+            break;
+
+
     }
 
-    area.value += template + "\n";
+// НАКОПИТЕЛЬНЫЙ ФИКС (Вставка вместо полной очистки):
+    const startPos = textarea.selectionStart;
+    const endPos = textarea.selectionEnd;
+    const oldText = textarea.value;
+
+    // Проверяем, если поле не пустое и мы вставляем код, добавим перенос строки для красоты
+    const textToInsert = oldText.length > 0 ? "\n\n" + template : template;
+
+    if (startPos || startPos === 0) {
+        // Вставляем шаблон ровно туда, где сейчас стоит курсор пользователя
+        textarea.value = oldText.substring(0, startPos) + textToInsert + oldText.substring(endPos, oldText.length);
+        
+        // Перемещаем курсор в конец только что вставленного куска кода
+        textarea.selectionStart = startPos + textToInsert.length;
+        textarea.selectionEnd = startPos + textToInsert.length;
+    } else {
+        // Если поле пустое или курсор потерян — просто дописываем код в самый конец
+        textarea.value += textToInsert;
+    }
+
+    // Фокусируем внимание браузера обратно на редактор кода
+    textarea.focus();
+
+    // ПРИНУДИТЕЛЬНО перекрашиваем обновленный текст, чтобы он сразу стал цветным!
+    if (typeof updateCodeHighlighting === "function") {
+        updateCodeHighlighting();
+    }
 }
+
 
 
 // Скачивание файла скрипта на компьютер (.js)
@@ -3605,18 +3797,25 @@ function generateRandomNpcScript() {
         scriptResult += `    player.message("§6[Система]:§f Диалог с жителем успешно завершен.");\n`;
     }
 
-    scriptResult += `}\n\n`;
+scriptResult += `}\n\n`;
 
-
-
-    // Вставляем сгенерированный код в начало текстового поля
-    area.value = scriptResult + area.value;
+    // ИСПРАВЛЕНО: Теперь функция случайного скрипта записывает СВОЙ результат (scriptResult) в позицию курсора
+    const start = area.selectionStart;
+    const end = area.selectionEnd;
+    area.value = area.value.substring(0, start) + scriptResult + area.value.substring(end);
+    area.selectionStart = area.selectionEnd = start + scriptResult.length;
     
-    // Мягко моргнем рамкой в знак успеха
+    area.focus();
+    
+    if (typeof updateCodeHighlighting === 'function') {
+        updateCodeHighlighting();
+    }
+    
     const originalBorder = area.style.borderColor;
     area.style.borderColor = 'var(--accent-color)';
     setTimeout(() => { area.style.borderColor = originalBorder; }, 400);
 }
+
 
 function changeLanguage(lang) {
     // Сохраняем выбранный язык в память браузера
@@ -3651,47 +3850,182 @@ function changeLanguage(lang) {
     });
 }
 
+// ==========================================================================
+// Лепрекон 
+// ==========================================================================
+// ОТДЕЛЬНАЯ АВТОНОМНАЯ ФУНКЦИЯ ДЛЯ ЗЕЛЁНОЙ КНОПКИ ЛЕПРЕКОНА
+function insertLeprechaunLuckScript() {
+    const area = document.getElementById('scriptCodeArea');
+    
+    if (!area) {
+        console.error("Не удалось найти текстовое поле scriptCodeArea!");
+        return;
+    }
 
+    // Чистый готовый код для CustomNPCs API (1.12.2)
+    const leprechaunCode = `// ==== СКРИПТ: Удача лепрекона (Случайное событие) ====
+function interact(event) {
+    var npc = event.npc;
+    var player = event.player;
+    var world = npc.getWorld();
+    var pos = npc.getPos();
+    
+    var chance = Math.floor(Math.random() * 100) + 1;
+    player.sendMessage("§2[🍀 Лепрекон]:§a Крутим колесо фортуны...");
+    
+    if (chance <= 30) {
+        player.sendMessage("§2[🍀]:§7 Сегодня не твой день. Держи грязь!");
+        world.spawnParticle("cloud", pos.getX(), pos.getY() + 2, pos.getZ(), 0.5, 0.5, 0.5, 0.1, 20);
+        npc.executeCommand("/give " + player.getName() + " minecraft:dirt 16");
+    } else if (chance > 30 && chance <= 70) {
+        player.sendMessage("§2[🍀]:§e Неплохо! Держи ресурсы.");
+        world.spawnParticle("reddust", pos.getX(), pos.getY() + 2, pos.getZ(), 0.5, 1.0, 0.5, 0.0, 30);
+        npc.executeCommand("/give " + player.getName() + " minecraft:iron_ingot 8");
+    } else if (chance > 70 && chance <= 90) {
+        player.sendMessage("§2[🍀]:§b§l ДЖЕКПОТ! Горшок с золотом!");
+        world.spawnParticle("totem", pos.getX(), pos.getY() + 1, pos.getZ(), 1.0, 1.0, 1.0, 0.2, 50);
+        npc.executeCommand("/give " + player.getName() + " minecraft:diamond 3");
+    } else {
+        player.sendMessage("§2[🍀]:§c§l ОЙ! Спавн монстра-стража!");
+        world.spawnParticle("explode", pos.getX(), pos.getY() + 1, pos.getZ(), 0.5, 0.5, 0.5, 0.1, 15);
+        var monster = world.createEntity("minecraft:zombie");
+        if (monster) {
+            monster.setPos(pos.getX() + 1, pos.getY(), pos.getZ());
+            monster.spawn();
+            monster.setAttackTarget(player);
+        }
+    }
+}\n\n`;
 
+    // БЕЗОПАСНАЯ ВСТАВКА В СТИЛЕ ИСПРАВЛЕННЫХ КНОПОК:
+    const start = area.selectionStart;
+    const end = area.selectionEnd;
+    const currentText = area.value;
+    
+    // Вставляем строго туда, где стоит курсор сценариста
+    area.value = currentText.substring(0, start) + leprechaunCode + currentText.substring(end);
+    
+    // Сдвигаем курсор в конец вставленного блока кода
+    area.selectionStart = area.selectionEnd = start + leprechaunCode.length;
+    area.focus();
+    
+    // СИНХРОНИЗАЦИЯ СКРОЛЛА: Принудительно выравниваем слои перед перекраской
+    const overlay = document.getElementById('codeHighlightOverlay');
+    if (overlay) {
+        overlay.scrollTop = area.scrollTop;
+        overlay.scrollLeft = area.scrollLeft;
+    }
+
+    // Принудительно запускаем раскраску букв на экране
+    if (typeof updateCodeHighlighting === 'function') {
+        updateCodeHighlighting();
+    }
+    
+    // Мягко моргнем рамкой в знак успеха
+    const originalBorder = area.style.borderColor;
+    area.style.borderColor = 'var(--accent-color)';
+    setTimeout(() => { area.style.borderColor = originalBorder; }, 400);
+}
 // ==========================================================================
 // СИСТЕМА МЕЖДУНАРОДНОЙ ЛОКАЛИЗАЦИИ ИНТЕРФЕЙСА (i18n)
 // ==========================================================================
 const langData = {
     ru: {
-        tab_dialogs: "📜 Конструктор Диалогов", tab_quests: "⚔️ Создание Квестов", tab_scripts: "💻 Редактор Скриптов",
-        main_dialog_header: "Основной диалог №0", lbl_dialog_id: "ID Диалога (DialogId)", lbl_dialog_title: "Название диалога (DialogTitle)", lbl_dialog_text: "Текст NPC (DialogText)",
-        quest_header: "Задание", lbl_q_title: "Название квеста (Title)", lbl_q_npc: "Кто принимает квест (CompleterNpc)", lbl_q_text: "Описание задания для журнала игрока (Text)",
-        lbl_q_repeat: "Повторяемость квеста (QuestRepeat)", lbl_q_type: "Тип задания (Type)", lbl_q_exp: "Награда: Опыт игрока (RewardExp)", lbl_q_next: "ID следующего квеста в цепочке (-1 если нет)",
-        script_editor_title: "💻 JavaScript Редактор (ECMAScript)", script_generator_title: "⚡ Автогенератор скрипта:", lbl_s_event: "1. При срабатывании триггеров (событие):", lbl_s_action: "2. Что делать (Действие):", lbl_s_value: "3. Значение (текст сообщения или координаты X, Y, Z):", lbl_s_area: "Код скрипта (Напишите свой или используйте генератор):",
-        notes_title: "📝 Заметки сценариста", cheat_title: "📖 Справочник команд 1.12.2",btn_gen_code: "Сгенерировать код в окно ниже ⚡", btn_gen_rand: "🎲 Сгенерировать случайный скрипт-событие", lib_title: "📌 Библиотека готовых Java-функций (Кликните для вставки):",extra_dialog_header: "Дополнительный диалог",
-		opt_ev_interact: "Игрок кликнул на NPC (interact)", opt_ev_init: "NPC появился в мире (init)", opt_ev_damaged: "NPC получил урон (damaged)", opt_ev_died: "NPC умер / Босс пал (died)", opt_ev_update: "Каждую секунду / Постоянно (update)", opt_ev_target: "NPC заметил врага или игрока (target)",
-opt_act_say: "NPC скажет сообщение в чат", opt_act_tp: "Телепортировать игрока на XYZ", opt_act_particle: "Создать эффект взрыва / частиц", opt_act_kill: "Убить игрока на месте (Ловушка)", opt_act_rage: "Включить РЕЖИМ ЯРОСТИ (Скорость + Огонь)", opt_act_blind: "Ослепить игрока на экране (Эффект Босса)", opt_act_loot: "Выдать супер-награду (Алмазы + Звук)",
-ph_s_value: "Припример: 100 64 -250 или Текст...", ph_s_area: "// Ваш JavaScript код для CustomNPCs...",
-btn_lib_msg: "💬 Сказать в чат", btn_lib_sound: "🔊 Воспроизвести звук", btn_lib_particle: "✨ Взрыв частиц", btn_lib_potion: "🧪 Выдать эффект зелья", btn_lib_random: "🎲 Случайный набор (Рандом)", btn_lib_scale: "🦖 Изменить размер NPC", btn_lib_alarm: "🚨 Режим Сирены / Тревоги", btn_lib_meteor: "💥 Метеоритный дождь",
-lbl_story_quests: "⚡ Сюжетные квесты:",
-btn_ai_quest: "🔮 ИИ-Генератор задания",
-ph_q_npc: "Имя NPC в игре...",
-hint_q_cmd: "Подсказка мода: Используйте @dp для применения на игрока, активировавшего это событие.",
-ch_t_time_day: "☀️ Время суток: День (Time set)", ch_d_time_day: "Перемотка игрового времени на утро (1000 тиков).",
-ch_t_time_night: "🌙 Время суток: Ночь (Time set)", ch_d_time_night: "Перемотка игрового времени на ночь (13000 тиков).",
-ch_t_weat_clear: "🌦️ Погода: Ясно (Weather)", ch_d_weat_clear: "Очищает небо от дождя и грозы на сервере.",
-ch_t_weat_rain: "🌧️ Погода: Дождь (Weather)", ch_d_weat_rain: "Включает затяжной ливень в мире.",
-ch_t_gm_adv: "🏹 Режим игры: Приключение (Gamemode)", ch_d_gm_adv: "Переводит игрока в режим приключения (нельзя ломать блоки).",
-ch_t_gm_surv: "⚔️ Режим игры: Выживание (Gamemode)", ch_d_gm_surv: "Возвращает игрока в стандартный режим выживания.",
-ch_t_sound_win: "🔊 Звуковой триумф (Playsound)", ch_d_sound_win: "Проигрывает звук успешного испытания.",
-ch_t_sound_cave: "👾 Звук испуга пещеры", ch_d_sound_cave: "Включает жуткий эмбиент-эффект для нагнетания мистики.",
-ch_t_tellraw: "💬 Сообщение в чат (Tellraw)", ch_d_tellraw: "Выводит золотое RPG-уведомление для всех игроков.",
-ch_t_title: "🎬 Заголовок на весь экран (Title)", ch_d_title: "Выводит огромные красные буквы по центру экрана игрока.",
-ch_t_tp: "📍 Телепортация (Teleport)", ch_d_tp: "Переносит игрока на указанные RPG-координаты X Y Z.",
-ch_t_spawnpoint: "🛖 Установка точки возрождения", ch_d_spawnpoint: "Привязывает спавн игрока к текущему месту (чекпоинт квеста).",
-ch_t_lightning: "⚡ Удар молнии (Summon)", ch_d_lightning: "Призывает молнию в координаты игрока для спецэффекта.",
-ch_t_npc_attack: "⚔️ Атака NPC (Скрипт мода)", ch_d_npc_attack: "Заставляет NPC мгновенно стать враждебным и напасть на игрока.",
-ch_d_give_alt: "Выдаёт ресурсы игроку. Подсказка мода: используйте @dp.",
-ch_t_sound_win_alt: "🔊 Звук победы", ch_d_sound_win_alt: "Проигрывает триумфальный звук завершения квеста.",
-ch_d_xp_alt: "Добавляет очки опыта (points) игроку.", notes_title: "📝 Заметки сценариста",
-ph_notes_search: "Поиск слова...",ttl_theme_pip: "Стиль: Пип-бой", ttl_theme_melon: "Стиль 1994: MelonKing", ttl_theme_yahoo: "Стиль 2000: Yahoo! Japan", ttl_theme_win: "Стиль 1997: Windows 95", ttl_theme_ryan: "Стиль 2007: Ryanair",
-ttl_open_notes: "📝 Открыть заметки сценариста (Notepad++)", ttl_open_cheat: "📖 Открыть шпаргалку по командам (Minecraft 1.12.2)",
-ttl_main_gear: "Функции и настройки этого диалога",
+        tab_dialogs: "📜 Конструктор Диалогов",
+		tab_quests: "⚔️ Создание Квестов", 
+		tab_scripts: "💻 Редактор Скриптов",
+        main_dialog_header: "Основной диалог №0",
+		lbl_dialog_id: "ID Диалога (DialogId)", 
+		lbl_dialog_title: "Название диалога (DialogTitle)", 
+		lbl_dialog_text: "Текст NPC (DialogText)",
+        quest_header: "Задание", lbl_q_title: "Название квеста (Title)",
+		lbl_q_npc: "Кто принимает квест (CompleterNpc)",
+		lbl_q_text: "Описание задания для журнала игрока (Text)",
+        lbl_q_repeat: "Повторяемость квеста (QuestRepeat)",
+		lbl_q_type: "Тип задания (Type)", 
+		lbl_q_exp: "Награда: Опыт игрока (RewardExp)",
+		lbl_q_next: "ID следующего квеста в цепочке (-1 если нет)",
+        script_editor_title: "💻 JavaScript Редактор (ECMAScript)", 
+		script_generator_title: "⚡ Автогенератор скрипта:", 
+		lbl_s_event: "1. При срабатывании триггеров (событие):",
+		lbl_s_action: "2. Что делать (Действие):", 
+		lbl_s_value: "3. Значение (текст сообщения или координаты X, Y, Z):",
+		lbl_s_area: "Код скрипта (Напишите свой или используйте генератор):",
+        notes_title: "📝 Заметки сценариста",
+		cheat_title: "📖 Справочник команд 1.12.2",
+		btn_gen_code: "Сгенерировать код в окно ниже ⚡", 
+		btn_gen_rand: "🎲 Сгенерировать случайный скрипт-событие", 
+		lib_title: "📌 Библиотека готовых Java-функций (Кликните для вставки):",
+		extra_dialog_header: "Дополнительный диалог",
+		opt_ev_interact: "Игрок кликнул на NPC (interact)", 
+		opt_ev_init: "NPC появился в мире (init)", 
+		opt_ev_damaged: "NPC получил урон (damaged)", 
+		opt_ev_died: "NPC умер / Босс пал (died)", 
+		opt_ev_update: "Каждую секунду / Постоянно (update)", 
+		opt_ev_target: "NPC заметил врага или игрока (target)",
+		opt_act_say: "NPC скажет сообщение в чат",
+		opt_act_tp: "Телепортировать игрока на XYZ", 
+		opt_act_particle: "Создать эффект взрыва / частиц", 
+		opt_act_kill: "Убить игрока на месте (Ловушка)", 
+		opt_act_rage: "Включить РЕЖИМ ЯРОСТИ (Скорость + Огонь)", 
+		opt_act_blind: "Ослепить игрока на экране (Эффект Босса)",
+		opt_act_loot: "Выдать супер-награду (Алмазы + Звук)",
+		ph_s_value: "Припример: 100 64 -250 или Текст...", 
+		ph_s_area: "// Ваш JavaScript код для CustomNPCs...",
+		btn_lib_msg: "💬 Сказать в чат", 
+		btn_lib_sound: "🔊 Воспроизвести звук",
+		btn_lib_particle: "✨ Взрыв частиц", 
+		btn_lib_potion: "🧪 Выдать эффект зелья",
+		btn_lib_random: "🎲 Случайный набор (Рандом)", 
+		btn_lib_scale: "🦖 Изменить размер NPC", 
+		btn_lib_alarm: "🚨 Режим Сирены / Тревоги", 
+		btn_lib_meteor: "💥 Метеоритный дождь",
+		lbl_story_quests: "⚡ Сюжетные квесты:",
+		btn_ai_quest: "🔮 ИИ-Генератор задания",
+		ph_q_npc: "Имя NPC в игре...",
+		hint_q_cmd: "Подсказка мода: Используйте @dp для применения на игрока, активировавшего это событие.",
+		ch_t_time_day: "☀️ Время суток: День (Time set)", 
+		ch_d_time_day: "Перемотка игрового времени на утро (1000 тиков).",
+		ch_t_time_night: "🌙 Время суток: Ночь (Time set)", 
+		ch_d_time_night: "Перемотка игрового времени на ночь (13000 тиков).",
+		ch_t_weat_clear: "🌦️ Погода: Ясно (Weather)", 
+		ch_d_weat_clear: "Очищает небо от дождя и грозы на сервере.",
+		ch_t_weat_rain: "🌧️ Погода: Дождь (Weather)", 
+		ch_d_weat_rain: "Включает затяжной ливень в мире.",
+		ch_t_gm_adv: "🏹 Режим игры: Приключение (Gamemode)", 
+		ch_d_gm_adv: "Переводит игрока в режим приключения (нельзя ломать блоки).",
+		ch_t_gm_surv: "⚔️ Режим игры: Выживание (Gamemode)", 
+		ch_d_gm_surv: "Возвращает игрока в стандартный режим выживания.",
+		ch_t_sound_win: "🔊 Звуковой триумф (Playsound)",
+		ch_d_sound_win: "Проигрывает звук успешного испытания.",
+		ch_t_sound_cave: "👾 Звук испуга пещеры",
+		ch_d_sound_cave: "Включает жуткий эмбиент-эффект для нагнетания мистики.",
+		ch_t_tellraw: "💬 Сообщение в чат (Tellraw)", 
+		ch_d_tellraw: "Выводит золотое RPG-уведомление для всех игроков.",
+		ch_t_title: "🎬 Заголовок на весь экран (Title)", 
+		ch_d_title: "Выводит огромные красные буквы по центру экрана игрока.",
+		ch_t_tp: "📍 Телепортация (Teleport)", 
+		ch_d_tp: "Переносит игрока на указанные RPG-координаты X Y Z.",
+		ch_t_spawnpoint: "🛖 Установка точки возрождения", 
+		ch_d_spawnpoint: "Привязывает спавн игрока к текущему месту (чекпоинт квеста).",
+		ch_t_lightning: "⚡ Удар молнии (Summon)", 
+		ch_d_lightning: "Призывает молнию в координаты игрока для спецэффекта.",
+		ch_t_npc_attack: "⚔️ Атака NPC (Скрипт мода)", 
+		ch_d_npc_attack: "Заставляет NPC мгновенно стать враждебным и напасть на игрока.",
+		ch_d_give_alt: "Выдаёт ресурсы игроку. Подсказка мода: используйте @dp.",
+		ch_t_sound_win_alt: "🔊 Звук победы", 
+		ch_d_sound_win_alt: "Проигрывает триумфальный звук завершения квеста.",
+		ch_d_xp_alt: "Добавляет очки опыта (points) игроку.", 
+		notes_title: "📝 Заметки сценариста",
+		ph_notes_search: "Поиск слова...",
+		ttl_theme_pip: "Стиль: Пип-бой",
+		ttl_theme_melon: "Стиль 1994: MelonKing", 
+		ttl_theme_yahoo: "Стиль 2000: Yahoo! Japan", 
+		ttl_theme_win: "Стиль 1997: Windows 95", 
+		ttl_theme_ryan: "Стиль 2007: Ryanair",
+		ttl_open_notes: "📝 Открыть заметки сценариста (Notepad++)", 
+		ttl_open_cheat: "📖 Открыть шпаргалку по командам (Minecraft 1.12.2)",
+		ttl_main_gear: "Функции и настройки этого диалога",
         lbl_dialog_text: "Текст NPC (DialogText)",
         btn_gen_code: "Сгенерировать код в окно ниже ⚡",
         btn_gen_rand: "🎲 Сгенерировать случайный скрипт-событие",
@@ -3709,73 +4043,142 @@ ttl_main_gear: "Функции и настройки этого диалога",
         lbl_avail_f1: "Фракция 1 (ID):",
         lbl_avail_r1: "Репутация 1:",
 		lbl_opacity: "Прозрачность:",
-ph_avail_sb: "Имя задачи...",
-options_main_title: "Варианты ответов игрока (Кнопки)",
+		ph_avail_sb: "Имя задачи...",
+		options_main_title: "Варианты ответов игрока (Кнопки)",
         lbl_avail_f2: "Фракция 2 (ID):",
         lbl_avail_r2: "Репутация 2:",
         lbl_avail_time: "Время суток (DayTime):",
         lbl_avail_lvl: "Минимальный уровень опыта:",
-        opt_rep_0: "Дружелюбные (0)", opt_rep_1: "Нейтральные (1)", opt_rep_2: "Враждебные (2)",
-        opt_time_0: "Сутки (0)", opt_time_1: "День (1)", opt_time_2: "Ночь (2)",
+        opt_rep_0: "Дружелюбные (0)", 
+		opt_rep_1: "Нейтральные (1)", 
+		opt_rep_2: "Враждебные (2)",
+        opt_time_0: "Сутки (0)", 
+		opt_time_1: "День (1)", 
+		opt_time_2: "Ночь (2)",
         tmpl_branches_title: "⚡ Шаблоны веток:",
-        btn_tmpl_guard: "⚔️ Стража", btn_tmpl_villager: "🌾 Житель", btn_tmpl_trader: "💰 Торг",
+        btn_tmpl_guard: "⚔️ Стража", 
+		btn_tmpl_villager: "🌾 Житель", 
+		btn_tmpl_trader: "💰 Торг",
 		extra_quest_header: "Доп. задание",
-lbl_q_comp_text: "Текст NPC при сдаче квеста (CompleteText)",
-lbl_q_cmd: "Консольная команда при завершении задания (QuestCommand)",
-lbl_q_completion: "Логика завершения",
-lbl_q_chk_rand: "Случайная награда",
-btn_ai_plot: "🔮 ИИ-Генератор сюжета",
-lbl_q_chk_nbt: "Игнорировать NBT предметов",
-lbl_q_chk_leave: "Оставлять предметы квеста",
-opt_repeat_2: "Ежедневно (2)", opt_repeat_3: "Еженедельно (3)", opt_repeat_4: "Игровой День (4)", opt_repeat_5: "Игровая Неделя (5)",
-opt_q_type_2: "На Диалог (2)", opt_q_type_3: "Manual (3)", opt_q_type_4: "На локацию (4)",
-opt_q_comp_0: "У NPC из поля выше (0)", opt_q_comp_1: "Мгновенно в логе заданий (1)",
-ph_q_text: "Что нужно сделать игроку...", ph_q_comp_text: "Отличная работа воина...", ph_q_cmd: "Команда консоли при сдаче (например: give @dp diamond 5)...",
-ch_t_give: "💎 Выдача предметов (Give)", ch_d_give: "Выдаёт ресурсы игроку. Синтаксис: give [игрок] [id] [кол-во]",
-ch_t_xp: "✨ Начисление опыта (XP)", ch_d_xp: "Добавляет очки опыта (points) или уровни (L).",
-ch_t_effect: "⚡ Эффекты зелий (Effect)", ch_d_effect: "Накладывает баффы/дебаффы. Синтаксис: effect [игрок] [эффект] [время] [уровень]",
-ch_t_eff_clear: "❤️ Исцеление / Очистка эффектов", ch_d_eff_clear: "Полностью снимает все негативные или позитивные эффекты.",
-ch_t_saturation: "🍗 Насыщение сытости", ch_d_saturation: "Мгновенно восполняет шкалу голода игрока.", ch_t_speed_alt: "⚡ Эффект скорости", ch_d_speed_alt: "Накладывает Скорость II на 60 секунд.",
-ch_t_tellraw_alt: "💬 Сообщение в чат", ch_d_tellraw_alt: "Выводит красивое цветное RPG-уведомление.",
-ch_t_weat_clear_alt: "🌦️ Изменение погоды", ch_d_weat_clear_alt: "Включает ясную погоду на сервере.",
-lbl_db_ver: "База данных", lbl_opt_btn: "Кнопка", lbl_opt_slot: "Слот", btn_remove_branch: "❌ Удалить ветку",
-lbl_opt_title: "Текст ответа:", ph_opt_title: "Текст, который выберет игрок...",
-lbl_opt_type: "Действие (OptionType):", opt_type_1: "Переход к диалогу (1)", opt_type_0: "Закрыть диалог (0)", opt_type_2: "Открыть Роль NPC (2)", opt_type_3: "Показать Фракцию (3)",
-lbl_opt_next: "ID следующего диалога:", lbl_opt_color: "Цвет текста кнопки (Decimal):",
-lbl_opt_cmd: "Команда кнопки:", ph_opt_cmd: "Команда консоли при нажатии...",
-lbl_opt_fac_id: "Изменить фракцию (ID):", lbl_opt_fac_pts: "Очки:", lbl_opt_fac_dec: "Отнимать очки", note_tab_plot: "Сюжет", note_tab_quests: "Задания", note_tab_memos: "Памятки", ph_notes_area: "Пишите пометки здесь...",
-title_dialogs: "Конструктор Диалогов CustomNPCs Водопад (Вер. 1.2)",
-title_quests: "Конструктор Заданий CustomNPCs Гильдия (Вер. 0.8)",
-title_scripts: "Скриптовый Модуль CustomNPCs Смотрящий (Вер. 0.8)",
-lbl_particles: "Эффекты:", opt_part_none: "Выкл. ❌", opt_part_sakura: "Сакура 🌸", opt_part_snow: "Снегопад ❄️", opt_part_leaves: "Листопад 🍁",
-ttl_quest_gear: "Функции и настройки этого квеста", ttl_sys_gear: "Настройки интерфейса и темы", ttl_clear_all: "Очистить все поля веток", ttl_del_last: "Удалить последнюю ветку", ttl_add_new: "Добавить новую ветку диалога",
-ttl_add_chain: "📜 Добавить следующий диалог в ленту",
-ttl_download_dial: "💾 Скачать этот диалог (.json)",
-ttl_avail_settings: "🔒 Условия доступности диалога",
-ttl_download_quest: "💾 Скачать базовый квест (.json)",
-ttl_download_script: "💾 Скачать этот скрипт (.js)",
-ttl_tmpl_guard: "Заполнить как диалог со стражником",
-ttl_tmpl_villager: "Заполнить как диалог с жителем",
-ttl_tmpl_trader: "Заполнить как диалог с торговцем",
-ttl_ai_plot: "🎲 Сгенерировать полноценный случайный RPG сюжет",
-ttl_quest_chain: "⚔️ Добавить следующее задание в цепочку",
-ttl_ai_quest: "🎲 Сгенерировать случайное сюжетное задание (Хоррор / Техно / RPG)",
-ttl_author_btn: "🧍 Об авторе и контакты для багов", mdl_auth_title: "🧍 Разработчик проекта", mdl_auth_desc: "Если вы нашли баг, синтаксическую ошибку или у вас есть идеи по улучшению генераторов — свяжитесь с автором напрямую:", lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube"
+		lbl_q_comp_text: "Текст NPC при сдаче квеста (CompleteText)",
+		lbl_q_cmd: "Консольная команда при завершении задания (QuestCommand)",
+		lbl_q_completion: "Логика завершения",
+		lbl_q_chk_rand: "Случайная награда",
+		btn_ai_plot: "🔮 ИИ-Генератор сюжета",
+		lbl_q_chk_nbt: "Игнорировать NBT предметов",
+		lbl_q_chk_leave: "Оставлять предметы квеста",
+		opt_repeat_2: "Ежедневно (2)", 
+		opt_repeat_3: "Еженедельно (3)", 
+		opt_repeat_4: "Игровой День (4)",
+		opt_repeat_5: "Игровая Неделя (5)",
+		opt_q_type_2: "На Диалог (2)", 
+		opt_q_type_3: "Manual (3)", 
+		opt_q_type_4: "На локацию (4)",
+		opt_q_comp_0: "У NPC из поля выше (0)", 
+		opt_q_comp_1: "Мгновенно в логе заданий (1)",
+		ph_q_text: "Что нужно сделать игроку...", 
+		ph_q_comp_text: "Отличная работа воина...", 
+		ph_q_cmd: "Команда консоли при сдаче (например: give @dp diamond 5)...",
+		ch_t_give: "💎 Выдача предметов (Give)", 
+		ch_d_give: "Выдаёт ресурсы игроку. Синтаксис: give [игрок] [id] [кол-во]",
+		ch_t_xp: "✨ Начисление опыта (XP)", 
+		ch_d_xp: "Добавляет очки опыта (points) или уровни (L).",
+		ch_t_effect: "⚡ Эффекты зелий (Effect)", 
+		ch_d_effect: "Накладывает баффы/дебаффы. Синтаксис: effect [игрок] [эффект] [время] [уровень]",
+		ch_t_eff_clear: "❤️ Исцеление / Очистка эффектов", 
+		ch_d_eff_clear: "Полностью снимает все негативные или позитивные эффекты.",
+		ch_t_saturation: "🍗 Насыщение сытости",
+		ch_d_saturation: "Мгновенно восполняет шкалу голода игрока.", 
+		ch_t_speed_alt: "⚡ Эффект скорости",
+		ch_d_speed_alt: "Накладывает Скорость II на 60 секунд.",
+		ch_t_tellraw_alt: "💬 Сообщение в чат", 
+		ch_d_tellraw_alt: "Выводит красивое цветное RPG-уведомление.",
+		ch_t_weat_clear_alt: "🌦️ Изменение погоды", 
+		ch_d_weat_clear_alt: "Включает ясную погоду на сервере.",
+		lbl_db_ver: "База данных",
+		lbl_opt_btn: "Кнопка",
+		lbl_opt_slot: "Слот", 
+		btn_remove_branch: "❌ Удалить ветку",
+		lbl_opt_title: "Текст ответа:", 
+		ph_opt_title: "Текст, который выберет игрок...",
+		lbl_opt_type: "Действие (OptionType):",
+		opt_type_1: "Переход к диалогу (1)", 
+		opt_type_0: "Закрыть диалог (0)", 
+		opt_type_2: "Открыть Роль NPC (2)", 
+		opt_type_3: "Показать Фракцию (3)",
+		lbl_opt_next: "ID следующего диалога:",
+		lbl_opt_color: "Цвет текста кнопки (Decimal):",
+		lbl_opt_cmd: "Команда кнопки:", 
+		ph_opt_cmd: "Команда консоли при нажатии...",
+		lbl_opt_fac_id: "Изменить фракцию (ID):", 
+		lbl_opt_fac_pts: "Очки:", 
+		lbl_opt_fac_dec: "Отнимать очки", 
+		note_tab_plot: "Сюжет", 
+		note_tab_quests: "Задания", 
+		note_tab_memos: "Памятки",
+		ph_notes_area: "Пишите пометки здесь...",
+		title_dialogs: "Конструктор Диалогов CustomNPCs Грот (Вер. 1.3)",
+		title_quests: "Конструктор Заданий CustomNPCs Гильдия (Вер. 0.8)",
+		title_scripts: "Скриптовый Модуль CustomNPCs Терминал (Вер. 0.9)",
+		lbl_particles: "Эффекты:", 
+		opt_part_none: "Выкл. ❌", 
+		opt_part_sakura: "Сакура 🌸", 
+		opt_part_snow: "Снегопад ❄️", 
+		opt_part_leaves: "Листопад 🍁",
+		ttl_quest_gear: "Функции и настройки этого квеста",
+		ttl_sys_gear: "Настройки интерфейса и темы", 
+		ttl_clear_all: "Очистить все поля веток", 
+		ttl_del_last: "Удалить последнюю ветку", 
+		ttl_add_new: "Добавить новую ветку диалога",
+		ttl_add_chain: "📜 Добавить следующий диалог в ленту",
+		ttl_download_dial: "💾 Скачать этот диалог (.json)",
+		ttl_avail_settings: "🔒 Условия доступности диалога",
+		ttl_download_quest: "💾 Скачать базовый квест (.json)",
+		ttl_download_script: "💾 Скачать этот скрипт (.js)",
+		ttl_tmpl_guard: "Заполнить как диалог со стражником",
+		ttl_tmpl_villager: "Заполнить как диалог с жителем",
+		ttl_tmpl_trader: "Заполнить как диалог с торговцем",
+		ttl_ai_plot: "🎲 Сгенерировать полноценный случайный RPG сюжет",
+		ttl_quest_chain: "⚔️ Добавить следующее задание в цепочку",
+		ttl_ai_quest: "🎲 Сгенерировать случайное сюжетное задание (Хоррор / Техно / RPG)",
+		ttl_author_btn: "🧍 Об авторе и контакты для багов", 
+		mdl_auth_title: "🧍 Разработчик проекта", 
+		mdl_auth_desc: "Если вы нашли баг, синтаксическую ошибку или у вас есть идеи по улучшению генераторов — свяжитесь с автором напрямую:", 
+		lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube"
 
    },
     en: {
-        tab_dialogs: "📜 Dialogue Creator", tab_quests: "⚔️ Quest Creator", tab_scripts: "💻 Script Editor",btn_gen_code: "Generate code into window below ⚡",
-        btn_gen_rand: "🎲 Generate random script-event", lib_title: "📌 Ready Java-functions library (Click to insert):",
-        main_dialog_header: "Main Dialogue №0", lbl_dialog_id: "Dialogue ID (DialogId)", lbl_dialog_title: "Dialogue Title (DialogTitle)", lbl_dialog_text: "NPC Text (DialogText)",
-        quest_header: "Quest Parameters", lbl_q_title: "Quest Title (Title)", lbl_q_npc: "Completer NPC (CompleterNpc)", lbl_q_text: "Quest description for player journal (Text)",
-        lbl_q_repeat: "Quest Repeatability (QuestRepeat)", lbl_q_type: "Quest Type (Type)", lbl_q_exp: "Reward: Player Experience (RewardExp)", lbl_q_next: "Next quest ID in chain (-1 if none)",
-        script_editor_title: "💻 JavaScript Editor (ECMAScript)", script_generator_title: "⚡ Script Autogenerator:", lbl_s_event: "1. When triggers (Event):", lbl_s_action: "2. What to do (Action):", lbl_s_value: "3. Value (Message text or X Y Z coords):", lbl_s_area: "Script code (Write your own or use generator):",
-        notes_title: "📝 Writer Notes", cheat_title: "📖 1.12.2 Command Book",extra_dialog_header: "Extra Dialogue",
+        tab_dialogs: "📜 Dialogue Creator", 
+		tab_quests: "⚔️ Quest Creator", 
+		tab_scripts: "💻 Script Editor",
+		btn_gen_code: "Generate code into window below ⚡",
+        btn_gen_rand: "🎲 Generate random script-event",
+		lib_title: "📌 Ready Java-functions library (Click to insert):",
+        main_dialog_header: "Main Dialogue №0",
+		lbl_dialog_id: "Dialogue ID (DialogId)",
+		lbl_dialog_title: "Dialogue Title (DialogTitle)",
+		lbl_dialog_text: "NPC Text (DialogText)",
+        quest_header: "Quest Parameters", 
+		lbl_q_title: "Quest Title (Title)", 
+		lbl_q_npc: "Completer NPC (CompleterNpc)", 
+		lbl_q_text: "Quest description for player journal (Text)",
+        lbl_q_repeat: "Quest Repeatability (QuestRepeat)",
+		lbl_q_type: "Quest Type (Type)", 
+		lbl_q_exp: "Reward: Player Experience (RewardExp)", 
+		lbl_q_next: "Next quest ID in chain (-1 if none)",
+        script_editor_title: "💻 JavaScript Editor (ECMAScript)", 
+		script_generator_title: "⚡ Script Autogenerator:",
+		lbl_s_event: "1. When triggers (Event):", 
+		lbl_s_action: "2. What to do (Action):", 
+		lbl_s_value: "3. Value (Message text or X Y Z coords):",
+		lbl_s_area: "Script code (Write your own or use generator):",
+        notes_title: "📝 Writer Notes", 
+		cheat_title: "📖 1.12.2 Command Book",extra_dialog_header: "Extra Dialogue",
 		ttl_sys_gear: "Interface and theme settings",
 		lbl_opacity: "Opacity:",
 		btn_ai_plot: "🔮 AI Plot Generator",
-ph_avail_sb: "Objective name...",
-options_main_title: "Player Dialogue Options (Buttons)",
+		ph_avail_sb: "Objective name...",
+		options_main_title: "Player Dialogue Options (Buttons)",
        lbl_dialog_quest: "Linked Quest ID (-1 if none)",
         lbl_dialog_command: "Console command on open",
         chk_hide_npc: "Hide NPC",
@@ -3790,93 +4193,203 @@ options_main_title: "Player Dialogue Options (Buttons)",
         lbl_avail_f2: "Faction 2 (ID):",
         lbl_avail_r2: "Reputation 2:",
 		lbl_story_quests: "⚡ Story Quests:",
-btn_ai_quest: "🔮 AI Quest Generator",
-ph_q_npc: "NPC name in-game...",
-hint_q_cmd: "Mod hint: Use @dp to target the player who activated this event.",
+		btn_ai_quest: "🔮 AI Quest Generator",
+		ph_q_npc: "NPC name in-game...",
+		hint_q_cmd: "Mod hint: Use @dp to target the player who activated this event.",
         lbl_avail_time: "DayTime:",
         lbl_avail_lvl: "Min Experience Level:",
-        opt_rep_0: "Friendly (0)", opt_rep_1: "Neutral (1)", opt_rep_2: "Hostile (2)",
-        opt_time_0: "Full Day (0)", opt_time_1: "Day (1)", opt_time_2: "Night (2)",
+        opt_rep_0: "Friendly (0)",
+		opt_rep_1: "Neutral (1)",
+		opt_rep_2: "Hostile (2)",
+        opt_time_0: "Full Day (0)",
+		opt_time_1: "Day (1)",
+		opt_time_2: "Night (2)",
         tmpl_branches_title: "⚡ Branch Templates:",
-        btn_tmpl_guard: "⚔️ Guard", btn_tmpl_villager: "🌾 Villager", btn_tmpl_trader: "💰 Trader",
+        btn_tmpl_guard: "⚔️ Guard", 
+		btn_tmpl_villager: "🌾 Villager",
+		btn_tmpl_trader: "💰 Trader",
 		extra_quest_header: "Extra Quest",
-lbl_q_comp_text: "NPC complete text (CompleteText)",
-lbl_q_cmd: "Console command on complete (QuestCommand)",
-lbl_q_completion: "Completion Logic",
-lbl_q_chk_rand: "Random Reward",
-lbl_q_chk_nbt: "Ignore Items NBT",
-lbl_q_chk_leave: "Leave Quest Items",
-opt_repeat_2: "Daily (2)", opt_repeat_3: "Weekly (3)", opt_repeat_4: "In-game Day (4)", opt_repeat_5: "In-game Week (5)",
-opt_q_type_2: "On Dialogue (2)", opt_q_type_3: "Manual (3)", opt_q_type_4: "Location (4)",
-opt_q_comp_0: "At NPC from field above (0)", opt_q_comp_1: "Instant in quest log (1)",
-ph_q_text: "What the player needs to do...", ph_q_comp_text: "Great job, warrior...", ph_q_cmd: "Console command on turn in (e.g. give @dp diamond 5)...",
-opt_ev_interact: "Player clicks NPC (interact)", opt_ev_init: "NPC spawned in world (init)", opt_ev_damaged: "NPC took damage (damaged)", opt_ev_died: "NPC died / Boss fallen (died)", opt_ev_update: "Every second / Constantly (update)", opt_ev_target: "NPC noticed enemy or player (target)",
-opt_act_say: "NPC will say message in chat", opt_act_tp: "Teleport player to XYZ", opt_act_particle: "Create explosion / particles effect", opt_act_kill: "Kill player on spot (Trap)", opt_act_rage: "Enable RAGE MODE (Speed + Fire)", opt_act_blind: "Blind player on screen (Boss Effect)", opt_act_loot: "Give super-reward (Diamonds + Sound)",
-ph_s_value: "Example: 100 64 -250 or Text...", ph_s_area: "// Your JavaScript code for CustomNPCs...",
-btn_lib_msg: "💬 Say in chat", btn_lib_sound: "🔊 Play sound", btn_lib_particle: "✨ Particles burst", btn_lib_potion: "🧪 Give potion effect", btn_lib_random: "🎲 Random events set", btn_lib_scale: "🦖 Change NPC size", btn_lib_alarm: "🚨 Siren / Alarm mode", btn_lib_meteor: "💥 Meteor shower",
-ch_t_time_day: "☀️ Time of Day: Day (Time set)", ch_d_time_day: "Sets the in-game world time to morning (1000 ticks).",
-ch_t_time_night: "🌙 Time of Day: Night (Time set)", ch_d_time_night: "Sets the in-game world time to night (13000 ticks).",
-ch_t_weat_clear: "🌦️ Weather: Clear (Weather)", ch_d_weat_clear: "Clears rain and thunder storms on the server.",
-ch_t_weat_rain: "🌧️ Weather: Rain (Weather)", ch_d_weat_rain: "Starts heavy and non-stop rain in the world.",
-ch_t_gm_adv: "🏹 Game Mode: Adventure (Gamemode)", ch_d_gm_adv: "Switches player to adventure mode (cannot break blocks).",
-ch_t_gm_surv: "⚔️ Game Mode: Survival (Gamemode)", ch_d_gm_surv: "Returns player back to standard survival mode.",
-ch_t_give: "💎 Give Items (Give)", ch_d_give: "Gives resources to a player. Syntax: give [player] [id] [amount]",
-ch_t_xp: "✨ Give Experience (XP)", ch_d_xp: "Adds experience points or levels (L).",
-ch_t_effect: "⚡ Potion Effects (Effect)", ch_d_effect: "Applies buffs or debuffs. Syntax: effect [player] [effect] [seconds] [amplifier]",
-ch_t_eff_clear: "❤️ Heal / Clear Effects", ch_d_eff_clear: "Completely removes all negative and positive effects.",
-ch_t_saturation: "🍗 Saturation Status", ch_d_saturation: "Instantly replenishes the player's hunger bar.", ch_t_sound_win: "🔊 Triumph Sound (Playsound)", ch_d_sound_win: "Plays the challenge complete sound effect.",
-ch_t_sound_cave: "👾 Cave Ambience Sound", ch_d_sound_cave: "Plays a creepy ambient effect to build tension.",
-ch_t_tellraw: "💬 Chat Message (Tellraw)", ch_d_tellraw: "Outputs a golden RPG notification for all players.",
-ch_t_title: "🎬 Fullscreen Title (Title)", ch_d_title: "Displays massive red letters in the center of the player's screen.",
-ch_t_tp: "📍 Teleportation (Teleport)", ch_d_tp: "Teleports the player to specified RPG X Y Z coordinates.",
-ch_t_spawnpoint: "🛖 Set Spawnpoint", ch_d_spawnpoint: "Binds player spawn to current location (quest checkpoint).",
-ch_t_lightning: "⚡ Lightning Strike (Summon)", ch_d_lightning: "Summons a lightning bolt at player coords for a visual effect.",
-ch_t_npc_attack: "⚔️ NPC Aggro (Mod Script)", ch_d_npc_attack: "Forces the NPC to immediately become hostile and attack the player.",
-ch_d_give_alt: "Gives resources to a player. Mod hint: use @dp.",
-ch_t_sound_win_alt: "🔊 Victory Sound", ch_d_sound_win_alt: "Plays a triumphant sound upon quest completion.",
-ch_d_xp_alt: "Adds experience points (points) to a player.", ch_t_speed_alt: "⚡ Speed Effect", ch_d_speed_alt: "Applies Speed II for 60 seconds.",
-ch_t_tellraw_alt: "💬 Chat Message", ch_d_tellraw_alt: "Displays a nice colored RPG notification.",
-ch_t_weat_clear_alt: "🌦️ Weather Change", ch_d_weat_clear_alt: "Enables clear weather on the server.",
-lbl_db_ver: "Database", lbl_opt_btn: "Button", lbl_opt_slot: "Slot", btn_remove_branch: "❌ Remove Branch",
-lbl_opt_title: "Response Text:", ph_opt_title: "Text the player will select...",
-lbl_opt_type: "Action (OptionType):", opt_type_1: "Dialog Transition (1)", opt_type_0: "Close Dialog (0)", opt_type_2: "Open NPC Role (2)", opt_type_3: "Show Faction (3)",
-lbl_opt_next: "Next Dialog ID:", lbl_opt_color: "Button Text Color (Decimal):",
-lbl_opt_cmd: "Button Command:", ph_opt_cmd: "Console command on click...",
-lbl_opt_fac_id: "Change Faction (ID):", lbl_opt_fac_pts: "Points:", lbl_opt_fac_dec: "Decrease Points", note_tab_plot: "Plot", note_tab_quests: "Quests", note_tab_memos: "Memos", notes_title: "📝 Writer Notes",
-ph_notes_search: "Search word...", ph_notes_area: "Write your notes here...",
-title_dialogs: "CustomNPCs Dialogue Constructor - Waterfall (Ver. 1.2)",
-title_quests: "CustomNPCs Quest Constructor - Guild (Ver. 0.8)",
-title_scripts: "CustomNPCs Scripting Module - Observer (Ver. 0.8)",
-lbl_particles: "Effects:", opt_part_none: "Off ❌", opt_part_sakura: "Sakura 🌸", opt_part_snow: "Snowfall ❄️", opt_part_leaves: "Leaffall 🍁",
-ttl_theme_pip: "Theme: Pip-Boy", ttl_theme_melon: "Theme 1994: MelonKing", ttl_theme_yahoo: "Theme 2000: Yahoo! Japan", ttl_theme_win: "Theme 1997: Windows 95", ttl_theme_ryan: "Theme 2007: Ryanair",
-ttl_open_notes: "📝 Open Writer Notes (Notepad++)", ttl_open_cheat: "📖 Open Commands Cheat Sheet (Minecraft 1.12.2)",
-ttl_main_gear: "Functions and settings of this dialogue", ttl_quest_gear: "Functions and settings of this quest",
-ttl_clear_all: "Clear all branch fields", ttl_del_last: "Delete last branch", ttl_add_new: "Add new dialogue branch",
-ttl_add_chain: "📜 Add next dialogue to the chain",
-ttl_download_dial: "💾 Download this dialogue (.json)",
-ttl_avail_settings: "🔒 Dialogue availability settings",
-ttl_download_quest: "💾 Download base quest (.json)",
-ttl_download_script: "💾 Download this script (.js)",
-ttl_tmpl_guard: "Fill as a dialogue with a guard",
-ttl_tmpl_villager: "Fill as a dialogue with a villager",
-ttl_tmpl_trader: "Fill as a dialogue with a trader",
-ttl_ai_plot: "🎲 Generate a complete random RPG plot",
-ttl_quest_chain: "⚔️ Add next quest to the chain",
-ttl_ai_quest: "🎲 Generate a random story quest (Horror / Techno / RPG)",
-ttl_author_btn: "🧍 About Author & Bug Reports", mdl_auth_title: "🧍 Project Developer", mdl_auth_desc: "If you found a bug, a syntax error, or have suggestions to improve the generators — contact the author directly:", lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube"
+		lbl_q_comp_text: "NPC complete text (CompleteText)",
+		lbl_q_cmd: "Console command on complete (QuestCommand)",
+		lbl_q_completion: "Completion Logic",
+		lbl_q_chk_rand: "Random Reward",
+		lbl_q_chk_nbt: "Ignore Items NBT",
+		lbl_q_chk_leave: "Leave Quest Items",
+		opt_repeat_2: "Daily (2)",
+		opt_repeat_3: "Weekly (3)",
+		opt_repeat_4: "In-game Day (4)",
+		opt_repeat_5: "In-game Week (5)",
+		opt_q_type_2: "On Dialogue (2)", 
+		opt_q_type_3: "Manual (3)",
+		opt_q_type_4: "Location (4)",
+		opt_q_comp_0: "At NPC from field above (0)", 
+		opt_q_comp_1: "Instant in quest log (1)",
+		ph_q_text: "What the player needs to do...",
+		ph_q_comp_text: "Great job, warrior...", 
+		ph_q_cmd: "Console command on turn in (e.g. give @dp diamond 5)...",
+		opt_ev_interact: "Player clicks NPC (interact)",
+		opt_ev_init: "NPC spawned in world (init)", 
+		opt_ev_damaged: "NPC took damage (damaged)", 
+		opt_ev_died: "NPC died / Boss fallen (died)", 
+		opt_ev_update: "Every second / Constantly (update)", 
+		opt_ev_target: "NPC noticed enemy or player (target)",
+		opt_act_say: "NPC will say message in chat", 
+		opt_act_tp: "Teleport player to XYZ", 
+		opt_act_particle: "Create explosion / particles effect", 
+		opt_act_kill: "Kill player on spot (Trap)", 
+		opt_act_rage: "Enable RAGE MODE (Speed + Fire)", 
+		opt_act_blind: "Blind player on screen (Boss Effect)", 
+		opt_act_loot: "Give super-reward (Diamonds + Sound)",
+		ph_s_value: "Example: 100 64 -250 or Text...", 
+		ph_s_area: "// Your JavaScript code for CustomNPCs...",
+		btn_lib_msg: "💬 Say in chat", 
+		btn_lib_sound: "🔊 Play sound", 
+		btn_lib_particle: "✨ Particles burst", 
+		btn_lib_potion: "🧪 Give potion effect", 
+		btn_lib_random: "🎲 Random events set", 
+		btn_lib_scale: "🦖 Change NPC size", 
+		btn_lib_alarm: "🚨 Siren / Alarm mode", 
+		btn_lib_meteor: "💥 Meteor shower",
+		ch_t_time_day: "☀️ Time of Day: Day (Time set)", 
+		ch_d_time_day: "Sets the in-game world time to morning (1000 ticks).",
+		ch_t_time_night: "🌙 Time of Day: Night (Time set)",
+		ch_d_time_night: "Sets the in-game world time to night (13000 ticks).",
+		ch_t_weat_clear: "🌦️ Weather: Clear (Weather)", 
+		ch_d_weat_clear: "Clears rain and thunder storms on the server.",
+		ch_t_weat_rain: "🌧️ Weather: Rain (Weather)", 
+		ch_d_weat_rain: "Starts heavy and non-stop rain in the world.",
+		ch_t_gm_adv: "🏹 Game Mode: Adventure (Gamemode)",
+		ch_d_gm_adv: "Switches player to adventure mode (cannot break blocks).",
+		ch_t_gm_surv: "⚔️ Game Mode: Survival (Gamemode)", 
+		ch_d_gm_surv: "Returns player back to standard survival mode.",
+		ch_t_give: "💎 Give Items (Give)", 
+		ch_d_give: "Gives resources to a player. Syntax: give [player] [id] [amount]",
+		ch_t_xp: "✨ Give Experience (XP)", 
+		ch_d_xp: "Adds experience points or levels (L).",
+		ch_t_effect: "⚡ Potion Effects (Effect)", 
+		ch_d_effect: "Applies buffs or debuffs. Syntax: effect [player] [effect] [seconds] [amplifier]",
+		ch_t_eff_clear: "❤️ Heal / Clear Effects", 
+		ch_d_eff_clear: "Completely removes all negative and positive effects.",
+		ch_t_saturation: "🍗 Saturation Status", 
+		ch_d_saturation: "Instantly replenishes the player's hunger bar.",
+		ch_t_sound_win: "🔊 Triumph Sound (Playsound)",
+		ch_d_sound_win: "Plays the challenge complete sound effect.",
+		ch_t_sound_cave: "👾 Cave Ambience Sound", 
+		ch_d_sound_cave: "Plays a creepy ambient effect to build tension.",
+		ch_t_tellraw: "💬 Chat Message (Tellraw)", 
+		ch_d_tellraw: "Outputs a golden RPG notification for all players.",
+		ch_t_title: "🎬 Fullscreen Title (Title)", 
+		ch_d_title: "Displays massive red letters in the center of the player's screen.",
+		ch_t_tp: "📍 Teleportation (Teleport)",
+		ch_d_tp: "Teleports the player to specified RPG X Y Z coordinates.",
+		ch_t_spawnpoint: "🛖 Set Spawnpoint", 
+		ch_d_spawnpoint: "Binds player spawn to current location (quest checkpoint).",
+		ch_t_lightning: "⚡ Lightning Strike (Summon)", 
+		ch_d_lightning: "Summons a lightning bolt at player coords for a visual effect.",
+		ch_t_npc_attack: "⚔️ NPC Aggro (Mod Script)", 
+		ch_d_npc_attack: "Forces the NPC to immediately become hostile and attack the player.",
+		ch_d_give_alt: "Gives resources to a player. Mod hint: use @dp.",
+		ch_t_sound_win_alt: "🔊 Victory Sound", 
+		ch_d_sound_win_alt: "Plays a triumphant sound upon quest completion.",
+		ch_d_xp_alt: "Adds experience points (points) to a player.", 
+		ch_t_speed_alt: "⚡ Speed Effect", 
+		ch_d_speed_alt: "Applies Speed II for 60 seconds.",
+		ch_t_tellraw_alt: "💬 Chat Message",
+		ch_d_tellraw_alt: "Displays a nice colored RPG notification.",
+		ch_t_weat_clear_alt: "🌦️ Weather Change",
+		ch_d_weat_clear_alt: "Enables clear weather on the server.",
+		lbl_db_ver: "Database",
+		lbl_opt_btn: "Button", 
+		lbl_opt_slot: "Slot", 
+		btn_remove_branch: "❌ Remove Branch",
+		lbl_opt_title: "Response Text:", 
+		ph_opt_title: "Text the player will select...",
+		lbl_opt_type: "Action (OptionType):", 
+		opt_type_1: "Dialog Transition (1)", 
+		opt_type_0: "Close Dialog (0)", 
+		opt_type_2: "Open NPC Role (2)", 
+		opt_type_3: "Show Faction (3)",
+		lbl_opt_next: "Next Dialog ID:", 
+		lbl_opt_color: "Button Text Color (Decimal):",
+		lbl_opt_cmd: "Button Command:", 
+		ph_opt_cmd: "Console command on click...",
+		lbl_opt_fac_id: "Change Faction (ID):", 
+		lbl_opt_fac_pts: "Points:", 
+		lbl_opt_fac_dec: "Decrease Points",
+		note_tab_plot: "Plot", 
+		note_tab_quests: "Quests", 
+		note_tab_memos: "Memos", 
+		notes_title: "📝 Writer Notes",
+		ph_notes_search: "Search word...", 
+		ph_notes_area: "Write your notes here...",
+		title_dialogs: "CustomNPCs Dialogue Constructor - Waterfall (Ver. 1.2)",
+		title_quests: "CustomNPCs Quest Constructor - Guild (Ver. 0.8)",
+		title_scripts: "CustomNPCs Scripting Module - Observer (Ver. 0.8)",
+		lbl_particles: "Effects:", 
+		opt_part_none: "Off ❌", 
+		opt_part_sakura: "Sakura 🌸", 
+		opt_part_snow: "Snowfall ❄️", 
+		opt_part_leaves: "Leaffall 🍁",
+		ttl_theme_pip: "Theme: Pip-Boy", 
+		ttl_theme_melon: "Theme 1994: MelonKing", 
+		ttl_theme_yahoo: "Theme 2000: Yahoo! Japan", 
+		ttl_theme_win: "Theme 1997: Windows 95", 
+		ttl_theme_ryan: "Theme 2007: Ryanair",
+		ttl_open_notes: "📝 Open Writer Notes (Notepad++)", 
+		ttl_open_cheat: "📖 Open Commands Cheat Sheet (Minecraft 1.12.2)",
+		ttl_main_gear: "Functions and settings of this dialogue", 
+		ttl_quest_gear: "Functions and settings of this quest",
+		ttl_clear_all: "Clear all branch fields", 
+		ttl_del_last: "Delete last branch", 
+		ttl_add_new: "Add new dialogue branch",
+		ttl_add_chain: "📜 Add next dialogue to the chain",
+		ttl_download_dial: "💾 Download this dialogue (.json)",
+		ttl_avail_settings: "🔒 Dialogue availability settings",
+		ttl_download_quest: "💾 Download base quest (.json)",
+		ttl_download_script: "💾 Download this script (.js)",
+		ttl_tmpl_guard: "Fill as a dialogue with a guard",
+		ttl_tmpl_villager: "Fill as a dialogue with a villager",
+		ttl_tmpl_trader: "Fill as a dialogue with a trader",
+		ttl_ai_plot: "🎲 Generate a complete random RPG plot",
+		ttl_quest_chain: "⚔️ Add next quest to the chain",
+		ttl_ai_quest: "🎲 Generate a random story quest (Horror / Techno / RPG)",
+		ttl_author_btn: "🧍 About Author & Bug Reports", 
+		mdl_auth_title: "🧍 Project Developer", 
+		mdl_auth_desc: "If you found a bug, a syntax error, or have suggestions to improve the generators — contact the author directly:", 
+		lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube"
 
     },
     ja: {
-        tab_dialogs: "📜 对话编辑器", tab_quests: "⚔️ クエスト作成", tab_scripts: "💻 スクリプト編集", btn_gen_code: "下のウィンドウにコードを生成します ⚡", btn_gen_rand: "🎲 ランダムなスクリプトイベントを生成", lib_title: "📌 準備されたJava関数ライブラリ (クリックして挿入):",
-        main_dialog_header: "メイン対話 №0", lbl_dialog_id: "対話ID (DialogId)", lbl_dialog_title: "対話タイトル (DialogTitle)", lbl_dialog_text: "NPCテキスト (DialogText)",
-        quest_header: "クエストパラメータ", lbl_q_title: "クエスト名 (Title)", lbl_q_npc: "クエスト完了NPC (CompleterNpc)", lbl_q_text: "プレイヤーログのクエスト説明 (Text)",
-        lbl_q_repeat: "クエストの反復性 (QuestRepeat)", lbl_q_type: "クエストタイプ (Type)", lbl_q_exp: "報酬：プレイヤー経験値 (RewardExp)", lbl_q_next: "チェーン内の次のクエストID（なしの場合は-1）",
-        script_editor_title: "💻 JavaScript エディタ (ECMAScript)", script_generator_title: "⚡ スクリプト自動生成機能:", lbl_s_event: "1. トリガー時 (イベント):", lbl_s_action: "2. 何をするか (アクション):", lbl_s_value: "3. 値 (メッセージテキストまたは X Y Z 座標):", lbl_s_area: "スクリプトコード（独自に記述するか、ジェネレータを使用してください）:",
-        notes_title: "シナリオメモ", cheat_title: "📖 1.12.2 コマンドブック",
+        tab_dialogs: "📜 对话编辑器", 
+		tab_quests: "⚔️ クエスト作成", 
+		tab_scripts: "💻 スクリプト編集", 
+		btn_gen_code: "下のウィンドウにコードを生成します ⚡", 
+		btn_gen_rand: "🎲 ランダムなスクリプトイベントを生成", 
+		lib_title: "📌 準備されたJava関数ライブラリ (クリックして挿入):",
+        main_dialog_header: "メイン対話 №0", 
+		lbl_dialog_id: "対話ID (DialogId)", 
+		lbl_dialog_title: "対話タイトル (DialogTitle)", 
+		lbl_dialog_text: "NPCテキスト (DialogText)",
+        quest_header: "クエストパラメータ", 
+		lbl_q_title: "クエスト名 (Title)", 
+		lbl_q_npc: "クエスト完了NPC (CompleterNpc)", 
+		lbl_q_text: "プレイヤーログのクエスト説明 (Text)",
+        lbl_q_repeat: "クエストの反復性 (QuestRepeat)",
+		lbl_q_type: "クエストタイプ (Type)",
+		lbl_q_exp: "報酬：プレイヤー経験値 (RewardExp)", 
+		lbl_q_next: "チェーン内の次のクエストID（なしの場合は-1）",
+        script_editor_title: "💻 JavaScript エディタ (ECMAScript)", 
+		script_generator_title: "⚡ スクリプト自動生成機能:", 
+		lbl_s_event: "1. トリガー時 (イベント):", 
+		lbl_s_action: "2. 何をするか (アクション):", 
+		lbl_s_value: "3. 値 (メッセージテキストまたは X Y Z 座標):", 
+		lbl_s_area: "スクリプトコード（独自に記述するか、ジェネレータを使用してください）:",
+        notes_title: "シナリオメモ", 
+		cheat_title: "📖 1.12.2 コマンドブック",
         tab_scripts: "スクリプト編集",
 		lbl_opacity: "不透明度:",
-ph_avail_sb: "目的名...",
-options_main_title: "プレイヤーの対話オプション (ボタン)",
+		ph_avail_sb: "目的名...",
+		options_main_title: "プレイヤーの対話オプション (ボタン)",
         lbl_dialog_id: "対話ID (DialogId)",
 		ttl_sys_gear: "インターフェースとテーマの設定",
         lbl_dialog_title: "対話タイトル (DialogTitle)",
@@ -3901,90 +4414,212 @@ options_main_title: "プレイヤーの対話オプション (ボタン)",
         lbl_avail_r2: "評判 2:",
         lbl_avail_time: "時間帯 (DayTime):",
         lbl_avail_lvl: "必要最小限の経験値レベル:",
-        opt_rep_0: "友好 (0)", opt_rep_1: "中立 (1)", opt_rep_2: "敵対 (2)",
-        opt_time_0: "終日 (0)", opt_time_1: "昼 (1)", opt_time_2: "夜 (2)",
+        opt_rep_0: "友好 (0)", 
+		opt_rep_1: "中立 (1)", 
+		opt_rep_2: "敵対 (2)",
+        opt_time_0: "終日 (0)", 
+		opt_time_1: "昼 (1)", 
+		opt_time_2: "夜 (2)",
         tmpl_branches_title: "ブランチテンプレート:",
-        btn_tmpl_guard: "衛兵", btn_tmpl_villager: "村人", btn_tmpl_trader: "商人",
+        btn_tmpl_guard: "衛兵",
+		btn_tmpl_villager: "村人", 
+		btn_tmpl_trader: "商人",
         extra_quest_header: "追加クエスト",
         lbl_q_id: "クエストID (QuestId)",
 		extra_quest_header: "追加クエスト",
-lbl_q_id: "クエストID (QuestId)",
-lbl_q_title: "クエスト名 (Title)",
-lbl_q_text: "プレイヤーログのクエスト説明 (Text)",
-lbl_q_npc: "クエスト完了NPC (CompleterNpc)",
-lbl_q_next: "チェーン内の次のクエストID（なしの場合は-1）",
-lbl_q_repeat: "クエストの反復性 (QuestRepeat)",
-lbl_q_type: "クエストタイプ (Type)",
-lbl_q_comp_text: "クエスト完了時のNPCテキスト (CompleteText)",
-lbl_q_cmd: "クエスト完了時のコンソールコマンド (QuestCommand)",
-lbl_q_completion: "完了ロジック",
-lbl_q_chk_rand: "ランダム報酬",
-lbl_q_chk_nbt: "アイテムのNBTを無視する",
-lbl_q_chk_leave: "クエストアイテムを保持する",
-opt_repeat_0: "なし (0)", opt_repeat_1: "はい / 常時 (1)",
-opt_repeat_2: "毎日 (2)", opt_repeat_3: "毎週 (3)", opt_repeat_4: "ゲーム内の一日 (4)", opt_repeat_5: "ゲーム内の一週間 (5)",
-opt_q_type_0: "アイテム収集 (0)", opt_q_type_1: "討伐エリア (1)", opt_q_type_2: "対話 (2)", opt_q_type_3: "マニュアル (3)", opt_q_type_4: "ロケーション (4)",
-opt_q_comp_0: "上のフィールドのNPCで完了 (0)", opt_q_comp_1: "クエストログで即時完了 (1)",
-ph_q_text: "プレイヤーがすべきこと...", ph_q_comp_text: "戦士よ、素晴らしい仕事だ...", ph_q_cmd: "提出時のコンソールコマンド（例：give @dp diamond 5）...",opt_ev_interact: "プレイヤーがNPCをクリックした時 (interact)", opt_ev_init: "NPCが生成された時 (init)", opt_ev_damaged: "NPCがダメージを受けた時 (damaged)", opt_ev_died: "NPCが死亡した時 (died)", opt_ev_update: "毎秒 / 常時実行 (update)", opt_ev_target: "敵またはプレイヤーを発見した時 (target)",
-        opt_act_say: "NPCがチャットで発言する", opt_act_tp: "プレイヤーをXYZにテレポート", opt_act_particle: "爆発やパーティクル効果を生成", opt_act_kill: "プレイヤーを即死させる (トラップ)", opt_act_rage: "激怒モード有効化 (速度上昇+炎)", opt_act_blind: "画面を暗転させる (ボス効果)", opt_act_loot: "スーパー報酬を支給 (ダイヤ+音効果)",
-        ph_s_value: "例: 100 64 -250 またはテキスト...", ph_s_area: "// CustomNPCs用のJavaScriptコード...",
-        btn_lib_msg: "チャットで発言", btn_lib_sound: "音声を再生", btn_lib_particle: "パーティクル爆発", btn_lib_potion: "ポーション効果を付与", btn_lib_random: "ランダムイベントセット", btn_lib_scale: "NPCのサイズ変更", btn_lib_alarm: "サイレン / 警報モード", btn_lib_meteor: "メテオシャワー",
-    lbl_story_quests: "⚡ メインクエスト:", btn_ai_quest: "🔮 AIクエスト生成器", ph_q_npc: "ゲーム内のNPC名...", hint_q_cmd: "MODのヒント: このイベントを発生させたプレイヤーを対象にするには @dp を使用します。",
-ch_t_time_day: "☀️ 時間帯: 昼 (Time set)", ch_d_time_day: "ゲーム内の時間を朝（1000ティック）に進めます。", ch_t_time_night: "🌙 時間帯: 夜 (Time set)", ch_d_time_night: "ゲーム内の時間を夜（13000ティック）に進めます。", ch_t_weat_clear: "🌦️ 天候: 晴れ (Weather)", ch_d_weat_clear: "サーバーの雨や雷雨を止めて天気を晴れにします。", ch_t_weat_rain: "🌧️ 天候: 雨 (Weather)", ch_d_weat_rain: "ワールドに長時間の雨を降らせます。", ch_t_gm_adv: "🏹 ゲームモード: アドベンチャー (Gamemode)",
-ch_d_gm_adv: "プレイヤーをアドベンチャーモードに変更します（ブロック破壊不可）。", ch_t_gm_surv: "⚔️ ゲームモード: サバイバル (Gamemode)", ch_d_gm_surv: "プレイヤーを通常のサバイバルモードに戻します。",
-ch_t_give: "アイテム付与 (Give)", ch_d_give: "プレイヤーにリソースを付与します。構文: give [プレイヤー] [id] [個数]",
-ch_t_xp: "経験値付与 (XP)", ch_d_xp: "経験値（ポイント）またはレベル（L）を追加します。",
-ch_t_effect: "ポーション効果 (Effect)", ch_d_effect: "バフまたはデバフを付与します。構文: effect [プレイヤー] [効果] [時間] [レベル]",
-ch_t_eff_clear: "回復 / 効果のクリア", ch_d_eff_clear: "すべてのネガティブおよびポジティブなポーション効果を完全に除去します。",
-ch_t_saturation: "満腹度回復", ch_d_saturation: "プレイヤーの空腹ゲージを即座に回復します。", ch_t_sound_win: "勝利サウンド (Playsound)", ch_d_sound_win: "チャレンジ完了のSEを再生します。",
-ch_t_sound_cave: "洞窟の環境音", ch_d_sound_cave: "緊張感を高める不気味な環境音効果を再生します。",
-ch_t_tellraw: "チャットメッセージ (Tellraw)", ch_d_tellraw: "全員に金色のRPG通知メッセージを表示します。",
-ch_t_title: "画面タイトル表示 (Title)", ch_d_title: "プレイヤー画面中央に巨大な赤文字テキストを表示します。",
-ch_t_tp: "テレポート (Teleport)", ch_d_tp: "指定されたRPGのX Y Z座標にプレイヤーを転送します。",
-ch_t_spawnpoint: "スポーン位置設定", ch_d_spawnpoint: "現在の場所にリスポーン位置を固定します（チェックポイント）。",
-ch_t_lightning: "落雷召喚 (Summon)", ch_d_lightning: "特殊演出としてプレイヤーの座標に雷を落とします。",
-ch_t_npc_attack: "NPC敵対化 (Modスクリプト)", ch_d_npc_attack: "NPCを即座に敵対状態にしてプレイヤーを攻撃させます。",
-ch_d_give_alt: "プレイヤーにリソースを付与します。ヒント：@dpを使用。",
-ch_t_sound_win_alt: "勝利サウンド", ch_d_sound_win_alt: "クエスト完了の勝利SEを再生します。",
-ch_d_xp_alt: "プレイヤーに経験値（ポイント）を追加します。", ch_t_speed_alt: "速度効果", ch_d_speed_alt: "移動速度上昇 II を60秒間付与します。",
-ch_t_tellraw_alt: "チャットメッセージ", ch_d_tellraw_alt: "美しい色付きのRPG通知を表示します。",
-ch_t_weat_clear_alt: "天候の変更", ch_d_weat_clear_alt: "サーバーの天候を晴れにします。",
-lbl_db_ver: "データベース", lbl_opt_btn: "ボタン", lbl_opt_slot: "スロット", btn_remove_branch: "❌ ブランチを削除",
-lbl_opt_title: "応答テキスト:", ph_opt_title: "プレイヤーが選択するテキスト...",
-lbl_opt_type: "アクション (OptionType):", opt_type_1: "対話の移行 (1)", opt_type_0: "対話を閉じる (0)", opt_type_2: "NPCロールを開く (2)", opt_type_3: "派閥を表示 (3)",
-lbl_opt_next: "次の対話ID:", lbl_opt_color: "ボタンのテキスト色 (Decimal):",
-lbl_opt_cmd: "ボタンのコマンド:", ph_opt_cmd: "クリック時のコンソールコマンド...",
-lbl_opt_fac_id: "派閥の変更 (ID):", lbl_opt_fac_pts: "ポイント:", lbl_opt_fac_dec: "ポイントを減らす", note_tab_plot: "プロット", note_tab_quests: "クエスト", note_tab_memos: "メモ", notes_title: "📝 シナリオメモ",
-ph_notes_search: "単語を検索...", ph_notes_area: "ここにメモを記入してください...",
-title_dialogs: "CustomNPCs対話コンストラクター - 滝 (Ver. 1.2)",
-title_quests: "CustomNPCsクエストコンストラクター - ギルド (Ver. 0.8)",
-title_scripts: "CustomNPCsスクリプトモジュール - オブザーバー (Ver. 0.8)",
-lbl_particles: "エフェクト:", opt_part_none: "無効 ❌", opt_part_sakura: "桜 🌸", opt_part_snow: "降雪 ❄️", opt_part_leaves: "落葉 🍁",
-ttl_theme_pip: "スタイル: ピップボーイ", ttl_theme_melon: "スタイル 1994: MelonKing", ttl_theme_yahoo: "スタイル 2000: Yahoo! Japan", ttl_theme_win: "スタイル 1997: Windows 95", ttl_theme_ryan: "スタイル 2007: ライアンエアー",
-ttl_open_notes: "📝 シナリオメモを開く (Notepad++)", ttl_open_cheat: "📖 コマンドチートシートを開く (Minecraft 1.12.2)",
-ttl_main_gear: "この対話の機能と設定", ttl_quest_gear: "このクエストの機能と設定",
-ttl_clear_all: "すべてのブランチフィールドをクリア", ttl_del_last: "最後のブランチを削除", ttl_add_new: "新しい対話ブランチを追加",
-ttl_add_chain: "📜 チェーンに次の対話を追加",
-ttl_download_dial: "💾 この対話をダウンロード (.json)",
-ttl_avail_settings: "🔒 対話の利用可能性設定",
-ttl_download_quest: "💾 ベースクエストをダウンロード (.json)",
-ttl_download_script: "💾 このスクリプトをダウンロード (.js)",
-ttl_tmpl_guard: "衛兵との対話として入力",
-ttl_tmpl_villager: "村人との対話として入力",
-ttl_tmpl_trader: "商人との対話として入力",
-ttl_ai_plot: "🎲 完全なランダムRPGシナリオを生成",
-ttl_quest_chain: "⚔️ チェーンに次のクエストを追加",
-ttl_ai_quest: "🎲 ランダムなストーリークエストを生成 (ホラー / テクノ / RPG)",
-ttl_author_btn: "🧍 著者についてとバグ報告", mdl_auth_title: "🧍 プロジェクト開発者", mdl_auth_desc: "バグや構文エラーを見つけた場合、またはジェネレーターの改善案がある場合は、著者に直接ご連絡ください:", lnk_vk: "VKontakte (VK)", lnk_tg: "Telegram", lnk_ds: "guithub", lnk_yt: "YouTube"
+		lbl_q_id: "クエストID (QuestId)",
+		lbl_q_title: "クエスト名 (Title)",
+		lbl_q_text: "プレイヤーログのクエスト説明 (Text)",
+		lbl_q_npc: "クエスト完了NPC (CompleterNpc)",
+		lbl_q_next: "チェーン内の次のクエストID（なしの場合は-1）",
+		lbl_q_repeat: "クエストの反復性 (QuestRepeat)",
+		lbl_q_type: "クエストタイプ (Type)",
+		lbl_q_comp_text: "クエスト完了時のNPCテキスト (CompleteText)",
+		lbl_q_cmd: "クエスト完了時のコンソールコマンド (QuestCommand)",
+		lbl_q_completion: "完了ロジック",
+		lbl_q_chk_rand: "ランダム報酬",
+		lbl_q_chk_nbt: "アイテムのNBTを無視する",
+		lbl_q_chk_leave: "クエストアイテムを保持する",
+		opt_repeat_0: "なし (0)",
+		opt_repeat_1: "はい / 常時 (1)",
+		opt_repeat_2: "毎日 (2)", 
+		opt_repeat_3: "毎週 (3)",
+		opt_repeat_4: "ゲーム内の一日 (4)",
+		opt_repeat_5: "ゲーム内の一週間 (5)",
+		opt_q_type_0: "アイテム収集 (0)", 
+		opt_q_type_1: "討伐エリア (1)",
+		opt_q_type_2: "対話 (2)",
+		opt_q_type_3: "マニュアル (3)",
+		opt_q_type_4: "ロケーション (4)",
+		opt_q_comp_0: "上のフィールドのNPCで完了 (0)",
+		opt_q_comp_1: "クエストログで即時完了 (1)",
+		ph_q_text: "プレイヤーがすべきこと...",
+		ph_q_comp_text: "戦士よ、素晴らしい仕事だ...",
+		ph_q_cmd: "提出時のコンソールコマンド（例：give @dp diamond 5）...",
+		opt_ev_interact: "プレイヤーがNPCをクリックした時 (interact)", 
+		opt_ev_init: "NPCが生成された時 (init)",
+		opt_ev_damaged: "NPCがダメージを受けた時 (damaged)", 
+		opt_ev_died: "NPCが死亡した時 (died)", 
+		opt_ev_update: "毎秒 / 常時実行 (update)", 
+		opt_ev_target: "敵またはプレイヤーを発見した時 (target)",
+        opt_act_say: "NPCがチャットで発言する", 
+		opt_act_tp: "プレイヤーをXYZにテレポート", 
+		opt_act_particle: "爆発やパーティクル効果を生成", 
+		opt_act_kill: "プレイヤーを即死させる (トラップ)", 
+		opt_act_rage: "激怒モード有効化 (速度上昇+炎)", 
+		opt_act_blind: "画面を暗転させる (ボス効果)", 
+		opt_act_loot: "スーパー報酬を支給 (ダイヤ+音効果)",
+        ph_s_value: "例: 100 64 -250 またはテキスト...", 
+		ph_s_area: "// CustomNPCs用のJavaScriptコード...",
+        btn_lib_msg: "チャットで発言", 
+		btn_lib_sound: "音声を再生",
+		btn_lib_particle: "パーティクル爆発", 
+		btn_lib_potion: "ポーション効果を付与", 
+		btn_lib_random: "ランダムイベントセット", 
+		btn_lib_scale: "NPCのサイズ変更", 
+		btn_lib_alarm: "サイレン / 警報モード",
+		btn_lib_meteor: "メテオシャワー",
+		lbl_story_quests: "⚡ メインクエスト:", 
+		btn_ai_quest: "🔮 AIクエスト生成器", 
+		ph_q_npc: "ゲーム内のNPC名...", 
+		hint_q_cmd: "MODのヒント: このイベントを発生させたプレイヤーを対象にするには @dp を使用します。",
+		ch_t_time_day: "☀️ 時間帯: 昼 (Time set)", 
+		ch_d_time_day: "ゲーム内の時間を朝（1000ティック）に進めます。",
+		ch_t_time_night: "🌙 時間帯: 夜 (Time set)", 
+		ch_d_time_night: "ゲーム内の時間を夜（13000ティック）に進めます。",
+		ch_t_weat_clear: "🌦️ 天候: 晴れ (Weather)", 
+		ch_d_weat_clear: "サーバーの雨や雷雨を止めて天気を晴れにします。", 
+		ch_t_weat_rain: "🌧️ 天候: 雨 (Weather)",
+		ch_d_weat_rain: "ワールドに長時間の雨を降らせます。", 
+		ch_t_gm_adv: "🏹 ゲームモード: アドベンチャー (Gamemode)",
+		ch_d_gm_adv: "プレイヤーをアドベンチャーモードに変更します（ブロック破壊不可）。", 
+		ch_t_gm_surv: "⚔️ ゲームモード: サバイバル (Gamemode)", 
+		ch_d_gm_surv: "プレイヤーを通常のサバイバルモードに戻します。",
+		ch_t_give: "アイテム付与 (Give)", 
+		ch_d_give: "プレイヤーにリソースを付与します。構文: give [プレイヤー] [id] [個数]",
+		ch_t_xp: "経験値付与 (XP)", 
+		ch_d_xp: "経験値（ポイント）またはレベル（L）を追加します。",
+		ch_t_effect: "ポーション効果 (Effect)", 
+		ch_d_effect: "バフまたはデバフを付与します。構文: effect [プレイヤー] [効果] [時間] [レベル]",
+		ch_t_eff_clear: "回復 / 効果のクリア",
+		ch_d_eff_clear: "すべてのネガティブおよびポジティブなポーション効果を完全に除去します。",
+		ch_t_saturation: "満腹度回復", 
+		ch_d_saturation: "プレイヤーの空腹ゲージを即座に回復します。",
+		ch_t_sound_win: "勝利サウンド (Playsound)",
+		ch_d_sound_win: "チャレンジ完了のSEを再生します。",
+		ch_t_sound_cave: "洞窟の環境音", 
+		ch_d_sound_cave: "緊張感を高める不気味な環境音効果を再生します。",
+		ch_t_tellraw: "チャットメッセージ (Tellraw)", 
+		ch_d_tellraw: "全員に金色のRPG通知メッセージを表示します。",
+		ch_t_title: "画面タイトル表示 (Title)", 
+		ch_d_title: "プレイヤー画面中央に巨大な赤文字テキストを表示します。",
+		ch_t_tp: "テレポート (Teleport)", 
+		ch_d_tp: "指定されたRPGのX Y Z座標にプレイヤーを転送します。",
+		ch_t_spawnpoint: "スポーン位置設定", 
+		ch_d_spawnpoint: "現在の場所にリスポーン位置を固定します（チェックポイント）。",
+		ch_t_lightning: "落雷召喚 (Summon)", 
+		ch_d_lightning: "特殊演出としてプレイヤーの座標に雷を落とします。",
+		ch_t_npc_attack: "NPC敵対化 (Modスクリプト)", 
+		ch_d_npc_attack: "NPCを即座に敵対状態にしてプレイヤーを攻撃させます。",
+		ch_d_give_alt: "プレイヤーにリソースを付与します。ヒント：@dpを使用。",
+		ch_t_sound_win_alt: "勝利サウンド", 
+		ch_d_sound_win_alt: "クエスト完了の勝利SEを再生します。",
+		ch_d_xp_alt: "プレイヤーに経験値（ポイント）を追加します。", 
+		ch_t_speed_alt: "速度効果", 
+		ch_d_speed_alt: "移動速度上昇 II を60秒間付与します。",
+		ch_t_tellraw_alt: "チャットメッセージ", 
+		ch_d_tellraw_alt: "美しい色付きのRPG通知を表示します。",
+		ch_t_weat_clear_alt: "天候の変更", 
+		ch_d_weat_clear_alt: "サーバーの天候を晴れにします。",
+		lbl_db_ver: "データベース", 
+		lbl_opt_btn: "ボタン", 
+		lbl_opt_slot: "スロット", 
+		btn_remove_branch: "❌ ブランチを削除",
+		lbl_opt_title: "応答テキスト:",
+		ph_opt_title: "プレイヤーが選択するテキスト...",
+		lbl_opt_type: "アクション (OptionType):", 
+		opt_type_1: "対話の移行 (1)", 
+		opt_type_0: "対話を閉じる (0)", 
+		opt_type_2: "NPCロールを開く (2)", 
+		opt_type_3: "派閥を表示 (3)",
+		lbl_opt_next: "次の対話ID:", 
+		lbl_opt_color: "ボタンのテキスト色 (Decimal):",
+		lbl_opt_cmd: "ボタンのコマンド:", 
+		ph_opt_cmd: "クリック時のコンソールコマンド...",
+		lbl_opt_fac_id: "派閥の変更 (ID):", 
+		lbl_opt_fac_pts: "ポイント:", 
+		lbl_opt_fac_dec: "ポイントを減らす", 
+		note_tab_plot: "プロット", 
+		note_tab_quests: "クエスト", 
+		note_tab_memos: "メモ", 
+		notes_title: "📝 シナリオメモ",
+		ph_notes_search: "単語を検索...",
+		ph_notes_area: "ここにメモを記入してください...",
+		title_dialogs: "CustomNPCs対話コンストラクター - 滝 (Ver. 1.2)",
+		title_quests: "CustomNPCsクエストコンストラクター - ギルド (Ver. 0.8)",
+		title_scripts: "CustomNPCsスクリプトモジュール - オブザーバー (Ver. 0.8)",
+		lbl_particles: "エフェクト:", 
+		opt_part_none: "無効 ❌",
+		opt_part_sakura: "桜 🌸",
+		opt_part_snow: "降雪 ❄️", 
+		opt_part_leaves: "落葉 🍁",
+		ttl_theme_pip: "スタイル: ピップボーイ", 
+		ttl_theme_melon: "スタイル 1994: MelonKing",
+		ttl_theme_yahoo: "スタイル 2000: Yahoo! Japan", 
+		ttl_theme_win: "スタイル 1997: Windows 95", 
+		ttl_theme_ryan: "スタイル 2007: ライアンエアー",
+		ttl_open_notes: "📝 シナリオメモを開く (Notepad++)",
+		ttl_open_cheat: "📖 コマンドチートシートを開く (Minecraft 1.12.2)",
+		ttl_main_gear: "この対話の機能と設定", 
+		ttl_quest_gear: "このクエストの機能と設定",
+		ttl_clear_all: "すべてのブランチフィールドをクリア", 
+		ttl_del_last: "最後のブランチを削除", 
+		ttl_add_new: "新しい対話ブランチを追加",
+		ttl_add_chain: "📜 チェーンに次の対話を追加",
+		ttl_download_dial: "💾 この対話をダウンロード (.json)",
+		ttl_avail_settings: "🔒 対話の利用可能性設定",
+		ttl_download_quest: "💾 ベースクエストをダウンロード (.json)",
+		ttl_download_script: "💾 このスクリプトをダウンロード (.js)",
+		ttl_tmpl_guard: "衛兵との対話として入力",
+		ttl_tmpl_villager: "村人との対話として入力",
+		ttl_tmpl_trader: "商人との対話として入力",
+		ttl_ai_plot: "🎲 完全なランダムRPGシナリオを生成",
+		ttl_quest_chain: "⚔️ チェーンに次のクエストを追加",
+		ttl_ai_quest: "🎲 ランダムなストーリークエストを生成 (ホラー / テクノ / RPG)",
+		ttl_author_btn: "🧍 著者についてとバグ報告", 
+		mdl_auth_title: "🧍 プロジェクト開発者", 
+		mdl_auth_desc: "バグや構文エラーを見つけた場合、またはジェネレーターの改善案がある場合は、著者に直接ご連絡ください:", 
+		lnk_vk: "VKontakte (VK)", lnk_tg: "Telegram", lnk_ds: "guithub", lnk_yt: "YouTube"
 
     },
     zh: {
-        tab_dialogs: "📜 对话编辑器", tab_quests: "⚔️ 任务创建", tab_scripts: "💻 脚本编辑器",
-        main_dialog_header: "主对话 №0", lbl_dialog_id: "对话 ID (DialogId)", lbl_dialog_title: "对话标题 (DialogTitle)", lbl_dialog_text: "NPC 文本 (DialogText)", btn_gen_code: "在下方窗口生成代码 ⚡", btn_gen_rand: "🎲 生成随机脚本事件", lib_title: "📌 准备好的Java函数库 (点击插入):",
-        quest_header: "任务参数", lbl_q_title: "任务名称 (Title)", lbl_q_npc: "谁接受任务 (CompleterNpc)", lbl_q_text: "玩家日志的任务说明 (Text)",
-        lbl_q_repeat: "任务重复性 (QuestRepeat)", lbl_q_type: "任务类型 (Type)", lbl_q_exp: "奖励：玩家经验值 (RewardExp)", lbl_q_next: "链 Owl 中的下一个任务 ID（如果没有，则为 -1）",
-        script_editor_title: "💻 JavaScript 编辑器 (ECMAScript)", script_generator_title: "⚡ 脚本自动生成器:", lbl_s_event: "1. 触发时 (事件):", lbl_s_action: "2. 要做什么 (操作):", lbl_s_value: "3. 值 (消息文本或 X Y Z 坐标):", lbl_s_area: "脚本代码（编写您自己的代码 or 使用生成器）:",
-        notes_title: "📝 编剧笔记", cheat_title: "📖 1.12.2 命令指南",tab_dialogs: "对话编辑器",
+        tab_dialogs: "📜 对话编辑器", 
+		tab_quests: "⚔️ 任务创建", 
+		tab_scripts: "💻 脚本编辑器",
+        main_dialog_header: "主对话 №0",
+		lbl_dialog_id: "对话 ID (DialogId)", 
+		lbl_dialog_title: "对话标题 (DialogTitle)",
+		lbl_dialog_text: "NPC 文本 (DialogText)", 
+		btn_gen_code: "在下方窗口生成代码 ⚡", 
+		btn_gen_rand: "🎲 生成随机脚本事件", 
+		lib_title: "📌 准备好的Java函数库 (点击插入):",
+        quest_header: "任务参数", 
+		lbl_q_title: "任务名称 (Title)",
+		lbl_q_npc: "谁接受任务 (CompleterNpc)", 
+		lbl_q_text: "玩家日志的任务说明 (Text)",
+        lbl_q_repeat: "任务重复性 (QuestRepeat)", 
+		lbl_q_type: "任务类型 (Type)",
+		lbl_q_exp: "奖励：玩家经验值 (RewardExp)",
+		lbl_q_next: "链 Owl 中的下一个任务 ID（如果没有，则为 -1）",
+        script_editor_title: "💻 JavaScript 编辑器 (ECMAScript)", 
+		script_generator_title: "⚡ 脚本自动生成器:", 
+		lbl_s_event: "1. 触发时 (事件):",
+		lbl_s_action: "2. 要做什么 (操作):",
+		lbl_s_value: "3. 值 (消息文本或 X Y Z 坐标):",
+		lbl_s_area: "脚本代码（编写您自己的代码 or 使用生成器）:",
+        notes_title: "📝 编剧笔记", 
+		cheat_title: "📖 1.12.2 命令指南",
+		tab_dialogs: "对话编辑器",
         tab_quests: "任务创建",
         tab_scripts: "脚本编辑器",
 		ttl_sys_gear: "界面和主题设置",
@@ -3993,8 +4628,8 @@ ttl_author_btn: "🧍 著者についてとバグ報告", mdl_auth_title: "🧍 
 		btn_ai_plot: "🔮 AI剧情生成器",
         lbl_dialog_title: "对话标题 (DialogTitle)",
         lbl_dialog_text: "NPC 文本 (DialogText)",lbl_opacity: "不透明度:",
-ph_avail_sb: "目标名称...",
-options_main_title: "玩家对话选项 (按钮)",
+		ph_avail_sb: "目标名称...",
+		options_main_title: "玩家对话选项 (按钮)",
         btn_gen_code: "在下方窗口生成代码",
         btn_gen_rand: "生成随机脚本事件",
         lib_title: "准备好的Java函数库:",
@@ -4014,81 +4649,183 @@ options_main_title: "玩家对话选项 (按钮)",
         lbl_avail_r2: "声望 2:",
         lbl_avail_time: "时间段 (DayTime):",
         lbl_avail_lvl: "最小经验等级:",
-        opt_rep_0: "友好 (0)", opt_rep_1: "中立 (1)", opt_rep_2: "敌对 (2)",
-        opt_time_0: "全天 (0)", opt_time_1: "白天 (1)", opt_time_2: "夜晚 (2)",
+        opt_rep_0: "友好 (0)", 
+		opt_rep_1: "中立 (1)", 
+		opt_rep_2: "敌对 (2)",
+        opt_time_0: "全天 (0)", 
+		opt_time_1: "白天 (1)", 
+		opt_time_2: "夜晚 (2)",
         tmpl_branches_title: "分支模板:",
-        btn_tmpl_guard: "卫兵", btn_tmpl_villager: "村民", btn_tmpl_trader: "商人",
+        btn_tmpl_guard: "卫兵", 
+		btn_tmpl_villager: "村民", 
+		btn_tmpl_trader: "商人",
         extra_quest_header: "额外任务",
         lbl_q_id: "任务 ID (QuestId)",
 		extra_quest_header: "额外任务",
-lbl_q_id: "任务 ID (QuestId)",
-lbl_q_title: "任务名称 (Title)",
-lbl_q_text: "玩家日志的任务说明 (Text)",
-lbl_q_npc: "谁接受任务 (CompleterNpc)",
-lbl_q_next: "链中的下一个任务 ID（如果没有，则为 -1）",
-lbl_q_repeat: "任务重复性 (QuestRepeat)",
-lbl_q_type: "任务类型 (Type)",
-lbl_q_comp_text: "交付任务时的 NPC 文本 (CompleteText)",
-lbl_q_cmd: "任务完成时的控制台命令 (QuestCommand)",
-lbl_q_completion: "完成逻辑",
-lbl_q_chk_rand: "随机奖励",
-lbl_q_chk_nbt: "忽略物品 NBT",
-lbl_q_chk_leave: "保留任务物品",
-opt_repeat_0: "无 (0)", opt_repeat_1: "是 / 持续 (1)",
-opt_repeat_2: "每日 (2)", opt_repeat_3: "每周 (3)", opt_repeat_4: "游戏内一天 (4)", opt_repeat_5: "游戏内一周 (5)",
-opt_q_type_0: "收集物品 (0)", opt_q_type_1: "击杀区域 (1)", opt_q_type_2: "对话任务 (2)", opt_q_type_3: "手动 (3)", opt_q_type_4: "到达地点 (4)",
-opt_q_comp_0: "在上方字段的 NPC 处交付 (0)", opt_q_comp_1: "在任务日志中立即完成 (1)",
-ph_q_text: "玩家需要做什么...", ph_q_comp_text: "做得好，战士...", ph_q_cmd: "交付时的控制台命令（例如：give @dp diamond 5）...",opt_ev_interact: "玩家点击NPC时 (interact)", opt_ev_init: "NPC生成时 (init)", opt_ev_damaged: "NPC受到伤害时 (damaged)", opt_ev_died: "NPC死亡时 (died)", opt_ev_update: "每秒 / 持续执行 (update)", opt_ev_target: "发现敌人或玩家时 (target)",
-        opt_act_say: "NPC在聊天框发送消息", opt_act_tp: "将玩家传送至 XYZ 坐标", opt_act_particle: "生成爆炸或粒子特效", opt_act_kill: "击杀玩家 (陷阱)", opt_act_rage: "开启狂暴模式 (速度+火焰)", opt_act_blind: "使玩家屏幕失明 (大怪特效)", opt_act_loot: "发放超级奖励 (钻石+音效)",
-        ph_s_value: "例如: 100 64 -250 或文本...", ph_s_area: "// 适用于CustomNPCs的JavaScript代码...",
-        btn_lib_msg: "在聊天框发言", btn_lib_sound: "播放音效", btn_lib_particle: "粒子爆炸", btn_lib_potion: "赋予药水效果", btn_lib_random: "随机事件组", btn_lib_scale: "调整NPC尺寸", btn_lib_alarm: "警报 / 红石闪烁模式", btn_lib_meteor: "流星雨",
-    lbl_story_quests: "⚡ 主线任务:", btn_ai_quest: "🔮 AI 任务生成器", ph_q_npc: "游戏内的 NPC 名称...", hint_q_cmd: "模组提示：使用 @dp 来指定触发此事件的玩家。",
-ch_t_time_day: "☀️ 时间: 白天 (Time set)", ch_d_time_day: "将游戏时间快进至早晨（1000刻）。", ch_d_time_day_alt: "刻 (刻/Ticks).", ch_t_time_night: "🌙 时间: 夜晚 (Time set)", ch_d_time_night: "将游戏时间快进至夜晚（13000刻）。", ch_t_weat_clear: "🌦️ 天气: 晴朗 (Weather)", ch_d_weat_clear: "清除服务器上的降雨和雷暴天气。", ch_t_weat_rain: "🌧️ 天气: 下雨 (Weather)",
-ch_d_weat_rain: "在世界中开启持续的暴雨。", ch_t_gm_adv: "🏹 游戏模式: 冒险 (Gamemode)", ch_d_gm_adv: "将玩家切换为冒险模式（无法破坏方块）。", ch_t_gm_surv: "⚔️ 游戏模式: 生存 (Gamemode)", ch_d_gm_surv: "将玩家恢复 text 为标准的生存模式。",
-ch_t_give: "给予物品 (Give)", ch_d_give: "向玩家发放资源物品。语法: give [玩家] [id] [数量]",
-ch_t_xp: "给予经验 (XP)", ch_d_xp: "增加经验值（points）或等级（L）。",
-ch_t_effect: "状态效果 (Effect)", ch_d_effect: "赋予增益或减益效果。语法: effect [玩家] [效果] [时间] [等级]",
-ch_t_eff_clear: "治疗 / 清除效果", ch_d_eff_clear: "完全移除所有正面或负面的状态效果。",
-ch_t_saturation: "恢复饱食度", ch_d_saturation: "立即回满玩家的饥饿值状态栏。", ch_t_sound_win: "胜利音效 (Playsound)", ch_d_sound_win: "播放挑战成功的提示音效。",
-ch_t_sound_cave: "洞穴环境音", ch_d_sound_cave: "播放诡异的环境音效以营造成就恐怖感。",
-ch_t_tellraw: "聊天栏消息 (Tellraw)", ch_d_tellraw: "向所有玩家输出一条金色的 RPG 任务提示。",
-ch_t_title: "全屏标题 (Title)", ch_d_title: "在玩家屏幕正中央显示巨大的红色标题艺术字。",
-ch_t_tp: "传送指令 (Teleport)", ch_d_tp: "将玩家传送至指定的 RPG 核心 X Y Z 坐标位置。",
-ch_t_spawnpoint: "设置重生点", ch_d_spawnpoint: "将玩家的复活点绑定在当前位置（任务存档点）。",
-ch_t_lightning: "召唤雷击 (Summon)", ch_d_lightning: "在玩家位置召唤一道闪电以达到震撼的特效目的。",
-ch_t_npc_attack: "NPC 敌对化 (模组脚本)", ch_d_npc_attack: "强制让 NPC 瞬间进入敌对仇恨状态并攻击玩家。",
-ch_d_give_alt: "向玩家发放资源物品。模组提示：使用 @dp 选择器。",
-ch_t_sound_win_alt: "胜利提示音", ch_d_sound_win_alt: "在任务达成时播放一段凯旋胜利提示音效。",
-ch_d_xp_alt: "向玩家结算发放指定的经验值（points）。", ch_t_speed_alt: "速度效果", ch_d_speed_alt: "赋予移动速度加成 II，持续60秒。",
-ch_t_tellraw_alt: "聊天栏消息", ch_d_tellraw_alt: "输出一条漂亮的彩色 RPG 提示。",
-ch_t_weat_clear_alt: "改变天气", ch_d_weat_clear_alt: "将服务器的天气更改为晴天。",
-lbl_db_ver: "数据库", lbl_opt_btn: "按钮", lbl_opt_slot: "槽位", btn_remove_branch: "❌ 删除分支",
-lbl_opt_title: "回复文本:", ph_opt_title: "玩家将选择的文本...",
-lbl_opt_type: "操作 (OptionType):", opt_type_1: "转到对话 (1)", opt_type_0: "关闭对话 (0)", opt_type_2: "打开 NPC 角色 (2)", opt_type_3: "显示阵营 (3)",
-lbl_opt_next: "下一个对话 ID:", lbl_opt_color: "按钮文本颜色 (Decimal):",
-lbl_opt_cmd: "按钮命令:", ph_opt_cmd: "点击时的控制台命令...",
-lbl_opt_fac_id: "更改阵营 (ID):", lbl_opt_fac_pts: "点数:", lbl_opt_fac_dec: "扣除点数", note_tab_plot: "剧情", note_tab_quests: "任务", note_tab_memos: "备忘录", notes_title: "📝 编剧笔记",
-ph_notes_search: "搜索关键词...", ph_notes_area: "在此处编写笔记...",
-title_dialogs: "CustomNPCs对话编辑器 - 瀑布 (Ver. 1.2)",
-title_quests: "CustomNPCs任务编辑器 - 公会 (Ver. 0.8)",
-title_scripts: "CustomNPCs脚本模块 - 观察者 (Ver. 0.8)",
-lbl_particles: "特效:", opt_part_none: "关闭 ❌", opt_part_sakura: "樱花 🌸", opt_part_snow: "降雪 ❄️", opt_part_leaves: "落叶 🍁",
-ttl_theme_pip: "主题: 哔宝小子", ttl_theme_melon: "主题 1994: MelonKing", ttl_theme_yahoo: "主题 2000: Yahoo! Japan", ttl_theme_win: "主题 1997: Windows 95", ttl_theme_ryan: "主题 2007: 瑞安航空",
-ttl_open_notes: "📝 打开编剧笔记 (Notepad++)", ttl_open_cheat: "📖 打开命令备忘单 (Minecraft 1.12.2)",
-ttl_main_gear: "此对话的功能与设置", ttl_quest_gear: "此任务的功能与设置",
-ttl_clear_all: "清空所有分支输入框", ttl_del_last: "删除最后一个分支", ttl_add_new: "添加新的对话分支",
-ttl_add_chain: "📜 在链中添加下一个对话",
-ttl_download_dial: "💾 下载此对话 (.json)",
-ttl_avail_settings: "🔒 对话可用性条件设置",
-ttl_download_quest: "💾 下载基础任务 (.json)",
-ttl_download_script: "💾 下载此脚本 (.js)",
-ttl_tmpl_guard: "填入与卫兵的对话模板",
-ttl_tmpl_villager: "填入与村民的对话模板",
-ttl_tmpl_trader: "填入与商人的对话模板",
-ttl_ai_plot: "🎲 生成完整的随机 RPG 剧情",
-ttl_ai_quest: "🎲 随机生成剧情任务 (恐怖 / 科技 / RPG)",
-ttl_quest_chain: "⚔️ 在链中添加下一个任务",
-ttl_author_btn: "🧍 关于作者与 Bug 反馈", mdl_auth_title: "🧍 项目开发者", mdl_auth_desc: "如果您发现了 Bug、语法错误，或对生成器有改进建议 — 请直接联系作者:", lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube"
+		lbl_q_id: "任务 ID (QuestId)",
+		lbl_q_title: "任务名称 (Title)",
+		lbl_q_text: "玩家日志的任务说明 (Text)",
+		lbl_q_npc: "谁接受任务 (CompleterNpc)",
+		lbl_q_next: "链中的下一个任务 ID（如果没有，则为 -1）",
+		lbl_q_repeat: "任务重复性 (QuestRepeat)",
+		lbl_q_type: "任务类型 (Type)",
+		lbl_q_comp_text: "交付任务时的 NPC 文本 (CompleteText)",
+		lbl_q_cmd: "任务完成时的控制台命令 (QuestCommand)",
+		lbl_q_completion: "完成逻辑",
+		lbl_q_chk_rand: "随机奖励",
+		lbl_q_chk_nbt: "忽略物品 NBT",
+		lbl_q_chk_leave: "保留任务物品",
+		opt_repeat_0: "无 (0)", 
+		opt_repeat_1: "是 / 持续 (1)",
+		opt_repeat_2: "每日 (2)", 
+		opt_repeat_3: "每周 (3)", 
+		opt_repeat_4: "游戏内一天 (4)", 
+		opt_repeat_5: "游戏内一周 (5)",
+		opt_q_type_0: "收集物品 (0)", 
+		opt_q_type_1: "击杀区域 (1)", 
+		opt_q_type_2: "对话任务 (2)", 
+		opt_q_type_3: "手动 (3)", 
+		opt_q_type_4: "到达地点 (4)",
+		opt_q_comp_0: "在上方字段的 NPC 处交付 (0)", 
+		opt_q_comp_1: "在任务日志中立即完成 (1)",
+		ph_q_text: "玩家需要做什么...", 
+		ph_q_comp_text: "做得好，战士...", 
+		ph_q_cmd: "交付时的控制台命令（例如：give @dp diamond 5）...",
+		opt_ev_interact: "玩家点击NPC时 (interact)", 
+		opt_ev_init: "NPC生成时 (init)", 
+		opt_ev_damaged: "NPC受到伤害时 (damaged)", 
+		opt_ev_died: "NPC死亡时 (died)", 
+		opt_ev_update: "每秒 / 持续执行 (update)", 
+		opt_ev_target: "发现敌人或玩家时 (target)",
+        opt_act_say: "NPC在聊天框发送消息", 
+		opt_act_tp: "将玩家传送至 XYZ 坐标", 
+		opt_act_particle: "生成爆炸或粒子特效",
+		opt_act_kill: "击杀玩家 (陷阱)", 
+		opt_act_rage: "开启狂暴模式 (速度+火焰)", 
+		opt_act_blind: "使玩家屏幕失明 (大怪特效)", 
+		opt_act_loot: "发放超级奖励 (钻石+音效)",
+        ph_s_value: "例如: 100 64 -250 或文本...", 
+		ph_s_area: "// 适用于CustomNPCs的JavaScript代码...",
+        btn_lib_msg: "在聊天框发言", 
+		btn_lib_sound: "播放音效", 
+		btn_lib_particle: "粒子爆炸", 
+		btn_lib_potion: "赋予药水效果", 
+		btn_lib_random: "随机事件组", 
+		btn_lib_scale: "调整NPC尺寸", 
+		btn_lib_alarm: "警报 / 红石闪烁模式", 
+		btn_lib_meteor: "流星雨",
+		lbl_story_quests: "⚡ 主线任务:", 
+		btn_ai_quest: "🔮 AI 任务生成器", 
+		ph_q_npc: "游戏内的 NPC 名称...", 
+		hint_q_cmd: "模组提示：使用 @dp 来指定触发此事件的玩家。",
+		ch_t_time_day: "☀️ 时间: 白天 (Time set)", 
+		ch_d_time_day: "将游戏时间快进至早晨（1000刻）。", 
+		ch_d_time_day_alt: "刻 (刻/Ticks).",
+		ch_t_time_night: "🌙 时间: 夜晚 (Time set)", 
+		ch_d_time_night: "将游戏时间快进至夜晚（13000刻）。", 
+		ch_t_weat_clear: "🌦️ 天气: 晴朗 (Weather)",
+		ch_d_weat_clear: "清除服务器上的降雨和雷暴天气。", 
+		ch_t_weat_rain: "🌧️ 天气: 下雨 (Weather)",
+		ch_d_weat_rain: "在世界中开启持续的暴雨。", 
+		ch_t_gm_adv: "🏹 游戏模式: 冒险 (Gamemode)",
+		ch_d_gm_adv: "将玩家切换为冒险模式（无法破坏方块）。",
+		ch_t_gm_surv: "⚔️ 游戏模式: 生存 (Gamemode)", 
+		ch_d_gm_surv: "将玩家恢复 text 为标准的生存模式。",
+		ch_t_give: "给予物品 (Give)",
+		ch_d_give: "向玩家发放资源物品。语法: give [玩家] [id] [数量]",
+		ch_t_xp: "给予经验 (XP)",
+		ch_d_xp: "增加经验值（points）或等级（L）。",
+		ch_t_effect: "状态效果 (Effect)",
+		ch_d_effect: "赋予增益或减益效果。语法: effect [玩家] [效果] [时间] [等级]",
+		ch_t_eff_clear: "治疗 / 清除效果", 
+		ch_d_eff_clear: "完全移除所有正面或负面的状态效果。",
+		ch_t_saturation: "恢复饱食度",
+		ch_d_saturation: "立即回满玩家的饥饿值状态栏。", 
+		ch_t_sound_win: "胜利音效 (Playsound)", 
+		ch_d_sound_win: "播放挑战成功的提示音效。",
+		ch_t_sound_cave: "洞穴环境音", 
+		ch_d_sound_cave: "播放诡异的环境音效以营造成就恐怖感。",
+		ch_t_tellraw: "聊天栏消息 (Tellraw)", 
+		ch_d_tellraw: "向所有玩家输出一条金色的 RPG 任务提示。",
+		ch_t_title: "全屏标题 (Title)",
+		ch_d_title: "在玩家屏幕正中央显示巨大的红色标题艺术字。",
+		ch_t_tp: "传送指令 (Teleport)",
+		ch_d_tp: "将玩家传送至指定的 RPG 核心 X Y Z 坐标位置。",
+		ch_t_spawnpoint: "设置重生点", 
+		ch_d_spawnpoint: "将玩家的复活点绑定在当前位置（任务存档点）。",
+		ch_t_lightning: "召唤雷击 (Summon)", 
+		ch_d_lightning: "在玩家位置召唤一道闪电以达到震撼的特效目的。",
+		ch_t_npc_attack: "NPC 敌对化 (模组脚本)", 
+		ch_d_npc_attack: "强制让 NPC 瞬间进入敌对仇恨状态并攻击玩家。",
+		ch_d_give_alt: "向玩家发放资源物品。模组提示：使用 @dp 选择器。",
+		ch_t_sound_win_alt: "胜利提示音", 
+		ch_d_sound_win_alt: "在任务达成时播放一段凯旋胜利提示音效。",
+		ch_d_xp_alt: "向玩家结算发放指定的经验值（points）。", 
+		ch_t_speed_alt: "速度效果", 
+		ch_d_speed_alt: "赋予移动速度加成 II，持续60秒。",
+		ch_t_tellraw_alt: "聊天栏消息", 
+		ch_d_tellraw_alt: "输出一条漂亮的彩色 RPG 提示。",
+		ch_t_weat_clear_alt: "改变天气", 
+		ch_d_weat_clear_alt: "将服务器的天气更改为晴天。",
+		lbl_db_ver: "数据库",
+		lbl_opt_btn: "按钮", 
+		lbl_opt_slot: "槽位",
+		btn_remove_branch: "❌ 删除分支",
+		lbl_opt_title: "回复文本:", 
+		ph_opt_title: "玩家将选择的文本...",
+		lbl_opt_type: "操作 (OptionType):", 
+		opt_type_1: "转到对话 (1)", 
+		opt_type_0: "关闭对话 (0)",
+		opt_type_2: "打开 NPC 角色 (2)",
+		opt_type_3: "显示阵营 (3)",
+		lbl_opt_next: "下一个对话 ID:",
+		lbl_opt_color: "按钮文本颜色 (Decimal):",
+		lbl_opt_cmd: "按钮命令:",
+		ph_opt_cmd: "点击时的控制台命令...",
+		lbl_opt_fac_id: "更改阵营 (ID):", 
+		lbl_opt_fac_pts: "点数:",
+		lbl_opt_fac_dec: "扣除点数", 
+		note_tab_plot: "剧情", 
+		note_tab_quests: "任务", 
+		note_tab_memos: "备忘录",
+		notes_title: "📝 编剧笔记",
+		ph_notes_search: "搜索关键词...",
+		ph_notes_area: "在此处编写笔记...",
+		title_dialogs: "CustomNPCs对话编辑器 - 瀑布 (Ver. 1.2)",
+		title_quests: "CustomNPCs任务编辑器 - 公会 (Ver. 0.8)",
+		title_scripts: "CustomNPCs脚本模块 - 观察者 (Ver. 0.8)",
+		lbl_particles: "特效:",
+		opt_part_none: "关闭 ❌", 
+		opt_part_sakura: "樱花 🌸", 
+		opt_part_snow: "降雪 ❄️", 
+		opt_part_leaves: "落叶 🍁",
+		ttl_theme_pip: "主题: 哔宝小子", 
+		ttl_theme_melon: "主题 1994: MelonKing", 
+		ttl_theme_yahoo: "主题 2000: Yahoo! Japan", 
+		ttl_theme_win: "主题 1997: Windows 95",
+		ttl_theme_ryan: "主题 2007: 瑞安航空",
+		ttl_open_notes: "📝 打开编剧笔记 (Notepad++)",
+		ttl_open_cheat: "📖 打开命令备忘单 (Minecraft 1.12.2)",
+		ttl_main_gear: "此对话的功能与设置", 
+		ttl_quest_gear: "此任务的功能与设置",
+		ttl_clear_all: "清空所有分支输入框", 
+		ttl_del_last: "删除最后一个分支", 
+		ttl_add_new: "添加新的对话分支",
+		ttl_add_chain: "📜 在链中添加下一个对话",
+		ttl_download_dial: "💾 下载此对话 (.json)",
+		ttl_avail_settings: "🔒 对话可用性条件设置",
+		ttl_download_quest: "💾 下载基础任务 (.json)",
+		ttl_download_script: "💾 下载此脚本 (.js)",
+		ttl_tmpl_guard: "填入与卫兵的对话模板",
+		ttl_tmpl_villager: "填入与村民的对话模板",
+		ttl_tmpl_trader: "填入与商人的对话模板",
+		ttl_ai_plot: "🎲 生成完整的随机 RPG 剧情",
+		ttl_ai_quest: "🎲 随机生成剧情任务 (恐怖 / 科技 / RPG)",
+		ttl_quest_chain: "⚔️ 在链中添加下一个任务",
+		ttl_author_btn: "🧍 关于作者与 Bug 反馈", 
+		mdl_auth_title: "🧍 项目开发者", 
+		mdl_auth_desc: "如果您发现了 Bug、语法错误，或对生成器有改进建议 — 请直接联系作者:", 
+		lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube"
 
     }
 };
@@ -4235,7 +4972,6 @@ function toggleAuthorModal(show) {
         modal.style.display = show ? 'flex' : 'none';
     }
 }
-
 
 // ==========================================================================
 // Просмотр партиклов 
@@ -4440,6 +5176,39 @@ function toggleExtraParamsVisibility(extraId) {
     }
 }
 
+// ==========================================================================
+// Подсветска синтакса для JS-script 
+// ==========================================================================
+
+function updateCodeHighlighting() {
+    const textarea = document.getElementById('scriptCodeArea');
+    const overlay = document.getElementById('codeHighlightOverlay');
+    
+    if (!textarea || !overlay) return;
+
+    let code = textarea.value;
+
+    if (code.endsWith('\n')) {
+        code += ' ';
+    }
+
+    // 1. Экранируем HTML-символы
+    code = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    // 2. Подсвечиваем строки, комментарии, ключевые слова, API и числа (ВАШИ СТАНДАРТНЫЕ СТРОКИ)
+    code = code.replace(/(["'])(.*?)\1/g, '<span class="hl-string">$1$2$1</span>');
+    code = code.replace(/(\/\/.*)/g, '<span class="hl-comment">$1</span>');
+    code = code.replace(/\b(function|var|let|const|if|else|return|typeof|new|switch|case|break)\b/g, '<span class="hl-keyword">$1</span>');
+    code = code.replace(/\b(event|npc|player|world|pos)\b/g, '<span class="hl-api">$1</span>');
+    code = code.replace(/\b(\d+)\b/g, '<span class="hl-number">$1</span>');
+
+    // Выводим код в оверлей
+    overlay.innerHTML = code;
+    
+    // Синхронизируем скролл
+    overlay.scrollTop = textarea.scrollTop;
+    overlay.scrollLeft = textarea.scrollLeft;
+}
 
 </script>
 <!-- ВЫНОСИМ СИМУЛЯТОР В ОТДЕЛЬНЫЙ НЕЗАВИСИМЫЙ БЛОК НА ПК -->
