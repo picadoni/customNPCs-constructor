@@ -153,7 +153,13 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 * **New Features:** Added a guide for linking with the FTB Quests mod, and full localization into Japanese, English, and Simplified Chinese.
 * **Improvement:** Expanded translation for buttons.
 
-### [Version 2.2 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+### [Version 2.2](https://picadoni.github.io/customNPCs-constructor/ver%202.2/)
 **Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Gidra" (v0.9) / Script Module "Terminal" (v0.9)**
 *(The Dialogue Constructor and Script Module have not been renamed, as their functionality was not updated in this version).*
 * **New Features:** Added a modal window to check the sequence and validate task IDs for integrity.
+
+### [Version 2.2 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+**Dialogue Constructor "Paladin" (v1.5) / Quest Constructor "Citadel" (v1.0) / Script Module "Quantum" (v1.0)**
+* **New Features:** Added a mini-guide for scripting in ECMA 5.1.
+* **Improvements:** Enhanced quest/dialogue control, now featuring two preview and sequence tracking modes ("Tech Log" and "Game").
+* **Bug Fixes:** Fixed a visual bug with rapid script generation where text remained invisible until a click or keypress occurred.
