@@ -308,6 +308,34 @@
     </style>
 </head>
 <body style="background-image: radial-gradient(circle, rgb(43, 17, 17) 10%, transparent 11%); background-size: 20px 20px; background-color: rgb(15, 5, 5); color: rgb(255, 204, 0);">
+<!-- МОДАЛЬНОЕ ОКНО: Интерактивный симулятор задании 2.0 -->
+<!-- Контейнер симулятора (изначально скрыт через display: none) -->
+<!-- Модальное окно симулятора квестов -->
+<div id="questSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 10000; align-items: center; justify-content: center; font-family: monospace;">
+    
+    <div style="background: #151515; border: 1px solid #ff8800; border-radius: 6px; width: 480px; padding: 15px; color: #fff; box-shadow: 0 0 25px rgba(0,0,0,0.9);">
+        
+        <!-- Шапка окна -->
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #333; padding-bottom: 8px; margin-bottom: 12px;">
+            <span style="color: #ffaa00; font-weight: bold; font-size: 13px;">📊 СИМУЛЯТОР ЦЕПОЧКИ ЗАДАНИЙ</span>
+            <button type="button" onclick="closeQuestSimulator()" style="background: #ff2222; border: none; color: white; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px;">Х ЗАКРЫТЬ</button>
+		</div>
+
+        <!-- Консоль лога -->
+        <div id="simQuestConsole" style="background: #0d0d0d; border: 1px solid #252525; padding: 12px; min-height: 180px; max-height: 260px; overflow-y: auto; font-size: 12px; border-radius: 4px; line-height: 1.6; color: #eee; white-space: pre-wrap;">
+            <!-- Сюда скрипт выводит лог цепочки квестов -->
+        </div>
+
+        <!-- Нижняя панель управления (динамически меняется через JS) -->
+        <div id="simQuestControlWrapper" style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <!-- Сюда JS подставит статус и кнопку -->
+        </div>
+        
+    </div>
+</div>
+
+
+
 
 <!-- МОДАЛЬНОЕ ОКНО: Интерактивный симулятор диалогов 2.0 -->
 <div id="dialogSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; font-family: 'Consolas', monospace;">
@@ -930,12 +958,12 @@
     <span id="questFoldArrow">▼</span> 
     <span data-i18n="quest_header">Задание</span> №1 (ID: 1) : [<span id="displayQuestTitle" style="color: var(--accent-color);">Логистический Кризис</span>]
 </div>
-
                 <button type="button" onclick="generateRandomQuest()" style="padding: 4px 12px; background: #7e3878; color: #fff; border-radius: 4px; cursor: pointer; font-size: 12px;" data-i18n="btn_ai_quest">🔮 ИИ-Генератор задания</button>
             </div>
             <div style="display: flex; align-items: center; gap: 14px; flex-shrink: 0;">
-                <button type="button" onclick="generateAndDownloadQuestBase()" style="background: none; border: none; font-size: 21px; cursor: pointer;">💾</button>
-                <button type="button" onclick="createNewQuestChainBlock(event)" style="background: none; border: none; font-size: 21px; cursor: pointer;">⚔️</button>
+                <button type="button" onclick="generateAndDownloadQuestBase()" title="Скачать этот квест (.json)" style="background: none; border: none; font-size: 21px; cursor: pointer;">💾</button>
+                <button type="button" onclick="createNewQuestChainBlock(event)" title="Создать новое задание"style="background: none; border: none; font-size: 21px; cursor: pointer;">⚔️</button>
+				<button onclick="openQuestMonitor()" title="Проверить цепочку заданий" style="background: none; border: none; font-size: 21px; cursor: pointer;">📊</button>
             </div>
         </div>
         <div id="questParamsWrapper" style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
@@ -4156,7 +4184,7 @@ const langData = {
 		note_tab_memos: "Памятки",
 		ph_notes_area: "Пишите пометки здесь...",
 		title_dialogs: "Конструктор Диалогов CustomNPCs Планетарий (Вер. 1.4)",
-		title_quests: "Конструктор Заданий CustomNPCs Гильдия (Вер. 0.8)",
+		title_quests: "Конструктор Заданий CustomNPCs Гидра (Вер. 0.9)",
 		title_scripts: "Скриптовый Модуль CustomNPCs Терминал (Вер. 0.9)",
 		lbl_particles: "Эффекты:", 
 		opt_part_none: "Выкл. ❌", 
@@ -4375,8 +4403,8 @@ const langData = {
 		notes_title: "📝 Writer Notes",
 		ph_notes_search: "Search word...", 
 		ph_notes_area: "Write your notes here...",
-		title_dialogs: "CustomNPCs Dialogue Constructor - Planetarium (Ver. 1.4)",
-		title_quests: "CustomNPCs Quest Constructor - Guild (Ver. 0.8)",
+		title_dialogs: "CustomNPCs Dialogue Constructor - Grotto (Ver. 1.3)",
+		title_quests: "CustomNPCs Quest Constructor - Gidra (Ver. 0.9)",
 		title_scripts: "CustomNPCs Scripting Module - Terminal (Ver. 0.9)",
 		lbl_particles: "Effects:", 
 		opt_part_none: "Off ❌", 
@@ -4624,8 +4652,8 @@ const langData = {
 		notes_title: "📝 シナリオメモ",
 		ph_notes_search: "単語を検索...",
 		ph_notes_area: "ここにメモを記入してください...",
-		title_dialogs: "CustomNPCs対話コンストラクター - Planetarium / プラネタリウム (Ver. 1.4)",
-		title_quests: "CustomNPCsクエストコンストラクター - Guild / ギルド (Ver. 0.8)",
+		title_dialogs: "CustomNPCs対話コンストラクター - Grotto / 洞窟 (Ver. 1.3)",
+		title_quests: "CustomNPCsクエストコンストラクター - Gidra / ギドラ (Ver. 0.9)",
 		title_scripts: "CustomNPCsスクリプトモジュール - Terminal / ターミナル (Ver. 0.9)",
 		lbl_particles: "エフェクト:", 
 		opt_part_none: "無効 ❌",
@@ -4876,8 +4904,8 @@ const langData = {
 		notes_title: "📝 编剧笔记",
 		ph_notes_search: "搜索关键词...",
 		ph_notes_area: "在此处编写笔记...",
-		title_dialogs: "CustomNPCs对话编辑器 - Planetarium / 天文馆 (Ver. 1.4)",
-		title_quests: "CustomNPCs任务编辑器 - 公会 (Ver. 0.8)",
+		title_dialogs: "CustomNPCs对话编辑器 - Grotto / 石窟 (Ver. 1.3)",
+		title_quests: "CustomNPCs任务编辑器 - Gidra / 基德拉 (Ver. 0.9)",
 		title_scripts: "CustomNPCs脚本模块 - Terminal / 终端 (Ver. 0.9)",
 		lbl_particles: "特效:",
 		opt_part_none: "关闭 ❌", 
@@ -5471,6 +5499,103 @@ function toggleFtbMemo() {
         overlayEl.style.display = 'none';
     }
 }
+
+// ==========================================================================
+// Глобальная переменная для карты симулятора квестов
+// ==========================================================================
+let currentQuestMap = {};
+
+function openQuestMonitor() {
+    // 1. Считываем Главное задание №1 (ID всегда 1)
+    const mainTitle = document.getElementById('questTitle')?.value || "Без названия";
+    const mainNextId = parseInt(document.getElementById('questNextId')?.value);
+
+    currentQuestMap = {};
+
+    // Записываем его в карту
+    currentQuestMap[1] = {
+        title: mainTitle,
+        nextId: isNaN(mainNextId) ? -1 : mainNextId
+    };
+
+    // 2. Сканируем динамические доп. задания по префиксу вашей верстки "extraQuestBlock_"
+    const extraBlocks = document.querySelectorAll('div[id^="extraQuestBlock_"]');
+    extraBlocks.forEach(block => {
+        const extraId = block.id.replace('extraQuestBlock_', ''); // Получаем внутренний номер счетчика
+        
+        // В вашей верстке ID инпутов формируются как id="extraQuestId_\${extraId}" и т.д.
+        const qId = parseInt(document.getElementById(`extraQuestId_${extraId}`)?.value);
+        const qTitle = document.getElementById(`extraQuestTitle_${extraId}`)?.value || `Доп. задание №${extraId}`;
+        const qNextId = parseInt(document.getElementById(`extraQuestNextId_${extraId}`)?.value);
+
+        if (!isNaN(qId)) {
+            currentQuestMap[qId] = {
+                title: qTitle,
+                nextId: isNaN(qNextId) ? -1 : qNextId
+            };
+        }
+    });
+
+    // 3. Запускаем симулятор с ID главного квеста (1)
+    showSimulatorQuest(1);
+}
+
+function showSimulatorQuest(questId) {
+    const modal = document.getElementById('questSimulatorModal');
+    const consoleNode = document.getElementById('simQuestConsole');
+    const controlWrapper = document.getElementById('simQuestControlWrapper');
+
+    if (!modal || !consoleNode || !controlWrapper) return;
+
+    modal.style.display = 'flex';
+
+    const questData = currentQuestMap[questId];
+
+    // Если в цепочке указан ID квеста, который картодел забыл создать ниже
+    if (!questData) {
+        consoleNode.innerHTML += `<p style="color: #ff3333; margin: 6px 0; border-top: 1px dashed #444; padding-top: 6px;">❌ Ошибка: Квест с ID ${questId} не найден в вашем конструкторе! Сюжет прервется багом.</p>`;
+        consoleNode.scrollTop = consoleNode.scrollHeight;
+        
+        controlWrapper.innerHTML = `
+            <span style="color: #ff3333; font-size: 11px; font-weight: bold;">[ТУПИК ЦЕПОЧКИ]</span>
+            <button type="button" onclick="openQuestMonitor()" style="background: #333; color: #ffcc00; border: 1px solid rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px;">↩ Сначала</button>
+        `;
+        return;
+    }
+
+    // Очищаем лог только при старте
+    if (questId === 1) {
+        consoleNode.innerHTML = `<p style="color: #ffaa00; margin: 4px 0;">[Старт симуляции цепочки заданий]</p>`;
+    }
+
+    consoleNode.innerHTML += `<p style="color: #00ff00; margin: 4px 0;">▶ Выполняется: <strong>"${questData.title}"</strong> (ID: ${questId})</p>`;
+    consoleNode.scrollTop = consoleNode.scrollHeight;
+
+    // Проверяем финал на -1
+    if (questData.nextId === -1) {
+        consoleNode.innerHTML += `<p style="color: #888; margin: 4px 0;">🏁 Цепочка успешно завершена квестом "${questData.title}". Дальнейших переходов нет (-1).</p>`;
+        consoleNode.scrollTop = consoleNode.scrollHeight;
+
+        controlWrapper.innerHTML = `
+            <span style="color: #00ff00; font-size: 11px;">✔ Цепочка проверена</span>
+            <button type="button" onclick="closeQuestSimulator()" style="background: #555; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Готово</button>
+        `;
+    } else {
+        consoleNode.innerHTML += `<p style="color: #aaa; margin: 4px 0; font-size: 11px;">Сдача переведет игрока на квест с ID: ${questData.nextId}</p>`;
+        consoleNode.scrollTop = consoleNode.scrollHeight;
+
+        controlWrapper.innerHTML = `
+            <span style="color: #ff8800; font-size: 11px;">Следующий ID: ${questData.nextId}</span>
+            <button type="button" onclick="showSimulatorQuest(${questData.nextId})" style="background: #ff8800; border: none; color: black; font-weight: bold; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 12px;">Сдать и перейти ➔</button>
+        `;
+    }
+}
+
+function closeQuestSimulator() {
+    const modal = document.getElementById('questSimulatorModal');
+    if (modal) modal.style.display = 'none';
+}
+
 
 
 </script>
