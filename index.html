@@ -71,11 +71,6 @@
     pointer-events: none;
 }
 
-
-
-
-
-
 /* Цвета для ключевых слов синтаксиса (ИСПРАВЛЕНО: Добавлен !important, чтобы перебить инлайновый белый цвет) */
 /* Цвета для ключевых слов синтаксиса (Жесткий приоритет) */
 .hl-keyword { color: #c678dd !important; font-weight: bold !important; display: inline-block !important; }
@@ -83,7 +78,6 @@
 .hl-string  { color: #98c379 !important; display: inline-block !important; }
 .hl-comment { color: #5c6370 !important; font-style: italic !important; display: inline-block !important; }
 .hl-number  { color: #d19a66 !important; display: inline-block !important; }
-
 
 /* 1. Дополнительный запрет на заливку букв в textarea для WebKit-браузеров */
 .code-editor-textarea {
@@ -154,7 +148,6 @@
     background: rgba(255, 255, 255, 0.05);
     color: #fff;
 }
-
 	
 :root {
     --bg-color: #1a1a1a;
@@ -303,7 +296,7 @@
             margin-top: 4px;
         }
 		div[style*="position: absolute"] button:hover { transform: scale(1.2); }
-/* Дописать в самый конец тега <style> */
+/* Дописать в самый конец тега*/
 #notesDrawerPanel.open {
     right: 0px !important;
 }
@@ -322,7 +315,7 @@
         
         <!-- Шапка симулятора -->
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; margin-bottom: 20px;">
-            <span style="font-weight: bold; color: #ffcc00; font-size: 14px;">📺 СИМУЛЯТОР ДИАЛОГОВ CustomNPCs (Ver 2.0)</span>
+            <span style="font-weight: bold; color: #ffcc00; font-size: 14px;">📺 СИМУЛЯТОР ДИАЛОГА CustomNPCs (Ver 2.0)</span>
             <button type="button" onclick="closeDialogSimulator()" style="background: #ff3333; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px;">✕ ЗАКРЫТЬ</button>
         </div>
 
@@ -402,15 +395,12 @@
     </div>
 </div>
 
-<!-- ПЛАВАЮЩИЙ ПУЛЬТ НАВИГАЦИИ (ФИКСИРОВАН СЛЕВА ЭКРАНА) -->
 <!-- ПЛАВАЮЩИЙ ПУЛЬТ НАВИГАЦИИ С ЭФФЕКТОМ АВТО-СКРЫТИЯ (ФИКСИРОВАН СЛЕВА) -->
 <div id="fastScrollPanel" style="position: fixed; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 4px; background: var(--section-bg, rgba(0,0,0,0.6)); padding: 6px; border-radius: 6px; border: 1px dashed var(--border-color); z-index: 100000; user-select: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); backdrop-filter: blur(4px); opacity: 0.2; transition: opacity 0.2s ease, transform 0.2s ease;" onmouseover="this.style.opacity=&#39;1&#39;; this.style.transform=&#39;translateY(-50%) scale(1.05)&#39;;" onmouseout="this.style.opacity=&#39;0.2&#39;; this.style.transform=&#39;translateY(-50%) scale(1)&#39;;">
     <button type="button" onclick="window.scrollTo({top: 0, behavior: &#39;smooth&#39;})" title="На самый верх страницы" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity=&#39;0.7&#39;" onmouseout="this.style.opacity=&#39;1&#39;">▲</button>
     <button type="button" onclick="scrollToCenter()" title="В самую середину (К центру формы)" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 4px; color: var(--accent-color); font-weight: bold; transition: opacity 0.2s;" onmouseover="this.style.opacity=&#39;0.7&#39;" onmouseout="this.style.opacity=&#39;1&#39;">■</button>
     <button type="button" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: &#39;smooth&#39;})" title="В самый низ страницы" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity=&#39;0.7&#39;" onmouseout="this.style.opacity=&#39;1&#39;">▼</button>
 </div>
-
-
 
 <div class="container" style="background-color: rgba(28, 12, 12, 0.85); border: 3px double rgb(255, 85, 0); box-shadow: none;">
 
@@ -435,7 +425,7 @@
         <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для динамической шапки -->
 <h1 id="mainTitle" data-i18n="title_dialogs" style="margin: 0px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: rgb(255, 85, 0);">Конструктор Диалогов CustomNPCs Планетарий (Вер. 1.4)</h1>
 <!-- Глобальная кнопка симулятора -->
-<button type="button" onclick="startDialogSimulation(1)" title="📋 Запустить симулятор всего сюжета" style="background: none; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" onmouseout="this.style.background='none'; this.style.color='#ffcc00';">📋</button>
+<button type="button" onclick="alert(&#39;🎮 Монитор сюжета: Модуль интерактивного демо-просмотра квестов и всех диалогов находится в разработке и появится в ver 2.5!&#39;)" title="📋 Запустить симулятор всего сюжета" style="background: none; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" onmouseout="this.style.background='none'; this.style.color='#ffcc00';">📋</button>
 
         <!-- Шестеренка аккуратно встает в левый угол, не улетая в облака -->
 <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для всплывающей подсказки шестерёнки -->
@@ -459,7 +449,8 @@
 <button type="button" onclick="setTheme(&#39;ryanair&#39;)" data-i18n-title="ttl_theme_ryan" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">✈️</button>
 <!-- Вариант для кнопки в Основном диалоге -->
 <!-- Исправленный вариант для кнопки в Основном диалоге (Версия 2.0) -->
-<span onclick="openStoryMonitor()" title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
+<span onclick="openStoryMonitor()" data-i18n-title="ttl_open_ns"  title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
+<span onclick="toggleFtbMemo(1)" data-i18n-title="ttl_open_FTB" title="📎 Связь с FTB" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">📎</span>
 
                 <button type="button" onclick="document.getElementById(&#39;bgUploaderInput&#39;).click()" title="🖼️ Установить свой фон" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">🖼️</button>
                 <input type="file" id="bgUploaderInput" accept="image/*" style="display: none;" onchange="setCustomBackground(event)">
@@ -494,10 +485,8 @@
         <!-- ОБЪЕДИНЕННЫЙ ОСНОВНОЙ ДИАЛОГ №1 -->
         <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; position: relative; padding-top: 20px; background-color: rgba(17, 2, 2, 0.85); border-color: rgb(255, 85, 0);">
   
-    <!-- Шапка со стрелочкой сворачивания и кнопками управления -->
     <!-- Новая чистая шапка Основного диалога -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; user-select: none; width: 100%;">
-<!-- ИСПРАВЛЕНО: Стрелка защищена, переводится только сам текст! -->
 <!-- ИСПРАВЛЕННЫЙ ЗОЛОТОЙ ЗАГОЛОВОК ДЛЯ ДИАЛОГА №0 -->
 <div class="section-title" style="margin: 0px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; color: #ffcc00;" onclick="toggleMainParamsVisibility()">
     <span id="mainFoldArrow" style="font-weight: 900; font-size: 16px; display: inline-block; transform: scaleX(1.2);">▶</span>
@@ -505,16 +494,12 @@
 <span data-i18n="main_dialog_header">Основной диалог №0</span> (ID: 1) — [<span id="mainDialogTitleSpan" style="color: var(--accent-color); font-weight: bold;">Main Start</span>]
 
 </div>
-
-
         
         <!-- Осталась только одна кнопка функций диалога! -->
                 <div style="display: flex; align-items: center;">
                    <span onclick="toggleGearMenu(event)" data-i18n-title="ttl_main_gear" title="Функции и настройки этого диалога" ...="">⚙️</span>
  </div>
     </div>
-
-    
 
     <!-- Расширенное меню первой шестерёнки -->
     <div style="display: flex; justify-content: flex-end; width: 100%; position: relative;">
@@ -526,7 +511,6 @@
             <button type="button" onclick="toggleAdvancedSettings(event)" data-i18n-title="ttl_avail_settings" title="🔒 Условия доступности диалога" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🔒</button>
         </div>
     </div>
-
     </div>
 
     <!-- ТЕЛО ДИАЛОГА (Сворачивается целиком по стрелочке) -->
@@ -802,7 +786,6 @@
         </div>
     </div></div>
 
-			<!-- БЛОК БЫСТРЫХ ШАБЛОНОВ ДЛЯ УСКОРЕННОГО ЗАПОЛНЕНИЯ -->
 <!-- БЛОК БЫСТРЫХ ШАБЛОНОВ ДЛЯ УСКОРЕННОГО ЗАПОЛНЕНИЯ -->
 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; background: rgba(0,0,0,0.1); padding: 8px 12px; border-radius: 4px; border: 1px dashed var(--border-color); user-select: none;">
         <span style="font-size: 12px; opacity: 0.8; white-space: nowrap;" data-i18n="tmpl_branches_title">⚡ Шаблоны веток:</span>
@@ -868,9 +851,6 @@
             <button type="button" onclick="generateRandomNpcScript()" data-i18n="btn_gen_rand">🎲 Сгенерировать случайный скрипт-событие</button>
 		</div>
 
-        <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
-                <!-- IСТОРИЯ: ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА С ПОДСВЕТКОЙ -->
-        <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
             <!-- ОГРОМНОЕ ТЕКСТОВОЕ ОКНО ДЛЯ НАПИСАНИЯ КОДА -->
             <div class="form-group" style="width: 100%; box-sizing: border-box; position: relative;">
                 <label for="scriptCodeArea" style="font-weight: bold; color: rgb(255, 85, 0); margin-bottom: 5px; display: block;" data-i18n="lbl_s_area">Код скрипта (Напишите свой или используйте генератор):</label>
@@ -879,22 +859,17 @@
                 <div class="code-editor-container" style="position: relative; width: 100%; height: 350px; border: 1px solid var(--border-color); border-radius: 4px; background-color: #222; overflow: hidden;">
                     
                     <!-- Невидимая textarea для ввода (Курсор caret-color оставляем белым, добавляем oninput и onscroll) -->
-                    <!-- Невидимая textarea для ввода (Курсор caret-color оставляем белым, добавляем oninput и onscroll) -->
                     <textarea id="scriptCodeArea" 
                               class="code-editor-textarea" 
                               oninput="updateCodeHighlighting()" 
                               onscroll="const target = document.getElementById('codeHighlightOverlay'); if(target) { target.scrollTop = this.scrollTop; target.scrollLeft = this.scrollLeft; target.style.height = this.scrollHeight + 'px'; }"
                               data-i18n-ph="ph_s_area" 
                               placeholder="// Ваш JavaScript код для CustomNPCs..."></textarea>
-
-                    
+							  
                     <!-- Задний оверлей, который принимает раскрашенные span-теги -->
                     <div id="codeHighlightOverlay" class="code-editor-highlight"></div>
                 </div>
             </div>
-
-
-
 
         <!-- ШПОРА-ПАМЯТКА ДЛЯ СКРИПТОВ ВНИЗУ КАРТОЧКИ -->
         <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px; user-select: none;">
@@ -906,7 +881,7 @@
                 <button type="button" onclick="insertScriptTemplate(&#39;particle&#39;)" data-i18n="btn_lib_particle" style="padding: 6px 12px; background: #1e7145; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">✨ Взрыв частиц</button>
                 <button type="button" onclick="insertScriptTemplate(&#39;potion&#39;)" data-i18n="btn_lib_potion" style="padding: 6px 12px; background: #ff5500; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🧪 Выдать эффект зелья</button>
 				<!-- Изменяем onclick, чтобы он вызывал общий рабочий шаблон -->
-<button type="button" onclick="insertScriptTemplate('leprechaun')" style="padding: 6px 12px; background: #2e7d32; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px;"> 🍀 Удача лепрекона</button>
+				<button type="button" onclick="insertScriptTemplate('leprechaun')" data-i18n="btn_lib_luck" style="padding: 6px 12px; background: #2e7d32; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px;"> 🍀 Удача лепрекона</button>
 
                 <button type="button" onclick="insertScriptTemplate(&#39;random&#39;)" data-i18n="btn_lib_random" style="padding: 6px 12px; background: #7e3878; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🎲 Случайный набор (Рандом)</button>
 				<!-- Дописать эти три кнопки прямо в блок кнопок-памяток для скриптов -->
@@ -943,14 +918,9 @@
     </div>
 </div> <!-- ТЕПЕРЬ ВСЁ СТРОГО ЗАКРЫТО И РАБОТАЕТ ИДЕАЛЬНО! -->
 
-
-		<!-- РАБОЧАЯ ЗОНА КВЕСТОВ (Изначально скрыта от глаз) -->
-<!-- РАБОЧАЯ ЗОНА КВЕСТОВ (УЖЕ С ВИЗУАЛЬНЫМИ ПОЛЯМИ) -->
-<!-- РАБОЧАЯ ЗОНА КВЕСТОВ (УЖЕ С ВИЗУАЛЬНЫМИ ПОЛЯМИ) -->
 <!-- РАБОЧАЯ ЗОНА КВЕСТОВ (УЖЕ С ВИЗУАЛЬНЫМИ ПОЛЯМИ) -->
 <div id="moduleContentQuests" style="display: none; width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: -1px;">
     
-    <!-- Сворачиваемая карточка параметров квеста (Полная симметрия с диалогами!) -->
     <!-- Сворачиваемая карточка параметров квеста (Новая разметка) -->
     <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; display: flex; flex-direction: column; gap: 15px;">
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 15px;">
@@ -1064,14 +1034,54 @@
     <div id="dynamicQuestsWrapper" style="width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px;"></div>
     
 </div><!-- Конец moduleContentQuests -->
+<!-- Затемняющий фон (Overlay) -->
+<div id="ftbMemoOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9998;"></div>
+
+<!-- Модальное окно памяток -->
+<div id="ftbMemoWindow" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 650px; background: #151515; border: 2px solid #ff5500; border-radius: 8px; box-shadow: 0 0 15px rgba(255, 85, 0, 0.4); z-index: 9999; font-family: sans-serif; color: #fff;">
+    
+    <!-- Шапка окна -->
+    <!-- Содержимое окна -->
+<!-- Шапка окна -->
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; border-bottom: 1px dashed #333; background: #1c1c1c; border-top-left-radius: 6px; border-top-right-radius: 6px;">
+    <span style="font-weight: bold; color: #ff8800; font-size: 14px;" data-i18n="memo_ftb_header">📎 ПАМЯТКА: СВЯЗЬ С FTB QUESTS (Условные связи)</span>
+    <button onclick="toggleFtbMemo()" style="background: #ff2222; border: none; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px;" data-i18n="memo_ftb_close">Х ЗАКРЫТЬ</button>
+</div>
+
+<!-- Содержимое окна -->
+<div style="padding: 15px; max-height: 400px; overflow-y: auto; font-size: 13px; line-height: 1.6;">
+    <p style="color: #bbb; margin-top: 0;">
+        <span data-i18n="memo_ftb_main_1">Если вы хотите связать сюжет CustomNPCs и ветки заданий FTBQuests без использования сложных скриптов, используйте</span> 
+        <strong data-i18n="memo_ftb_main_2">физический метод через предметы</strong>. 
+        <span data-i18n="memo_ftb_main_3">Это самый надежный способ, который никогда не сломается от багов модов.</span>
+    </p>
+    
+    <!-- Вариант А -->
+    <div style="background: #202020; border-left: 3px solid #ff8800; padding: 10px; margin-bottom: 12px; border-radius: 4px;">
+        <strong style="color: #ffaa00;" data-i18n="memo_ftb_title_a">💡 Вариант А: От NPC к книге квестов</strong><br>
+        <span data-i18n="memo_ftb_desc_a1">Настройте диалог или задание у NPC так, чтобы в награду он выдавал игроку уникальный предмет (например, квестовую монету, кастомный жетон или именной свиток). В книге</span> 
+        <em>FTB Quests</em> 
+        <span data-i18n="memo_ftb_desc_a2">создайте задание типа</span> 
+        <strong>Item Task</strong> 
+        <span data-i18n="memo_ftb_desc_a3">на удержание этого предмета. Как только игрок заберет награду у NPC, книга квестов автоматически засчитает этап.</span>
+    </div>
+
+    <!-- Вариант Б -->
+    <div style="background: #202020; border-left: 3px solid #ff8800; padding: 10px; border-radius: 4px;">
+        <strong style="color: #ffaa00;" data-i18n="memo_ftb_title_b">💡 Вариант Б: От книги квестов к NPC</strong><br>
+        <span data-i18n="memo_ftb_desc_b1">В награду за выполнение сложной технологической ветки в</span> 
+        <em>FTB Quests</em> 
+        <span data-i18n="memo_ftb_desc_b2">выдайте игроку особый предмет (например, «Пропуск» или «Ключ мастера»). У вашего NPC в данном конструкторе настройте</span> 
+        <strong data-i18n="memo_ftb_desc_b3">Условия доступности (Availability Options)</strong>: 
+        <span data-i18n="memo_ftb_desc_b4">диалог или квест откроется только тогда, когда этот предмет физически окажется в инвентаре игрока.</span>
+    </div>
+</div>
 
 
-<!-- И только ПОСЛЕ этого закрываем главный контейнер и открываем скрипты -->
+
 </div> <!-- Этот тег закрывает главный .container -->
 
 <!-- И только ПОСЛЕ этого закрываем главный контейнер и открываем скрипты -->
-
-
 <!-- ==========================================================================
    ИЗОЛИРОВАННЫЙ ВЫДВИЖНОЙ БЛОКНОТ NOTEPAD++ (ВСТАВЛЯТЬ СТРОГО СЮДА!)
    ========================================================================== -->
@@ -1079,10 +1089,6 @@
        <span style="font-weight: bold;" data-i18n="notes_title">📝 Заметки сценариста</span>
         <button type="button" onclick="toggleNotesDrawer()" style="background: none; border: none; color: #ff3333; cursor: pointer; font-size: 14px; font-weight: bold;">[❌]</button>
     </div>
-    <!-- Панель вкладок Notepad++ -->
-        <!-- Панель вкладок Notepad++ (ИСПРАВЛЕНО: Клик возвращен на внешние элементы) -->
-        <!-- Панель вкладок Notepad++ (ФИНАЛЬНЫЙ ФИКС: Класс удален, клики изолированы) -->
-<!-- ИСПРАВЛЕННЫЙ БЛОК: Поставьте вместо REAL_NAME то имя, которое найдёте в поиске -->
     <!-- Панель вкладок Notepad++ (ПОЛНОСТЬЮ ИСПРАВЛЕНО И СОВМЕСТИМО) -->
     <div style="display: flex; gap: 2px; margin-bottom: 0; border-bottom: 1px solid var(--border-color, #808080); user-select: none;">
         <div id="tabNotes0" onclick="switchNotesTab(0)" style="padding: 4px 6px; font-size: 11px; cursor: pointer; border: 1px solid var(--border-color, #808080); border-bottom: none; background: var(--section-bg, #d9d9d9); font-weight: bold;">
@@ -1445,16 +1451,8 @@ function toggleAdvancedSettings(event) {
             headerTitleSpan.textContent = ` — [${titleInput.value}]`;
         }
     }
-
-
-	
 }
 
-
-// ВРЕМЕННАЯ ФУНКЦИЯ-ЗАГЛУШКА ДЛЯ СВИТКА (Для добавления второго диалога)
-// Счетчик для уникальных ID дополнительных диалогов в ленте
-// ИСПРАВЛЕННАЯ ФУНКЦИЯ СОЗДАНИЯ ЦЕПОЧКИ ДИАЛОГОВ
-// ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ ФУНКЦИЯ ЦЕПОЧКИ ДИАЛОГОВ
 // НАДЁЖНАЯ СТАБИЛЬНАЯ ФУНКЦИЯ ДЛЯ ДИАЛОГОВ
 let extraDialogCount = 0;
 
@@ -4184,8 +4182,23 @@ const langData = {
 		ttl_author_btn: "🧍 Об авторе и контакты для багов", 
 		mdl_auth_title: "🧍 Разработчик проекта", 
 		mdl_auth_desc: "Если вы нашли баг, синтаксическую ошибку или у вас есть идеи по улучшению генераторов — свяжитесь с автором напрямую:", 
-		lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube"
-
+		lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube",
+		"memo_ftb_header": "📎 ПАМЯТКА: СВЯЗЬ С FTB QUESTS (Условные связи)",
+		"memo_ftb_close": "Х ЗАКРЫТЬ",
+		"memo_ftb_main_1": "Если вы хотите связать сюжет CustomNPCs и ветки заданий FTBQuests без использования сложных скриптов, используйте",
+		"memo_ftb_main_2": "физический метод через предметы",
+		"memo_ftb_main_3": "Это самый надежный способ, который никогда не сломается от багов модов.",
+		"memo_ftb_title_a": "💡 Вариант А: От NPC к книге квестов",
+		"memo_ftb_desc_a1": "Настройте диалог или задание у NPC так, чтобы в награду он выдавал игроку уникальный предмет (например, квестовую монету, кастомный жетон или именной свиток). В книге",
+		"memo_ftb_desc_a2": "создайте задание типа",
+		"memo_ftb_desc_a3": "на удержание этого предмета. Как только игрок заберет награду у NPC, книга квестов автоматически засчитает этап.",
+		"memo_ftb_title_b": "💡 Вариант Б: От книги квестов к NPC",
+		"memo_ftb_desc_b1": "В награду за выполнение сложной технологической ветки в",
+		"memo_ftb_desc_b2": "выдайте игроку особый предмет (например, «Пропуск» или «Ключ мастера»). У вашего NPC в данном конструкторе настройте",
+		"memo_ftb_desc_b3": "Условия доступности (Availability Options)",
+		"memo_ftb_desc_b4": "диалог или квест откроется только тогда, когда этот предмет физически окажется в инвентаре игрока.",
+		"ttl_open_ns": "Запустить симуляцию диалога",
+		"ttl_open_FTB": "Как связать с FTBQuests"
    },
     en: {
         tab_dialogs: "📜 Dialogue Creator", 
@@ -4396,8 +4409,24 @@ const langData = {
 		ttl_author_btn: "🧍 About Author & Bug Reports", 
 		mdl_auth_title: "🧍 Project Developer", 
 		mdl_auth_desc: "If you found a bug, a syntax error, or have suggestions to improve the generators — contact the author directly:", 
-		lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube"
-
+		lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube",
+		"memo_ftb_header": "📎 MEMO: LINKING WITH FTB QUESTS (Conditional Links)",
+		"memo_ftb_close": "X CLOSE",
+		"memo_ftb_main_1": "If you want to link the CustomNPCs storyline and FTBQuests questlines without using complex scripts, use the",
+		"memo_ftb_main_2": "physical item method",
+		"memo_ftb_main_3": "This is the most reliable way that will never break due to mod bugs.",
+		"memo_ftb_title_a": "💡 Option A: From NPC to Quest Book",
+		"memo_ftb_desc_a1": "Set up a dialogue or quest with an NPC so that it rewards the player with a unique item (e.g., a quest coin, a custom token, or a named scroll). In the",
+		"memo_ftb_desc_a2": "book, create an",
+		"memo_ftb_desc_a3": "task to hold this item. As soon as the player takes the reward from the NPC, the quest book will automatically complete the stage.",
+		"memo_ftb_title_b": "💡 Option B: From Quest Book to NPC",
+		"memo_ftb_desc_b1": "As a reward for completing a complex tech line in",
+		"memo_ftb_desc_b2": "give the player a special item (e.g., a \"Pass\" or \"Master Key\"). For your NPC in this constructor, configure the",
+		"memo_ftb_desc_b3": "Availability Options",
+		"memo_ftb_desc_b4": "the dialogue or quest will open only when this item is physically in the player's inventory.",
+		"btn_lib_luck": "Leprechaun's Luck",
+		"ttl_open_ns": "Start the simulation",
+		"ttl_open_FTB": "How to link with FTB Quests"
     },
     ja: {
         tab_dialogs: "📜 对话编辑器", 
@@ -4629,8 +4658,24 @@ const langData = {
 		ttl_author_btn: "🧍 著者についてとバグ報告", 
 		mdl_auth_title: "🧍 プロジェクト開発者", 
 		mdl_auth_desc: "バグや構文エラーを見つけた場合、またはジェネレーターの改善案がある場合は、著者に直接ご連絡ください:", 
-		lnk_vk: "VKontakte (VK)", lnk_tg: "Telegram", lnk_ds: "guithub", lnk_yt: "YouTube"
-
+		lnk_vk: "VKontakte (VK)", lnk_tg: "Telegram", lnk_ds: "guithub", lnk_yt: "YouTube",
+		"memo_ftb_header": "📎 メモ：FTB QUESTS との連携（条件付きリンク）",
+		"memo_ftb_close": "X 閉じる",
+		"memo_ftb_main_1": "複雑なスクリプトを使用せずに CustomNPCs のストーリーと FTBQuests のクエストラインを連携させたい場合は、",
+		"memo_ftb_main_2": "アイテムによる物理的な方法",
+		"memo_ftb_main_3": "を使用してください。これが最も確実な方法であり、モッドのバグによって破損することはありません。",
+		"memo_ftb_title_a": "💡 パターンA：NPC からクエストブックへ",
+		"memo_ftb_desc_a1": "NPC の会話やクエストを設定し、報酬としてプレイヤーに固有のアイテム（クエストコイン、カスタムトークン、名前付きのスクロールなど）を渡すようにします。",
+		"memo_ftb_desc_a2": "のブック内で、このアイテムを所持することを条件とする",
+		"memo_ftb_desc_a3": "タイプのタスクを作成します。プレイヤーが NPC から報酬を受け取ると、クエストブックの該当ステージが自動的に完了します。",
+		"memo_ftb_title_b": "💡 パターンB：クエストブックから NPC へ",
+		"memo_ftb_desc_b1": "で複雑なテックラインをクリアした報酬として、プレイヤーに特別なアイテム（「パス」や「マスターキー」など）を付与します。このコンストラクターで NPC の",
+		"memo_ftb_desc_b2": "を設定します：",
+		"memo_ftb_desc_b3": "利用条件（Availability Options）",
+		"memo_ftb_desc_b4": "このアイテムがプレイヤーのインベントリに物理的に存在する場合にのみ、会話やクエストが解放されるようになります。",
+		"btn_lib_luck": "レプラコーンの幸運",
+		"ttl_open_ns": "対話シミュレーションを実行する",
+		"ttl_open_FTB": "FTB Questへの接続方法"
     },
     zh: {
         tab_dialogs: "📜 对话编辑器", 
@@ -4865,8 +4910,24 @@ const langData = {
 		ttl_author_btn: "🧍 关于作者与 Bug 反馈", 
 		mdl_auth_title: "🧍 项目开发者", 
 		mdl_auth_desc: "如果您发现了 Bug、语法错误，或对生成器有改进建议 — 请直接联系作者:", 
-		lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube"
-
+		lnk_vk: "ВКонтакте (VK)", lnk_bs: "BlueSky", lnk_gt: "GitHub", lnk_yt: "YouTube",
+		"memo_ftb_header": "📎 备忘录：与 FTB QUESTS 关联（条件关联）",
+		"memo_ftb_close": "X 关闭",
+		"memo_ftb_main_1": "如果您想在不使用复杂脚本的情况下，将 CustomNPCs 的剧情与 FTBQuests 的任务线关联起来，请使用",
+		"memo_ftb_main_2": "通过物品的物理方法",
+		"memo_ftb_main_3": "。这是最可靠的方式，绝不会因为模组漏洞（Bug）而失效。",
+		"memo_ftb_title_a": "💡 方案 A：从 NPC 到任务书",
+		"memo_ftb_desc_a1": "设置 NPC 的对话或任务，使其奖励玩家一个独特的物品（例如任务硬币、自定义代币或专属卷轴）。在",
+		"memo_ftb_desc_a2": "任务书中，创建一个要求持有该物品的",
+		"memo_ftb_desc_a3": "类型的任务。一旦玩家从 NPC 处领取了奖励，任务书就会自动判定该阶段完成。",
+		"memo_ftb_title_b": "💡 方案 B：从任务书到 NPC",
+		"memo_ftb_desc_b1": "作为在",
+		"memo_ftb_desc_b2": "中完成复杂科技线的奖励，给予玩家一个特殊物品（例如“通行证”或“大师钥匙”）。在此生成器中设置您的 NPC",
+		"memo_ftb_desc_b3": "可用性选项（Availability Options）",
+		"memo_ftb_desc_b4": "：只有当该物品实际存在于玩家的背包中时，对话或任务才会开启。",
+		"btn_lib_luck": "小妖精的运气",
+		"ttl_open_ns": "运行对话模拟",
+		"ttl_open_FTB": "如何连接到 FTB Quest"
     }
 };
 
@@ -5398,13 +5459,20 @@ function closeDialogSimulator() {
 }
 
 
+function toggleFtbMemo() {
+    const windowEl = document.getElementById('ftbMemoWindow');
+    const overlayEl = document.getElementById('ftbMemoOverlay');
+    
+    if (windowEl.style.display === 'none' || windowEl.style.display === '') {
+        windowEl.style.display = 'block';
+        overlayEl.style.display = 'block';
+    } else {
+        windowEl.style.display = 'none';
+        overlayEl.style.display = 'none';
+    }
+}
+
+
 </script>
-<!-- ВЫНОСИМ СИМУЛЯТОР В ОТДЕЛЬНЫЙ НЕЗАВИСИМЫЙ БЛОК НА ПК -->
-<!-- ИЗОЛИРОВАННЫЙ АВТОНОМНЫЙ ДВИЖОК СИМУЛЯТОРА -->
-<!-- ИЗОЛИРОВАННЫЙ АВТОНОМНЫЙ ДВИЖОК СИМУЛЯТОРА -->
-<!-- АБСОЛЮТНО БЕЗОПАСНЫЙ ИЗОЛИРОВАННЫЙ СИМУЛЯТОР ДИАЛОГОВ -->
-<!-- АБСОЛЮТНО БЕЗОПАСНЫЙ ИЗОЛИРОВАННЫЙ СИМУЛЯТОР ДИАЛОГОВ -->
-
-
-
-</div></body></html>
+</body>
+</html>
