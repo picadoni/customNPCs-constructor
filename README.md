@@ -147,8 +147,13 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 * **New Features:** Added a dialogue simulation feature directly inside the constructor to test how the sequence will look and play in-game.
 * **Bug Fixes:** Discovered bugs in the plot generator and the 'Add response branch' button, which had been a critical issue since version 1.7. This critical code error has been successfully fixed.
 
-### [Version 2.1 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+### [Version 2.1](https://picadoni.github.io/customNPCs-constructor/ver%202.1/)
 **Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Guild" (v0.8) / Script Module "Terminal" (v0.9)**
 *(The Dialogue Constructor, Quest Constructor, and Script Module have not been renamed, as their functionality was not updated in this version).*
 * **New Features:** Added a guide for linking with the FTB Quests mod, and full localization into Japanese, English, and Simplified Chinese.
 * **Improvement:** Expanded translation for buttons.
+
+### [Version 2.2 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+**Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Gidra" (v0.9) / Script Module "Terminal" (v0.9)**
+*(The Dialogue Constructor and Script Module have not been renamed, as their functionality was not updated in this version).*
+* **New Features:** Added a guide for linking with the FTB Quests mod, and full localization into Japanese, English, and Simplified Chinese.
