@@ -315,36 +315,11 @@
     
     <div style="background: #151515; border: 1px solid #ff8800; border-radius: 6px; width: 480px; padding: 15px; color: #fff; box-shadow: 0 0 25px rgba(0,0,0,0.9);">
         
-<!-- Шапка окна -->
-<!-- Шапка окна -->
-<div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #333; padding-bottom: 8px; margin-bottom: 12px;">
-    <span style="color: #ffaa00; font-weight: bold; font-size: 13px;">📊 СИМУЛЯТОР ЦЕПОЧКИ ЗАДАНИЙ</span>
-    
-    <button type="button" onclick="switchQuestTab('log')" style="background: #333; border: 1px solid #444; color: #fff; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-left: auto; margin-right: 5px;">📋 Тех. лог</button>
-    <button type="button" onclick="switchQuestTab('game')" style="background: #333; border: 1px solid #444; color: #fff; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 5px;">💬 Игра</button>          
-    
-    <!-- НОВАЯ КНОПКА: Переключение на список всех квестов проекта -->
-    <button type="button" onclick="switchQuestTab('hub')" style="background: #ff8800; border: 1px solid #ffaa00; color: #000; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 15px;">📜 Все задания</button>          
-    
-    <button type="button" onclick="closeQuestSimulator()" style="background: #ff2222; border: none; color: white; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px;">Х ЗАКРЫТЬ</button>
-</div>
-
-<!-- ТРЕТИЙ КОНТЕЙНЕР: Сюда JS будет выводить интерактивный список -->
-<div id="simQuestHubMode" style="display: none; background: #0d0d0d; border: 1px solid #252525; padding: 12px; min-height: 180px; max-height: 260px; overflow-y: auto; font-size: 12px; border-radius: 4px; line-height: 1.6; color: #eee;">
-    <div style="color: #ffaa00; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 4px;">Выберите задание для старта теста:</div>
-    <div id="hubQuestsList" style="display: flex; flex-direction: column; gap: 6px;">
-        <!-- Сюда JS вставит кликабельные кнопки для каждого квеста -->
-    </div>
-</div>
-
-
-<!-- Игровой экран -->
-<!-- ИСПРАВЛЕНО: Добавлено display: none; чтобы блок изначально был скрыт -->
-<div id="simQuestGameMode" style="display: none; background: #0d0d0d; border: 1px solid #252525; padding: 12px; min-height: 180px; max-height: 260px; overflow-y: auto; font-size: 12px; border-radius: 4px; line-height: 1.6; color: #eee; white-space: pre-wrap;">
-    <!-- Внутренние элементы для вывода текста -->
-    <div id="simQuestNpcName" style="color: #55ff55; font-weight: bold; margin-bottom: 6px; font-size: 14px;"></div>
-    <div id="simQuestNpcText" style="color: #e0e0e0; font-size: 13px;"></div>
-</div>
+        <!-- Шапка окна -->
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #333; padding-bottom: 8px; margin-bottom: 12px;">
+            <span style="color: #ffaa00; font-weight: bold; font-size: 13px;">📊 СИМУЛЯТОР ЦЕПОЧКИ ЗАДАНИЙ</span>
+            <button type="button" onclick="closeQuestSimulator()" style="background: #ff2222; border: none; color: white; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px;">Х ЗАКРЫТЬ</button>
+		</div>
 
         <!-- Консоль лога -->
         <div id="simQuestConsole" style="background: #0d0d0d; border: 1px solid #252525; padding: 12px; min-height: 180px; max-height: 260px; overflow-y: auto; font-size: 12px; border-radius: 4px; line-height: 1.6; color: #eee; white-space: pre-wrap;">
@@ -366,42 +341,26 @@
 <div id="dialogSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; font-family: 'Consolas', monospace;">
     <div style="background: #1a1a1a; border: 2px solid var(--accent-color); border-radius: 8px; width: 650px; max-width: 90%; padding: 25px; box-shadow: 0 0 20px rgba(0,0,0,0.7); position: relative; color: #fff;">
         
-        <!-- Шапка симулятора с кнопками переключения -->
+        <!-- Шапка симулятора -->
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; margin-bottom: 20px;">
-            <span style="font-weight: bold; color: #ffcc00; font-size: 14px;">📺 СИМУЛЯТОР ДИАЛОГА (Ver 2.0)</span>
-            
-            <button type="button" onclick="switchDialogTab('game')" style="background: #333; border: 1px solid #444; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-left: auto; margin-right: 5px;">💬 Игра</button>
-            <button type="button" onclick="switchDialogTab('hub')" style="background: #ff8800; border: 1px solid #ffaa00; color: #000; padding: 4px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 15px;">📜 Все диалоги</button>
-            
+            <span style="font-weight: bold; color: #ffcc00; font-size: 14px;">📺 СИМУЛЯТОР ДИАЛОГА CustomNPCs (Ver 2.0)</span>
             <button type="button" onclick="closeDialogSimulator()" style="background: #ff3333; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px;">✕ ЗАКРЫТЬ</button>
         </div>
 
-        <!-- РЕЖИМ ИГРЫ (Контейнер, объединяющий реплику NPC и кнопки ответов) -->
-        <div id="simDialogGameMode">
-            <!-- Экран реплики NPC -->
-            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 4px; margin-bottom: 20px; min-height: 80px;">
-                <div id="simNpcName" style="color: #55ff55; font-weight: bold; margin-bottom: 6px; font-size: 15px;">NPC:</div>
-                <div id="simNpcText" style="color: #e0e0e0; font-size: 14px; white-space: pre-wrap; line-height: 1.4;">Текст диалога...</div>
-            </div>
-
-            <!-- Контейнер интерактивных Кнопок Выбора игрока -->
-            <div style="font-size: 12px; color: #aaa; margin-bottom: 8px; font-weight: bold;">[ Варианты ответов игрока ]:</div>
-            <div id="simOptionsWrapper" style="display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; padding-right: 5px;">
-                <!-- Сюда JS будет штамповать игровые кнопки -->
-            </div>
+        <!-- Экран реплики NPC -->
+        <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 4px; margin-bottom: 20px; min-height: 80px;">
+            <div id="simNpcName" style="color: #55ff55; font-weight: bold; margin-bottom: 6px; font-size: 15px;">NPC:</div>
+            <div id="simNpcText" style="color: #e0e0e0; font-size: 14px; white-space: pre-wrap; line-height: 1.4;">Текст диалога...</div>
         </div>
 
-        <!-- РЕЖИМ ОГЛАВЛЕНИЯ (Скрытый контейнер для вывода списка всех мульти-диалогов) -->
-        <div id="simDialogHubMode" style="display: none; background: #0d0d0d; border: 1px solid #252525; padding: 15px; min-height: 180px; max-height: 310px; overflow-y: auto; border-radius: 4px; line-height: 1.6; color: #eee;">
-            <div style="color: #ffaa00; font-weight: bold; margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 4px;">Выберите диалог для старта симуляции сюжета:</div>
-            <div id="hubDialogsList" style="display: flex; flex-direction: column; gap: 6px;">
-                <!-- Сюда JS вставит кликабельные кнопки для каждого диалога -->
-            </div>
+        <!-- Контейнер интерактивных Кнопок Выбора игрока -->
+        <div style="font-size: 12px; color: #aaa; margin-bottom: 8px; font-weight: bold;">[ Варианты ответов игрока ]:</div>
+        <div id="simOptionsWrapper" style="display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; padding-right: 5px;">
+            <!-- Сюда JS будет штамповать игровые кнопки -->
         </div>
 
     </div>
 </div>
-
 
 
     <!-- ЭФФЕКТ ПАДАЮЩИХ ЧАСТИЦ: Прозрачный холст на весь экран -->
@@ -492,7 +451,7 @@
     <!-- ГЛАВНЫЙ ОБЩИЙ ЗАГОЛОВОК С СИСТЕМНОЙ ШЕСТЕРЕНКОЙ (ТЕПЕРЬ СТРОГО ВНУТРИ КОНТЕЙНЕРА) -->
      <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 25px; margin-bottom: 25px; position: relative; width: 100%;"> 
         <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для динамической шапки -->
-<h1 id="mainTitle" data-i18n="title_dialogs" style="margin: 0px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: rgb(255, 85, 0);">Конструктор Диалогов CustomNPCs Паладин (Вер. 1.5)</h1>
+<h1 id="mainTitle" data-i18n="title_dialogs" style="margin: 0px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: rgb(255, 85, 0);">Конструктор Диалогов CustomNPCs Планетарий (Вер. 1.4)</h1>
 <!-- Глобальная кнопка симулятора -->
 <button type="button" onclick="alert(&#39;🎮 Монитор сюжета: Модуль интерактивного демо-просмотра квестов и всех диалогов находится в разработке и появится в ver 2.5!&#39;)" title="📋 Запустить симулятор всего сюжета" style="background: none; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" onmouseout="this.style.background='none'; this.style.color='#ffcc00';">📋</button>
 
@@ -949,11 +908,9 @@
                 <button type="button" onclick="insertScriptTemplate(&#39;sound&#39;)" data-i18n="btn_lib_sound" style="padding: 6px 12px; background: #e0a800; color:#000; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🔊 Воспроизвести звук</button>
                 <button type="button" onclick="insertScriptTemplate(&#39;particle&#39;)" data-i18n="btn_lib_particle" style="padding: 6px 12px; background: #1e7145; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">✨ Взрыв частиц</button>
                 <button type="button" onclick="insertScriptTemplate(&#39;potion&#39;)" data-i18n="btn_lib_potion" style="padding: 6px 12px; background: #ff5500; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🧪 Выдать эффект зелья</button>
-					<!-- Изменяем onclick, чтобы он вызывал общий рабочий шаблон -->
+				<!-- Изменяем onclick, чтобы он вызывал общий рабочий шаблон -->
 				<button type="button" onclick="insertScriptTemplate('leprechaun')" data-i18n="btn_lib_luck" style="padding: 6px 12px; background: #2e7d32; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px;"> 🍀 Удача лепрекона</button>
-					<!-- НОВАЯ КНОПКА: Справка по JS/ECMA скриптам -->
-				<button type="button" onclick="openScriptGuideModal()" title="❓ Руководство по написанию JS/ECMA скриптов" style="background: #444; border: 1px solid #666; color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; height: 24px; margin-left: 5px;">❓ </button>
-				
+
                 <button type="button" onclick="insertScriptTemplate(&#39;random&#39;)" data-i18n="btn_lib_random" style="padding: 6px 12px; background: #7e3878; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🎲 Случайный набор (Рандом)</button>
 				<!-- Дописать эти три кнопки прямо в блок кнопок-памяток для скриптов -->
                 <button type="button" onclick="insertScriptTemplate(&#39;scale&#39;)" data-i18n="btn_lib_scale" style="padding: 6px 12px; background: #00aba9; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🦖 Изменить размер NPC</button>
@@ -964,81 +921,6 @@
 
             </div>
         </div>
-		
-		
-		        <!-- Текст гайда -->
-<div id="scriptGuideModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20010; align-items: center; justify-content: center; flex-direction: column; font-family: 'Consolas', monospace; color: #fff;">
-    <div style="background: #151515; border: 2px solid var(--border-color, #ff5500); border-radius: 8px; width: 600px; max-width: 90%; padding: 20px; box-shadow: 0 0 25px rgba(0,0,0,0.9); max-height: 80vh; overflow-y: auto; text-align: left;">
-        
-        <!-- Заголовок -->
-        <div data-i18n="guide_title" style="font-weight: bold; color: #ffcc00; font-size: 14px; margin-bottom: 15px; border-bottom: 1px dashed #ff5500; padding-bottom: 8px; text-align: center;">📖 СПРАВОЧНИК ПО JS / ECMA</div>
-
-        <!-- Раздел 1 -->
-        <div data-i18n="guide_sec1_title" style="color: #ffaa00; font-weight: bold; margin-top: 10px; margin-bottom: 5px;">📌 1. ОСНОВНЫЕ СОБЫТИЯ:</div>
-<!-- Пример для раздела 1: выносим название функции из перевода в цветной span -->
-<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">interact(event)</span> <span data-i18n="guide_sec1_interact"></span></div>
-<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">init(event)</span> <span data-i18n="guide_sec1_init"></span></div>
-<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">update(event)</span> <span data-i18n="guide_sec1_update"></span></div>
-
-        <div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">died(event)</span><span data-i18n="guide_sec1_died"></span></div>
-<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">damaged(event)</span><span data-i18n="guide_sec1_damaged"></span></div>
-
-
-        <!-- Раздел 2 -->
-        <div data-i18n="guide_sec2_title" style="color: #ffaa00; font-weight: bold; margin-top: 15px; margin-bottom: 5px;">💡 2. БАЗОВЫЕ КОМАНДЫ API:</div>
-<!-- Раздел 2: Полностью изолированные элементы для защиты от затирания локализацией -->
-<div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
-    <span style="color: #00aba9; font-weight: bold; padding-right: 0;">• event.npc.say</span>
-    <span style="color: #00aba9; font-weight: bold; padding-right: 4px;" data-i18n="guide_sec2_say_args"></span>
-    <span style="color: #eee;" data-i18n="guide_sec2_say_desc"></span>
-</div>
-
-<div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
-    <span style="color: #00aba9; font-weight: bold; padding-right: 0;">• event.player.message</span>
-    <span style="color: #00aba9; font-weight: bold; padding-right: 4px;" data-i18n="guide_sec2_msg_args"></span>
-    <span style="color: #eee;" data-i18n="guide_sec2_msg_desc"></span>
-</div>
-
-<div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
-    <span style="color: #00aba9; font-weight: bold; padding-right: 0;">• event.npc.executeCommand</span>
-    <span style="color: #00aba9; font-weight: bold; padding-right: 4px;" data-i18n="guide_sec2_cmd_args"></span>
-    <span style="color: #eee;" data-i18n="guide_sec2_cmd_desc"></span>
-</div>
-
-
-        <!-- Раздел 3 -->
-        <div data-i18n="guide_sec3_title" style="color: #ffaa00; font-weight: bold; margin-top: 15px; margin-bottom: 5px;">⚠️ 3. ОСОБЕННОСТИ НАПИСАНИЯ:</div>
-<!-- Раздел 3: Возвращаем неоновую подсветку для правил и особенностей -->
-<div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
-    <span style="color: #eee; padding-right: 4px;">•</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_js_1"></span>
-    <span style="color: #ffaa00; font-weight: bold; padding: 0 4px;">JavaScript (ECMAScript 5.1)</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_js_2"></span>
-</div>
-
-<div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
-    <span style="color: #eee; padding-right: 4px;">•</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_color_1"></span>
-    <span style="color: #ff5555; font-weight: bold; background: rgba(255,85,85,0.1); padding: 0 4px; border-radius: 3px; border: 1px solid rgba(255,85,85,0.2);" data-i18n="guide_sec3_color_code"></span>
-    <span style="color: #eee;" data-i18n="guide_sec3_color_2"></span>
-</div>
-
-<div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
-    <span style="color: #eee; padding-right: 4px;">•</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_loop_1"></span>
-    <span style="color: #55ff55; font-weight: bold; padding: 0 4px;">update()</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_loop_2"></span>
-</div>
-
-        <!-- Кнопка закрытия -->
-        <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-            <button type="button" onclick="closeScriptGuideModal()" data-i18n="guide_btn_close" style="background: #ff5500; color: #000; border: none; font-weight: bold; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 12px;">Понятно</button>
-        </div>
-
-    </div>
-</div>
-<!-- СТРОКА 989: Закрывает главное окно scriptGuideModal -->
-
 <!-- МОДАЛЬНОЕ ОКНО-СИМУЛЯТОР ДИАЛОГОВ CUSTOMNPC -->
 <div id="dialogSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20000; justify-content: center; align-items: center; user-select: none; font-family: &#39;Minecraft&#39;, sans-serif;">
     <div style="background: #141414; border: 2px solid #ffcc00; padding: 20px; border-radius: 8px; width: 500px; box-shadow: 0 0 25px rgba(255,204,0,0.4); position: relative;">
@@ -1450,20 +1332,6 @@
 
 <!--button class="download-btn" id="mainDownloadButton" onclick="handleMainDownload()">💾 СКАЧАТЬ ФАЙЛ ДИАЛОГА (.JSON)</button !-->
 <script>
-// Строка 5818: Функции модалки стоят свободно для всего документа
-function openScriptGuideModal() {
-    const modal = document.getElementById('scriptGuideModal');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
-} 
-
-function closeScriptGuideModal() {
-    const modal = document.getElementById('scriptGuideModal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-} 
 
 // Функция применения быстрых шаблонов для доп. диалогов в ленте
 function applyExtraQuickTemplate(extraId, type) {
@@ -3811,18 +3679,9 @@ function generateNpcScriptCode() {
 
     generatedCode += `}\n\n`;
     
-    // Записываем склеенный код в текстовое поле
+    // Вставляем сгенерированный кусок в начало илиAppend к текущему коду
     area.value = generatedCode + area.value;
-
-    // Принудительно вызываем системное событие ввода, чтобы скрипт подсветки перерисовал экран
-    area.dispatchEvent(new Event('input', { bubbles: true }));
-    area.dispatchEvent(new Event('change', { bubbles: true }));
-
-    // Фокусируем курсор на поле, чтобы оно мгновенно обновило свой вид
-    area.focus();
-
 }
-
 
 // Пополняемый блок-библиотека готовых шаблонов (Памятка функций)
 // Пополняемый блок-библиотека готовых шаблонов (Памятка функций)
@@ -4324,9 +4183,9 @@ const langData = {
 		note_tab_quests: "Задания", 
 		note_tab_memos: "Памятки",
 		ph_notes_area: "Пишите пометки здесь...",
-		title_dialogs: "Конструктор Диалогов CustomNPCs Паладин (Вер. 1.5)",
-		title_quests: "Конструктор Заданий CustomNPCs Цитадель (Вер. 1.0)",
-		title_scripts: "Скриптовый Модуль CustomNPCs Квантовый (Вер. 1.0)",
+		title_dialogs: "Конструктор Диалогов CustomNPCs Планетарий (Вер. 1.4)",
+		title_quests: "Конструктор Заданий CustomNPCs Гидра (Вер. 0.9)",
+		title_scripts: "Скриптовый Модуль CustomNPCs Терминал (Вер. 0.9)",
 		lbl_particles: "Эффекты:", 
 		opt_part_none: "Выкл. ❌", 
 		opt_part_sakura: "Сакура 🌸", 
@@ -4367,31 +4226,7 @@ const langData = {
 		"memo_ftb_desc_b3": "Условия доступности (Availability Options)",
 		"memo_ftb_desc_b4": "диалог или квест откроется только тогда, когда этот предмет физически окажется в инвентаре игрока.",
 		"ttl_open_ns": "Запустить симуляцию диалога",
-		"ttl_open_FTB": "Как связать с FTBQuests",
-		"guide_title": "📖 СПРАВОЧНИК ПО JS / ECMA",
-		"guide_sec1_title": "📌 1. ОСНОВНЫЕ СОБЫТИЯ:",
-		"guide_sec1_interact": " — Клик ПКМ по NPC.",
-		"guide_sec1_init": " — Спавн NPC или обновление скрипта.",
-		"guide_sec1_update": " — Вызывается каждые 0.5 сек.",
-		"guide_sec1_died": " — Момент смерти NPC.",
-		"guide_sec1_damaged": " — NPC получил урон.",
-		"guide_sec2_title": "💡 2. БАЗОВЫЕ КОМАНДЫ API:",
-		"guide_sec2_say_args": "(\"Привет\")",
-		"guide_sec2_say_desc": " — Сказать в локальный чат.",
-		"guide_sec2_msg_args": "(\"Текст\")",
-		"guide_sec2_msg_desc": " — Личное сообщение игроку.",
-		"guide_sec2_cmd_args": "(\"...\")",
-		"guide_sec2_cmd_desc": " — Выполнить консольную команду.",
-		"guide_sec3_title": "⚠️ 3. ОСОБЕННОСТИ НАПИСАНИЯ:",
-		"guide_sec3_js_1": "Используйте синтаксис",
-		"guide_sec3_js_2": ".",
-		"guide_sec3_color_1": "Цвета в чате задаются через параграф, например:",
-		"guide_sec3_color_code": "\"§cТекст\"",
-		"guide_sec3_color_2": "",
-		"guide_sec3_loop_1": "Не пишите бесконечные циклы в",
-		"guide_sec3_loop_2": ", иначе игра зависнет.",
-		"guide_btn_close": "Понятно"
-
+		"ttl_open_FTB": "Как связать с FTBQuests"
    },
     en: {
         tab_dialogs: "📜 Dialogue Creator", 
@@ -4568,9 +4403,9 @@ const langData = {
 		notes_title: "📝 Writer Notes",
 		ph_notes_search: "Search word...", 
 		ph_notes_area: "Write your notes here...",
-		title_dialogs: "CustomNPCs Dialogue Constructor - Paladin (Ver. 1.5)",
-		title_quests: "CustomNPCs Quest Constructor - Castle (Ver. 1.0)",
-		title_scripts: "CustomNPCs Scripting Module - Quantum (Ver. 1.0)",
+		title_dialogs: "CustomNPCs Dialogue Constructor - Planetarium (Ver. 1.4)",
+		title_quests: "CustomNPCs Quest Constructor - Gidra (Ver. 0.9)",
+		title_scripts: "CustomNPCs Scripting Module - Terminal (Ver. 0.9)",
 		lbl_particles: "Effects:", 
 		opt_part_none: "Off ❌", 
 		opt_part_sakura: "Sakura 🌸", 
@@ -4619,31 +4454,7 @@ const langData = {
 		"memo_ftb_desc_b4": "the dialogue or quest will open only when this item is physically in the player's inventory.",
 		"btn_lib_luck": "Leprechaun's Luck",
 		"ttl_open_ns": "Start the simulation",
-		"ttl_open_FTB": "How to link with FTB Quests",
-		"guide_title": "📖 JS / ECMA SCRIPT GUIDE",
-		"guide_sec1_title": "📌 1. CORE EVENTS:",
-		"guide_sec1_interact": " — Right-click on NPC.",
-		"guide_sec1_init": " — NPC spawns or script reloads.",
-		"guide_sec1_update": " — Called every 0.5 seconds.",
-		"guide_sec1_died": " — Executed when the NPC dies.",
-		"guide_sec1_damaged": " — NPC takes damage.",
-		"guide_sec2_title": "💡 2. BASIC API COMMANDS:",
-		"guide_sec2_say_args": "(\"Text\") ",
-		"guide_sec2_say_desc": " — Broadcast message to local chat.",
-		"guide_sec2_msg_args": "(\"Text\")",
-		"guide_sec2_msg_desc": " — Private message to player.",
-		"guide_sec2_cmd_args": "(\"...\")",
-		"guide_sec2_cmd_desc": " — Execute console command.",
-		"guide_sec3_title": "⚠️ 3. SCRIPTING TIPS:",
-		"guide_sec3_js_1": "Use standard",
-		"guide_sec3_js_2": "syntax.",
-		"guide_sec3_color_1": "Chat colors are defined using section sign, e.g.:",
-		"guide_sec3_color_code": "\"§cText\"",
-		"guide_sec3_color_2": "",
-		"guide_sec3_loop_1": "Avoid infinite loops in",
-		"guide_sec3_loop_2": ", or Minecraft will crash.",
-		"guide_btn_close": "Got it"
-
+		"ttl_open_FTB": "How to link with FTB Quests"
     },
     ja: {
         tab_dialogs: "📜 对话编辑器", 
@@ -4841,9 +4652,9 @@ const langData = {
 		notes_title: "📝 シナリオメモ",
 		ph_notes_search: "単語を検索...",
 		ph_notes_area: "ここにメモを記入してください...",
-		title_dialogs: "CustomNPCs対話コンストラクター - Paladin / パラディン (Ver. 1.5)",
-		title_quests: "CustomNPCsクエストコンストラクター - Castle / カッスル  (Ver. 1.0)",
-		title_scripts: "CustomNPCsスクリプトモジュール - Quantum / 量子 (Ver. 1.0)",
+		title_dialogs: "CustomNPCs対話コンストラクター - Planetarium / プラネタリウム (Ver. 1.4)",
+		title_quests: "CustomNPCsクエストコンストラクター - Gidra / ギドラ (Ver. 0.9)",
+		title_scripts: "CustomNPCsスクリプトモジュール - Terminal / ターミナル (Ver. 0.9)",
 		lbl_particles: "エフェクト:", 
 		opt_part_none: "無効 ❌",
 		opt_part_sakura: "桜 🌸",
@@ -4892,31 +4703,7 @@ const langData = {
 		"memo_ftb_desc_b4": "このアイテムがプレイヤーのインベントリに物理的に存在する場合にのみ、会話やクエストが解放されるようになります。",
 		"btn_lib_luck": "レプラコーンの幸運",
 		"ttl_open_ns": "対話シミュレーションを実行する",
-		"ttl_open_FTB": "FTB Questへの接続方法",
-		"guide_title": "📖 JS / ECMA スクリプトガイド",
-		"guide_sec1_title": "📌 1. 主なイベント:",
-		"guide_sec1_interact": " — NPCを右クリックしたとき。",
-		"guide_sec1_init": " — NPCの生成時またはスクリプトの更新時。",
-		"guide_sec1_update": " — 0.5秒（10ティック）ごとに呼び出されます。",
-		"guide_sec1_died": " — NPCが死亡した瞬間。",
-		"guide_sec1_damaged": " — NPCがダメージを受けたとき。",
-		"guide_sec2_title": "💡 2. 基本的なAPIコマンド:",
-		"guide_sec2_say_args": "(\"テキスト\")",
-		"guide_sec2_say_desc": " — ローカルチャットに発言。",
-		"guide_sec2_msg_args": "(\"テキスト\")",
-		"guide_sec2_msg_desc": " — プレイヤーへの個別メッセージ。",
-		"guide_sec2_cmd_args": "(\"...\")",
-		"guide_sec2_cmd_desc": " — コンソールコマンドの実行。",
-		"guide_sec3_title": "⚠️ 3. スクリプト作成の注意点:",
-		"guide_sec3_js_1": "標準の",
-		"guide_sec3_js_2": "の構文を使用してください。",
-		"guide_sec3_color_1": "チャットの色はセクション記号で指定します。例：",
-		"guide_sec3_color_code": "\"§cテキスト\"",
-		"guide_sec3_color_2": "",
-		"guide_sec3_loop_1": "",
-		"guide_sec3_loop_2": "内に無限ループを書かないでください。ゲームがクラッシュします。",
-		"guide_btn_close": "了解"
-
+		"ttl_open_FTB": "FTB Questへの接続方法"
     },
     zh: {
         tab_dialogs: "📜 对话编辑器", 
@@ -5117,9 +4904,9 @@ const langData = {
 		notes_title: "📝 编剧笔记",
 		ph_notes_search: "搜索关键词...",
 		ph_notes_area: "在此处编写笔记...",
-		title_dialogs: "CustomNPCs对话编辑器 - Paladin / 圣骑士 (Ver. 1.5)",
-		title_quests: "CustomNPCs任务编辑器 - Castle / 城堡 (Ver. 1.0)",
-		title_scripts: "CustomNPCs脚本模块 - Quantum / 量子 (Ver. 1.0)",
+		title_dialogs: "CustomNPCs对话编辑器 - Planetarium / 天文馆 (Ver. 1.4)",
+		title_quests: "CustomNPCs任务编辑器 - Gidra / 基德拉 (Ver. 0.9)",
+		title_scripts: "CustomNPCs脚本模块 - Terminal / 终端 (Ver. 0.9)",
 		lbl_particles: "特效:",
 		opt_part_none: "关闭 ❌", 
 		opt_part_sakura: "樱花 🌸", 
@@ -5168,31 +4955,7 @@ const langData = {
 		"memo_ftb_desc_b4": "：只有当该物品实际存在于玩家的背包中时，对话或任务才会开启。",
 		"btn_lib_luck": "小妖精的运气",
 		"ttl_open_ns": "运行对话模拟",
-		"ttl_open_FTB": "如何连接到 FTB Quest",
-		"guide_title": "📖 JS / ECMA 脚本指南",
-		"guide_sec1_title": "📌 1. 核心事件:",
-		"guide_sec1_interact": " — 右键点击NPC时触发。",
-		"guide_sec1_init": " — NPC生成或脚本重载时触发。",
-		"guide_sec1_update": " — 每0.5秒（10 tick）调用一次。",
-		"guide_sec1_died": " — NPC死亡的瞬间触发。",
-		"guide_sec1_damaged": " — NPC受到伤害时调用。",
-		"guide_sec2_title": "💡 2. 基础 API 命令:",
-		"guide_sec2_say_args": "(\"文本\")",
-		"guide_sec2_say_desc": " — 向本地聊天栏发送消息。",
-		"guide_sec2_msg_args": "(\"文本\")",
-		"guide_sec2_msg_desc": " — 向玩家发送私聊消息。",
-		"guide_sec2_cmd_args": "(\"...\")",
-		"guide_sec2_cmd_desc": " — 执行后台控制台命令。",
-		"guide_sec3_title": "⚠️ 3. 脚本编写注意事项:",
-		"guide_sec3_js_1": "请使用标准的",
-		"guide_sec3_js_2": "语法。",
-		"guide_sec3_color_1": "聊天栏颜色使用分节符定义，例如：",
-		"guide_sec3_color_code": "\"§c文本\"",
-		"guide_sec3_color_2": "",
-		"guide_sec3_loop_1": "切勿在",
-		"guide_sec3_loop_2": "中编写死循环，否则会导致游戏崩溃。",
-		"guide_btn_close": "明白"
-
+		"ttl_open_FTB": "如何连接到 FTB Quest"
     }
 };
 
@@ -5662,8 +5425,6 @@ function showSimulatorDialog(dialogId) {
     const optionsWrapper = document.getElementById('simOptionsWrapper');
 
     if (!modal || !optionsWrapper) return;
-	document.getElementById('simDialogGameMode').style.display = 'block';
-    document.getElementById('simDialogHubMode').style.display = 'none';
 
     // Включаем модалку (flex режим для центрирования)
     modal.style.display = 'flex';
@@ -5739,67 +5500,12 @@ function toggleFtbMemo() {
     }
 }
 
-// Функция переключения вкладок внутри симулятора диалогов
-function switchDialogTab(mode) {
-    const gameSection = document.getElementById('simDialogGameMode');
-    const hubSection = document.getElementById('simDialogHubMode');
-
-    if (!gameSection || !hubSection) return;
-
-    if (mode === 'game') {
-        gameSection.style.display = 'block';
-        hubSection.style.display = 'none';
-    } else if (mode === 'hub') {
-        gameSection.style.display = 'none';
-        hubSection.style.display = 'block';
-        generateDialogHubList(); // Перестраиваем список диалогов при открытии вкладки
-    }
-}
-
-// Функция сборки интерактивного оглавления всех диалогов проекта
-function generateDialogHubList() {
-    const listContainer = document.getElementById('hubDialogsList');
-    if (!listContainer) return;
-
-    listContainer.innerHTML = ""; // Очищаем старый список перед перегенерацией
-
-    // Пробегаемся по ключам (ID) нашей глобальной карты сюжета currentStoryMap
-    Object.keys(currentStoryMap).forEach(id => {
-        const dialog = currentStoryMap[id];
-        
-        const btn = document.createElement('button');
-        btn.type = "button";
-        btn.style.cssText = "text-align: left; padding: 8px 12px; background: #222; color: #fff; border: 1px solid #444; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 13px; transition: 0.2s;";
-        btn.innerHTML = `<span style="color: #ffcc00; font-weight: bold;">ID ${id}</span> — <span>${dialog.title}</span>`;
-        
-        // Подсветка кнопок
-        btn.onmouseover = function() { this.style.background = "#333"; this.style.borderColor = "var(--accent-color, #ff5500)"; };
-        btn.onmouseout = function() { this.style.background = "#222"; this.style.borderColor = "#444"; };
-        
-        // Клик запускает выбранный диалог и возвращает пользователя в игровой режим
-        btn.onclick = function() {
-            showSimulatorDialog(parseInt(id));
-            switchDialogTab('game');
-        };
-
-        listContainer.appendChild(btn);
-    });
-
-    // Защита, если карта сюжета по какой-то причине оказалась пуста
-    if (Object.keys(currentStoryMap).length === 0) {
-        listContainer.innerHTML = `<div style="color: #888; font-style: italic;">Список доступных диалогов пуст. Откройте монитор повторно.</div>`;
-    }
-}
-
-
 // ==========================================================================
 // Глобальная переменная для карты симулятора квестов
 // ==========================================================================
 let currentQuestMap = {};
-let currentSimulatedQuestId = 1; // Запоминает ID текущего шага
 
 function openQuestMonitor() {
-
     // 1. Считываем Главное задание №1 (ID всегда 1)
     const mainTitle = document.getElementById('questTitle')?.value || "Без названия";
     const mainNextId = parseInt(document.getElementById('questNextId')?.value);
@@ -5809,8 +5515,7 @@ function openQuestMonitor() {
     // Записываем его в карту
     currentQuestMap[1] = {
         title: mainTitle,
-        nextId: isNaN(mainNextId) ? -1 : mainNextId, // ИСПРАВЛЕНО: Добавлена запятая!
-        text: document.getElementById('questText')?.value || "Описание задания отсутствует."
+        nextId: isNaN(mainNextId) ? -1 : mainNextId
     };
 
     // 2. Сканируем динамические доп. задания по префиксу вашей верстки "extraQuestBlock_"
@@ -5826,8 +5531,7 @@ function openQuestMonitor() {
         if (!isNaN(qId)) {
             currentQuestMap[qId] = {
                 title: qTitle,
-                nextId: isNaN(qNextId) ? -1 : qNextId, // ИСПРАВЛЕНО: Добавлена запятая!
-                text: document.getElementById(`extraQuestText_${extraId}`)?.value || "Описание задания отсутствует."
+                nextId: isNaN(qNextId) ? -1 : qNextId
             };
         }
     });
@@ -5837,8 +5541,6 @@ function openQuestMonitor() {
 }
 
 function showSimulatorQuest(questId) {
-    currentSimulatedQuestId = questId; 
-    
     const modal = document.getElementById('questSimulatorModal');
     const consoleNode = document.getElementById('simQuestConsole');
     const controlWrapper = document.getElementById('simQuestControlWrapper');
@@ -5851,7 +5553,7 @@ function showSimulatorQuest(questId) {
 
     // Если в цепочке указан ID квеста, который картодел забыл создать ниже
     if (!questData) {
-        consoleNode.innerHTML += `<p style="color: #ff3333; margin: 6px 0; border-top: 1px dashed #444; padding-top: 6px;">❌ Ошибка: Квест с ID ${questId} не найден в вашей цепочке! Сюжет прервется багом.</p>`;
+        consoleNode.innerHTML += `<p style="color: #ff3333; margin: 6px 0; border-top: 1px dashed #444; padding-top: 6px;">❌ Ошибка: Квест с ID ${questId} не найден в вашем конструкторе! Сюжет прервется багом.</p>`;
         consoleNode.scrollTop = consoleNode.scrollHeight;
         
         controlWrapper.innerHTML = `
@@ -5887,9 +5589,6 @@ function showSimulatorQuest(questId) {
             <button type="button" onclick="showSimulatorQuest(${questData.nextId})" style="background: #ff8800; border: none; color: black; font-weight: bold; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 12px;">Сдать и перейти ➔</button>
         `;
     }
-    
-    // ИСПРАВЛЕНО: Вызываем обновление экрана игры, а лишнюю строку с textField удалили
-    updateQuestGameView(); 
 }
 
 function closeQuestSimulator() {
@@ -5897,83 +5596,8 @@ function closeQuestSimulator() {
     if (modal) modal.style.display = 'none';
 }
 
-// Функция переключения вкладок
-function switchQuestTab(mode) {
-    const logSection = document.getElementById('simQuestConsole');
-    const gameSection = document.getElementById('simQuestGameMode');
-    const hubSection = document.getElementById('simQuestHubMode');
-
-    if (!logSection || !gameSection || !hubSection) return;
-
-    // Скрываем абсолютно все секции перед включением нужной
-    logSection.style.display = 'none';
-    gameSection.style.display = 'none';
-    hubSection.style.display = 'none';
-
-    if (mode === 'log') {
-        logSection.style.display = 'block';
-    } else if (mode === 'game') {
-        gameSection.style.display = 'block';
-        updateQuestGameView();
-    } else if (mode === 'hub') {
-        hubSection.style.display = 'block';
-        generateQuestHubList(); // Запускаем сборку интерактивного оглавления
-    }
-}
 
 
-// Функция, которая отрисовывает «Интерфейс игры»
-function updateQuestGameView() {
-    const nameField = document.getElementById('simQuestNpcName');
-    const textField = document.getElementById('simQuestNpcText');
-
-    if (!nameField || !textField) return;
-
-    // Берем данные текущего квеста из карты симулятора
-    const activeQuest = currentQuestMap[currentSimulatedQuestId];
-
-    if (activeQuest) {
-        nameField.textContent = `💬 КВЕСТ: "${activeQuest.title}" (ID: ${currentSimulatedQuestId})`;
-        // ИСПРАВЛЕНО: Теперь сюда выводится реальный художественный текст квеста из формы!
-        textField.textContent = activeQuest.text;
-    }
-}
-
-function generateQuestHubList() {
-    const listContainer = document.getElementById('hubQuestsList');
-    if (!listContainer) return;
-
-    listContainer.innerHTML = ""; // Очищаем старый список
-
-    // Пробегаемся по всем ключам (ID) нашей базы данных квестов
-    Object.keys(currentQuestMap).forEach(id => {
-        const quest = currentQuestMap[id];
-        
-        // Создаем кнопку для каждого квеста
-        const btn = document.createElement('button');
-        btn.type = "button";
-        btn.style.cssText = "text-align: left; padding: 6px 10px; background: #222; color: #fff; border: 1px solid #444; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 12px; transition: 0.2s;";
-        btn.innerHTML = `<span style="color: #ffaa00; font-weight: bold;">ID ${id}</span> — <span>${quest.title}</span>`;
-        
-        // Подсвечиваем кнопку при наведении
-        btn.onmouseover = function() { this.style.background = "#333"; this.style.borderColor = "#ff8800"; };
-        btn.onmouseout = function() { this.style.background = "#222"; this.style.borderColor = "#444"; };
-        
-        // При клике запускаем симулятор ИМЕННО с этого квеста и переключаем на тех. лог
-        btn.onclick = function() {
-            showSimulatorQuest(parseInt(id));
-            switchQuestTab('log'); // Автоматически переводим пользователя в режим лога
-        };
-
-        listContainer.appendChild(btn);
-    });
-
-    // Если вдруг в проекте вообще нет квестов
-    if (Object.keys(currentQuestMap).length === 0) {
-        listContainer.innerHTML = `<div style="color: #888; font-style: italic;">Список заданий пуст. Сначала заполните форму.</div>`;
-    }
-	
-}
 </script>
 </body>
 </html>
