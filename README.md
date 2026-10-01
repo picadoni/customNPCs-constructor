@@ -158,7 +158,7 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 *(The Dialogue Constructor and Script Module have not been renamed, as their functionality was not updated in this version).*
 * **New Features:** Added a modal window to check the sequence and validate task IDs for integrity.
 
-### [Version 2.2 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+### [Version 2.3 (Current)](https://picadoni.github.io/customNPCs-constructor/)
 **Dialogue Constructor "Paladin" (v1.5) / Quest Constructor "Citadel" (v1.0) / Script Module "Quantum" (v1.0)**
 * **New Features:** Added a mini-guide for scripting in ECMA 5.1.
 * **Improvements:** Enhanced quest/dialogue control, now featuring two preview and sequence tracking modes ("Tech Log" and "Game").
