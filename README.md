@@ -156,4 +156,4 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 ### [Version 2.2 (Current)](https://picadoni.github.io/customNPCs-constructor/)
 **Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Gidra" (v0.9) / Script Module "Terminal" (v0.9)**
 *(The Dialogue Constructor and Script Module have not been renamed, as their functionality was not updated in this version).*
-* **New Features:** Added a guide for linking with the FTB Quests mod, and full localization into Japanese, English, and Simplified Chinese.
+* **New Features:** Added a modal window to check the sequence and validate task IDs for integrity.
