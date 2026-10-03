@@ -320,11 +320,11 @@
 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #333; padding-bottom: 8px; margin-bottom: 12px;">
     <span style="color: #ffaa00; font-weight: bold; font-size: 13px;">📊 СИМУЛЯТОР ЦЕПОЧКИ ЗАДАНИЙ</span>
     
-    <button type="button" onclick="switchQuestTab('log')" style="background: #333; border: 1px solid #444; color: #fff; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-left: auto; margin-right: 5px;">📋 Тех. лог</button>
-    <button type="button" onclick="switchQuestTab('game')" style="background: #333; border: 1px solid #444; color: #fff; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 5px;">💬 Игра</button>          
+    <button type="button" onclick="switchQuestTab(&#39;log&#39;)" style="background: #333; border: 1px solid #444; color: #fff; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-left: auto; margin-right: 5px;">📋 Тех. лог</button>
+    <button type="button" onclick="switchQuestTab(&#39;game&#39;)" style="background: #333; border: 1px solid #444; color: #fff; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 5px;">💬 Игра</button>          
     
     <!-- НОВАЯ КНОПКА: Переключение на список всех квестов проекта -->
-    <button type="button" onclick="switchQuestTab('hub')" style="background: #ff8800; border: 1px solid #ffaa00; color: #000; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 15px;">📜 Все задания</button>          
+    <button type="button" onclick="switchQuestTab(&#39;hub&#39;)" style="background: #ff8800; border: 1px solid #ffaa00; color: #000; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 15px;">📜 Все задания</button>          
     
     <button type="button" onclick="closeQuestSimulator()" style="background: #ff2222; border: none; color: white; padding: 3px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px;">Х ЗАКРЫТЬ</button>
 </div>
@@ -363,15 +363,15 @@
 
 
 <!-- МОДАЛЬНОЕ ОКНО: Интерактивный симулятор диалогов 2.0 -->
-<div id="dialogSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; font-family: 'Consolas', monospace;">
+<div id="dialogSimulatorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; font-family: &#39;Consolas&#39;, monospace;">
     <div style="background: #1a1a1a; border: 2px solid var(--accent-color); border-radius: 8px; width: 650px; max-width: 90%; padding: 25px; box-shadow: 0 0 20px rgba(0,0,0,0.7); position: relative; color: #fff;">
         
         <!-- Шапка симулятора с кнопками переключения -->
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; margin-bottom: 20px;">
             <span style="font-weight: bold; color: #ffcc00; font-size: 14px;">📺 СИМУЛЯТОР ДИАЛОГА (Ver 2.0)</span>
             
-            <button type="button" onclick="switchDialogTab('game')" style="background: #333; border: 1px solid #444; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-left: auto; margin-right: 5px;">💬 Игра</button>
-            <button type="button" onclick="switchDialogTab('hub')" style="background: #ff8800; border: 1px solid #ffaa00; color: #000; padding: 4px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 15px;">📜 Все диалоги</button>
+            <button type="button" onclick="switchDialogTab(&#39;game&#39;)" style="background: #333; border: 1px solid #444; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-left: auto; margin-right: 5px;">💬 Игра</button>
+            <button type="button" onclick="switchDialogTab(&#39;hub&#39;)" style="background: #ff8800; border: 1px solid #ffaa00; color: #000; padding: 4px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 15px;">📜 Все диалоги</button>
             
             <button type="button" onclick="closeDialogSimulator()" style="background: #ff3333; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px;">✕ ЗАКРЫТЬ</button>
         </div>
@@ -413,30 +413,25 @@
     <div style="background: #141414; border: 2px solid #ffcc00; padding: 15px; border-radius: 6px; width: 340px; text-align: center; box-shadow: 0 0 20px rgba(255,204,0,0.3); font-family: &#39;Minecraft&#39;, sans-serif;">
         
         <!-- Шапка окна -->
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #333; padding-bottom: 8px;">
-    <!-- ДОБАВЛЕНО data-i18n для заголовка шапки -->
-    <span style="color: #ffcc00; font-size: 14px; font-weight: bold;" data-i18n="particle_monitor_title">📺 Монитор частиц API 1.12.2</span>
-    <span onclick="closeParticlePreviewer()" style="cursor: pointer; color: #ff3333; font-weight: bold; font-size: 16px;">❌</span>
-</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #333; padding-bottom: 8px;">
+            <span style="color: #ffcc00; font-size: 14px; font-weight: bold;">📺 Монитор частиц API 1.12.2</span>
+            <span onclick="closeParticlePreviewer()" style="cursor: pointer; color: #ff3333; font-weight: bold; font-size: 16px;">❌</span>
+        </div>
 
-<!-- Селектор выбора эффекта -->
-<select id="previewParticleSelect" onchange="changePreviewParticle(this.value)" style="width: 100%; background: rgb(51, 51, 51); color: rgb(255, 255, 255); border: 1px solid rgb(255, 85, 0); padding: 6px; border-radius: 4px; margin-bottom: 12px; cursor: pointer; font-size: 13px; opacity: 1;">
-    <option value="flame" data-i18n="particle_flame">Огненное пламя (flame)</option>
-    <option value="hugeexplosion" data-i18n="particle_hugeexplosion">💥 Взрыв Босса (hugeexplosion)</option>
-    <option value="note" data-i18n="particle_note">🎵 Ноты Лутбокса (note)</option>
-    <option value="happyVillager" data-i18n="particle_happyVillager">✨ Изумрудная удача (happyVillager)</option>
-    <option value="lava" data-i18n="particle_lava">☄️ Искры лавы / Метеор (lava)</option>
-    <option value="reddust" data-i18n="particle_reddust">🚨 Тревожная пыль (reddust)</option>
-</select>
-
+        <!-- Селектор выбора эффекта -->
+        <select id="previewParticleSelect" onchange="changePreviewParticle(this.value)" style="width: 100%; background: rgb(51, 51, 51); color: rgb(255, 255, 255); border: 1px solid rgb(255, 85, 0); padding: 6px; border-radius: 4px; margin-bottom: 12px; cursor: pointer; font-size: 13px; opacity: 1;">
+            <option value="flame">🔥 Огненное пламя (flame)</option>
+            <option value="hugeexplosion">💥 Взрыв Босса (hugeexplosion)</option>
+            <option value="note">🎵 Ноты Лутбокса (note)</option>
+            <option value="happyVillager">✨ Изумрудная удача (happyVillager)</option>
+            <option value="lava">☄️ Искры лавы / Метеор (lava)</option>
+            <option value="reddust">🚨 Тревожная пыль (reddust)</option>
+        </select>
 
         <!-- Сам холст-экран для симуляции -->
         <canvas id="previewCanvas" width="300" height="200" style="background: #080808; border: 1px solid #ffcc00; border-radius: 4px; display: block; margin: 0 auto 10px;"></canvas>
         
-<!-- Было: <div ...>Кликните по холсту, чтобы повторить эффект</div> -->
-<!-- Стало: -->
-<div id="particleCanvasHint" data-i18n="particle_canvas_hint" style="color: #888; font-size: 11px; margin-top: 5px;">Кликните по холсту, чтобы повторить эффект</div>
-
+        <div style="color: #888; font-size: 11px;">Кликните по холсту, чтобы повторить эффект</div>
     </div>
 </div>
 
@@ -499,7 +494,7 @@
         <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для динамической шапки -->
 <h1 id="mainTitle" data-i18n="title_dialogs" style="margin: 0px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: rgb(255, 85, 0);">Конструктор Диалогов CustomNPCs Паладин (Вер. 1.5)</h1>
 <!-- Глобальная кнопка симулятора -->
-<button type="button" onclick="alert(&#39;🎮 Монитор сюжета: Модуль интерактивного демо-просмотра квестов и всех диалогов находится в разработке и появится в ver 2.5!&#39;)" title="📋 Запустить симулятор всего сюжета" style="background: none; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" onmouseout="this.style.background='none'; this.style.color='#ffcc00';">📋</button>
+<button type="button" onclick="alert(&#39;🎮 Монитор сюжета: Модуль интерактивного демо-просмотра квестов и всех диалогов находится в разработке и появится в ver 2.5!&#39;)" title="📋 Запустить симулятор всего сюжета" style="background: none; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background=&#39;#ffcc00&#39;; this.style.color=&#39;#000&#39;;" onmouseout="this.style.background=&#39;none&#39;; this.style.color=&#39;#ffcc00&#39;;">📋</button>
 
         <!-- Шестеренка аккуратно встает в левый угол, не улетая в облака -->
 <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для всплывающей подсказки шестерёнки -->
@@ -523,13 +518,12 @@
 <button type="button" onclick="setTheme(&#39;ryanair&#39;)" data-i18n-title="ttl_theme_ryan" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">✈️</button>
 <!-- Вариант для кнопки в Основном диалоге -->
 <!-- Исправленный вариант для кнопки в Основном диалоге (Версия 2.0) -->
-<span onclick="openStoryMonitor()" data-i18n-title="ttl_open_ns"  title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
-<span onclick="toggleFtbMemo(1)" data-i18n-title="ttl_open_FTB" title="📎 Связь с FTB" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">📎</span>
+<span onclick="openStoryMonitor()" data-i18n-title="ttl_open_ns" title="Запустить симуляцию диалога" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
+<span onclick="toggleFtbMemo(1)" data-i18n-title="ttl_open_FTB" title="Как связать с FTBQuests" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">📎</span>
 
-                <button type="button" id="btnSetBg" onclick="document.getElementById('bgUploaderInput').click()" title="🖼️ Установить свой фон" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">🖼️</button>
-				<input type="file" id="bgUploaderInput" accept="image/*" style="display: none;" onchange="setCustomBackground(event)">
-				<button type="button" id="btnResetBg" onclick="resetCustomBackground()" title="❌ Сбросить фон на дефолтный" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">❌</button>
-
+                <button type="button" onclick="document.getElementById(&#39;bgUploaderInput&#39;).click()" title="🖼️ Установить свой фон" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">🖼️</button>
+                <input type="file" id="bgUploaderInput" accept="image/*" style="display: none;" onchange="setCustomBackground(event)">
+				<button type="button" onclick="resetCustomBackground()" title="❌ Сбросить фон на дефолтный" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">❌</button>
 <!-- ИСПРАВЛЕНО: Стерты любые data-i18n, оставлен только data-i18n-title. Квадраты исчезнут! -->
 <button type="button" onclick="toggleNotesDrawer()" data-i18n-title="ttl_open_notes" title="📝 Открыть заметки сценариста (Notepad++)" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">📝</button>
 <button type="button" onclick="toggleCheatSheetDrawer()" data-i18n-title="ttl_open_cheat" title="📖 Открыть шпаргалку по командам (Minecraft 1.12.2)" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">📖</button>
@@ -584,9 +578,7 @@
             <button type="button" onclick="createNewDialogChainBlock(event)" data-i18n-title="ttl_add_chain" title="📜 Добавить следующий диалог в ленту" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">📜</button>
             <button type="button" onclick="generateAndDownload()" data-i18n-title="ttl_download_dial" title="💾 Скачать этот диалог (.json)" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">💾</button>
             <button type="button" onclick="toggleAdvancedSettings(event)" data-i18n-title="ttl_avail_settings" title="🔒 Условия доступности диалога" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🔒</button>
-        <button type="button" onclick="downloadAllDialogsZip()" style="background: #1e7145; color: white; padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">📦 Скачать все диалоги (.zip)</button>
-
-		</div>
+        </div>
     </div>
     </div>
 
@@ -714,7 +706,7 @@
                  </div>
 
             </div>
-<div id="dynamicOptionsWrapper_0" style="width: 100%; box-sizing: border-box;"><div class="option-block" id="optionBlock_0" style="background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border-color: rgb(255, 85, 0); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-left-width: ; border-left-style: ; width: 100%; box-sizing: border-box;">
+<div id="dynamicOptionsWrapper_0" style="width: 100%; box-sizing: border-box;"><div class="option-block" id="optionBlock_0" style="background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border-color: rgb(255, 85, 0); width: 100%; box-sizing: border-box;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <strong style="color: inherit; font-size: 14px;"><span data-i18n="lbl_opt_btn">Кнопка</span> 1 (<span data-i18n="lbl_opt_slot">Слот</span> 0)</strong>
             
@@ -727,12 +719,12 @@
             <div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
                 <div style="flex: 1; min-width: 140px;">
                     <label for="optType0" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_type">Действие (OptionType):</label>
-<select id="optType0" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
-    <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
-    <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
-    <option value="2" data-i18n="opt_type_2">Выполнить команду / Командный блок (2)</option>
-    <option value="3" data-i18n="opt_type_3">Открыть Роль NPC / Торговца (3)</option>
-</select>
+                    <select id="optType0" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                        <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
+                        <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
+                        <option value="2" data-i18n="opt_type_2">Открыть Роль NPC (2)</option>
+                        <option value="3" data-i18n="opt_type_3">Показать Фракцию (3)</option>
+                    </select>
                 </div>
                 <div style="flex: 1; min-width: 140px;">
                     <label for="optDialog0" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_next">ID следующего диалога:</label>
@@ -763,7 +755,7 @@
                 </div>
             </div>
         </div>
-    </div><div class="option-block" id="optionBlock_1" style="background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border-color: rgb(255, 85, 0); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-left-width: ; border-left-style: ; width: 100%; box-sizing: border-box;">
+    </div><div class="option-block" id="optionBlock_1" style="background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border-color: rgb(255, 85, 0); width: 100%; box-sizing: border-box;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <strong style="color: inherit; font-size: 14px;"><span data-i18n="lbl_opt_btn">Кнопка</span> 2 (<span data-i18n="lbl_opt_slot">Слот</span> 1)</strong>
             
@@ -776,13 +768,12 @@
             <div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
                 <div style="flex: 1; min-width: 140px;">
                     <label for="optType1" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_type">Действие (OptionType):</label>
-<select id="optType1" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
-    <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
-    <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
-    <option value="2" data-i18n="opt_type_2">Выполнить команду / Командный блок (2)</option>
-    <option value="3" data-i18n="opt_type_3">Открыть Роль NPC / Торговца (3)</option>
-</select>
-
+                    <select id="optType1" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                        <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
+                        <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
+                        <option value="2" data-i18n="opt_type_2">Открыть Роль NPC (2)</option>
+                        <option value="3" data-i18n="opt_type_3">Показать Фракцию (3)</option>
+                    </select>
                 </div>
                 <div style="flex: 1; min-width: 140px;">
                     <label for="optDialog1" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_next">ID следующего диалога:</label>
@@ -813,7 +804,7 @@
                 </div>
             </div>
         </div>
-    </div><div class="option-block" id="optionBlock_2" style="background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border-color: rgb(255, 85, 0); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-left-width: ; border-left-style: ; width: 100%; box-sizing: border-box;">
+    </div><div class="option-block" id="optionBlock_2" style="background: rgba(17, 2, 2, 0.85); padding: 15px; margin-bottom: 15px; border-radius: 4px; border-color: rgb(255, 85, 0); width: 100%; box-sizing: border-box;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <strong style="color: inherit; font-size: 14px;"><span data-i18n="lbl_opt_btn">Кнопка</span> 3 (<span data-i18n="lbl_opt_slot">Слот</span> 2)</strong>
             
@@ -826,13 +817,12 @@
             <div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
                 <div style="flex: 1; min-width: 140px;">
                     <label for="optType2" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_type">Действие (OptionType):</label>
-<select id="optType2" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
-    <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
-    <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
-    <option value="2" data-i18n="opt_type_2">Выполнить команду / Командный блок (2)</option>
-    <option value="3" data-i18n="opt_type_3">Открыть Роль NPC / Торговца (3)</option>
-</select>
-
+                    <select id="optType2" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px; opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
+                        <option value="1" data-i18n="opt_type_1">Переход к диалогу (1)</option>
+                        <option value="0" data-i18n="opt_type_0">Закрыть диалог (0)</option>
+                        <option value="2" data-i18n="opt_type_2">Открыть Роль NPC (2)</option>
+                        <option value="3" data-i18n="opt_type_3">Показать Фракцию (3)</option>
+                    </select>
                 </div>
                 <div style="flex: 1; min-width: 140px;">
                     <label for="optDialog2" style="font-size: 12px; margin-bottom: 4px; display: block; color: rgb(255, 85, 0);" data-i18n="lbl_opt_next">ID следующего диалога:</label>
@@ -938,12 +928,7 @@
                 <div class="code-editor-container" style="position: relative; width: 100%; height: 350px; border: 1px solid var(--border-color); border-radius: 4px; background-color: #222; overflow: hidden;">
                     
                     <!-- Невидимая textarea для ввода (Курсор caret-color оставляем белым, добавляем oninput и onscroll) -->
-                    <textarea id="scriptCodeArea" 
-                              class="code-editor-textarea" 
-                              oninput="updateCodeHighlighting()" 
-                              onscroll="const target = document.getElementById('codeHighlightOverlay'); if(target) { target.scrollTop = this.scrollTop; target.scrollLeft = this.scrollLeft; target.style.height = this.scrollHeight + 'px'; }"
-                              data-i18n-ph="ph_s_area" 
-                              placeholder="// Ваш JavaScript код для CustomNPCs..."></textarea>
+                    <textarea id="scriptCodeArea" class="code-editor-textarea" oninput="updateCodeHighlighting()" onscroll="const target = document.getElementById(&#39;codeHighlightOverlay&#39;); if(target) { target.scrollTop = this.scrollTop; target.scrollLeft = this.scrollLeft; target.style.height = this.scrollHeight + &#39;px&#39;; }" data-i18n-ph="ph_s_area" placeholder="// Ваш JavaScript код для CustomNPCs..." style="opacity: 1; color: transparent !important; background-color: transparent !important; border-color: rgb(255, 85, 0);"></textarea>
 							  
                     <!-- Задний оверлей, который принимает раскрашенные span-теги -->
                     <div id="codeHighlightOverlay" class="code-editor-highlight"></div>
@@ -960,7 +945,7 @@
                 <button type="button" onclick="insertScriptTemplate(&#39;particle&#39;)" data-i18n="btn_lib_particle" style="padding: 6px 12px; background: #1e7145; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">✨ Взрыв частиц</button>
                 <button type="button" onclick="insertScriptTemplate(&#39;potion&#39;)" data-i18n="btn_lib_potion" style="padding: 6px 12px; background: #ff5500; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; font-weight:bold;">🧪 Выдать эффект зелья</button>
 					<!-- Изменяем onclick, чтобы он вызывал общий рабочий шаблон -->
-				<button type="button" onclick="insertScriptTemplate('leprechaun')" data-i18n="btn_lib_luck" style="padding: 6px 12px; background: #2e7d32; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px;"> 🍀 Удача лепрекона</button>
+				<button type="button" onclick="insertScriptTemplate(&#39;leprechaun&#39;)" data-i18n="btn_lib_luck" style="padding: 6px 12px; background: #2e7d32; color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px;"> 🍀 Удача лепрекона</button>
 					<!-- НОВАЯ КНОПКА: Справка по JS/ECMA скриптам -->
 				<button type="button" onclick="openScriptGuideModal()" title="❓ Руководство по написанию JS/ECMA скриптов" style="background: #444; border: 1px solid #666; color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; height: 24px; margin-left: 5px;">❓ </button>
 				
@@ -977,7 +962,7 @@
 		
 		
 		        <!-- Текст гайда -->
-<div id="scriptGuideModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20010; align-items: center; justify-content: center; flex-direction: column; font-family: 'Consolas', monospace; color: #fff;">
+<div id="scriptGuideModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20010; align-items: center; justify-content: center; flex-direction: column; font-family: &#39;Consolas&#39;, monospace; color: #fff;">
     <div style="background: #151515; border: 2px solid var(--border-color, #ff5500); border-radius: 8px; width: 600px; max-width: 90%; padding: 20px; box-shadow: 0 0 25px rgba(0,0,0,0.9); max-height: 80vh; overflow-y: auto; text-align: left;">
         
         <!-- Заголовок -->
@@ -986,12 +971,12 @@
         <!-- Раздел 1 -->
         <div data-i18n="guide_sec1_title" style="color: #ffaa00; font-weight: bold; margin-top: 10px; margin-bottom: 5px;">📌 1. ОСНОВНЫЕ СОБЫТИЯ:</div>
 <!-- Пример для раздела 1: выносим название функции из перевода в цветной span -->
-<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">interact(event)</span> <span data-i18n="guide_sec1_interact"></span></div>
-<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">init(event)</span> <span data-i18n="guide_sec1_init"></span></div>
-<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">update(event)</span> <span data-i18n="guide_sec1_update"></span></div>
+<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">interact(event)</span> <span data-i18n="guide_sec1_interact"> — Клик ПКМ по NPC.</span></div>
+<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">init(event)</span> <span data-i18n="guide_sec1_init"> — Спавн NPC или обновление скрипта.</span></div>
+<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">update(event)</span> <span data-i18n="guide_sec1_update"> — Вызывается каждые 0.5 сек.</span></div>
 
-        <div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">died(event)</span><span data-i18n="guide_sec1_died"></span></div>
-<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">damaged(event)</span><span data-i18n="guide_sec1_damaged"></span></div>
+        <div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">died(event)</span><span data-i18n="guide_sec1_died"> — Момент смерти NPC.</span></div>
+<div style="margin-left: 10px;">• <span style="color: #55ff55; font-weight: bold;">damaged(event)</span><span data-i18n="guide_sec1_damaged"> — NPC получил урон.</span></div>
 
 
         <!-- Раздел 2 -->
@@ -999,20 +984,20 @@
 <!-- Раздел 2: Полностью изолированные элементы для защиты от затирания локализацией -->
 <div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
     <span style="color: #00aba9; font-weight: bold; padding-right: 0;">• event.npc.say</span>
-    <span style="color: #00aba9; font-weight: bold; padding-right: 4px;" data-i18n="guide_sec2_say_args"></span>
-    <span style="color: #eee;" data-i18n="guide_sec2_say_desc"></span>
+    <span style="color: #00aba9; font-weight: bold; padding-right: 4px;" data-i18n="guide_sec2_say_args">("Привет")</span>
+    <span style="color: #eee;" data-i18n="guide_sec2_say_desc"> — Сказать в локальный чат.</span>
 </div>
 
 <div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
     <span style="color: #00aba9; font-weight: bold; padding-right: 0;">• event.player.message</span>
-    <span style="color: #00aba9; font-weight: bold; padding-right: 4px;" data-i18n="guide_sec2_msg_args"></span>
-    <span style="color: #eee;" data-i18n="guide_sec2_msg_desc"></span>
+    <span style="color: #00aba9; font-weight: bold; padding-right: 4px;" data-i18n="guide_sec2_msg_args">("Текст")</span>
+    <span style="color: #eee;" data-i18n="guide_sec2_msg_desc"> — Личное сообщение игроку.</span>
 </div>
 
 <div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
     <span style="color: #00aba9; font-weight: bold; padding-right: 0;">• event.npc.executeCommand</span>
-    <span style="color: #00aba9; font-weight: bold; padding-right: 4px;" data-i18n="guide_sec2_cmd_args"></span>
-    <span style="color: #eee;" data-i18n="guide_sec2_cmd_desc"></span>
+    <span style="color: #00aba9; font-weight: bold; padding-right: 4px;" data-i18n="guide_sec2_cmd_args">("...")</span>
+    <span style="color: #eee;" data-i18n="guide_sec2_cmd_desc"> — Выполнить консольную команду.</span>
 </div>
 
 
@@ -1021,23 +1006,23 @@
 <!-- Раздел 3: Возвращаем неоновую подсветку для правил и особенностей -->
 <div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
     <span style="color: #eee; padding-right: 4px;">•</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_js_1"></span>
+    <span style="color: #eee;" data-i18n="guide_sec3_js_1">Используйте синтаксис</span>
     <span style="color: #ffaa00; font-weight: bold; padding: 0 4px;">JavaScript (ECMAScript 5.1)</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_js_2"></span>
+    <span style="color: #eee;" data-i18n="guide_sec3_js_2">.</span>
 </div>
 
 <div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
     <span style="color: #eee; padding-right: 4px;">•</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_color_1"></span>
-    <span style="color: #ff5555; font-weight: bold; background: rgba(255,85,85,0.1); padding: 0 4px; border-radius: 3px; border: 1px solid rgba(255,85,85,0.2);" data-i18n="guide_sec3_color_code"></span>
+    <span style="color: #eee;" data-i18n="guide_sec3_color_1">Цвета в чате задаются через параграф, например:</span>
+    <span style="color: #ff5555; font-weight: bold; background: rgba(255,85,85,0.1); padding: 0 4px; border-radius: 3px; border: 1px solid rgba(255,85,85,0.2);" data-i18n="guide_sec3_color_code">"§cТекст"</span>
     <span style="color: #eee;" data-i18n="guide_sec3_color_2"></span>
 </div>
 
 <div style="margin-left: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 0;">
     <span style="color: #eee; padding-right: 4px;">•</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_loop_1"></span>
+    <span style="color: #eee;" data-i18n="guide_sec3_loop_1">Не пишите бесконечные циклы в</span>
     <span style="color: #55ff55; font-weight: bold; padding: 0 4px;">update()</span>
-    <span style="color: #eee;" data-i18n="guide_sec3_loop_2"></span>
+    <span style="color: #eee;" data-i18n="guide_sec3_loop_2">, иначе игра зависнет.</span>
 </div>
 
         <!-- Кнопка закрытия -->
@@ -1078,7 +1063,7 @@
 <div id="moduleContentQuests" style="display: none; width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: -1px;">
     
     <!-- Сворачиваемая карточка параметров квеста (Новая разметка) -->
-    <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; display: flex; flex-direction: column; gap: 15px;">
+    <div class="section" style="width: 100%; box-sizing: border-box; margin-bottom: 25px; display: flex; flex-direction: column; gap: 15px; background-color: rgba(17, 2, 2, 0.85); border-color: rgb(255, 85, 0);">
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 15px;">
             <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
 <!-- ИСПРАВЛЕННЫЙ СТАБИЛЬНЫЙ ЗАГОЛОВОК ПЕРВОГО ЗАДАНИЯ -->
@@ -1090,9 +1075,7 @@
             </div>
             <div style="display: flex; align-items: center; gap: 14px; flex-shrink: 0;">
                 <button type="button" onclick="generateAndDownloadQuestBase()" title="Скачать этот квест (.json)" style="background: none; border: none; font-size: 21px; cursor: pointer;">💾</button>
-				<button type="button" onclick="downloadAllQuestsZip()" style="background: #1e7145; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%;">📦 Скачать все файлы главы (.zip)</button>
-
-                <button type="button" onclick="createNewQuestChainBlock(event)" title="Создать новое задание"style="background: none; border: none; font-size: 21px; cursor: pointer;">⚔️</button>
+                <button type="button" onclick="createNewQuestChainBlock(event)" title="Создать новое задание" style="background: none; border: none; font-size: 21px; cursor: pointer;">⚔️</button>
 				<button onclick="openQuestMonitor()" title="Проверить цепочку заданий" style="background: none; border: none; font-size: 21px; cursor: pointer;">📊</button>
             </div>
         </div>
@@ -1102,7 +1085,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="questTitle" data-i18n="lbl_q_title" style="color: rgb(255, 85, 0);">Название квеста (Title)</label>
-                   <input type="text" id="questTitle" value="Логистический Кризис" oninput="const disp = document.getElementById('displayQuestTitle'); if(disp) disp.innerText = this.value || 'Без названия';">
+                   <input type="text" id="questTitle" value="Логистический Кризис" oninput="const disp = document.getElementById(&#39;displayQuestTitle&#39;); if(disp) disp.innerText = this.value || &#39;Без названия&#39;;" style="opacity: 1; color: rgb(255, 255, 255); background-color: rgb(51, 51, 51); border-color: rgb(255, 85, 0);">
   </div>
                 <div class="form-group">
                     <label for="questCompleter" data-i18n="lbl_q_npc" style="color: rgb(255, 85, 0);">Кто принимает квест (CompleterNpc)</label>
@@ -1279,7 +1262,7 @@
 </div>
 
 <!-- ЛЕВАЯ ВЫДВИЖНОЙ ПАНЕЛЬ-ШПАРГАЛКА (Зафиксирована слева экрана) -->
-<div id="cheatSheetDrawerPanel" class="section" style="position: fixed; top: 0px; left: -320px; width: 300px; height: 100vh; background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: ; background-color: rgba(17, 2, 2, 0.85); border-top: none rgb(255, 85, 0); border-bottom: none rgb(255, 85, 0); border-left: none rgb(255, 85, 0); border-image: initial; border-right-width: ; border-right-style: ; border-right-color: rgb(255, 85, 0); box-shadow: rgba(0, 0, 0, 0.3) 5px 0px 15px; z-index: 999999; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; transition: left 0.3s;">
+<div id="cheatSheetDrawerPanel" class="section" style="position: fixed; top: 0px; left: -320px; width: 300px; height: 100vh; background-color: rgba(17, 2, 2, 0.85); border-top: none rgb(255, 85, 0); border-bottom: none rgb(255, 85, 0); border-left: none rgb(255, 85, 0); border-image: initial; border-right-color: rgb(255, 85, 0); box-shadow: rgba(0, 0, 0, 0.3) 5px 0px 15px; z-index: 999999; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; transition: left 0.3s;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed var(--border-color, #808080); padding-bottom: 8px;">
         <span style="font-weight: bold;" data-i18n="cheat_title">📖 Справочник команд 1.12.2</span>
         <button type="button" onclick="toggleCheatSheetDrawer()" style="background: none; border: none; color: #ff3333; cursor: pointer; font-size: 14px; font-weight: bold;">[❌]</button>
@@ -1462,20 +1445,6 @@
 
 <!--button class="download-btn" id="mainDownloadButton" onclick="handleMainDownload()">💾 СКАЧАТЬ ФАЙЛ ДИАЛОГА (.JSON)</button !-->
 <script>
-
-// ВСТАВЬТЕ ЭТОТ БЛОК В САМОЕ НАЧАЛО ВАШЕГО JS-КОДА (ВНЕ ДРУГИХ ФУНКЦИЙ):
-
-function setupExtraOptionRow(extraId, slot, title, type, nextDialog) {
-    const titleInp = document.getElementById(`extra_${extraId}_optTitle_${slot}`);
-    const typeInp = document.getElementById(`extra_${extraId}_optType_${slot}`);
-    const dialogInp = document.getElementById(`extra_${extraId}_optDialog_${slot}`);
-    
-    if (titleInp) titleInp.value = title;
-    if (typeInp) typeInp.value = type;
-    if (dialogInp) dialogInp.value = nextDialog !== undefined ? nextDialog : -1;
-}
-
-
 // Строка 5818: Функции модалки стоят свободно для всего документа
 function openScriptGuideModal() {
     const modal = document.getElementById('scriptGuideModal');
@@ -1490,10 +1459,8 @@ function closeScriptGuideModal() {
         modal.style.display = 'none';
     }
 } 
-    // =========================================================================
-    // ИСПРАВЛЕННАЯ СИСТЕМА БЫСТРЫХ ШАБЛОНОВ (ОСНОВНЫЕ + ДОП. ДИАЛОГИ ИЗ ЛЕНТЫ)
-    // =========================================================================
 
+// Функция применения быстрых шаблонов для доп. диалогов в ленте
 function applyExtraQuickTemplate(extraId, type) {
     const dTitle = document.getElementById(`extraDialogTitle_${extraId}`);
     const dText = document.getElementById(`extraDialogText_${extraId}`);
@@ -1502,14 +1469,12 @@ function applyExtraQuickTemplate(extraId, type) {
     if (type === 'guard') {
         if(dTitle) dTitle.value = "Guard_Chain_Part";
         if(dText) dText.value = "Отреагируй быстрее, путник! Стража не любит долгих раздумий. Либо ты подчиняешься приказам, либо мы применим силу.";
-        setupExtraOptionRow(extraId, 0, "Я подчиняюсь (Уйти)", 0, -1); // Закрыть (0)
-        setupExtraOptionRow(extraId, 1, "Кто ваш капитан?", 1, 12);     // Переход к диалогу (1)
-        
-        // ИСПРАВЛЕНО: Тип изменен на 2 (Командный блок), чтобы выполнялась консольная команда!
-        setupExtraOptionRow(extraId, 2, "Вы пожалеете об этом! (Напасть)", 2, -1);
+        setupExtraOptionRow(extraId, 0, "Я подчиняюсь (Уйти)", 0, -1);
+        setupExtraOptionRow(extraId, 1, "Кто ваш капитан?", 1, 12);
+        setupExtraOptionRow(extraId, 2, "Вы пожалеете об этом! (Напасть)", 0, -1);
         
         // Записываем команду атаки в текстовое поле команды для Слота 2
-        const cmdInp = document.getElementById(`extra_${extraId}_optCmd_2`) || document.getElementById(`extra_${extraId}_optCommand_2`);
+        const cmdInp = document.getElementById(`extra_${extraId}_optCmd_2`);
         if (cmdInp) cmdInp.value = "npc attack";
     } 
     else if (type === 'villager') {
@@ -1522,12 +1487,20 @@ function applyExtraQuickTemplate(extraId, type) {
     else if (type === 'trader') {
         if(dTitle) dTitle.value = "Merchant_Chain_Part";
         if(dText) dText.value = "Кстати, если у тебя скопился лишний хлам или трофеи из подземелий, я с радостью скуплю их по хорошей цене. Договоримся?";
-        
-        // ИСПРАВЛЕНО: Тип изменен на 3 (Открыть Роль / Торговлю в CustomNPCs)
-        setupExtraOptionRow(extraId, 0, "Открыть окно продажи предметов", 3, -1);
+        setupExtraOptionRow(extraId, 0, "Открыть окно продажи предметов", 2, -1);
         setupExtraOptionRow(extraId, 1, "Что у тебя есть уникального?", 1, 31);
         setupExtraOptionRow(extraId, 2, "Мне ничего не нужно", 0, -1);
     }
+}
+
+// Вспомогательная утилита заливки текстов для доп. веток ленты
+function setupExtraOptionRow(extraId, slot, title, type, nextDialog) {
+    const titleInp = document.getElementById(`extra_${extraId}_optTitle_${slot}`);
+    const typeInp = document.getElementById(`extra_${extraId}_optType_${slot}`);
+    const dialogInp = document.getElementById(`extra_${extraId}_optDialog_${slot}`);
+    if (titleInp) titleInp.value = title;
+    if (typeInp) typeInp.value = type;
+    if (dialogInp) dialogInp.value = nextDialog !== undefined ? nextDialog : -1;
 }
 
 function applyQuickTemplate(type) {
@@ -1540,31 +1513,30 @@ function applyQuickTemplate(type) {
         if(dialogTitle) dialogTitle.value = "Guard_Greeting";
         if(dialogText) dialogText.value = "Стой, путник! Назови свои цели или держи оружие в ножнах. В городе объявлен комендантский час, стража следит за каждым твоим шагом.";
         
-        setupOptionRow(0, "Я просто осматриваюсь (Уйти)", 0, -1, ""); // Закрыть окно (0)
-        setupOptionRow(1, "Где здесь таверна?", 1, 10, "");            // Переход к диалогу ID 10 (1)
-        setupOptionRow(2, "[Подкупить стражника] Вот, возьми (50 золотых)", 2, -1, "money take 50"); // Командный блок (2)
+        // Быстро настраиваем первые 3 базовые кнопки под стражу
+        setupOptionRow(0, "Я просто осматриваюсь (Уйти)", 0, -1, ""); // Закрыть окно
+        setupOptionRow(1, "Где здесь таверна?", 1, 10, "");            // Переход к диалогу ID 10
+        setupOptionRow(2, "[Подкупить стражника] Вот, возьми (50 золотых)", 1, 11, "money take 50"); // Команда + Переход
     } 
     else if (type === 'villager') {
         if(dialogTitle) dialogTitle.value = "Villager_Talk";
-        if(dialogText) dialogText.value = "Приветствую тебя, {player}! Какими судьбами в наших краях? Погода нынче чудесная, урожай обещает быть богат, если разбойники с холмов снова не совершат набег...";
+        if(dialogText) dialogText.value = "Приветствую тебя, {player}! Какими судьбами в наших краях? Погода нынче чудесная, урожай обещает быть богатым, если разбойники с холмов снова не совершат набег...";
         
         setupOptionRow(0, "Рад встрече, хорошего дня! (Уйти)", 0, -1, "");
         setupOptionRow(1, "Расскажи о здешних местах", 1, 20, "");
-        setupOptionRow(2, "Нужна ли какая-то помощь?", 1, 25, ""); 
+        setupOptionRow(2, "Нужна ли какая-то помощь?", 1, 25, ""); // Намек на квест
     } 
     else if (type === 'trader') {
         if(dialogTitle) dialogTitle.value = "Merchant_Shop";
         if(dialogText) dialogText.value = "А, свежие монеты в моем магазине! Заходи, не стесняйся. У меня лучшие товары со всего королевства. Покупаешь что-то или просто глазеешь на витрины?";
         
-        setupOptionRow(0, "Показать товары (Открыть Роль)", 3, -1, ""); // Открыть Роль (3)
+        setupOptionRow(0, "Показать товары (Открыть Роль)", 2, -1, ""); // OptionType = 2 (Открыть Роль NPC / Торговлю)
         setupOptionRow(1, "У тебя есть редкие вещи?", 1, 30, "");
         setupOptionRow(2, "Я зайду позже (Уйти)", 0, -1, "");
     }
 }
 
-    // =========================================================================
-    // Вспомогательная утилита для чистой заливки полей веток
-    // =========================================================================
+// Вспомогательная утилита для чистой заливки полей веток
 function setupOptionRow(slot, title, type, nextDialog, command) {
     const titleInp = document.getElementById('optTitle' + slot);
     const typeInp = document.getElementById('optType' + slot);
@@ -1585,10 +1557,7 @@ function toggleSystemMenu(event) {
     menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
 }
 
-
-    // =========================================================================
-    // Функция вызова и скрытия всплывающего меню эмодзи на шестеренке
-    // =========================================================================
+// Функция вызова и скрытия всплывающего меню эмодзи на шестеренке
 function toggleGearMenu(event) {
     if (event) event.stopPropagation(); // Запрещаем клику сворачивать основное окно
     
@@ -1602,9 +1571,7 @@ function toggleGearMenu(event) {
     }
 }
 
-    // =========================================================================
-    // Измененная функция для замочка: открывает панель условий доступности
-    // =========================================================================
+// Измененная функция для замочка: открывает панель условий доступности
 function toggleAdvancedSettings(event) {
     if (event) event.stopPropagation();
     
@@ -2087,10 +2054,10 @@ function addNewOptionButton() {
                 <div style="flex: 1; min-width: 140px;">
                     <label for="extra_0_optType_${slot}" style="font-size: 12px; margin-bottom: 4px; display: block; color: var(--accent-color);" data-i18n="lbl_opt_type">${lang.lbl_opt_type || "Действие (OptionType):"}</label>
                     <select id="extra_0_optType_${slot}" style="width: 100%; box-sizing: border-box; padding: 10px; height: 38px;">
-                        <option value="0">${lang.opt_type_0 || "Закрыть диалог (0)"}</option>
                         <option value="1">${lang.opt_type_1 || "Переход к диалогу (1)"}</option>
-                        <option value="2">${lang.opt_type_2 || "Выполнить команду / Командный блок (2)"}</option>
-                        <option value="3">${lang.opt_type_3 || "Открыть Роль NPC / Торговца (3)"}</option>
+                        <option value="0">${lang.opt_type_0 || "Закрыть диалог (0)"}</option>
+                        <option value="2">${lang.opt_type_2 || "Открыть Роль NPC (2)"}</option>
+                        <option value="3">${lang.opt_type_3 || "Показать Фракцию (3)"}</option>
                     </select>
                 </div>
                 <div style="flex: 1; min-width: 140px;">
@@ -2160,6 +2127,10 @@ function generateNpcDialogue() {
     titleInput.value = dialogueTitles[Math.floor(Math.random() * dialogueTitles.length)];
     textInput.value = dialogueNpcTexts[Math.floor(Math.random() * dialogueNpcTexts.length)];
 
+    // 🟢 ИСПРАВЛЕНО (Убрали размножение окон): 
+    // Вместо цикла while, который плодил до 7 кнопок и ломал ID,
+    // мы работаем строго в пределах 3 базовых кнопок (Слоты 0, 1, 2), которые уже есть на экране.
+
     // 2. Выбираем случайные фразы для 3 слотов веток
     const replies = [
         opt0Replies[Math.floor(Math.random() * opt0Replies.length)],
@@ -2167,8 +2138,9 @@ function generateNpcDialogue() {
         opt2Replies[Math.floor(Math.random() * opt2Replies.length)]
     ];
 
-    // 3. Заливаем данные строго в 3 существующие ветки (0, 1, 2) с учётом каноничных ID мода
+    // 3. Заливаем данные строго в 3 существующие ветки (0, 1, 2)
     for (let slot = 0; slot < 3; slot++) {
+        // Проверяем новые составные ID, либо старые классические
         const titleInp = document.getElementById(`extra_0_optTitle_${slot}`) || document.getElementById('optTitle' + slot);
         const typeInp = document.getElementById(`extra_0_optType_${slot}`) || document.getElementById('optType' + slot);
         const dialogInp = document.getElementById(`extra_0_optDialog_${slot}`) || document.getElementById('optDialog' + slot);
@@ -2176,16 +2148,16 @@ function generateNpcDialogue() {
 
         if (titleInp) titleInp.value = replies[slot] || `Option ${slot + 1}`;
         
-        // Разнообразим действия для 3 кнопок по новым правилам CustomNPCs
+        // Разнообразим действия для 3 кнопок
         if (typeInp && dialogInp) {
             if (slot === 0) {
-                typeInp.value = "1"; // Переход к диалогу (1)
+                typeInp.value = "1"; // Переход к диалогу
                 dialogInp.value = "2"; // Ведёт на ID 2 (следующий доп. диалог)
             } else if (slot === 1) {
-                typeInp.value = "3"; // ИСПРАВЛЕНО: Открыть Роль / Торговлю (ID мода: 3)
+                typeInp.value = "2"; // Открыть Роль / Торговлю
                 dialogInp.value = "-1";
             } else {
-                typeInp.value = "0"; // Закрыть диалог / Quit (0)
+                typeInp.value = "0"; // Закрыть диалог (Quit)
                 dialogInp.value = "-1";
                 if (cmdInp) cmdInp.value = ""; // Очищаем команду для дефолтного выхода
             }
@@ -2630,51 +2602,45 @@ function generateAndDownload() {
     const dialogDisableEsc = (disableEscEl && disableEscEl.checked) ? "1b" : "0b";
 
     // Сборка кнопок ответов игрока (Опции)
-    // Сборка кнопок ответов игрока (Опции) — АВТОНОМНЫЙ СКАНЕР БЕЗ СЧЁТЧИКА
-    // Сборка кнопок ответов игрока (Опции) — ПОЛНАЯ ОТВЯЗКА ОТ ID ПОЛЕЙ
-    // Сборка кнопок ответов игрока (Опции) — СУПЕР-СКАНЕР ПО ПОЛЯМ ВВОДА
     const options = [];
-    
-    // 1. Находим абсолютно все инпуты текста кнопок на странице основного диалога
-    const allTitleInputs = document.querySelectorAll('input[id^="optTitle"]');
-    let activeSlotIndex = 0;
-
-    allTitleInputs.forEach(titleInput => {
-        // Проверяем, существует ли инпут и заполнен ли в нём текст
+    // Стало правильно (скачивает абсолютно все созданные ветки от 1 до 34):
+for (let i = 0; i < optionCount; i++) {
+        const titleInput = document.getElementById('optTitle' + i);
+        
+        // Если поле текста кнопки существует и оно не пустое — собираем данные кнопки
         if (titleInput && titleInput.value.trim() !== "") {
             const title = titleInput.value.trim();
             
-            // Находим ближайший общий родительский контейнер для этой конкретной кнопки
-            const parentBlock = titleInput.closest('div') ? titleInput.parentElement.parentElement : null;
-            
-            // Если родительский блок найден, ищем зависимые поля внутри него, иначе ищем по ID
-            const typeSelect = parentBlock ? parentBlock.querySelector('select[id^="optType"], select[id^="optAction"]') : document.getElementById('optType' + activeSlotIndex);
-            const dialogInput = parentBlock ? parentBlock.querySelector('input[id^="optDialog"], input[id^="optNext"]') : document.getElementById('optDialog' + activeSlotIndex);
-            const colorInput = parentBlock ? parentBlock.querySelector('input[id^="optColor"]') : document.getElementById('optColor' + activeSlotIndex);
-            const cmdInput = parentBlock ? parentBlock.querySelector('input[id^="optCmd"], input[id^="optCommand"]') : document.getElementById('optCmd' + activeSlotIndex);
+            // Защищенное считывание остальных полей кнопки (даже если id поменялись, скрипт не упадет)
+            const typeInput = document.getElementById('optType' + i) || document.getElementById('optAction' + i);
+            const dialogInput = document.getElementById('optDialog' + i) || document.getElementById('optNext' + i);
+            const colorInput = document.getElementById('optColor' + i);
+            const cmdInput = document.getElementById('optCmd' + i) || document.getElementById('optCommand' + i);
 
-            const type = typeSelect ? (parseInt(typeSelect.value) || 0) : 0;
+            const type = typeInput ? (parseInt(typeInput.value) || 0) : 0;
             const nextDialog = dialogInput ? (parseInt(dialogInput.value) || -1) : -1;
             const color = colorInput ? (parseInt(colorInput.value) || 14737632) : 14737632;
             const cmd = cmdInput ? cmdInput.value : "";
 
-            const factionIdInp = parentBlock ? parentBlock.querySelector('input[id^="optFactionId"]') : document.getElementById('optFactionId' + activeSlotIndex);
-            const factionPointsInp = parentBlock ? parentBlock.querySelector('input[id^="optFactionPoints"]') : document.getElementById('optFactionPoints' + activeSlotIndex);
-            const factionDecInp = parentBlock ? parentBlock.querySelector('input[id^="optFactionDec"]') : document.getElementById('optFactionDec' + activeSlotIndex);
+            // ДОПИСАТЬ СБОР ФРАКЦИЙ ВНУТРЬ ЦИКЛА ГЕНЕРАТОРА:
+            const factionIdInp = document.getElementById('optFactionId' + i);
+            const factionPointsInp = document.getElementById('optFactionPoints' + i);
+            const factionDecInp = document.getElementById('optFactionDec' + i);
 
             const factionId = factionIdInp ? (parseInt(factionIdInp.value) || -1) : -1;
             const factionPoints = factionPointsInp ? (parseInt(factionPointsInp.value) || 100) : 100;
             const factionDec = (factionDecInp && factionDecInp.checked) ? "1b" : "0b";
 
-            // Записываем кнопку в массив с соблюдением строгого каноничного порядка CustomNPCs
+
             options.push({
-                "OptionSlot": activeSlotIndex,
+                "OptionSlot": i,
                 "Option": {
-                    "DialogCommand": cmd,
-                    "Dialog": nextDialog,
                     "Title": title,
-                    "DialogColor": color,
                     "OptionType": type,
+                    "Dialog": nextDialog,
+                    "DialogColor": color,
+                    "DialogCommand": cmd,
+                    // ВОТ ЭТИ СТРОЧКИ ПРИВЯЗЫВАЕМ К МОДУ CUSTOMNPCs:
                     "OptionFactions1": factionId,
                     "OptionFactions2": -1,
                     "OptionFaction1Points": factionPoints,
@@ -2683,100 +2649,86 @@ function generateAndDownload() {
                     "DecreaseFaction2Points": "0b"
                 }
             });
-            activeSlotIndex++;
+
         }
-    });
-
-
+    }
 
     // Каноничный шаблон структуры CustomNPCs
-    // =========================================================================
-    // ЖЕЛЕЗОБЕТОННЫЙ ГЕНЕРАТОР ТЕКСТА JSON ДЛЯ CUSTOMNPCs (БЕЗ СБОЕВ ПОРЯДКА КЛЮЧЕЙ)
-    // =========================================================================
-
-    // =========================================================================
-    // ТОЧНЫЙ ТЕКСТОВЫЙ ШАБЛОН ПОД ОРИГИНАЛ ИЗ ИГРЫ (1 В 1 ПО СКРИНШОТАМ)
-    // =========================================================================
-
-    // 1. Собираем блок кнопок в текстовом формате строго по левому образцу
-    const formattedOptions = options.map(opt => {
-        return `        {
-            "OptionSlot": ${opt.OptionSlot},
-            "Option": {
-                "Title": "${opt.Option.Title}",
-                "OptionType": ${opt.Option.OptionType},
-                "Dialog": ${opt.Option.Dialog},
-                "DialogColor": ${opt.Option.DialogColor},
-                "DialogCommand": "${opt.Option.DialogCommand}"
-            }
-        }`;
-    }).join(",\n");
-
-    // 2. Собираем корень файла строго в той последовательности, как на левой панели Notepad++
-    const jsonString = `{
-    "DialogId": ${dialogId},
-    "DialogTitle": "${dialogTitle}",
-    "DialogText": "${dialogText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "DialogQuest": ${dialogQuest},
-    "DialogCommand": "${dialogCommand}",
-    "DialogMail": {
-        "Subject": "",
-        "Sender": "",
-        "Time": 0L,
-        "BeenRead": 0b,
-        "Message": {
+    const fullNbtStructure = {
+        "DialogId": dialogId,
+        "DialogTitle": dialogTitle,
+        "DialogText": dialogText,
+        "DialogQuest": dialogQuest,
+        "DialogCommand": dialogCommand,
+        "DialogMail": {
+            "Subject": "",
+            "Sender": "",
+            "Time": "0L",
+            "BeenRead": "0b",
+            "Message": {},
+            "TimePast": "1786471546922L",
+            "MailQuest": -1,
+            "MailItems": []
         },
-        "TimePast": 1790382227790L,
-        "MailQuest": -1,
-        "MailItems": [
-        ]
-    },
-    "DialogHideNPC": ${dialogHideNPC},
-    "DialogShowWheel": ${dialogShowWheel},
-    "DialogDisableEsc": ${dialogDisableEsc},
-    "Options": [
-${formattedOptions}
-    ],
-    "ModRev": 18,
-    "AvailabilityDialog": ${availDialogId !== -1 ? 1 : 0},
-    "AvailabilityDialog2": 0,
-    "AvailabilityDialog3": 0,
-    "AvailabilityDialog4": 0,
-    "AvailabilityDialogId": ${availDialogId},
-    "AvailabilityDialog2Id": -1,
-    "AvailabilityDialog3Id": -1,
-    "AvailabilityDialog4Id": -1,
-    "AvailabilityQuest": ${availQuestId !== -1 ? 1 : 0},
-    "AvailabilityQuest2": 0,
-    "AvailabilityQuest3": 0,
-    "AvailabilityQuest4": 0,
-    "AvailabilityQuestId": ${availQuestId},
-    "AvailabilityQuest2Id": -1,
-    "AvailabilityQuest3Id": -1,
-    "AvailabilityQuest4Id": -1,
-    "AvailabilityFaction": ${availFactionId1 !== -1 ? 1 : 0},
-    "AvailabilityFaction2": ${availFactionId2 !== -1 ? 1 : 0},
-    "AvailabilityFactionStance": ${availFactionStance1},
-    "AvailabilityFaction2Stance": ${availFactionStance2},
-    "AvailabilityFactionId": ${availFactionId1},
-    "AvailabilityFaction2Id": ${availFactionId2},
-    "AvailabilityScoreboardObjective": "${availScoreboardObj}",
-    "AvailabilityScoreboard2Objective": "",
-    "AvailabilityScoreboardType": 1,
-    "AvailabilityScoreboard2Type": 1,
-    "AvailabilityScoreboardValue": 1,
-    "AvailabilityScoreboard2Value": 1,
-    "AvailabilityDayTime": ${availDayTime},
-    "AvailabilityMinPlayerLevel": ${availMinLevel},
-    "OptionFactions1": -1,
-    "OptionFactions2": -1,
-    "OptionFaction1Points": 100,
-    "OptionFaction2Points": 100,
-    "DecreaseFaction1Points": 0b,
-    "DecreaseFaction2Points": 0b
-}`;
+        "DialogHideNPC": dialogHideNPC,
+        "DialogShowWheel": dialogShowWheel,
+        "DialogDisableEsc": dialogDisableEsc,
+        "Options": options,
+        "ModRev": 18,
+        
+        // --- Изменено под окно условий квестов ---
+        "AvailabilityDialog": availDialogId !== -1 ? 1 : 0, // Включаем проверку, если ID не равен -1
+        "AvailabilityDialog2": 0,
+        "AvailabilityDialog3": 0,
+        "AvailabilityDialog4": 0,
+        "AvailabilityDialogId": availDialogId, // Привязали к ID диалога из формы
+        "AvailabilityDialog2Id": -1,
+        "AvailabilityDialog3Id": -1,
+        "AvailabilityDialog4Id": -1,
+        
+        "AvailabilityQuest": availQuestId !== -1 ? 1 : 0, // Включаем проверку, если ID не равен -1
+        "AvailabilityQuest2": 0,
+        "AvailabilityQuest3": 0,
+        "AvailabilityQuest4": 0,
+        "AvailabilityQuestId": availQuestId, // Привязали к ID квеста из формы
+        "AvailabilityQuest2Id": -1,
+        "AvailabilityQuest3Id": -1,
+        "AvailabilityQuest4Id": -1,
+        
+        "AvailabilityFaction": availFactionId1 !== -1 ? 1 : 0,
+        "AvailabilityFaction2": availFactionId2 !== -1 ? 1 : 0,
+        "AvailabilityFactionStance": availFactionStance1, // Привязали к репутации 1
+        "AvailabilityFaction2Stance": availFactionStance2, // Привязали к репутации 2
+        "AvailabilityFactionId": availFactionId1, // Привязали к ID фракции 1
+        "AvailabilityFaction2Id": availFactionId2, // Привязали к ID фракции 2
+        
+        "AvailabilityScoreboardObjective": availScoreboardObj, // Привязали к тексту скорборда
+        "AvailabilityScoreboard2Objective": "",
+        "AvailabilityScoreboardType": 1,
+        "AvailabilityScoreboard2Type": 1,
+        "AvailabilityScoreboardValue": 1,
+        "AvailabilityScoreboard2Value": 1,
+        
+        "AvailabilityDayTime": availDayTime, // Привязали к выбору времени суток (Сутки/День/Ночь)
+        "AvailabilityMinPlayerLevel": availMinLevel, // Привязали к уровню опыта
+        // ----------------------------------------
 
-    // 3. Стандартный безопасный запуск скачивания собранной строки
+        "OptionFactions1": -1,
+        "OptionFactions2": -1,
+        "OptionFaction1Points": 100,
+        "OptionFaction2Points": 100,
+        "DecreaseFaction1Points": "0b",
+        "DecreaseFaction2Points": "0b"
+    };
+
+    // Сериализация и хак типов NBT под требования CustomNPCs
+    let jsonString = JSON.stringify(fullNbtStructure, null, 4);
+    jsonString = jsonString.split('"0b"').join('0b');
+    jsonString = jsonString.split('"1b"').join('1b');
+    jsonString = jsonString.split('"0L"').join('0L');
+    jsonString = jsonString.split('"1786471546922L"').join('1786471546922L');
+
+    // Генерация и скачивание файла диалога
     const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -2786,13 +2738,21 @@ ${formattedOptions}
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-} // Конец функции generateAndDownload
+}
 
-
-
-
-
-// Функция точечного скачивания дополнительного диалога из ленты (ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ С ПРИНУДИТЕЛЬНЫМ ПОРЯДКОМ NBT)
+// Функция быстрой очистки верхнего текстового поля NPC
+function clearNpcTextField() {
+    const dialogText = document.getElementById('dialogText');
+    if (dialogText) {
+        if (dialogText.value.trim() !== "") {
+            if (confirm("Вы уверены, что хотите полностью стереть текст реплики NPC?")) {
+                dialogText.value = "";
+            }
+        }
+    }
+}
+// Функция точечного скачивания дополнительного диалога из ленты
+// Функция точечного скачивания дополнительного диалога из ленты (ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ)
 function downloadExtraDialogJson(extraId) {
     // Сбор условий доступности для дополнительного диалога из ленты
     const avDId = parseInt(document.getElementById(`extraAvailDialogId_${extraId}`).value) || -1;
@@ -2804,6 +2764,7 @@ function downloadExtraDialogJson(extraId) {
     const avStance2 = parseInt(document.getElementById(`extraAvailFactionStance2_${extraId}`).value) || 0;
     const avTime = parseInt(document.getElementById(`extraAvailDayTime_${extraId}`).value) || 0;
     const avLevel = parseInt(document.getElementById(`extraAvailMinLevel_${extraId}`).value) || 0;
+
 
     const dialogId = parseInt(document.getElementById(`extraDialogId_${extraId}`).value) || 1;
     const dialogTitle = document.getElementById(`extraDialogTitle_${extraId}`).value || "Chain Part";
@@ -2836,15 +2797,10 @@ function downloadExtraDialogJson(extraId) {
                 const color = parseInt(document.getElementById(`extra_${extraId}_optColor_${slot}`).value) || 14737632;
                 const cmd = document.getElementById(`extra_${extraId}_optCmd_${slot}`).value || "";
 
-                // ВАЖНО: Соблюдаем порядок ключей даже для вложенного Option
                 options.push({
                     "OptionSlot": activeSlotIndex,
                     "Option": {
-                        "DialogCommand": cmd,
-                        "Dialog": nextD,
-                        "Title": title,
-                        "DialogColor": color,
-                        "OptionType": type
+                        "Title": title, "OptionType": type, "Dialog": nextD, "DialogColor": color, "DialogCommand": cmd
                     }
                 });
                 activeSlotIndex++;
@@ -2852,143 +2808,63 @@ function downloadExtraDialogJson(extraId) {
         }
     }
 
+    // ИСПРАВЛЕНО: Переменные привязаны к структуре вместо жёстких "0b"
     const structure = {
-        "DialogShowWheel": dialogShowWheel,
-        "AvailabilityQuestId": avQId,
-        "Options": options,
-        "AvailabilityScoreboardType": 1,
-        "DialogHideNPC": dialogHideNPC,
-        "AvailabilityFactionStance": avStance1,
-        "AvailabilityScoreboard2Value": 1,
         "DialogId": dialogId,
-        "AvailabilityQuest": avQId !== -1 ? 1 : 0,
-        "AvailabilityDialog4": 0,
-        "AvailabilityScoreboardObjective": avScoreboard,
-        "AvailabilityDialog3": 0,
-        "AvailabilityQuest2": 0,
-        "AvailabilityQuest3": 0,
-        "AvailabilityScoreboard2Objective": "",
-        "AvailabilityQuest4": 0,
-        "ModRev": 18,
-        "DecreaseFaction1Points": "0b",
-        "DialogQuest": dialogQuest,
-        "AvailabilityDialog2": 0,
-        "OptionFactions1": -1,
-        "AvailabilityDayTime": avTime,
-        "OptionFactions2": -1,
-        "AvailabilityFaction2Id": avFact2,
-        "OptionFaction1Points": 100,
-        "AvailabilityScoreboardValue": 1,
-        "DialogDisableEsc": dialogDisableEsc,
-        "AvailabilityFaction": avFact1 !== -1 ? 1 : 0,
         "DialogTitle": dialogTitle,
-        "AvailabilityDialog": avDId !== -1 ? 1 : 0,
-        "AvailabilityScoreboard2Type": 1,
-        "AvailabilityFaction2": avFact2 !== -1 ? 1 : 0,
-        "AvailabilityFactionId": avFact1,
-        "AvailabilityFaction2Stance": avStance2,
-        "DialogCommand": dialogCommand,
-        "AvailabilityDialogId": avDId,
-        "OptionFaction2Points": 100,
         "DialogText": dialogText,
-        "AvailabilityQuest4Id": -1,
-        "AvailabilityQuest3Id": -1,
-        "AvailabilityQuest2Id": -1,
+        "DialogQuest": dialogQuest,
+        "DialogCommand": dialogCommand,
+        "DialogMail": { "Subject": "", "Sender": "", "Time": "0L", "BeenRead": "0b", "Message": {}, "TimePast": "1786471546922L", "MailQuest": -1, "MailItems": [] },
+        "DialogHideNPC": dialogHideNPC,
+        "DialogShowWheel": dialogShowWheel,
+        "DialogDisableEsc": dialogDisableEsc,
+        "Options": options,
+        "ModRev": 18,
+        "AvailabilityDialog": avDId !== -1 ? 1 : 0,
+        "AvailabilityDialog2": 0,
+        "AvailabilityDialog3": 0,
+        "AvailabilityDialog4": 0,
+        "AvailabilityDialogId": avDId,
         "AvailabilityDialog2Id": -1,
         "AvailabilityDialog3Id": -1,
         "AvailabilityDialog4Id": -1,
+        
+        "AvailabilityQuest": avQId !== -1 ? 1 : 0,
+        "AvailabilityQuest2": 0,
+        "AvailabilityQuest3": 0,
+        "AvailabilityQuest4": 0,
+        "AvailabilityQuestId": avQId,
+        "AvailabilityQuest2Id": -1,
+        "AvailabilityQuest3Id": -1,
+        "AvailabilityQuest4Id": -1,
+        
+        "AvailabilityFaction": avFact1 !== -1 ? 1 : 0,
+        "AvailabilityFaction2": avFact2 !== -1 ? 1 : 0,
+        "AvailabilityFactionStance": avStance1,
+        "AvailabilityFaction2Stance": avStance2,
+        "AvailabilityFactionId": avFact1,
+        "AvailabilityFaction2Id": avFact2,
+        
+        "AvailabilityScoreboardObjective": avScoreboard, // ИСПРАВЛЕНО: Переменная на своем месте!
+        "AvailabilityScoreboard2Objective": "",
+        "AvailabilityScoreboardType": 1,
+        "AvailabilityScoreboard2Type": 1,
+        "AvailabilityScoreboardValue": 1,
+        "AvailabilityScoreboard2Value": 1,
+        
+        "AvailabilityDayTime": avTime,
         "AvailabilityMinPlayerLevel": avLevel,
-        "DecreaseFaction2Points": "0b",
-        "DialogMail": { "Sender": "", "BeenRead": "0b", "Message": {}, "MailItems": [], "MailQuest": -1, "TimePast": "1786471546922L", "Time": "0L", "Subject": "" }
+        "OptionFactions1": -1, "OptionFactions2": -1, "OptionFaction1Points": 100, "OptionFaction2Points": 100, "DecreaseFaction1Points": "0b", "DecreaseFaction2Points": "0b"
     };
 
-    // =========================================================================
-    // СУПЕР-ФИКС ПОРЯДКА КЛЮЧЕЙ И ВЛОЖЕННЫХ ОБЪЕКТОВ ДЛЯ CUSTOMNPCs
-    // =========================================================================
+    let jsonString = JSON.stringify(structure, null, 4);
+    jsonString = jsonString.split('"0b"').join('0b');
+    jsonString = jsonString.split('"1b"').join('1b'); // Добавлена замена для включенных чекбоксов
+    jsonString = jsonString.split('"0l"').join('0L');
+    jsonString = jsonString.split('"0L"').join('0L');
+    jsonString = jsonString.split('"1786471546922L"').join('1786471546922L');
 
-    // =========================================================================
-    // ЖЕЛЕЗОБЕТОННЫЙ ТЕКСТОВЫЙ ШАБЛОН ДЛЯ ДОПОЛНИТЕЛЬНЫХ ДИАЛОГОВ ИЗ ЛЕНТЫ
-    // =========================================================================
-
-    // 1. Форматируем массив опций (кнопок) доп. диалога
-    const formattedOptions = options.map(opt => {
-        return `        {
-            "OptionSlot": ${opt.OptionSlot},
-            "Option": {
-                "Title": "${opt.Option.Title}",
-                "OptionType": ${opt.Option.OptionType},
-                "Dialog": ${opt.Option.Dialog},
-                "DialogColor": ${opt.Option.DialogColor},
-                "DialogCommand": "${opt.Option.DialogCommand}"
-            }
-        }`;
-    }).join(",\n");
-
-    // 2. Собираем финальный текст файла 1 в 1 как основной диалог
-    const jsonString = `{
-    "DialogId": ${dialogId},
-    "DialogTitle": "${dialogTitle}",
-    "DialogText": "${dialogText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "DialogQuest": ${dialogQuest},
-    "DialogCommand": "${dialogCommand}",
-    "DialogMail": {
-        "Subject": "",
-        "Sender": "",
-        "Time": 0L,
-        "BeenRead": 0b,
-        "Message": {
-        },
-        "TimePast": 1790382227790L,
-        "MailQuest": -1,
-        "MailItems": [
-        ]
-    },
-    "DialogHideNPC": ${dialogHideNPC},
-    "DialogShowWheel": ${dialogShowWheel},
-    "DialogDisableEsc": ${dialogDisableEsc},
-    "Options": [
-${formattedOptions}
-    ],
-    "ModRev": 18,
-    "AvailabilityDialog": ${avDId !== -1 ? 1 : 0},
-    "AvailabilityDialog2": 0,
-    "AvailabilityDialog3": 0,
-    "AvailabilityDialog4": 0,
-    "AvailabilityDialogId": ${avDId},
-    "AvailabilityDialog2Id": -1,
-    "AvailabilityDialog3Id": -1,
-    "AvailabilityDialog4Id": -1,
-    "AvailabilityQuest": ${avQId !== -1 ? 1 : 0},
-    "AvailabilityQuest2": 0,
-    "AvailabilityQuest3": 0,
-    "AvailabilityQuest4": 0,
-    "AvailabilityQuestId": ${avQId},
-    "AvailabilityQuest2Id": -1,
-    "AvailabilityQuest3Id": -1,
-    "AvailabilityQuest4Id": -1,
-    "AvailabilityFaction": ${avFact1 !== -1 ? 1 : 0},
-    "AvailabilityFaction2": ${avFact2 !== -1 ? 1 : 0},
-    "AvailabilityFactionStance": ${avStance1},
-    "AvailabilityFaction2Stance": ${avStance2},
-    "AvailabilityFactionId": ${avFact1},
-    "AvailabilityFaction2Id": ${avFact2},
-    "AvailabilityScoreboardObjective": "${avScoreboard}",
-    "AvailabilityScoreboard2Objective": "",
-    "AvailabilityScoreboardType": 1,
-    "AvailabilityScoreboard2Type": 1,
-    "AvailabilityScoreboardValue": 1,
-    "AvailabilityScoreboard2Value": 1,
-    "AvailabilityDayTime": ${avTime},
-    "AvailabilityMinPlayerLevel": ${avLevel},
-    "OptionFactions1": -1,
-    "OptionFactions2": -1,
-    "OptionFaction1Points": 100,
-    "OptionFaction2Points": 100,
-    "DecreaseFaction1Points": 0b,
-    "DecreaseFaction2Points": 0b
-}`;
-
-    // 3. Скачивание готового файла браузером
     const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -2998,93 +2874,7 @@ ${formattedOptions}
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-} // Конец функции downloadExtraDialogJson
-
-
-
-// Функция-конвертер: превращает собранный объект диалога в правильный текст для CustomNPCs
-function convertDialogToCorrectText(d) {
-    // Безопасно преобразуем массив кнопок в текстовый формат
-    const formattedOptions = (d.Options || []).map(opt => {
-        return `        {
-            "OptionSlot": ${opt.OptionSlot},
-            "Option": {
-                "Title": "${opt.Option.Title}",
-                "OptionType": ${opt.Option.OptionType},
-                "Dialog": ${opt.Option.Dialog},
-                "DialogColor": ${opt.Option.DialogColor},
-                "DialogCommand": "${opt.Option.DialogCommand}"
-            }
-        }`;
-    }).join(",\n");
-
-    // Возвращаем идеальную строку
-    return `{
-    "DialogId": ${d.DialogId || 1},
-    "DialogTitle": "${d.DialogTitle || "Start"}",
-    "DialogText": "${(d.DialogText || "").replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "DialogQuest": ${d.DialogQuest !== undefined ? d.DialogQuest : -1},
-    "DialogCommand": "${d.DialogCommand || ""}",
-    "DialogMail": {
-        "Subject": "",
-        "Sender": "",
-        "Time": 0L,
-        "BeenRead": 0b,
-        "Message": {
-        },
-        "TimePast": 1790382227790L,
-        "MailQuest": -1,
-        "MailItems": [
-        ]
-    },
-    "DialogHideNPC": ${d.DialogHideNPC || "0b"},
-    "DialogShowWheel": ${d.DialogShowWheel || "0b"},
-    "DialogDisableEsc": ${d.DialogDisableEsc || "0b"},
-    "Options": [
-${formattedOptions}
-    ],
-    "ModRev": 18,
-    "AvailabilityDialog": ${d.AvailabilityDialog || 0},
-    "AvailabilityDialog2": 0,
-    "AvailabilityDialog3": 0,
-    "AvailabilityDialog4": 0,
-    "AvailabilityDialogId": ${d.AvailabilityDialogId !== undefined ? d.AvailabilityDialogId : -1},
-    "AvailabilityDialog2Id": -1,
-    "AvailabilityDialog3Id": -1,
-    "AvailabilityDialog4Id": -1,
-    "AvailabilityQuest": ${d.AvailabilityQuest || 0},
-    "AvailabilityQuest2": 0,
-    "AvailabilityQuest3": 0,
-    "AvailabilityQuest4": 0,
-    "AvailabilityQuestId": ${d.AvailabilityQuestId !== undefined ? d.AvailabilityQuestId : -1},
-    "AvailabilityQuest2Id": -1,
-    "AvailabilityQuest3Id": -1,
-    "AvailabilityQuest4Id": -1,
-    "AvailabilityFaction": ${d.AvailabilityFaction || 0},
-    "AvailabilityFaction2": ${d.AvailabilityFaction2 || 0},
-    "AvailabilityFactionStance": ${d.AvailabilityFactionStance || 0},
-    "AvailabilityFaction2Stance": ${d.AvailabilityFaction2Stance || 0},
-    "AvailabilityFactionId": ${d.AvailabilityFactionId !== undefined ? d.AvailabilityFactionId : -1},
-    "AvailabilityFaction2Id": ${d.AvailabilityFaction2Id !== undefined ? d.AvailabilityFaction2Id : -1},
-    "AvailabilityScoreboardObjective": "${d.AvailabilityScoreboardObjective || ""}",
-    "AvailabilityScoreboard2Objective": "",
-    "AvailabilityScoreboardType": 1,
-    "AvailabilityScoreboard2Type": 1,
-    "AvailabilityScoreboardValue": 1,
-    "AvailabilityScoreboard2Value": 1,
-    "AvailabilityDayTime": ${d.AvailabilityDayTime || 0},
-    "AvailabilityMinPlayerLevel": ${d.AvailabilityMinPlayerLevel || 0},
-    "OptionFactions1": -1,
-    "OptionFactions2": -1,
-    "OptionFaction1Points": 100,
-    "OptionFaction2Points": 100,
-    "DecreaseFaction1Points": 0b,
-    "DecreaseFaction2Points": 0b
-}`;
 }
-
-
-
 
 // Логика плавного выдвижения боковой панели заметок (БРОНЕБОЙНАЯ)
 // 1. Создаем переменную-флаг СТРОГО ВЫШЕ самой функции (вне её тела)
@@ -3139,21 +2929,18 @@ function addOptionToExtraDialog(extraDialogId) {
             <strong><span data-i18n="lbl_opt_btn">${lang.lbl_opt_btn || "Кнопка"}</span> ${slot + 1} (<span data-i18n="lbl_opt_slot">${lang.lbl_opt_slot || "Слот"}</span> ${slot})</strong>
             ${deleteBtnHtml}
         </div>
-<div style="display: flex; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box;">
-    <input type="text" id="extra_${extraDialogId}_optTitle_${slot}" data-i18n-ph="ph_opt_title" placeholder="${lang.ph_opt_title || "Текст ответа игрока..."}" style="width:100%; padding: 8px;">
-    <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%;">
-        <div style="flex: 2; min-width: 110px;">
-            <select id="extra_${extraDialogId}_optType_${slot}" style="width:100%; padding: 6px; height: 34px;">
-                <option value="0" data-i18n="opt_type_0">${lang.opt_type_0 || "Закрыть окно (0)"}</option>
-                <option value="1" data-i18n="opt_type_1">${lang.opt_type_1 || "Переход к диалогу (1)"}</option>
-                <option value="2" data-i18n="opt_type_2">${lang.opt_type_2 || "Выполнить команду / Командный блок (2)"}</option>
-                <option value="3" data-i18n="opt_type_3">${lang.opt_type_3 || "Открыть Роль NPC / Торговца (3)"}</option>
-            </select>
-        </div>
-        <div style="flex: 1; min-width: 60px;"><input type="number" id="extra_${extraDialogId}_optDialog_${slot}" value="-1" style="width:100%; padding: 6px;"></div>
-        <div style="flex: 1; min-width: 90px;"><input type="text" id="extra_${extraDialogId}_optColor_${slot}" value="14737632" style="width:100%; padding: 6px;"></div>
-    </div>
-
+        <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box;">
+            <input type="text" id="extra_${extraDialogId}_optTitle_${slot}" data-i18n-ph="ph_opt_title" placeholder="${lang.ph_opt_title || "Текст ответа игрока..."}" style="width:100%; padding: 8px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%;">
+                <div style="flex: 2; min-width: 110px;">
+                    <select id="extra_${extraDialogId}_optType_${slot}" style="width:100%; padding: 6px; height: 34px;">
+                        <option value="1" data-i18n="opt_type_1">${lang.opt_type_1 || "Переход к диалогу (1)"}</option>
+                        <option value="0" data-i18n="opt_type_0">${lang.opt_type_0 || "Закрыть окно (0)"}</option>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 60px;"><input type="number" id="extra_${extraDialogId}_optDialog_${slot}" value="-1" style="width:100%; padding: 6px;"></div>
+                <div style="flex: 1; min-width: 90px;"><input type="text" id="extra_${extraDialogId}_optColor_${slot}" value="14737632" style="width:100%; padding: 6px;"></div>
+            </div>
             <input type="text" id="extra_${extraDialogId}_optCmd_${slot}" data-i18n-ph="ph_opt_cmd" placeholder="${lang.ph_opt_cmd || "Консольная команда при нажатии кнопки..."}" style="width:100%; padding: 6px;">
             
             <div style="margin-top: 8px; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
@@ -3809,111 +3596,72 @@ function generateAndDownloadQuestBase() {
 // Функция точечного скачивания дополнительного квеста из ленты
 // Функция скачивания ДОПОЛНИТЕЛЬНОГО квеста из ленты
 function downloadExtraQuestJson(extraId) {
-
-    // 1. Находим родительский блок текущего доп. задания на странице
-    const block = document.getElementById(`extraQuestBlock_${extraId}`) || document.querySelector(`.section`);
-    if (!block) {
-        console.error(`Ошибка: Блок extraQuestBlock_${extraId} не найден на странице!`);
-        return;
-    }
-
-        // 2. ИСПРАВЛЕНО: Прямой и точный поиск элементов по их железным ID
-    const qIdInp = document.getElementById(`extraQuestId_${extraId}`);
-    const qTitleInp = document.getElementById(`extraQuestTitle_${extraId}`);
-    const qTextInp = document.getElementById(`extraQuestText_${extraId}`);
-    const qCompleterInp = document.getElementById(`extraQuestCompleter_${extraId}`);
-    const qNextIdInp = document.getElementById(`extraQuestNextId_${extraId}`);
-    const qRepeatInp = document.getElementById(`extraQuestRepeat_${extraId}`);
-    const qCompletionInp = document.getElementById(`extraQuestCompletion_${extraId}`);
-    const qCompleteTextInp = document.getElementById(`extraQuestCompleteText_${extraId}`);
+    const qId = parseInt(document.getElementById(`extraQuestId_${extraId}`).value) || 1;
+    const qTitle = document.getElementById(`extraQuestTitle_${extraId}`).value || "";
+    const qText = document.getElementById(`extraQuestText_${extraId}`).value || "";
+    const qCompleter = document.getElementById(`extraQuestCompleter_${extraId}`).value || "";
+    const qNextId = parseInt(document.getElementById(`extraQuestNextId_${extraId}`).value) || -1;
+    const qRepeat = parseInt(document.getElementById(`extraQuestRepeat_${extraId}`).value) || 0;
+    const qCompletion = parseInt(document.getElementById(`extraQuestCompletion_${extraId}`).value) || 0;
+    const qCompleteText = document.getElementById(`extraQuestCompleteText_${extraId}`).value || "";
     
-    const qTypeInp = document.getElementById(`extraQuestType_${extraId}`);
-    const qCommandInp = document.getElementById(`extraQuestCommand_${extraId}`);
-    const qRewardExpInp = document.getElementById(`extraQuestRewardExp_${extraId}`);
+    // Доп. поля для цепочки
+    const qType = document.getElementById(`extraQuestType_${extraId}`) ? parseInt(document.getElementById(`extraQuestType_${extraId}`).value) : 0;
+    const qCommand = document.getElementById(`extraQuestCommand_${extraId}`) ? document.getElementById(`extraQuestCommand_${extraId}`).value : "";
+    const qRewardExp = document.getElementById(`extraQuestRewardExp_${extraId}`) ? parseInt(document.getElementById(`extraQuestRewardExp_${extraId}`).value) : 0;
 
     const rwdEl = document.getElementById(`extraQuestRandomReward_${extraId}`);
     const ignEl = document.getElementById(`extraQuestIgnoreNBT_${extraId}`);
     const lveEl = document.getElementById(`extraQuestLeaveItems_${extraId}`);
 
-    // 3. Безопасно вытягиваем значения (если элемент отсутствует, подставим дефолт и скрипт не упадёт!)
-    const qId = qIdInp ? (parseInt(qIdInp.value) || extraId) : extraId;
-    const qTitle = (qTitleInp && qTitleInp.value.trim() !== "") ? qTitleInp.value.trim() : "Задание " + qId;
-    const qText = qTextInp ? qTextInp.value : "";
-    const qCompleter = qCompleterInp ? qCompleterInp.value : "";
-    const qNextId = qNextIdInp ? (parseInt(qNextIdInp.value) || -1) : -1;
-    const qRepeat = qRepeatInp ? (parseInt(qRepeatInp.value) || 0) : 0;
-    const qCompletion = qCompletionInp ? (parseInt(qCompletionInp.value) || 0) : 0;
-    const qCompleteText = qCompleteTextInp ? qCompleteTextInp.value : "";
-    
-    const qType = qTypeInp ? (parseInt(qTypeInp.value) || 0) : 0;
-    const qCommand = qCommandInp ? qCommandInp.value : "";
-    const qRewardExp = qRewardExpInp ? (parseInt(qRewardExpInp.value) || 0) : 0;
-
     const questRandomReward = (rwdEl && rwdEl.checked) ? "1b" : "0b";
     const questIgnoreNBT = (ignEl && ignEl.checked) ? "1b" : "0b";
     const questLeaveItems = (lveEl && lveEl.checked) ? "1b" : "0b";
 
-    // 4. Текстовая сборка структуры квеста строка в строку под каноны CustomNPCs
-    const jsonString = `{
-    "CompleterNpc": "${qCompleter}",
-    "NextQuestId": ${qNextId},
-    "RandomReward": ${questRandomReward},
-    "QuestRepeat": ${qRepeat},
-    "QuestCompletion": ${qCompletion},
-    "IgnoreNBT": ${questIgnoreNBT},
-    "Title": "${qTitle}",
-    "Text": "${qText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "QuestFactionPoints": {
-        "DecreaseFaction1Points": 0b,
-        "OptionFaction2Points": 100,
-        "OptionFactions1": -1,
-        "OptionFactions2": -1,
-        "OptionFaction1Points": 100,
-        "DecreaseFaction2Points": 0b
-    },
-    "RewardExp": ${qRewardExp},
-    "QuestCommand": "${qCommand}",
-    "ModRev": 18,
-    "Type": ${qType},
-    "QuestMail": {
-        "Sender": "",
-        "BeenRead": 0b,
-        "Message": {
+    const structure = {
+        "CompleterNpc": qCompleter,
+        "NextQuestId": qNextId,
+        "RandomReward": questRandomReward,
+        "QuestRepeat": qRepeat,
+        "QuestCompletion": qCompletion,
+        "IgnoreNBT": questIgnoreNBT,
+        "Title": qTitle,
+        "Text": qText,
+        "QuestFactionPoints": {
+            "DecreaseFaction1Points": "0b", "OptionFaction2Points": 100, "OptionFactions1": -1, "OptionFactions2": -1, "OptionFaction1Points": 100, "DecreaseFaction2Points": "0b"
         },
-        "MailItems": [
-        ],
-        "MailQuest": -1,
-        "TimePast": 1790993935351L,
-        "Time": 0L,
-        "Subject": ""
-    },
-    "IgnoreDamage": 0b,
-    "Rewards": {
-        "NpcMiscInv": [
-        ]
-    },
-    "Items": {
-        "NpcMiscInv": [
-        ]
-    },
-    "LeaveItems": ${questLeaveItems},
-    "CompleteText": "${qCompleteText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "NextQuestTitle": ""
-}`;
+        "RewardExp": qRewardExp,
+        "QuestCommand": qCommand,
+        "ModRev": 18,
+        "Type": qType,
+        "QuestMail": { "Sender": "", "BeenRead": "0b", "Message": {}, "MailItems": [], "MailQuest": -1, "TimePast": "1789608206550L", "Time": "0L", "Subject": "" },
+        "IgnoreDamage": "0b",
+        "Rewards": { "NpcMiscInv": [] },
+        "Items": { "NpcMiscInv": [] },
+        "LeaveItems": questLeaveItems,
+        "CompleteText": qCompleteText,
+        "NextQuestTitle": ""
+    };
 
-    // 5. Безопасное скачивание готового файла браузером
+    let jsonString = JSON.stringify(structure, null, 4);
+    jsonString = jsonString.split('"0b"').join('0b');
+    jsonString = jsonString.split('"1b"').join('1b');
+    jsonString = jsonString.split('"0L"').join('0L');
+    jsonString = jsonString.split('"1789608206550L"').join('1789608206550L');
+    jsonString = jsonString.split('"Message": {}').join('"Message": {\n        }');
+    jsonString = jsonString.split('"MailItems": []').join('"MailItems": [\n        ]');
+    jsonString = jsonString.split('"NpcMiscInv": []').join('"NpcMiscInv": [\n        ]');
+
     const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = qId + ".json";
+    a.download = "quest_" + qId + ".json";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-}
-
-
+} // <-- СКОБКА, КОТОРАЯ ЗАКРЫВАЕТ ФУНКЦИЮ СКАЧИВАНИЯ ДОП. КВЕСТА!
 
 // Переменная-держатель состояния левой панели
 let isCheatSheetOpen = false;
@@ -4302,43 +4050,6 @@ function changeLanguage(lang) {
             el.setAttribute('title', langData[lang][key]);
         }
     });
-
-const currentLang = typeof lang !== 'undefined' ? lang : 'ru'; // получаем активный язык
-
-// 1. Локализация всплывающих подсказок (title) для кнопок в квестах и скриптах
-const saveBtn = document.querySelector('button[onclick*="QuestBase"], button[onclick*="generateAndDownload"]');
-const chainBtn = document.querySelector('button[onclick*="QuestChain"], button[onclick*="createNewQuestChainBlock"]');
-const simBtn = document.querySelector('button[onclick*="QuestMonitor"], button[onclick*="openQuestMonitor"]');
-const helpBtn = document.querySelector('button[onclick*="openScriptGuideModal"]');
-const particleBtn = document.querySelector('button[onclick*="openParticlePreviewer"]');
-
-// База строк для подсказок
-const titleTranslations = {
-    ru: { save: "Сохранить файл", chain: "Добавить дополнительное задание", sim: "📊 Тестировать цепочку заданий", help: "❓ Справка по скриптам", particle: "📺 Открыть монитор просмотра частиц", resetBg: "❌ Сбросить фон на дефолтный", setBg: "🖼️ Установить свой фон" },
-    en: { save: "Save file", chain: "Add extra quest", sim: "📊 Test quest chain", help: "❓ Scripting Guide", particle: "📺 Open particle previewer", resetBg: "❌ Reset background to default", setBg: "🖼️ Set custom background"   },
-    ja: { save: "ファイルを保存", chain: "サブクエストを追加", sim: "📊 クエストチェーンをテスト", help: "❓ スクリプトガイド", particle: "📺 パーティクルビューアを開く", resetBg: "❌ 背景をデフォルトに戻す", setBg: "🖼️ カスタム背景を設定" },
-    zh: { save: "保存文件", chain: "添加额外任务", sim: "📊 测试任务链", help: "❓ 脚本指南", particle: "📺 打开粒子预览器", resetBg: "❌ 将背景重置为默认值", setBg: "🖼️ 设置自定义背景" }
-};
-
-const t = titleTranslations[currentLang] || titleTranslations['ru'];
-
-if (saveBtn) saveBtn.title = t.save;
-if (chainBtn) chainBtn.title = t.chain;
-if (simBtn) simBtn.title = t.sim;
-if (helpBtn) helpBtn.title = t.help;
-if (particleBtn) particleBtn.title = t.particle;
-
-// 2. Локализация плейсхолдеров (placeholder) в полях ввода, если они ломаются
-const questDescInput = document.querySelector('textarea[id*="Text"]');
-if (questDescInput) {
-    const placeholders = { ru: "Игрок должен сделать...", en: "The player must do...", ja: "プレイヤーがすべきこと...", zh: "玩家需要做的是..." };
-    questDescInput.placeholder = placeholders[currentLang] || placeholders['ru'];
-		}
-const resetBgBtn = document.getElementById('btnResetBg');
-if (resetBgBtn) resetBgBtn.title = t.resetBg;
-
-const setBgBtn = document.getElementById('btnSetBg');
-if (setBgBtn) setBgBtn.title = t.setBg;
 }
 
 // ==========================================================================
@@ -4593,10 +4304,10 @@ const langData = {
 		lbl_opt_title: "Текст ответа:", 
 		ph_opt_title: "Текст, который выберет игрок...",
 		lbl_opt_type: "Действие (OptionType):",
-		opt_type_0: "Закрыть диалог (0)", 
 		opt_type_1: "Переход к диалогу (1)", 
-		opt_type_2: "Выполнить команду / Командный блок (2)", 
-		opt_type_3: "Открыть Роль NPC / Торговца (3)",
+		opt_type_0: "Закрыть диалог (0)", 
+		opt_type_2: "Открыть Роль NPC (2)", 
+		opt_type_3: "Показать Фракцию (3)",
 		lbl_opt_next: "ID следующего диалога:",
 		lbl_opt_color: "Цвет текста кнопки (Decimal):",
 		lbl_opt_cmd: "Команда кнопки:", 
@@ -4674,16 +4385,8 @@ const langData = {
 		"guide_sec3_color_2": "",
 		"guide_sec3_loop_1": "Не пишите бесконечные циклы в",
 		"guide_sec3_loop_2": ", иначе игра зависнет.",
-		"guide_btn_close": "Понятно",
-		"btn_lib_luck": "Удача Лепрекона",
-		"particle_canvas_hint": "Кликните по холсту, чтобы повторить эффект",
-		"particle_monitor_title": "📺 Монитор частиц API 1.12.2",
-		"particle_flame": "Огненное пламя (flame)",
-		"particle_hugeexplosion": "💥 Взрыв Босса (hugeexplosion)",
-		"particle_note": "🎵 Ноты Лутбокса (note)",
-		"particle_happyVillager": "✨ Изумрудная удача (happyVillager)",
-		"particle_lava": "☄️ Искры лавы / Метеор (lava)",
-		"particle_reddust": "🚨 Тревожная пыль (reddust)"
+		"guide_btn_close": "Понятно"
+
    },
     en: {
         tab_dialogs: "📜 Dialogue Creator", 
@@ -4934,15 +4637,8 @@ const langData = {
 		"guide_sec3_color_2": "",
 		"guide_sec3_loop_1": "Avoid infinite loops in",
 		"guide_sec3_loop_2": ", or Minecraft will crash.",
-		"guide_btn_close": "Got it",
-		"particle_canvas_hint": "Click on the canvas to repeat the effect",
-		"particle_monitor_title": "📺 Particle Monitor API 1.12.2",
-		"particle_flame": "Fiery Flame (flame)",
-		"particle_hugeexplosion": "💥 Boss Explosion (hugeexplosion)",
-		"particle_note": "🎵 Lootbox Notes (note)",
-		"particle_happyVillager": "✨ Emerald Luck (happyVillager)",
-		"particle_lava": "☄️ Lava Sparks / Meteor (lava)",
-		"particle_reddust": "🚨 Alarm Dust (reddust)"
+		"guide_btn_close": "Got it"
+
     },
     ja: {
         tab_dialogs: "📜 对话编辑器", 
@@ -5214,15 +4910,8 @@ const langData = {
 		"guide_sec3_color_2": "",
 		"guide_sec3_loop_1": "",
 		"guide_sec3_loop_2": "内に無限ループを書かないでください。ゲームがクラッシュします。",
-		"guide_btn_close": "了解",
-		"particle_canvas_hint": "キャンバスをクリックしてエフェクトを再生",
-		"particle_monitor_title": "📺 パーティクルモニター API 1.12.2",
-		"particle_flame": "火炎パーティクル (flame)",
-		"particle_hugeexplosion": "💥 ボス爆発エフェクト (hugeexplosion)",
-		"particle_note": "🎵 ルートボックスの音符 (note)",
-		"particle_happyVillager": "✨ エメラルドの幸運 (happyVillager)",
-		"particle_lava": "☄️ 溶岩の火花 / メテオ (lava)",
-		"particle_reddust": "🚨 警告のレッドストーン粉 (reddust)"
+		"guide_btn_close": "了解"
+
     },
     zh: {
         tab_dialogs: "📜 对话编辑器", 
@@ -5497,15 +5186,8 @@ const langData = {
 		"guide_sec3_color_2": "",
 		"guide_sec3_loop_1": "切勿在",
 		"guide_sec3_loop_2": "中编写死循环，否则会导致游戏崩溃。",
-		"guide_btn_close": "明白",
-		"particle_canvas_hint": "点击画布以重复效果",
-		"particle_monitor_title": "📺 粒子监视器 API 1.12.2",
-		"particle_flame": "火焰粒子 (flame)",
-		"particle_hugeexplosion": "💥 Boss 爆炸特效 (hugeexplosion)",
-		"particle_note": "🎵 抽奖箱音符 (note)",
-		"particle_happyVillager": "✨ 绿宝石幸运村民 (happyVillager)",
-		"particle_lava": "☄️ 岩浆火花 / 流星 (lava)",
-		"particle_reddust": "🚨 警报红石粉 (reddust)"
+		"guide_btn_close": "明白"
+
     }
 };
 
@@ -6287,581 +5969,6 @@ function generateQuestHubList() {
     }
 	
 }
-
-    // =========================================================================
-    // СБОРКА ЧИСТОГО СТАНДАРТНОГО ZIP-АРХИВА НА БАЙТОВОМ УРОВНЕ (БЕЗ БИБЛИОТЕК)
-    // =========================================================================
-function createAndDownloadZip(filesToPack, archiveName) {
-    let zipParts = new Array();
-    let centralDirectory = new Array();
-    let currentOffset = 0;
-    const encoder = new TextEncoder();
-
-    const makeCRC32Table = () => {
-        let c;
-        let crcTable = new Array(); 
-        for (let n = 0; n < 256; n++) {
-            c = n;
-            for (let k = 0; k < 8; k++) {
-                if (c & 1) {
-                    let mask = 0xEDB88320;
-                    let shifted = c >>> 1;
-                    c = (mask & ~shifted) | (~mask & shifted);
-                } else {
-                    c = c >>> 1;
-                }
-            }
-            crcTable.push(c);
-        }
-        return crcTable;
-    };
-
-    const crcTable = makeCRC32Table();
-    const crc32 = function(str) {
-        let rawBytes = encoder.encode(str);
-        let crc = 0 ^ (-1);
-        for (let byteVal of rawBytes) {
-            let tableIndex = (crc ^ byteVal) & 0xFF;
-            let tableVal = Object.values(crcTable).slice(tableIndex, tableIndex + 1).pop();
-            crc = (crc >>> 8) ^ tableVal;
-        }
-        return (crc ^ (-1)) >>> 0;
-    };
-
-    filesToPack.forEach(file => {
-        const fileBytes = encoder.encode(file.content);
-        const nameBytes = encoder.encode(file.name);
-        const fileCRC = crc32(file.content);
-        
-        let lfh = new Uint8Array(30 + nameBytes.length);
-        lfh.set(Array.of(0x50, 0x4B, 0x03, 0x04), 0); 
-        lfh.set(Array.of(10, 0, 0, 0, 0, 0, 0, 0), 4); 
-        lfh.set(Array.of(fileCRC & 0xFF, (fileCRC >> 8) & 0xFF, (fileCRC >> 16) & 0xFF, (fileCRC >> 24) & 0xFF), 14);
-        
-        const size = fileBytes.length;
-        lfh.set(Array.of(size & 0xFF, (size >> 8) & 0xFF, (size >> 16) & 0xFF, (size >> 24) & 0xFF), 18);
-        lfh.set(Array.of(size & 0xFF, (size >> 8) & 0xFF, (size >> 16) & 0xFF, (size >> 24) & 0xFF), 22);
-        lfh.set(Array.of(nameBytes.length & 0xFF, (nameBytes.length >> 8) & 0xFF), 26);
-        lfh.set(nameBytes, 30);
-        
-        zipParts.push(lfh);
-        zipParts.push(fileBytes);
-
-        let cd = new Uint8Array(46 + nameBytes.length);
-        cd.set(Array.of(0x50, 0x4B, 0x01, 0x02, 10, 0, 10, 0, 0, 0, 0, 0, 0, 0), 0); 
-        cd.set(Array.of(fileCRC & 0xFF, (fileCRC >> 8) & 0xFF, (fileCRC >> 16) & 0xFF, (fileCRC >> 24) & 0xFF), 16);
-        cd.set(Array.of(size & 0xFF, (size >> 8) & 0xFF, (size >> 16) & 0xFF, (size >> 24) & 0xFF), 20);
-        cd.set(Array.of(size & 0xFF, (size >> 8) & 0xFF, (size >> 16) & 0xFF, (size >> 24) & 0xFF), 24);
-        cd.set(Array.of(nameBytes.length & 0xFF, (nameBytes.length >> 8) & 0xFF), 28);
-        cd.set(Array.of(currentOffset & 0xFF, (currentOffset >> 8) & 0xFF, (currentOffset >> 16) & 0xFF, (currentOffset >> 24) & 0xFF), 42);
-        cd.set(nameBytes, 46);
-        
-        centralDirectory.push(cd);
-        currentOffset += lfh.length + fileBytes.length;
-    });
-
-    let cdSize = 0;
-    centralDirectory.forEach(part => cdSize += part.length);
-
-    let eocd = new Uint8Array(22);
-    eocd.set(Array.of(0x50, 0x4B, 0x05, 0x06, 0, 0, 0, 0), 0); 
-    eocd.set(Array.of(filesToPack.length & 0xFF, (filesToPack.length >> 8) & 0xFF), 8);
-    eocd.set(Array.of(filesToPack.length & 0xFF, (filesToPack.length >> 8) & 0xFF), 10);
-    eocd.set(Array.of(cdSize & 0xFF, (cdSize >> 8) & 0xFF, (cdSize >> 16) & 0xFF, (cdSize >> 24) & 0xFF), 12);
-    eocd.set(Array.of(cdStartOffset = currentOffset & 0xFF, (currentOffset >> 8) & 0xFF, (currentOffset >> 16) & 0xFF, (currentOffset >> 24) & 0xFF), 16);
-
-    const finalZipBlob = new Blob(zipParts.concat(centralDirectory, Array.of(eocd)), { type: 'application/zip' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(finalZipBlob);
-    link.download = archiveName + ".zip"; 
-    link.click();
-}
-
-    // =========================================================================
-    // Генератор архива для ГЛАВНОГО квеста
-    // =========================================================================
-function buildMainQuestData() {
-    const qId = parseInt(document.getElementById('questId')?.value) || 1;
-    const qTitle = document.getElementById('questTitle')?.value || "";
-    const qText = document.getElementById('questText')?.value || "";
-    const qCompleter = document.getElementById('questCompleter')?.value || "";
-    const qNextId = parseInt(document.getElementById('questNextId')?.value) || -1;
-    const qRepeat = parseInt(document.getElementById('questRepeat')?.value) || 0;
-    const qCompletion = parseInt(document.getElementById('questCompletion')?.value) || 0;
-    const qCompleteText = document.getElementById('questCompleteText')?.value || "";
-    
-    const qType = document.getElementById('questType') ? parseInt(document.getElementById('questType').value) : 0;
-    const qCommand = document.getElementById('questCommand') ? document.getElementById('questCommand').value : "";
-    const qRewardExp = document.getElementById('questRewardExp') ? parseInt(document.getElementById('questRewardExp').value) : 0;
-
-    const rwdEl = document.getElementById('questRandomReward');
-    const ignEl = document.getElementById('questIgnoreNBT');
-    const lveEl = document.getElementById('questLeaveItems');
-
-    const questRandomReward = (rwdEl && rwdEl.checked) ? "1b" : "0b";
-    const questIgnoreNBT = (ignEl && ignEl.checked) ? "1b" : "0b";
-    const questLeaveItems = (lveEl && lveEl.checked) ? "1b" : "0b";
-
-    return `{
-    "CompleterNpc": "${qCompleter}",
-    "NextQuestId": ${qNextId},
-    "RandomReward": ${questRandomReward},
-    "QuestRepeat": ${qRepeat},
-    "QuestCompletion": ${qCompletion},
-    "IgnoreNBT": ${questIgnoreNBT},
-    "Title": "${qTitle}",
-    "Text": "${qText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "QuestFactionPoints": {
-        "DecreaseFaction1Points": 0b,
-        "OptionFaction2Points": 100,
-        "OptionFactions1": -1,
-        "OptionFactions2": -1,
-        "OptionFaction1Points": 100,
-        "DecreaseFaction2Points": 0b
-    },
-    "RewardExp": ${qRewardExp},
-    "QuestCommand": "${qCommand}",
-    "ModRev": 18,
-    "Type": ${qType},
-    "QuestMail": {
-        "Sender": "",
-        "BeenRead": 0b,
-        "Message": {
-        },
-        "MailItems": [
-        ],
-        "MailQuest": -1,
-        "TimePast": 1790993935351L,
-        "Time": 0L,
-        "Subject": ""
-    },
-    "IgnoreDamage": 0b,
-    "Rewards": {
-        "NpcMiscInv": [
-        ]
-    },
-    "Items": {
-        "NpcMiscInv": [
-        ]
-    },
-    "LeaveItems": ${questLeaveItems},
-    "CompleteText": "${qCompleteText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "NextQuestTitle": ""
-}`;
-}
-
-    // =========================================================================
-    // Генератор текста для ДОПОЛНИТЕЛЬНЫХ квестов
-    // =========================================================================
-function buildExtraQuestData(extraId) {
-    const qId = parseInt(document.getElementById(`extraQuestId_${extraId}`)?.value) || 1;
-    const qTitle = document.getElementById(`extraQuestTitle_${extraId}`)?.value || "";
-    const qText = document.getElementById(`extraQuestText_${extraId}`)?.value || "";
-    const qCompleter = document.getElementById(`extraQuestCompleter_${extraId}`)?.value || "";
-    const qNextId = parseInt(document.getElementById(`extraQuestNextId_${extraId}`)?.value) || -1;
-    const qRepeat = parseInt(document.getElementById(`extraQuestRepeat_${extraId}`)?.value) || 0;
-    const qCompletion = parseInt(document.getElementById(`extraQuestCompletion_${extraId}`)?.value) || 0;
-    const qCompleteText = document.getElementById(`extraQuestCompleteText_${extraId}`)?.value || "";
-    
-    const qType = document.getElementById(`extraQuestType_${extraId}`) ? parseInt(document.getElementById(`extraQuestType_${extraId}`).value) : 0;
-    const qCommand = document.getElementById(`extraQuestCommand_${extraId}`) ? document.getElementById(`extraQuestCommand_${extraId}`).value : "";
-    const qRewardExp = document.getElementById(`extraQuestRewardExp_${extraId}`) ? parseInt(document.getElementById(`extraQuestRewardExp_${extraId}`).value) : 0;
-
-    const rwdEl = document.getElementById(`extraQuestRandomReward_${extraId}`);
-    const ignEl = document.getElementById(`extraQuestIgnoreNBT_${extraId}`);
-    const lveEl = document.getElementById(`extraQuestLeaveItems_${extraId}`);
-
-    const questRandomReward = (rwdEl && rwdEl.checked) ? "1b" : "0b";
-    const questIgnoreNBT = (ignEl && ignEl.checked) ? "1b" : "0b";
-    const questLeaveItems = (lveEl && lveEl.checked) ? "1b" : "0b";
-
-    return `{
-    "CompleterNpc": "${qCompleter}",
-    "NextQuestId": ${qNextId},
-    "RandomReward": ${questRandomReward},
-    "QuestRepeat": ${qRepeat},
-    "QuestCompletion": ${qCompletion},
-    "IgnoreNBT": ${questIgnoreNBT},
-    "Title": "${qTitle}",
-    "Text": "${qText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "QuestFactionPoints": {
-        "DecreaseFaction1Points": 0b,
-        "OptionFaction2Points": 100,
-        "OptionFactions1": -1,
-        "OptionFactions2": -1,
-        "OptionFaction1Points": 100,
-        "DecreaseFaction2Points": 0b
-    },
-    "RewardExp": ${qRewardExp},
-    "QuestCommand": "${qCommand}",
-    "ModRev": 18,
-    "Type": ${qType},
-    "QuestMail": {
-        "Sender": "",
-        "BeenRead": 0b,
-        "Message": {
-        },
-        "MailItems": [
-        ],
-        "MailQuest": -1,
-        "TimePast": 1790993935351L,
-        "Time": 0L,
-        "Subject": ""
-    },
-    "IgnoreDamage": 0b,
-    "Rewards": {
-        "NpcMiscInv": [
-        ]
-    },
-    "Items": {
-        "NpcMiscInv": [
-        ]
-    },
-    "LeaveItems": ${questLeaveItems},
-    "CompleteText": "${qCompleteText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "NextQuestTitle": ""
-}`;
-}
-
-
-
-    // =========================================================================
-    // сборка для ДИАЛОГОВ
-    // =========================================================================
-function downloadAllDialogsZip() {
-    let filesToPack = [];
-
-    // 1. Генерируем полный кастомный код главного диалога
-    const mainId = document.getElementById('dialogId')?.value || "1";
-    const mainContent = buildMainDialogData();
-    filesToPack.push({
-        name: `dialog_${mainId}.json`,
-        content: mainContent
-    });
-
-    // 2. Сканируем extra-блоки диалогов и собираем их полные структуры
-    const extraBlocks = document.querySelectorAll('div[id^="extraDialogBlock_"]');
-    extraBlocks.forEach(block => {
-        const extraId = block.id.replace('extraDialogBlock_', '');
-        const dId = document.getElementById(`extraDialogId_${extraId}`)?.value || extraId;
-        const extraContent = buildExtraDialogData(extraId);
-
-        filesToPack.push({
-            name: `dialog_${dId}.json`,
-            content: extraContent
-        });
-    });
-
-    // Название архива диалогов
-    const archiveName = "customnpcs_dialogs_pack";
-
-    // Передаем массив на ваш байтовый ZIP-упаковщик
-    createAndDownloadZip(filesToPack, archiveName);
-}
-
-
-    // =========================================================================
-    // сборка для ЗАДАНИЙ
-    // =========================================================================
-// =========================================================================
-// Функция массового скачивания ВСЕХ КВЕСТОВ главы в один ZIP-архив
-// =========================================================================
-function downloadAllQuestsZip() {
-
-    let filesToPack = [];
-
-    // 1. Генерируем идеальный код ГЛАВНОГО квеста
-    const mainId = document.getElementById('questId')?.value || "1";
-    const mainContent = buildMainQuestData();
-    filesToPack.push({
-        name: `quest_${mainId}.json`,
-        content: mainContent
-    });
-
-    // 2. Сканируем extra-блоки заданий из ленты и собираем их структуры
-    const extraBlocks = document.querySelectorAll('div[id^="extraQuestBlock_"]');
-    extraBlocks.forEach(block => {
-        const extraId = block.id.replace('extraQuestBlock_', '');
-        const qId = document.getElementById(`extraQuestId_${extraId}`)?.value || extraId;
-        const extraContent = buildExtraQuestData(extraId);
-
-        filesToPack.push({
-            name: `${qId}.json`, // Убрали приставку quest_
-            content: extraContent // ТЕПЕРЬ ОШИБКА ДЕСИНТАКСИСА ИСЧЕЗНЕТ!
-        });
-
-    });
-
-    // Название итогового архива с заданиями
-    const archiveName = "customnpcs_quests_pack";
-
-    // Отправляем массив с чистыми текстовыми файлами на ваш ZIP-упаковщик
-    if (typeof createAndDownloadZip === 'function') {
-        createAndDownloadZip(filesToPack, archiveName);
-    } else {
-        console.error("Ошибка: Ваш упаковочный метод createAndDownloadZip не найден в index.html!");
-    }
-}
-
-    // =========================================================================
-    // Точный генератор текста для ГЛАВНОГО диалога
-    // =========================================================================
-function buildMainDialogData() {
-    // Повторяем сбор базовых инпутов из generateAndDownload
-    const availDialogId = parseInt(document.getElementById('availDialogId').value) || -1;
-    const availQuestId = parseInt(document.getElementById('availQuestId').value) || -1;
-    const availScoreboardObj = document.getElementById('availScoreboardObj').value || "";
-    const availFactionId1 = parseInt(document.getElementById('availFactionId1').value) || -1;
-    const availFactionStance1 = parseInt(document.getElementById('availFactionStance1').value) || 0;
-    const availFactionId2 = parseInt(document.getElementById('availFactionId2').value) || -1;
-    const availFactionStance2 = parseInt(document.getElementById('availFactionStance2').value) || 0;
-    const availDayTime = parseInt(document.getElementById('availDayTime').value) || 0;
-    const availMinLevel = parseInt(document.getElementById('availMinLevel').value) || 0;
-
-    const dialogId = parseInt(document.getElementById('dialogId')?.value) || 1;
-    const dialogTitle = document.getElementById('dialogTitle')?.value || "Start";
-    const dialogText = document.getElementById('dialogText')?.value || "";
-    const dialogQuest = parseInt(document.getElementById('dialogQuest')?.value) || -1;
-    const dialogCommand = document.getElementById('dialogCommand')?.value || "";
-    
-    const dialogHideNPC = (document.getElementById('dialogHideNPC') && document.getElementById('dialogHideNPC').checked) ? "1b" : "0b";
-    const dialogShowWheel = (document.getElementById('dialogShowWheel') && document.getElementById('dialogShowWheel').checked) ? "1b" : "0b";
-    const dialogDisableEsc = (document.getElementById('dialogDisableEsc') && document.getElementById('dialogDisableEsc').checked) ? "1b" : "0b";
-
-    // Сборка кнопок (точно такой же неубиваемый цикл, как мы сделали)
-    const options = [];
-    let activeSlotIndex = 0;
-    for (let i = 0; i < 20; i++) {
-        const titleInput = document.getElementById('optTitle' + i);
-        if (titleInput && titleInput.value.trim() !== "") {
-            const title = titleInput.value.trim();
-            const type = parseInt(document.getElementById('optType' + i)?.value) || 0;
-            const nextDialog = parseInt(document.getElementById('optDialog' + i)?.value) || -1;
-            const color = parseInt(document.getElementById('optColor' + i)?.value) || 14737632;
-            const cmd = document.getElementById('optCmd' + i)?.value || "";
-            const factionId = parseInt(document.getElementById('optFactionId' + i)?.value) || -1;
-            const factionPoints = parseInt(document.getElementById('optFactionPoints' + i)?.value) || 100;
-            const factionDec = (document.getElementById('optFactionDec' + i) && document.getElementById('optFactionDec' + i).checked) ? "1b" : "0b";
-
-            options.push({
-                OptionSlot: activeSlotIndex,
-                Option: { DialogCommand: cmd, Dialog: nextDialog, Title: title, DialogColor: color, OptionType: type, OptionFactions1: factionId, OptionFactions2: -1, OptionFaction1Points: factionPoints, OptionFaction2Points: 100, DecreaseFaction1Points: factionDec, DecreaseFaction2Points: "0b" }
-            });
-            activeSlotIndex++;
-        }
-    }
-
-    const formattedOptions = options.map(opt => {
-        return `        {
-            "OptionSlot": ${opt.OptionSlot},
-            "Option": {
-                "Title": "${opt.Option.Title}",
-                "OptionType": ${opt.Option.OptionType},
-                "Dialog": ${opt.Option.Dialog},
-                "DialogColor": ${opt.Option.DialogColor},
-                "DialogCommand": "${opt.Option.DialogCommand}"
-            }
-        }`;
-    }).join(",\n");
-
-    return `{
-    "DialogId": ${dialogId},
-    "DialogTitle": "${dialogTitle}",
-    "DialogText": "${dialogText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "DialogQuest": ${dialogQuest},
-    "DialogCommand": "${dialogCommand}",
-    "DialogMail": {
-        "Subject": "",
-        "Sender": "",
-        "Time": 0L,
-        "BeenRead": 0b,
-        "Message": {
-        },
-        "TimePast": 1790382227790L,
-        "MailQuest": -1,
-        "MailItems": [
-        ]
-    },
-    "DialogHideNPC": ${dialogHideNPC},
-    "DialogShowWheel": ${dialogShowWheel},
-    "DialogDisableEsc": ${dialogDisableEsc},
-    "Options": [
-${formattedOptions}
-    ],
-    "ModRev": 18,
-    "AvailabilityDialog": ${availDialogId !== -1 ? 1 : 0},
-    "AvailabilityDialog2": 0,
-    "AvailabilityDialog3": 0,
-    "AvailabilityDialog4": 0,
-    "AvailabilityDialogId": ${availDialogId},
-    "AvailabilityDialog2Id": -1,
-    "AvailabilityDialog3Id": -1,
-    "AvailabilityDialog4Id": -1,
-    "AvailabilityQuest": ${availQuestId !== -1 ? 1 : 0},
-    "AvailabilityQuest2": 0,
-    "AvailabilityQuest3": 0,
-    "AvailabilityQuest4": 0,
-    "AvailabilityQuestId": ${availQuestId},
-    "AvailabilityQuest2Id": -1,
-    "AvailabilityQuest3Id": -1,
-    "AvailabilityQuest4Id": -1,
-    "AvailabilityFaction": ${availFactionId1 !== -1 ? 1 : 0},
-    "AvailabilityFaction2": ${availFactionId2 !== -1 ? 1 : 0},
-    "AvailabilityFactionStance": ${availFactionStance1},
-    "AvailabilityFaction2Stance": ${availFactionStance2},
-    "AvailabilityFactionId": ${availFactionId1},
-    "AvailabilityFaction2Id": ${availFactionId2},
-    "AvailabilityScoreboardObjective": "${availScoreboardObj}",
-    "AvailabilityScoreboard2Objective": "",
-    "AvailabilityScoreboardType": 1,
-    "AvailabilityScoreboard2Type": 1,
-    "AvailabilityScoreboardValue": 1,
-    "AvailabilityScoreboard2Value": 1,
-    "AvailabilityDayTime": ${availDayTime},
-    "AvailabilityMinPlayerLevel": ${availMinLevel},
-    "OptionFactions1": -1,
-    "OptionFactions2": -1,
-    "OptionFaction1Points": 100,
-    "OptionFaction2Points": 100,
-    "DecreaseFaction1Points": 0b,
-    "DecreaseFaction2Points": 0b
-}`;
-}
-    // =========================================================================
-    // Точный генератор текста для ДОПОЛНИТЕЛЬНЫХ диалогов
-    // =========================================================================
-// 2. СТРОИТЕЛЬ ТЕКСТА ДЛЯ ДОПОЛНИТЕЛЬНЫХ ДИАЛОГОВ (В ZIP И ДЛЯ СКАЧИВАНИЯ)
-function buildExtraDialogData(extraId) {
-    // 1. Сбор условий доступности для доп. диалога
-    const avDId = parseInt(document.getElementById(`extraAvailDialogId_${extraId}`)?.value) || -1;
-    const avQId = parseInt(document.getElementById(`extraAvailQuestId_${extraId}`)?.value) || -1;
-    const avScoreboard = document.getElementById(`extraAvailScoreboardObj_${extraId}`)?.value || "";
-    const avFact1 = parseInt(document.getElementById(`extraAvailFactionId1_${extraId}`)?.value) || -1;
-    const avStance1 = parseInt(document.getElementById(`extraAvailFactionStance1_${extraId}`)?.value) || 0;
-    const avFact2 = parseInt(document.getElementById(`extraAvailFactionId2_${extraId}`)?.value) || -1;
-    const avStance2 = parseInt(document.getElementById(`extraAvailFactionStance2_${extraId}`)?.value) || 0;
-    const avTime = parseInt(document.getElementById(`extraAvailDayTime_${extraId}`)?.value) || 0;
-    const avLevel = parseInt(document.getElementById(`extraAvailMinLevel_${extraId}`)?.value) || 0;
-
-    // 2. Сбор основных полей карточки
-    const dialogId = parseInt(document.getElementById(`extraDialogId_${extraId}`)?.value) || 1;
-    const dialogTitle = document.getElementById(`extraDialogTitle_${extraId}`)?.value || "Chain Part";
-    const dialogText = document.getElementById(`extraDialogText_${extraId}`)?.value || "";
-    const dialogQuest = parseInt(document.getElementById(`extraDialogQuest_${extraId}`)?.value) || -1;
-    const dialogCommand = document.getElementById(`extraDialogCommand_${extraId}`)?.value || "";
-
-    const dialogHideNPC = (document.getElementById(`extraDialogHideNPC_${extraId}`) && document.getElementById(`extraDialogHideNPC_${extraId}`).checked) ? "1b" : "0b";
-    const dialogShowWheel = (document.getElementById(`extraDialogShowWheel_${extraId}`) && document.getElementById(`extraDialogShowWheel_${extraId}`).checked) ? "1b" : "0b";
-    const dialogDisableEsc = (document.getElementById(`extraDialogDisableEsc_${extraId}`) && document.getElementById(`extraDialogDisableEsc_${extraId}`).checked) ? "1b" : "0b";
-
-    // 3. Сбор кнопок веток (проверяем до 20 слотов)
-    const options = [];
-    let activeSlotIndex = 0;
-    
-    for (let slot = 0; slot < 20; slot++) {
-        const titleInput = document.getElementById(`extra_${extraId}_optTitle_${slot}`);
-        if (titleInput && titleInput.value.trim() !== "") {
-            const title = titleInput.value.trim();
-            const type = parseInt(document.getElementById(`extra_${extraId}_optType_${slot}`)?.value) || 0;
-            const nextD = parseInt(document.getElementById(`extra_${extraId}_optDialog_${slot}`)?.value) || -1;
-            const color = parseInt(document.getElementById(`extra_${extraId}_optColor_${slot}`)?.value) || 14737632;
-            
-            const cmdInput = document.getElementById(`extra_${extraId}_optCmd_${slot}`) || document.getElementById(`extra_${extraId}_optCommand_${slot}`);
-            const cmd = cmdInput ? cmdInput.value : "";
-
-            options.push({
-                OptionSlot: activeSlotIndex,
-                Option: { Title: title, OptionType: type, Dialog: nextD, DialogColor: color, DialogCommand: cmd }
-            });
-            activeSlotIndex++;
-        }
-    }
-
-    // ВАЖНО: Выстраиваем порядок ключей ВНУТРИ КНОПКИ точно по образцу мода!
-    const formattedOptions = options.map(opt => {
-        return `        {
-            "OptionSlot": ${opt.OptionSlot},
-            "Option": {
-                "DialogCommand": "${opt.Option.DialogCommand}",
-                "Dialog": ${opt.Option.Dialog},
-                "Title": "${opt.Option.Title}",
-                "DialogColor": ${opt.Option.DialogColor},
-                "OptionType": ${opt.Option.OptionType}
-            }
-        }`;
-    }).join(",\n");
-
-    // 4. ТЕКСТОВАЯ СБОРКА ВСЕГО ФАЙЛА 1 В 1 ПО ПЕРЕПИСАННОМУ МОДОМ ОБРАЗЦУ
-    return `{
-    "DialogShowWheel": ${dialogShowWheel},
-    "AvailabilityQuestId": ${avQId},
-    "Options": [
-${formattedOptions}
-    ],
-    "AvailabilityScoreboardType": 1,
-    "DialogHideNPC": ${dialogHideNPC},
-    "AvailabilityFactionStance": ${avStance1},
-    "AvailabilityScoreboard2Value": 1,
-    "DialogId": ${dialogId},
-    "AvailabilityQuest": ${avQId !== -1 ? 1 : 0},
-    "AvailabilityDialog4": 0,
-    "AvailabilityScoreboardObjective": "${avScoreboard}",
-    "AvailabilityDialog3": 0,
-    "AvailabilityQuest2": 0,
-    "AvailabilityQuest3": 0,
-    "AvailabilityScoreboard2Objective": "",
-    "AvailabilityQuest4": 0,
-    "ModRev": 18,
-    "DecreaseFaction1Points": 0b,
-    "DialogQuest": ${dialogQuest},
-    "AvailabilityDialog2": 0,
-    "OptionFactions1": -1,
-    "AvailabilityDayTime": ${avTime},
-    "OptionFactions2": -1,
-    "AvailabilityFaction2Id": ${avFact2},
-    "OptionFaction1Points": 100,
-    "AvailabilityScoreboardValue": 1,
-    "DialogDisableEsc": ${dialogDisableEsc},
-    "AvailabilityFaction": ${avFact1 !== -1 ? 1 : 0},
-    "DialogTitle": "${dialogTitle}",
-    "AvailabilityDialog": ${avDId !== -1 ? 1 : 0},
-    "AvailabilityScoreboard2Type": 1,
-    "AvailabilityFaction2": ${avFact2 !== -1 ? 1 : 0},
-    "AvailabilityFactionId": ${avFact1},
-    "AvailabilityFaction2Stance": ${avStance2},
-    "DialogCommand": "${dialogCommand}",
-    "AvailabilityDialogId": ${avDId},
-    "OptionFaction2Points": 100,
-    "DialogText": "${dialogText.replace(/"/g, '\\"').replace(/\n/g, '\\n')}",
-    "AvailabilityQuest4Id": -1,
-    "AvailabilityQuest3Id": -1,
-    "AvailabilityQuest2Id": -1,
-    "AvailabilityDialog2Id": -1,
-    "AvailabilityDialog3Id": -1,
-    "AvailabilityDialog4Id": -1,
-    "AvailabilityMinPlayerLevel": ${avLevel},
-    "DecreaseFaction2Points": 0b,
-    "DialogMail": {
-        "Sender": "",
-        "BeenRead": 0b,
-        "Message": {
-        },
-        "MailItems": [
-        ],
-        "MailQuest": -1,
-        "TimePast": 1790993073857L,
-        "Time": 0L,
-        "Subject": ""
-    }
-}`;
-}
-
-
-
-
-
-
-
 </script>
-</body>
-</html>
+
+</div></div></body></html>
