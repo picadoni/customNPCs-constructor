@@ -544,7 +544,9 @@
 <!--    <button type="button" onclick="toggleCheatSheetDrawer()" title="📖 Открыть шпаргалку по командам (Minecraft 1.12.2)" style="background: #333; border: 1px solid var(--border-color); color: #fff; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; z-index: 10006;">📖</button>
 
         <!-- Выпадающее меню тем и прозрачности (Выпадает ровно под шестеренкой) -->
-<div id="systemDesignMenu" style="display: none; position: absolute; top: -120px; left: -20px 80%; transform: translateX(-50%); align-items: center; gap: 1px; background: rgba(0,0,0,0.7); padding: 6px 14px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.4); z-index: 1000; backdrop-filter: blur(4px);">
+<!-- Исправленный контейнер меню с разрешением выхода элементов v2.5 -->
+<!-- Исправленное меню настроек без сжатия элементов v2.5 -->
+<div id="systemDesignMenu" style="display: none; position: absolute; top: -120px; left: 50%; transform: translateX(-50%); align-items: center; gap: 12px; background: rgba(0,0,0,0.85); padding: 6px 18px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.4); z-index: 10005; backdrop-filter: blur(4px); width: max-content; white-space: nowrap;">
             <div style="display: flex; gap: 6px; align-items: center; border-right: 1px solid rgba(255,255,255,0.2); padding-right: 10px;">
 <!-- ПРАВИЛЬНЫЙ ВАРИАНТ КНОПОК ТЕМ: Без data-i18n, только с data-i18n-title! -->
 <button type="button" onclick="setTheme(&#39;pipboy&#39;)" data-i18n-title="ttl_theme_pip" title="Стиль: Пип-бой" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🖥️</button>
@@ -909,6 +911,31 @@
 
         </div>
     </div> <!-- ИСПРАВЛЕНИЕ: Этот тег закрывает moduleContentDialogs! -->
+	
+	<!-- Единое окно сквозного мониторинга v2.5 -->
+<!-- Исправленный блок общего монитора v2.5 -->
+<div id="storyMonitorOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 99999; align-items: center; justify-content: center;">
+    <div id="storyMonitorWindow" style="width: 750px; background: #0d0d0d; border: 2px solid #ff4500; box-shadow: 0 0 15px rgba(255, 69, 0, 0.4); font-family: 'Courier New', Courier, monospace; padding: 10px; border-radius: 6px;">
+        <div class="window-header" style="display: flex; justify-content: space-between; align-items: center; color: #ff4500; font-weight: bold; margin-bottom: 10px;">
+            <span>🖥️ МОНИТОР СЮЖЕТА: Сквозной симулятор (Ver 2.5)</span>
+            <button class="btn-close" onclick="closeStoryMonitor()" style="background: none; border: none; color: #ff3333; cursor: pointer; font-weight: bold;">❌ ЗАКРЫТЬ</button>
+        </div>
+        <div class="window-toolbar" style="margin-bottom: 10px;">
+            <button class="btn-tool" onclick="startGlobalSimulation()" style="background: #222; color: #32cd32; border: 1px solid #32cd32; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">🔄 Симуляция</button>
+            <button class="btn-tool" onclick="clearMonitorLog()" style="background: #222; color: #ffcc00; border: 1px solid #ffcc00; padding: 4px 10px; border-radius: 4px; cursor: pointer;">🧹 Очистить</button>
+        </div>
+        <div id="storyMonitorConsole" style="height: 350px; background: #050505; border: 1px solid #222; padding: 12px; overflow-y: auto; font-size: 13px; line-height: 1.5; color: #bbb; text-align: left; border-radius: 4px;">
+            <!-- Здесь побегут цветные строки -->
+        </div>
+        <div class="window-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 12px;">
+            <span style="color: #32cd32;">● Модуль готов к тестам</span>
+            <button class="btn-ready" onclick="closeStoryMonitor()" style="background: #ff4500; color: #000; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-weight: bold;">Готово</button>
+        </div>
+    </div>
+</div>
+
+	
+	
 <!-- РАБОЧАЯ ЗОНА СКРИПТОВ (Новый глобальный модуль) -->
 <div id="moduleContentScripts" style="display: none; width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: -1px;">
     
@@ -1266,27 +1293,6 @@
     </div>
 </div>
 
-<!-- Единое окно сквозного мониторинга v2.5 -->
-<div id="storyMonitorOverlay" class="custom-overlay" style="display: none;">
-    <div id="storyMonitorWindow" class="custom-window">
-        <div class="window-header">
-            <span>🖥️ МОНИТОР СЮЖЕТА: Сквозной симулятор (Ver 2.5)</span>
-            <button class="btn-close" onclick="closeStoryMonitor()">❌ ЗАКРЫТЬ</button>
-        </div>
-        <div class="window-toolbar">
-            <button class="btn-tool" onclick="startGlobalSimulation()">🔄 Запустить полную симуляцию</button>
-            <button class="btn-tool" onclick="clearMonitorLog()">🧹 Очистить лог</button>
-        </div>
-        <div id="storyMonitorConsole" class="monitor-console">
-            <!-- Сюда будут сыпаться разноцветные логи -->
-        </div>
-        <div class="window-footer">
-            <span class="status-green">● Модуль готов к тестам</span>
-            <button class="btn-ready" onclick="closeStoryMonitor()">Готово</button>
-        </div>
-    </div>
-</div>
-
 <!-- И только ПОСЛЕ этого закрываем главный контейнер и открываем скрипты -->
 <!-- ==========================================================================
    ИЗОЛИРОВАННЫЙ ВЫДВИЖНОЙ БЛОКНОТ NOTEPAD++ (ВСТАВЛЯТЬ СТРОГО СЮДА!)
@@ -1506,6 +1512,71 @@
     </div>
     <div style="font-size: 10px; opacity: 0.6; margin-top: 4px; text-align: left;"><span data-i18n="lbl_db_ver">База данных</span>: MC 1.12.2</div>
 </div>
+<!-- Плавающий пульт управления диалогами v2.5 (Слева под кнопками скролла) -->
+<!-- Исправленный плавающий пульт управления диалогами v2.5 -->
+<div id="floatingIdePanel" style="
+    position: fixed; 
+    top: 240px; 
+    left: 2px; /* Прижали ближе к самому краю экрана */
+    z-index: 999999 !important; /* Установили абсолютный приоритет слоя, теперь он будет ПОВЕРХ окна */
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+    background: rgba(13, 13, 13, 0.2); 
+    border: 1px dashed rgba(255, 69, 0, 0.3); 
+    padding: 8px; 
+    border-radius: 6px; 
+    width: 45px; 
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0.3; 
+    backdrop-filter: blur(1px);
+    transition: all 0.25s ease-in-out;
+" 
+onmouseover="
+    this.style.opacity='1'; 
+    this.style.width='165px'; 
+    this.style.background='rgba(13, 13, 13, 0.95)'; 
+    this.style.border='1px solid var(--accent-color, #ff4500)';
+    this.style.boxShadow='0 0 15px rgba(255, 69, 0, 0.4)';
+    this.style.backdropFilter='blur(4px)';
+    this.style.zIndex='999999';
+" 
+onmouseout="
+    this.style.opacity='0.3'; 
+    this.style.width='45px'; 
+    this.style.background='rgba(13, 13, 13, 0.2)'; 
+    this.style.border='1px dashed rgba(255, 69, 0, 0.3)';
+    this.style.boxShadow='none';
+    this.style.backdropFilter='blur(1px)';
+">
+
+    <!-- Иконка шкафа и заголовок -->
+    <div style="display: flex; align-items: center; gap: 10px; color: var(--accent-color, #ff4500); font-weight: bold; font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; user-select: none;">
+        <span>🗄️</span> <span>ПАНЕЛЬ IDE</span>
+    </div>
+
+    <!-- Кнопка глобальной симуляции 📋 -->
+    <button type="button" onclick="openGlobalStoryMonitor()" title="📋 Запустить сквозной симулятор всего сюжета" style="
+        background: rgba(255,255,255,0.03); 
+        border: 1px solid rgba(255,255,255,0.1); 
+        color: #fff; 
+        padding: 5px; 
+        border-radius: 4px; 
+        cursor: pointer; 
+        font-family: inherit; 
+        font-size: 12px; 
+        display: flex; 
+        align-items: center; 
+        gap: 8px;
+        transition: 0.2s;
+        width: 145px;
+    " onmouseover="this.style.borderColor='var(--accent-color, #ffcc00)'; this.style.color='var(--accent-color, #ffcc00)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.color='#fff';">
+        <span>📋</span> <span>Симулятор</span>
+    </button>
+
+</div>
+
 
 
 <!--button class="download-btn" id="mainDownloadButton" onclick="handleMainDownload()">💾 СКАЧАТЬ ФАЙЛ ДИАЛОГА (.JSON)</button !-->
@@ -6776,153 +6847,6 @@ ${formattedOptions}
 }`;
 }
 
-
-// =========================================================================
-// ФУНКЦИИ ОБЩЕГО МОНИТОРА СЮЖЕТА v2.5 (СТРОГО ДРУГ ЗА ДРУГОМ)
-// =========================================================================
-
-// 1. Открытие нового общего монитора
-function openGlobalStoryMonitor() {
-    document.getElementById('storyMonitorOverlay').style.display = 'flex';
-    clearMonitorLog();
-    printMonitorLog('System', '[Старт глобальной симуляции проекта]');
-    
-    // Сразу запускаем сквозной сбор данных
-    startGlobalSimulation();
-}
-
-// 2. Закрытие общего монитора
-function closeStoryMonitor() {
-    document.getElementById('storyMonitorOverlay').style.display = 'none';
-}
-
-// 3. Очистка консоли монитора
-function clearMonitorLog() {
-    const consoleElem = document.getElementById('storyMonitorConsole');
-    if (consoleElem) {
-        consoleElem.innerHTML = '';
-    }
-}
-
-// 4. Функция разноцветного вывода данных в консоль v2.5
-function printMonitorLog(type, text) {
-    const consoleElem = document.getElementById('storyMonitorConsole');
-    if (!consoleElem) return; // Защита от вылета, если элемент отсутствует в DOM
-    
-    let className = 'log-text';
-    
-    if (type === 'System') className = 'log-system';
-    else if (type === 'Quest') className = 'log-quest';
-    else if (type === 'Dialog') className = 'log-dialog';
-    else if (type === 'Error') className = 'log-error';
-
-    const logRow = document.createElement('div');
-    logRow.className = className;
-    logRow.innerHTML = text;
-    consoleElem.appendChild(logRow);
-    
-    // Автопрокрутка консоли вниз
-    consoleElem.scrollTop = consoleElem.scrollHeight;
-}
-
-// 5. Функция сквозного сбора и интерактивной симуляции ВСЕГО сюжета v2.5
-function startGlobalSimulation() {
-    clearMonitorLog();
-    printMonitorLog('System', '[Запуск сквозной проверки связей: Квесты "Крепость" ➔ Диалоги "Зверь"]');
-
-    // Проверяем наличие карт в памяти
-    const questKeys = Object.keys(currentQuestMap || {});
-    const storyKeys = Object.keys(currentStoryMap || {});
-
-    if (questKeys.length === 0 && storyKeys.length === 0) {
-        printMonitorLog('Error', '❌ Ошибка симуляции: Обе карты (квестов и диалогов) пусты! Сначала запустите обычные симуляторы модулей, чтобы заполнить оперативную память.');
-        return;
-    }
-
-    printMonitorLog('System', `Загружено из памяти: Заданий — ${questKeys.length}, Диалогов — ${storyKeys.length}.`);
-
-    // --- ЭТАП 1: Симуляция квестовой цепочки ---
-    if (questKeys.length > 0) {
-        printMonitorLog('System', '--- СКАНИРОВАНИЕ ЦЕПОЧКИ ЗАДАНИЙ ---');
-        let nextQuestId = 1; // Стартуем со стандартного ID 1 в "Крепости"
-        let watchdog = 0;
-
-        while (nextQuestId !== -1 && watchdog < 100) {
-            watchdog++;
-            const questData = currentQuestMap[nextQuestId];
-
-            if (!questData) {
-                printMonitorLog('Error', `   [!] ТУПИК ЦЕПОЧКИ: Ссылка ведет на квест ID ${nextQuestId}, но он отсутствует в форме!`);
-                break;
-            }
-
-            // Вывод квестов ЗЕЛЕНЫМ цветом
-            printMonitorLog('Quest', `► Выполняется задание: "${questData.title}" (ID: ${nextQuestId})`);
-            if (questData.text && questData.text !== "Описание задания отсутствует.") {
-                printMonitorLog('Text', `   Текст: ${questData.text.substring(0, 60)}...`);
-            }
-
-            // ПРОВЕРКА СВЯЗИ: Ищем стартовый диалог для этого квеста (по совпадению ID)
-            if (currentStoryMap && currentStoryMap[nextQuestId]) {
-                printMonitorLog('Dialog', `   🔗 Связанный стартовый диалог найден (ID: ${nextQuestId})`);
-                simulateDialogBranchInConsole(nextQuestId, "      ");
-            }
-
-            // Шаг вперед по цепочке nextId
-            const lastId = nextQuestId;
-            nextQuestId = questData.nextId;
-
-            if (nextQuestId === -1) {
-                printMonitorLog('System', `🏁 Цепочка заданий успешно завершена на ID ${lastId}. Дальнейших переходов нет (-1).`);
-                break;
-            }
-        }
-
-        if (watchdog >= 100) {
-            printMonitorLog('Error', '🚨 КРИТИЧЕСКИЙ ВЫЛЕТ: Обнаружено бесконечное зацикливание цепочки квестов!');
-        }
-    }
-
-    // --- ЭТАП 2: Поиск сиротских диалогов ---
-    const orphanedDialogs = storyKeys.filter(dId => !currentQuestMap[dId]);
-    if (orphanedDialogs.length > 0) {
-        printMonitorLog('System', '--- АНАЛИЗ СВОБОДНЫХ ДИАЛОГОВ (ВНЕ КВЕСТОВ) ---');
-        orphanedDialogs.forEach(dId => {
-            printMonitorLog('Dialog', `💬 Автономный Диалог ID ${dId}: "${currentStoryMap[dId].title}"`);
-            simulateDialogBranchInConsole(dId, "   ");
-        });
-    }
-}
-
-// 6. Вспомогательная функция распечатки кнопок диалогов
-function simulateDialogBranchInConsole(dialogId, prefix) {
-    const dialogData = currentStoryMap[dialogId];
-    if (!dialogData) return;
-
-    if (dialogData.text) {
-        printMonitorLog('Text', `${prefix}NPC: "${dialogData.text.substring(0, 50)}..."`);
-    }
-
-    if (!dialogData.options || dialogData.options.length === 0) {
-        printMonitorLog('Error', `${prefix}[Тупик: Варианты ответа игрока отсутствуют]`);
-        return;
-    }
-
-    dialogData.options.forEach((opt, idx) => {
-        let typeAction = '';
-        if (opt.type === 0) typeAction = '<span style="color: #ff3333;">[ЗАКРЫТЬ ОКНО]</span>';
-        else if (opt.type === 2) typeAction = '<span style="color: #00aba9;">[ОТКРЫТЬ РОЛЬ]</span>';
-        else typeAction = `➔ <span style="color: #ffcc00;">Переход на диалог ID: ${opt.nextDialogId}</span>`;
-
-        printMonitorLog('Dialog', `${prefix}└─ Кнопка [Слот ${idx}]: "${opt.title}" ${typeAction}`);
-    });
-}
-
-
-
-
-
-
     // =========================================================================
     // Точный генератор текста для ДОПОЛНИТЕЛЬНЫХ диалогов
     // =========================================================================
@@ -7052,6 +6976,168 @@ ${formattedOptions}
 }`;
 }
 
+// =========================================================================
+// ФУНКЦИИ ОБЩЕГО МОНИТОРА СЮЖЕТА v2.5 (СТРОГО ОДНА ЗА ДРУГОЙ)
+// =========================================================================
+
+// // ФУНКЦИИ ОБЩЕГО МОНИТОРА СЮЖЕТА v2.5 (СТРОГО ОДНА ЗА ДРУГОЙ)
+// // =========================================================================
+
+// 1. Открытие нового глобального монитора
+function openGlobalStoryMonitor() {
+    // Тихо собираем данные квестов
+    if (typeof openQuestMonitor === 'function') {
+        openQuestMonitor(); 
+        closeQuestSimulator(); // Закрываем выскочившее окно квестов
+    }
+    
+    // Тихо собираем данные диалогов
+    if (typeof openStoryMonitor === 'function') {
+        openStoryMonitor(); 
+        closeDialogSimulator(); // Закрываем выскочившее окно диалогов
+    }
+
+    // Открываем наше оранжевое окно
+    const overlay = document.getElementById('storyMonitorOverlay');
+    if (overlay) {
+        overlay.style.display = 'flex';
+    }
+    clearMonitorLog();
+    printMonitorLog('System', '[Старт глобальной симуляции проекта]');
+    
+    // Запускаем сквозной сбор данных
+    startGlobalSimulation();
+}
+
+// 2. Закрытие общего монитора
+function closeStoryMonitor() {
+    const overlay = document.getElementById('storyMonitorOverlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+} // <-- ТУТ ОСТАЛАСЬ ОДНА СКОБКА, ЛИШНЮЮ НА СТРОКЕ 6935 МЫ УДАЛИЛИ!
+
+// 3. Очистка консоли монитора
+function clearMonitorLog() {
+    const consoleElem = document.getElementById('storyMonitorConsole');
+    if (consoleElem) {
+        consoleElem.innerHTML = '';
+    }
+}
+
+
+// 4. Функция разноцветного вывода данных в консоль v2.5
+function printMonitorLog(type, text) {
+    const consoleElem = document.getElementById('storyMonitorConsole');
+    if (!consoleElem) return; // Защита от вылета, если элемент отсутствует в DOM
+    
+    let className = 'log-text';
+    
+    if (type === 'System') className = 'log-system';
+    else if (type === 'Quest') className = 'log-quest';
+    else if (type === 'Dialog') className = 'log-dialog';
+    else if (type === 'Error') className = 'log-error';
+
+    const logRow = document.createElement('div');
+    logRow.className = className;
+    logRow.innerHTML = text;
+    consoleElem.appendChild(logRow);
+    
+    // Автопрокрутка консоли вниз
+    consoleElem.scrollTop = consoleElem.scrollHeight;
+}
+
+// 5. Вспомогательная функция распечатки кнопок диалогов
+function simulateDialogBranchInConsole(dialogId, prefix) {
+    const dialogData = currentStoryMap[dialogId];
+    if (!dialogData) return;
+
+    if (dialogData.text) {
+        printMonitorLog('Text', `${prefix}NPC: "${dialogData.text.substring(0, 50)}..."`);
+    }
+
+    if (!dialogData.options || dialogData.options.length === 0) {
+        printMonitorLog('Error', `${prefix}[Тупик: Варианты ответа игрока отсутствуют]`);
+        return;
+    }
+
+    dialogData.options.forEach((opt, idx) => {
+        let typeAction = '';
+        if (opt.type === 0) typeAction = '<span style="color: #ff3333;">[ЗАКРЫТЬ ОКНО]</span>';
+        else if (opt.type === 2) typeAction = '<span style="color: #00aba9;">[ОТКРЫТЬ РОЛЬ]</span>';
+        else typeAction = `➔ <span style="color: #ffcc00;">Переход на диалог ID: ${opt.nextDialogId}</span>`;
+
+        printMonitorLog('Dialog', `${prefix}└─ Кнопка [Слот ${idx}]: "${opt.title}" ${typeAction}`);
+    });
+}
+
+// 6. Функция сквозного сбора и интерактивной симуляции ВСЕГО сюжета v2.5
+function startGlobalSimulation() {
+    printMonitorLog('System', '[Запуск сквозной проверки связей: Квесты "Крепость" ➔ Диалоги "Зверь"]');
+
+    // Проверяем наличие карт в памяти
+    const questKeys = Object.keys(currentQuestMap || {});
+    const storyKeys = Object.keys(currentStoryMap || {});
+
+    if (questKeys.length === 0 && storyKeys.length === 0) {
+        printMonitorLog('Error', '❌ Ошибка симуляции: Обе карты (квестов и диалогов) пусты! Сначала запустите обычные симуляторы модулей, чтобы заполнить оперативную память.');
+        return;
+    }
+
+    printMonitorLog('System', `Загружено из памяти: Заданий — ${questKeys.length}, Диалогов — ${storyKeys.length}.`);
+
+    // --- ЭТАП 1: Симуляция квестовой цепочки ---
+    if (questKeys.length > 0) {
+        printMonitorLog('System', '--- СКАНИРОВАНИЕ ЦЕПОЧКИ ЗАДАНИЙ ---');
+        let nextQuestId = 1; // Стартуем со стандартного ID 1 в "Крепости"
+        let watchdog = 0;
+
+        while (nextQuestId !== -1 && watchdog < 100) {
+            watchdog++;
+            const questData = currentQuestMap[nextQuestId];
+
+            if (!questData) {
+                printMonitorLog('Error', `   [!] ТУПИК ЦЕПОЧКИ: Ссылка ведет на квест ID ${nextQuestId}, но он отсутствует в форме!`);
+                break;
+            }
+
+            // Вывод квестов ЗЕЛЕНЫМ цветом
+            printMonitorLog('Quest', `► Выполняется задание: "${questData.title}" (ID: ${nextQuestId})`);
+            if (questData.text && questData.text !== "Описание задания отсутствует.") {
+                printMonitorLog('Text', `   Текст: ${questData.text.substring(0, 60)}...`);
+            }
+
+            // ПРОВЕРКА СВЯЗИ: Ищем стартовый диалог для этого квеста (по совпадению ID)
+            if (currentStoryMap && currentStoryMap[nextQuestId]) {
+                printMonitorLog('Dialog', `   🔗 Связанный стартовый диалог найден (ID: ${nextQuestId})`);
+                simulateDialogBranchInConsole(nextQuestId, "      ");
+            }
+
+            // Шаг вперед по цепочке nextId
+            const lastId = nextQuestId;
+            nextQuestId = questData.nextId;
+
+            if (nextQuestId === -1) {
+                printMonitorLog('System', `🏁 Цепочка заданий успешно завершена на ID ${lastId}. Дальнейших переходов нет (-1).`);
+                break;
+            }
+        }
+
+        if (watchdog >= 100) {
+            printMonitorLog('Error', '🚨 КРИТИЧЕСКИЙ ВЫЛЕТ: Обнаружено бесконечное зацикливание цепочки квестов!');
+        }
+    }
+
+    // --- ЭТАП 2: Поиск сиротских диалогов ---
+    const orphanedDialogs = storyKeys.filter(dId => !currentQuestMap[dId]);
+    if (orphanedDialogs.length > 0) {
+        printMonitorLog('System', '--- АНАЛИЗ СВОБОДНЫХ ДИАЛОГОВ (ВНЕ КВЕСТОВ) ---');
+        orphanedDialogs.forEach(dId => {
+            printMonitorLog('Dialog', `💬 Автономный Диалог ID ${dId}: "${currentStoryMap[dId].title}"`);
+            simulateDialogBranchInConsole(dId, "   ");
+        });
+    }
+}
 
 
 
