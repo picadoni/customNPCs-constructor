@@ -7043,177 +7043,159 @@ ${formattedOptions}
 // // ФУНКЦИИ ОБЩЕГО МОНИТОРА СЮЖЕТА v2.5 (СТРОГО ОДНА ЗА ДРУГОЙ)
 // // =========================================================================
 
-// Полностью автономная функция сквозного симулятора v2.5 (Работает на всех вкладках!)
+// 1. Открытие нового глобального монитора
 function openGlobalStoryMonitor() {
-    // 1. БЕЗОПАСНЫЙ СБОР ДАННЫХ ИЗ "КРЕПОСТИ" (КВЕСТЫ)
-    if (typeof currentQuestMap !== 'undefined') {
-        currentQuestMap = {}; // Сброс карты квестов перед сбором
-        
-        const qTitleInput = document.getElementById('questTitle');
-        const qNextInput = document.getElementById('questNextId');
-        const qTextInput = document.getElementById('questText');
-
-        // Если мы на вкладке квестов и поля заполнены, собираем их. Если нет — ставим заглушку
-        const mainTitle = qTitleInput && qTitleInput.value.trim() !== "" ? qTitleInput.value : "Стартовое задание";
-        const mainNextId = qNextInput ? parseInt(qNextInput.value) : -1;
-        const mainText = qTextInput && qTextInput.value.trim() !== "" ? qTextInput.value : "Описание квеста отсутствует.";
-
-        currentQuestMap[1] = {
-            title: mainTitle,
-            nextId: isNaN(mainNextId) ? -1 : mainNextId,
-            text: mainText
-        };
-
-        // Сканируем дополнительные квесты
-        const extraBlocks = document.querySelectorAll('div[id^="extraQuestBlock_"]');
-        extraBlocks.forEach(block => {
-            const extraId = block.id.replace('extraQuestBlock_', '');
-            const qId = parseInt(document.getElementById(`extraQuestId_${extraId}`)?.value);
-            const qTitle = document.getElementById(`extraQuestTitle_${extraId}`)?.value || `Доп. задание №${extraId}`;
-            const qNextId = parseInt(document.getElementById(`extraQuestNextId_${extraId}`)?.value);
-
-            if (!isNaN(qId)) {
-                currentQuestMap[qId] = {
-                    title: qTitle,
-                    nextId: isNaN(qNextId) ? -1 : qNextId,
-                    text: document.getElementById(`extraQuestText_${extraId}`)?.value || "Описание задания отсутствует."
-                };
-            }
-        });
+    // Тихо собираем данные квестов
+    if (typeof openQuestMonitor === 'function') {
+        openQuestMonitor(); 
+        closeQuestSimulator(); // Закрываем выскочившее окно квестов
+    }
+    
+    // Тихо собираем данные диалогов
+    if (typeof openStoryMonitor === 'function') {
+        openStoryMonitor(); 
+        closeDialogSimulator(); // Закрываем выскочившее окно диалогов
     }
 
-    // 2. БЕЗОПАСНЫЙ СБОР ДАННЫХ ИЗ "ЗВЕРЯ" (ДИАЛОГИ)
-    if (typeof currentStoryMap !== 'undefined') {
-        currentStoryMap = {}; // Сброс карты диалогов перед сбором
-        
-        const dIdInput = document.getElementById('dialogId');
-        const dTitleInput = document.getElementById('dialogTitle');
-        const dTextInput = document.getElementById('dialogText');
-
-        // ЖЕСТКАЯ ЗАЩИТА: Если полей нет на экране, ставим дефолтный ID 1, чтобы скрипт не падал!
-        const mainId = dIdInput && dIdInput.value ? parseInt(dIdInput.value) : 1;
-        const mainTitle = dTitleInput && dTitleInput.value.trim() !== "" ? dTitleInput.value : "Главная реплика №1";
-        const mainText = dTextInput && dTextInput.value.trim() !== "" ? dTextInput.value : "[Текст NPC пуст]";
-
-        currentStoryMap[mainId] = {
-            title: mainTitle,
-            text: mainText,
-            options: []
-        };
-
-        // Сканируем кнопки главного диалога (только если инпуты существуют в DOM)
-        for (let slot = 0; slot < 3; slot++) {
-            const optTitleElem = document.getElementById(`extra_0_optTitle_${slot}`) || document.getElementById(`optTitle${slot}`);
-            const optDialogElem = document.getElementById(`extra_0_optDialog_${slot}`) || document.getElementById(`optDialog${slot}`);
-            const optTypeElem = document.getElementById(`extra_0_optType_${slot}`) || document.getElementById(`optType${slot}`);
-            
-            const optTitle = optTitleElem ? optTitleElem.value : "";
-            const optDialog = optDialogElem ? parseInt(optDialogElem.value) : -1;
-            const optType = optTypeElem ? parseInt(optTypeElem.value) : 1;
-            
-            if (optTitle && optTitle.trim() !== "") {
-                currentStoryMap[mainId].options.push({
-                    title: optTitle,
-                    nextDialogId: isNaN(optDialog) ? -1 : optDialog,
-                    type: isNaN(optType) ? 1 : optType
-                });
-            }
-        }
-
-        // Сканируем дополнительные диалоги
-        const extraDialogBlocks = document.querySelectorAll('div[id^="extraDialogBlock_"]');
-        extraDialogBlocks.forEach(block => {
-            const extraId = block.id.replace('extraDialogBlock_', '');
-            const dId = parseInt(document.getElementById(`extraDialogId_${extraId}`)?.value);
-            const dTitle = document.getElementById(`extraDialogTitle_${extraId}`)?.value || `Chain Part ${extraId}`;
-            const dText = document.getElementById(`extraDialogText_${extraId}`)?.value || "";
-
-            if (!isNaN(dId)) {
-                currentStoryMap[dId] = {
-                    title: dTitle,
-                    text: dText,
-                    options: []
-                };
-
-                const optionsWrapper = document.getElementById(`extraOptionsWrapper_${extraId}`);
-                if (optionsWrapper) {
-                    const optionBlocks = optionsWrapper.querySelectorAll('.option-block');
-                    optionBlocks.forEach((optBlock, slot) => {
-                        const optTitle = document.getElementById(`extra_${extraId}_optTitle_${slot}`)?.value;
-                        const optDialog = parseInt(document.getElementById(`extra_${extraId}_optDialog_${slot}`)?.value);
-                        const optType = parseInt(document.getElementById(`extra_${extraId}_optType_${slot}`)?.value || 1);
-
-                        if (optTitle && optTitle.trim() !== "") {
-                            currentStoryMap[dId].options.push({
-                                title: optTitle,
-                                nextDialogId: isNaN(optDialog) ? -1 : optDialog,
-                                type: isNaN(optType) ? 1 : optType
-                            });
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    // 3. ОТКРЫТИЕ ОКНА МОНИТОРА (Запустится в любом случае!)
+    // Открываем наше оранжевое окно
     const overlay = document.getElementById('storyMonitorOverlay');
     if (overlay) {
         overlay.style.display = 'flex';
     }
-    
     clearMonitorLog();
-    printMonitorLog('System', '[Старт глобальной симуляции проекта v2.5]');
+    printMonitorLog('System', '[Старт глобальной симуляции проекта]');
     
-    // Запускаем сквозную трассировку строк
+    // Запускаем сквозной сбор данных
     startGlobalSimulation();
 }
 
-// 1. Умный запуск сквозного симулятора без падений
-function runSafeGlobalSimulation() {
-    // Принудительно открываем наше оранжево-черное окно монитора сюжета
+// 2. Закрытие общего монитора
+function closeStoryMonitor() {
     const overlay = document.getElementById('storyMonitorOverlay');
-    if (overlay) overlay.style.display = 'flex';
-    
-    clearMonitorLog();
-    printMonitorLog('System', '[Старт глобальной симуляции проекта v2.5]');
-    
-    // Запускаем сквозную трассировку
-    if (typeof startGlobalSimulation === 'function') {
-        startGlobalSimulation();
-    } else {
-        printMonitorLog('Error', 'Функция startGlobalSimulation не найдена в кодовой базе!');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+} // <-- ТУТ ОСТАЛАСЬ ОДНА СКОБКА, ЛИШНЮЮ НА СТРОКЕ 6935 МЫ УДАЛИЛИ!
+
+// 3. Очистка консоли монитора
+function clearMonitorLog() {
+    const consoleElem = document.getElementById('storyMonitorConsole');
+    if (consoleElem) {
+        consoleElem.innerHTML = '';
     }
 }
 
-// 2. Автоматическое переключение симуляторов (Квест или Диалог) на лету!
-function runContextSimulator() {
-    const contentQuests = document.getElementById('moduleContentQuests');
+
+// 4. Функция разноцветного вывода данных в консоль v2.5
+function printMonitorLog(type, text) {
+    const consoleElem = document.getElementById('storyMonitorConsole');
+    if (!consoleElem) return; // Защита от вылета, если элемент отсутствует в DOM
     
-    // Если рабочая зона квестов сейчас видна на экране (display !== 'none')
-    if (contentQuests && contentQuests.style.display !== 'none') {
-        // Мы на вкладке заданий! Вызываем вашу симуляцию квестов ("Крепость")
-        if (typeof openQuestMonitor === 'function') openQuestMonitor();
-        else alert('Функция openQuestMonitor не найдена в коде!');
-    } else {
-        // Мы на вкладке диалогов! Вызываем локальный симулятор диалогов ("Зверь")
-        if (typeof openStoryMonitor === 'function') openStoryMonitor();
-        else alert('Функция openStoryMonitor не найдена в коде!');
-    }
+    let className = 'log-text';
+    
+    if (type === 'System') className = 'log-system';
+    else if (type === 'Quest') className = 'log-quest';
+    else if (type === 'Dialog') className = 'log-dialog';
+    else if (type === 'Error') className = 'log-error';
+
+    const logRow = document.createElement('div');
+    logRow.className = className;
+    logRow.innerHTML = text;
+    consoleElem.appendChild(logRow);
+    
+    // Автопрокрутка консоли вниз
+    consoleElem.scrollTop = consoleElem.scrollHeight;
 }
 
-// 3. Автоматическое создание Квеста или Диалога в зависимости от вкладки!
-function runContextCreator() {
-    const contentQuests = document.getElementById('moduleContentQuests');
-    
-    if (contentQuests && contentQuests.style.display !== 'none') {
-        // Создаем доп. задание во вкладке "Крепость"
-        if (typeof addExtraQuest === 'function') addExtraQuest();
-        else alert('Функция добавления задания (addExtraQuest) не найдена!');
-    } else {
-        // Создаем доп. диалог во вкладке "Зверь"
-        if (typeof addExtraDialog === 'function') addExtraDialog();
-        else alert('Функция добавления диалога (addExtraDialog) не найдена!');
+// 5. Вспомогательная функция распечатки кнопок диалогов
+function simulateDialogBranchInConsole(dialogId, prefix) {
+    const dialogData = currentStoryMap[dialogId];
+    if (!dialogData) return;
+
+    if (dialogData.text) {
+        printMonitorLog('Text', `${prefix}NPC: "${dialogData.text.substring(0, 50)}..."`);
+    }
+
+    if (!dialogData.options || dialogData.options.length === 0) {
+        printMonitorLog('Error', `${prefix}[Тупик: Варианты ответа игрока отсутствуют]`);
+        return;
+    }
+
+    dialogData.options.forEach((opt, idx) => {
+        let typeAction = '';
+        if (opt.type === 0) typeAction = '<span style="color: #ff3333;">[ЗАКРЫТЬ ОКНО]</span>';
+        else if (opt.type === 2) typeAction = '<span style="color: #00aba9;">[ОТКРЫТЬ РОЛЬ]</span>';
+        else typeAction = `➔ <span style="color: #ffcc00;">Переход на диалог ID: ${opt.nextDialogId}</span>`;
+
+        printMonitorLog('Dialog', `${prefix}└─ Кнопка [Слот ${idx}]: "${opt.title}" ${typeAction}`);
+    });
+}
+
+// 6. Функция сквозного сбора и интерактивной симуляции ВСЕГО сюжета v2.5
+function startGlobalSimulation() {
+    printMonitorLog('System', '[Запуск сквозной проверки связей: Квесты "Крепость" ➔ Диалоги "Зверь"]');
+
+    // Проверяем наличие карт в памяти
+    const questKeys = Object.keys(currentQuestMap || {});
+    const storyKeys = Object.keys(currentStoryMap || {});
+
+    if (questKeys.length === 0 && storyKeys.length === 0) {
+        printMonitorLog('Error', '❌ Ошибка симуляции: Обе карты (квестов и диалогов) пусты! Сначала запустите обычные симуляторы модулей, чтобы заполнить оперативную память.');
+        return;
+    }
+
+    printMonitorLog('System', `Загружено из памяти: Заданий — ${questKeys.length}, Диалогов — ${storyKeys.length}.`);
+
+    // --- ЭТАП 1: Симуляция квестовой цепочки ---
+    if (questKeys.length > 0) {
+        printMonitorLog('System', '--- СКАНИРОВАНИЕ ЦЕПОЧКИ ЗАДАНИЙ ---');
+        let nextQuestId = 1; // Стартуем со стандартного ID 1 в "Крепости"
+        let watchdog = 0;
+
+        while (nextQuestId !== -1 && watchdog < 100) {
+            watchdog++;
+            const questData = currentQuestMap[nextQuestId];
+
+            if (!questData) {
+                printMonitorLog('Error', `   [!] ТУПИК ЦЕПОЧКИ: Ссылка ведет на квест ID ${nextQuestId}, но он отсутствует в форме!`);
+                break;
+            }
+
+            // Вывод квестов ЗЕЛЕНЫМ цветом
+            printMonitorLog('Quest', `► Выполняется задание: "${questData.title}" (ID: ${nextQuestId})`);
+            if (questData.text && questData.text !== "Описание задания отсутствует.") {
+                printMonitorLog('Text', `   Текст: ${questData.text.substring(0, 60)}...`);
+            }
+
+            // ПРОВЕРКА СВЯЗИ: Ищем стартовый диалог для этого квеста (по совпадению ID)
+            if (currentStoryMap && currentStoryMap[nextQuestId]) {
+                printMonitorLog('Dialog', `   🔗 Связанный стартовый диалог найден (ID: ${nextQuestId})`);
+                simulateDialogBranchInConsole(nextQuestId, "      ");
+            }
+
+            // Шаг вперед по цепочке nextId
+            const lastId = nextQuestId;
+            nextQuestId = questData.nextId;
+
+            if (nextQuestId === -1) {
+                printMonitorLog('System', `🏁 Цепочка заданий успешно завершена на ID ${lastId}. Дальнейших переходов нет (-1).`);
+                break;
+            }
+        }
+
+        if (watchdog >= 100) {
+            printMonitorLog('Error', '🚨 КРИТИЧЕСКИЙ ВЫЛЕТ: Обнаружено бесконечное зацикливание цепочки квестов!');
+        }
+    }
+
+    // --- ЭТАП 2: Поиск сиротских диалогов ---
+    const orphanedDialogs = storyKeys.filter(dId => !currentQuestMap[dId]);
+    if (orphanedDialogs.length > 0) {
+        printMonitorLog('System', '--- АНАЛИЗ СВОБОДНЫХ ДИАЛОГОВ (ВНЕ КВЕСТОВ) ---');
+        orphanedDialogs.forEach(dId => {
+            printMonitorLog('Dialog', `💬 Автономный Диалог ID ${dId}: "${currentStoryMap[dId].title}"`);
+            simulateDialogBranchInConsole(dId, "   ");
+        });
     }
 }
 
