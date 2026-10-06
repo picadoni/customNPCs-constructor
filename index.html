@@ -304,6 +304,29 @@
 #cheatSheetDrawerPanel.open {
     left: 0px !important;
 }
+#storyMonitorWindow {
+    width: 750px;
+    background: #0d0d0d;
+    border: 2px solid #ff4500;
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.4);
+    font-family: 'Courier New', Courier, monospace;
+}
+.monitor-console {
+    height: 350px;
+    background: #050505;
+    border: 1px solid #222;
+    padding: 12px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #bbb;
+}
+/* Цветовые маркеры для сквозного лога */
+.log-system { color: #ffa500; font-weight: bold; } /* Оранжевый - системный */
+.log-quest { color: #32cd32; }  /* Зеленый - Квесты / Задания */
+.log-dialog { color: #00bfff; } /* Небесно-голубой - Диалоги */
+.log-text { color: #ffffff; }   /* Белый - Текст NPC / Ответы */
+.log-error { color: #ff3333; font-style: italic; } /* Красный - Тупики / Ошибки */
 
     </style>
 </head>
@@ -358,6 +381,131 @@
         
     </div>
 </div>
+
+<!-- Автономный плавающий пульт управления IDE v2.5 (Перед закрывающим body) -->
+<!-- Тонкий плавающий пульт управления IDE v2.5 (Бирюзовый Неон) -->
+<!-- Адаптивный плавающий пульт управления IDE v2.5 (Интеграция с темой) -->
+<div id="floatingIdePanel" style="
+    position: fixed; 
+    top: 160px; 
+    left: 0px; 
+    z-index: 999999 !important; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 6px; 
+    background: transparent; /* Полностью убрали черный фон-диверсант */
+    border: none;
+    padding: 6px 4px; 
+    border-radius: 0 6px 6px 0; 
+    width: 40px; 
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0.5; 
+    backdrop-filter: blur(1px);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+" 
+onmouseover="
+    this.style.opacity='1'; 
+    this.style.width='170px'; 
+    /* При наведении фон и рамка берут цвет активных элементов вашей темы */
+    this.style.background='var(--bg-color, rgba(30, 30, 30, 0.85))'; 
+    this.style.border='1px solid var(--accent-color, #ff4500)'; 
+    this.style.boxShadow='0 0 15px var(--accent-color, rgba(255, 69, 0, 0.3))';
+    this.style.backdropFilter='blur(4px)';
+" 
+onmouseout="
+    this.style.opacity='0.5'; 
+    this.style.width='40px'; 
+    this.style.background='transparent'; 
+    this.style.border='none';
+    this.style.boxShadow='none';
+    this.style.backdropFilter='blur(1px)';
+">
+
+    <!-- Заголовок-маркер (Использует цвет текста вашей текущей темы) -->
+    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-color, #fff); font-weight: bold; font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; user-select: none;">
+        <span style="font-size: 14px; padding-left: 2px;">🗄️</span> <span style="font-family: inherit;">ПАНЕЛЬ СЮЖЕТА</span>
+    </div>
+
+    <!-- Кнопка 1: Симулятор -->
+    <button type="button" onclick="openGlobalStoryMonitor()" title="📋 Запустить сквозной симулятор всего сюжета" style="
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: var(--text-color, #fff) !important; /* Намертво привязали к цвету текста темы */
+        padding: 5px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 150px;
+        box-sizing: border-box;
+    " onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.borderColor='var(--accent-color, #ffcc00)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+        <span style="font-size: 14px;">🖥️</span> <span>МОНИТОР СЮЖЕТА</span>
+    </button>
+
+    <!-- Кнопка 1: Симулятор -->
+    <button type="button" onclick="openStoryMonitor()" title="📋 Запустить сквозной симулятор всего сюжета" style="
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: var(--text-color, #fff) !important; /* Намертво привязали к цвету текста темы */
+        padding: 5px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 150px;
+        box-sizing: border-box;
+    " onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.borderColor='var(--accent-color, #ffcc00)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+        <span style="font-size: 14px;">📺</span> <span>Симулятор диалога</span>
+    </button>
+
+    <!-- Кнопка 2: Создать новый диалог -->
+    <button type="button" onclick="createNewDialogChainBlock(event)" title="✒️ Быстро создать новый дополнительный диалог" style="
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: var(--text-color, #fff) !important;
+        padding: 5px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 150px;
+        box-sizing: border-box;
+    " onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.borderColor='var(--accent-color, #32cd32)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+        <span style="font-size: 14px;">✒️</span> <span>Новый диалог</span>
+    </button>
+
+    <!-- Кнопка 3: Скачать ZIP -->
+    <button type="button" onclick="downloadAllDialogsZip()" title="💾 Собрать проект и скачать готовый ZIP-архив" style="
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: var(--text-color, #fff) !important;
+        padding: 5px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 150px;
+        box-sizing: border-box;
+    " onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.borderColor='var(--accent-color, #00bfff)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+        <span style="font-size: 14px;">📦</span> <span>Все диалоги (.zip)</span>
+    </button>
+
+</div>
+
 
 
 
@@ -497,9 +645,17 @@
     <!-- ГЛАВНЫЙ ОБЩИЙ ЗАГОЛОВОК С СИСТЕМНОЙ ШЕСТЕРЕНКОЙ (ТЕПЕРЬ СТРОГО ВНУТРИ КОНТЕЙНЕРА) -->
      <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 25px; margin-bottom: 25px; position: relative; width: 100%;"> 
         <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для динамической шапки -->
-<h1 id="mainTitle" data-i18n="title_dialogs" style="margin: 0px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: rgb(255, 85, 0);">Конструктор Диалогов CustomNPCs Паладин (Вер. 1.5)</h1>
-<!-- Глобальная кнопка симулятора -->
-<button type="button" onclick="alert(&#39;🎮 Монитор сюжета: Модуль интерактивного демо-просмотра квестов и всех диалогов находится в разработке и появится в ver 2.5!&#39;)" title="📋 Запустить симулятор всего сюжета" style="background: none; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" onmouseout="this.style.background='none'; this.style.color='#ffcc00';">📋</button>
+<h1 id="mainTitle" data-i18n="title_dialogs" style="margin: 0px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; text-align: center; color: rgb(255, 85, 0);">Конструктор Диалогов CustomNPCs Зверь (Вер. 1.6)</h1>
+<!-- Глобальная кнопка симулятора сюжета v2.5
+<button type="button" 
+        onclick="openGlobalStoryMonitor()" 
+        title="📋 Запустить симулятор всего сюжета" 
+        style="background: none; border: 1px solid #ffcc00; color: #ffcc00; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" 
+        onmouseover="this.style.background='#ffcc00'; this.style.color='#000';" 
+        onmouseout="this.style.background='none'; this.style.color='#ffcc00';">
+    📋
+</button> -->
+
 
         <!-- Шестеренка аккуратно встает в левый угол, не улетая в облака -->
 <!-- ИСПРАВЛЕНО: Добавлен маркер перевода для всплывающей подсказки шестерёнки -->
@@ -513,7 +669,9 @@
 <!--    <button type="button" onclick="toggleCheatSheetDrawer()" title="📖 Открыть шпаргалку по командам (Minecraft 1.12.2)" style="background: #333; border: 1px solid var(--border-color); color: #fff; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; z-index: 10006;">📖</button>
 
         <!-- Выпадающее меню тем и прозрачности (Выпадает ровно под шестеренкой) -->
-<div id="systemDesignMenu" style="display: none; position: absolute; top: -120px; left: -20px 80%; transform: translateX(-50%); align-items: center; gap: 1px; background: rgba(0,0,0,0.7); padding: 6px 14px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.4); z-index: 1000; backdrop-filter: blur(4px);">
+<!-- Исправленный контейнер меню с разрешением выхода элементов v2.5 -->
+<!-- Исправленное меню настроек без сжатия элементов v2.5 -->
+<div id="systemDesignMenu" style="display: none; position: absolute; top: -120px; left: 50%; transform: translateX(-50%); align-items: center; gap: 12px; background: rgba(0,0,0,0.85); padding: 6px 18px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.4); z-index: 10005; backdrop-filter: blur(4px); width: max-content; white-space: nowrap;">
             <div style="display: flex; gap: 6px; align-items: center; border-right: 1px solid rgba(255,255,255,0.2); padding-right: 10px;">
 <!-- ПРАВИЛЬНЫЙ ВАРИАНТ КНОПОК ТЕМ: Без data-i18n, только с data-i18n-title! -->
 <button type="button" onclick="setTheme(&#39;pipboy&#39;)" data-i18n-title="ttl_theme_pip" title="Стиль: Пип-бой" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">🖥️</button>
@@ -523,7 +681,7 @@
 <button type="button" onclick="setTheme(&#39;ryanair&#39;)" data-i18n-title="ttl_theme_ryan" title="Стиль 2007: Ryanair" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px;">✈️</button>
 <!-- Вариант для кнопки в Основном диалоге -->
 <!-- Исправленный вариант для кнопки в Основном диалоге (Версия 2.0) -->
-<span onclick="openStoryMonitor()" data-i18n-title="ttl_open_ns"  title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span>
+<!--<span onclick="openStoryMonitor()" data-i18n-title="ttl_open_ns"  title="💬 Запустить симуляцию" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">💬</span> -->
 <span onclick="toggleFtbMemo(1)" data-i18n-title="ttl_open_FTB" title="📎 Связь с FTB" style="font-size: 18px; cursor: pointer; user-select: none; padding: 2px; line-height: 1; margin-right: 10px;">📎</span>
 
                 <button type="button" id="btnSetBg" onclick="document.getElementById('bgUploaderInput').click()" title="🖼️ Установить свой фон" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; margin-left: 4px;">🖼️</button>
@@ -571,20 +729,20 @@
 </div>
         
         <!-- Осталась только одна кнопка функций диалога! -->
-                <div style="display: flex; align-items: center;">
+    <!--            <div style="display: flex; align-items: center;">
                    <span onclick="toggleGearMenu(event)" data-i18n-title="ttl_main_gear" title="Функции и настройки этого диалога" ...="">⚙️</span>
  </div>
-    </div>
+    </div>-->
 
     <!-- Расширенное меню первой шестерёнки -->
-    <div style="display: flex; justify-content: flex-end; width: 100%; position: relative;">
-        <div id="gearDropdownMenu" style="display: none; position: absolute; top: -5px; right: 0; align-items: center; gap: 14px; background: rgba(0,0,0,0.5); padding: 6px 12px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.3); z-index: 100; backdrop-filter: blur(4px);">
+    <div style="display: flex; justify-content: flex-end; width: 100%; position: relative;"> 
+      <!--  <div id="gearDropdownMenu" style="display: none; position: absolute; top: -5px; right: 0; align-items: center; gap: 14px; background: rgba(0,0,0,0.5); padding: 6px 12px; border-radius: 4px; border: 1px dashed rgba(128,128,128,0.3); z-index: 100; backdrop-filter: blur(4px);"> -->
             <!-- ИСПРАВЛЕНО: Добавлены маркеры data-i18n-title, иконки в безопасности -->
 <!-- Обновленный вариант кнопки в плашке Основного диалога -->
-            <button type="button" onclick="createNewDialogChainBlock(event)" data-i18n-title="ttl_add_chain" title="📜 Добавить следующий диалог в ленту" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">📜</button>
-            <button type="button" onclick="generateAndDownload()" data-i18n-title="ttl_download_dial" title="💾 Скачать этот диалог (.json)" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">💾</button>
-            <button type="button" onclick="toggleAdvancedSettings(event)" data-i18n-title="ttl_avail_settings" title="🔒 Условия доступности диалога" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">🔒</button>
-        <button type="button" onclick="downloadAllDialogsZip()" style="background: #1e7145; color: white; padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">📦 Скачать все диалоги (.zip)</button>
+           <!--  <button type="button" onclick="createNewDialogChainBlock(event)" data-i18n-title="ttl_add_chain" title="📜 Добавить следующий диалог в ленту" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px;">📜</button> -->
+            <button type="button" onclick="generateAndDownload()" data-i18n-title="ttl_download_dial" title="💾 Скачать этот диалог (.json)" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 2px;">💾</button>
+            <button type="button" onclick="toggleAdvancedSettings(event)" data-i18n-title="ttl_avail_settings" title="🔒 Условия доступности диалога" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 2px;">🔒</button>
+       <!-- <button type="button" onclick="downloadAllDialogsZip()" style="background: #1e7145; color: white; padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">📦 Скачать все диалоги (.zip)</button> -->
 
 		</div>
     </div>
@@ -878,6 +1036,31 @@
 
         </div>
     </div> <!-- ИСПРАВЛЕНИЕ: Этот тег закрывает moduleContentDialogs! -->
+	
+	<!-- Единое окно сквозного мониторинга v2.5 -->
+<!-- Исправленный блок общего монитора v2.5 -->
+<div id="storyMonitorOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 99999; align-items: center; justify-content: center;">
+    <div id="storyMonitorWindow" style="width: 750px; background: #0d0d0d; border: 2px solid #ff4500; box-shadow: 0 0 15px rgba(255, 69, 0, 0.4); font-family: 'Courier New', Courier, monospace; padding: 10px; border-radius: 6px;">
+        <div class="window-header" style="display: flex; justify-content: space-between; align-items: center; color: #ff4500; font-weight: bold; margin-bottom: 10px;">
+            <span>🖥️ МОНИТОР СЮЖЕТА: Сквозной симулятор (Ver 2.5)</span>
+            <button class="btn-close" onclick="closeStoryMonitor()" style="background: none; border: none; color: #ff3333; cursor: pointer; font-weight: bold;">❌ ЗАКРЫТЬ</button>
+        </div>
+        <div class="window-toolbar" style="margin-bottom: 10px;">
+            <button class="btn-tool" onclick="startGlobalSimulation()" style="background: #222; color: #32cd32; border: 1px solid #32cd32; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">🔄 Симуляция</button>
+            <button class="btn-tool" onclick="clearMonitorLog()" style="background: #222; color: #ffcc00; border: 1px solid #ffcc00; padding: 4px 10px; border-radius: 4px; cursor: pointer;">🧹 Очистить</button>
+        </div>
+        <div id="storyMonitorConsole" style="height: 350px; background: #050505; border: 1px solid #222; padding: 12px; overflow-y: auto; font-size: 13px; line-height: 1.5; color: #bbb; text-align: left; border-radius: 4px;">
+            <!-- Здесь побегут цветные строки -->
+        </div>
+        <div class="window-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 12px;">
+            <span style="color: #32cd32;">● Модуль готов к тестам</span>
+            <button class="btn-ready" onclick="closeStoryMonitor()" style="background: #ff4500; color: #000; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-weight: bold;">Готово</button>
+        </div>
+    </div>
+</div>
+
+	
+	
 <!-- РАБОЧАЯ ЗОНА СКРИПТОВ (Новый глобальный модуль) -->
 <div id="moduleContentScripts" style="display: none; width: 100%; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: -1px;">
     
@@ -1128,7 +1311,7 @@
                         <option value="3" data-i18n="opt_repeat_3">Еженедельно (3)</option>
                         <option value="4" data-i18n="opt_repeat_4">Игровой День (4)</option>
                         <option value="5" data-i18n="opt_repeat_5">Игровая Неделя (5)</option>
-</select>
+					</select>
 
                 </div>
 <div class="form-group">
@@ -1202,7 +1385,8 @@
     <!-- Содержимое окна -->
 <!-- Шапка окна -->
 <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; border-bottom: 1px dashed #333; background: #1c1c1c; border-top-left-radius: 6px; border-top-right-radius: 6px;">
-    <span style="font-weight: bold; color: #ff8800; font-size: 14px;" data-i18n="memo_ftb_header">📎 ПАМЯТКА: СВЯЗЬ С FTB QUESTS (Условные связи)</span>
+    <span onclick="toggleFtbMemo()" style="cursor: pointer;" title="Открыть памятку FTB Quests">📎</span>
+
     <button onclick="toggleFtbMemo()" style="background: #ff2222; border: none; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px;" data-i18n="memo_ftb_close">Х ЗАКРЫТЬ</button>
 </div>
 
@@ -1233,12 +1417,8 @@
         <strong data-i18n="memo_ftb_desc_b3">Условия доступности (Availability Options)</strong>: 
         <span data-i18n="memo_ftb_desc_b4">диалог или квест откроется только тогда, когда этот предмет физически окажется в инвентаре игрока.</span>
     </div>
-</div>
-
-
-
+	</div>
 </div> <!-- Этот тег закрывает главный .container -->
-
 <!-- И только ПОСЛЕ этого закрываем главный контейнер и открываем скрипты -->
 <!-- ==========================================================================
    ИЗОЛИРОВАННЫЙ ВЫДВИЖНОЙ БЛОКНОТ NOTEPAD++ (ВСТАВЛЯТЬ СТРОГО СЮДА!)
@@ -1458,7 +1638,6 @@
     </div>
     <div style="font-size: 10px; opacity: 0.6; margin-top: 4px; text-align: left;"><span data-i18n="lbl_db_ver">База данных</span>: MC 1.12.2</div>
 </div>
-
 
 <!--button class="download-btn" id="mainDownloadButton" onclick="handleMainDownload()">💾 СКАЧАТЬ ФАЙЛ ДИАЛОГА (.JSON)</button !-->
 <script>
@@ -1792,7 +1971,7 @@ function createNewDialogChainBlock(event) {
         </div>
     `;
 
-    // Вставляем диалог строго внутрь рабочей зоны диалогов
+    <!--// Вставляем диалог строго внутрь рабочей зоны диалогов-->
     const dialogsWrapper = document.getElementById('moduleContentDialogs');
     if (dialogsWrapper) {
         dialogsWrapper.appendChild(extraBlock);
@@ -3086,14 +3265,14 @@ ${formattedOptions}
 
 
 
-// Логика плавного выдвижения боковой панели заметок (БРОНЕБОЙНАЯ)
-// 1. Создаем переменную-флаг СТРОГО ВЫШЕ самой функции (вне её тела)
+  <!--// Логика плавного выдвижения боковой панели заметок (БРОНЕБОЙНАЯ)
+// 1. Создаем переменную-флаг СТРОГО ВЫШЕ самой функции (вне её тела)-->
 let isNotesOpen = false;
 
-// 2. Сама бронебойная функция открытия
+  <!--// 2. Сама бронебойная функция открытия
 // БРОНЕБОЙНАЯ ФУНКЦИЯ ДЛЯ БЛОКНОТА (📝)
 // Чистая и бронебойная логика без проверки пикселей
-// 1. БРОНЕБОЙНЫЙ БЛОКНОТ (📝)
+// 1. БРОНЕБОЙНЫЙ БЛОКНОТ (📝)-->
 function toggleNotesDrawer() {
     const panel = document.getElementById('notesDrawerPanel');
     if (!panel) return;
@@ -3108,7 +3287,7 @@ function toggleNotesDrawer() {
 
 
 
-// Функция добавления новой ветки кнопок внутрь ДОПОЛНИТЕЛЬНОГО диалога
+  <!--// Функция добавления новой ветки кнопок внутрь ДОПОЛНИТЕЛЬНОГО диалога-->
 function addOptionToExtraDialog(extraDialogId) {
     const wrapper = document.getElementById(`extraOptionsWrapper_${extraDialogId}`);
     if (!wrapper) return;
@@ -3173,16 +3352,16 @@ function addOptionToExtraDialog(extraDialogId) {
 		</div>
     `;
 
-    // А сам хвост функции теперь можно оставить чистым, без всяких тайм-аутов!
-    // 1. Прикрепляем карточку к странице
+      <!--// А сам хвост функции теперь можно оставить чистым, без всяких тайм-аутов!
+    // 1. Прикрепляем карточку к странице-->
     wrapper.appendChild(optionBlock);
 
-    // 2. Вызываем тему (пусть она красит блок и сбрасывает HTML в свой дефолт)
+      <!--// 2. Вызываем тему (пусть она красит блок и сбрасывает HTML в свой дефолт)-->
     const savedTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
     if (typeof setTheme === 'function') setTheme(savedTheme);
 
-    // 3. ФИНАЛЬНЫЙ ВЫСТРЕЛ: Вызываем глобальный перевод всей страницы, 
-    // чтобы он поверх темы принудительно активировал нужный язык!
+      <!--// 3. ФИНАЛЬНЫЙ ВЫСТРЕЛ: Вызываем глобальный перевод всей страницы, 
+    // чтобы он поверх темы принудительно активировал нужный язык!-->
     if (typeof changeLanguage === 'function') {
         const currentLang = localStorage.getItem('customNpcLanguage') || 'ru';
         changeLanguage(currentLang);
@@ -3194,7 +3373,7 @@ function addOptionToExtraDialog(extraDialogId) {
 
 
 function removeSpecificExtraOption(extraDialogId, targetSlot) {
-    // ИСПРАВЛЕНИЕ: Добавляем окно предупреждения для одиночной ветки дополнительного диалога ленты
+    <!--// ИСПРАВЛЕНИЕ: Добавляем окно предупреждения для одиночной ветки дополнительного диалога ленты-->
     if (!confirm(`Вы уверены, что хотите удалить Кнопку ${targetSlot + 1} (Слот ${targetSlot}) из этого диалога?`)) return;
 
     const block = document.getElementById(`extraBlock_${extraDialogId}_opt_${targetSlot}`);
@@ -3206,7 +3385,7 @@ function removeSpecificExtraOption(extraDialogId, targetSlot) {
     if (!wrapper) return;
     const remainingBlocks = wrapper.children;
     
-    // Переиндексируем оставшиеся кнопки, чтобы не ломался JSON при выгрузке
+   <!-- // Переиндексируем оставшиеся кнопки, чтобы не ломался JSON при выгрузке-->
     for (let i = 0; i < remainingBlocks.length; i++) {
         const currentBlock = remainingBlocks[i];
         currentBlock.id = `extraBlock_${extraDialogId}_opt_${i}`;
@@ -3226,7 +3405,7 @@ function removeSpecificExtraOption(extraDialogId, targetSlot) {
             }
         }
         
-        // Корректируем ID всех полей ввода под новый индекс массива
+       <!-- // Корректируем ID всех полей ввода под новый индекс массива-->
         currentBlock.querySelector(`input[id^="extra_${extraDialogId}_optTitle_"]`).id = `extra_${extraDialogId}_optTitle_${i}`;
         currentBlock.querySelector(`select[id^="extra_${extraDialogId}_optType_"]`).id = `extra_${extraDialogId}_optType_${i}`;
         currentBlock.querySelector(`input[id^="extra_${extraDialogId}_optDialog_"]`).id = `extra_${extraDialogId}_optDialog_${i}`;
@@ -3239,7 +3418,7 @@ function removeSpecificExtraOption(extraDialogId, targetSlot) {
 }
 
 
-// Безопасное удаление диалога из ленты с подтверждением
+<!--// Безопасное удаление диалога из ленты с подтверждением-->
 function safeRemoveExtraDialog(extraId) {
     if (confirm("Вы уверены, что хотите полностью удалить этот дополнительный диалог со всеми его ветками?")) {
         const targetBlock = document.getElementById(`extraDialogBlock_${extraId}`);
@@ -3250,8 +3429,8 @@ function safeRemoveExtraDialog(extraId) {
 }
 
 
-// Функция удаления строго последней ветки кнопок из доп. диалога
-// Функция удаления строго последней ветки кнопок из доп. диалога (ЗАЩИЩЕННАЯ)
+<!--// Функция удаления строго последней ветки кнопок из доп. диалога-->
+<!--// Функция удаления строго последней ветки кнопок из доп. диалога (ЗАЩИЩЕННАЯ)-->
 function removeLastExtraOptionButton(extraDialogId) {
     const wrapper = document.getElementById(`extraOptionsWrapper_${extraDialogId}`);
     if (!wrapper) return;
@@ -3262,7 +3441,7 @@ function removeLastExtraOptionButton(extraDialogId) {
         return;
     }
     
-    // ИСПРАВЛЕНИЕ: Предупреждаем перед удалением последней кнопки по кнопке "Минус"
+    <!--// ИСПРАВЛЕНИЕ: Предупреждаем перед удалением последней кнопки по кнопке "Минус"-->
     const lastSlotIndex = count - 1;
     if (confirm(`Вы уверены, что хотите удалить последнюю Кнопку ${count} (Слот ${lastSlotIndex})?`)) {
         wrapper.lastChild.remove();
@@ -3270,7 +3449,7 @@ function removeLastExtraOptionButton(extraDialogId) {
 }
 
 
-// Функция очистки текстовых полей кнопок доп. диалога
+<!--// Функция очистки текстовых полей кнопок доп. диалога-->
 function clearExtraOptionsForm(extraDialogId) {
     const wrapper = document.getElementById(`extraOptionsWrapper_${extraDialogId}`);
     if (wrapper && confirm("Очистить все ответы этого диалога?")) {
@@ -3285,34 +3464,34 @@ function clearExtraOptionsForm(extraDialogId) {
         }
     }
 }
-// Функция плавного изменения прозрачности на лету
-// Функция плавного изменения прозрачности на лету (Проверьте её у себя!)
-function changeOpacity(val) {
+		<!--// Функция плавного изменения прозрачности на лету
+		// Функция плавного изменения прозрачности на лету (Проверьте её у себя!)-->
+	function changeOpacity(val) {
     document.documentElement.style.setProperty('--window-opacity', val);
     const display = document.getElementById('opacityValueDisplay');
     if (display) display.innerText = Math.round(val * 100) + '%';
     
-    // Получаем элементы интерфейса
+    <!--// Получаем элементы интерфейса-->
     const container = document.querySelector('.container');
     
-    // Смотрим, какая ретро-тема сейчас активна в памяти браузера
+    <!--// Смотрим, какая ретро-тема сейчас активна в памяти браузера-->
     const currentTheme = localStorage.getItem('customNpcTheme') || 'ifindit';
     
-    // Базовые RGB цвета для главного окна (r, g, b) и внутренних секций (sr, sg, sb)
+    <!--// Базовые RGB цвета для главного окна (r, g, b) и внутренних секций (sr, sg, sb)-->
     let r = 36, g = 36, b = 36;    // По умолчанию Pip-Boy (#242424)
     let sr = 45, sg = 45, sb = 45; // Внутренние секции Pip-Boy (#2d2d2d)
     
-    // Подменяем базовые RGB цифры под каждую тему, чтобы прозрачность красила в правильный тон
+    <!--// Подменяем базовые RGB цифры под каждую тему, чтобы прозрачность красила в правильный тон-->
     if (currentTheme === 'melonking') { r = 28; g = 12; b = 12; sr = 17; sg = 2; sb = 2; }
     else if (currentTheme === 'yahoo') { r = 255; g = 255; b = 255; sr = 249; sg = 249; sb = 249; }
     else if (currentTheme === 'ryanair') { r = 255; g = 204; b = 0; sr = 255; sg = 230; sb = 128; }
     else if (currentTheme === 'ifindit') { r = 192; g = 192; b = 192; sr = 217; sg = 217; sb = 217; }
 
-    // Накатываем прозрачный rgba() на главный контейнер
+    <!--// Накатываем прозрачный rgba() на главный контейнер-->
     if (container) container.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${val})`;
     
-    // Накатываем прозрачный rgba() на все подсекции, блоки ответов и блокнот сценариста
-    // Мягкое окрашивание внутренних секций
+    <!--// Накатываем прозрачный rgba() на все подсекции, блоки ответов и блокнот сценариста
+    // Мягкое окрашивание внутренних секций-->
     document.querySelectorAll('.section:not(.container), .options-container, .option-block').forEach(el => {
         el.style.backgroundColor = `rgba(${sr}, ${sg}, ${sb}, ${val})`;
     });
@@ -3410,7 +3589,7 @@ function switchMainModule(moduleType) {
         tab.style.background = 'rgba(0,0,0,0.3)';
         tab.style.borderColor = 'transparent';
         tab.style.color = '#888';
-        tab.classList.remove('active'); // <-- ДОБАВИТЬ ЭТУ СТРОКУ (Снимает оранжевую подсветку со всех вкладок)
+        tab.classList.remove('active'); // <!-- ДОБАВИТЬ ЭТУ СТРОКУ (Снимает оранжевую подсветку со всех вкладок)-->
     });
     
     // // 3. ДОБАВИТЬ: Перевод всплывающих подсказок (Title) при наведении мышки
@@ -3436,7 +3615,7 @@ function switchMainModule(moduleType) {
     // Включаем нужный модуль
     if (moduleType === 'dialogs') {
         contentDialogs.style.display = 'block';
-        tabDialogs.classList.add('active'); // <-- ДОБАВИТЬ ЭТУ СТРОКУ (Подсвечивает только активный таб)
+        tabDialogs.classList.add('active'); // <!-- ДОБАВИТЬ ЭТУ СТРОКУ (Подсвечивает только активный таб)-->
         tabDialogs.style.background = 'var(--panel-bg)';
         tabDialogs.style.borderColor = bColor;
         tabDialogs.style.borderBottom = 'none';
@@ -3447,7 +3626,7 @@ function switchMainModule(moduleType) {
     } 
     else if (moduleType === 'quests') {
         contentQuests.style.display = 'block';
-        tabQuests.classList.add('active'); // <-- ДОБАВИТЬ ЭТУ СТРОКУ
+        tabQuests.classList.add('active'); // <!-- ДОБАВИТЬ ЭТУ СТРОКУ-->
         tabQuests.style.background = 'var(--panel-bg)';
         tabQuests.style.borderColor = bColor;
         tabQuests.style.borderBottom = 'none';
@@ -3458,7 +3637,7 @@ function switchMainModule(moduleType) {
     } 
     else if (moduleType === 'scripts') {
         contentScripts.style.display = 'block';
-        tabScripts.classList.add('active'); // <-- ДОБАВИТЬ ЭТУ СТРОКУ
+        tabScripts.classList.add('active'); // <!-- ДОБАВИТЬ ЭТУ СТРОКУ-->
         tabScripts.style.background = 'var(--panel-bg)';
         tabScripts.style.borderColor = bColor;
         tabScripts.style.borderBottom = 'none';
@@ -4610,7 +4789,7 @@ const langData = {
 		ph_notes_area: "Пишите пометки здесь...",
 		title_dialogs: "Конструктор Диалогов CustomNPCs Зверь (Вер. 1.6)",
 		title_quests: "Конструктор Заданий CustomNPCs Крепость (Вер. 1.1)",
-		title_scripts: "Скриптовый Модуль CustomNPCs Квантовый (Вер. 1.0)",
+		title_scripts: "Скриптовый Модуль CustomNPCs Квантовый Луч (Вер. 1.1)",
 		lbl_particles: "Эффекты:", 
 		opt_part_none: "Выкл. ❌", 
 		opt_part_sakura: "Сакура 🌸", 
@@ -4860,8 +5039,8 @@ const langData = {
 		notes_title: "📝 Writer Notes",
 		ph_notes_search: "Search word...", 
 		ph_notes_area: "Write your notes here...",
-		title_dialogs: "CustomNPCs Dialogue Constructor - Beast (Ver. 1.6)",
-		title_quests: "CustomNPCs Quest Constructor - Fortress (Ver. 1.1)",
+		title_dialogs: "CustomNPCs Dialogue Constructor - Paladin (Ver. 1.5)",
+		title_quests: "CustomNPCs Quest Constructor - Castle (Ver. 1.0)",
 		title_scripts: "CustomNPCs Scripting Module - Quantum (Ver. 1.0)",
 		lbl_particles: "Effects:", 
 		opt_part_none: "Off ❌", 
@@ -5140,9 +5319,9 @@ const langData = {
 		notes_title: "📝 シナリオメモ",
 		ph_notes_search: "単語を検索...",
 		ph_notes_area: "ここにメモを記入してください...",
-		title_dialogs: "CustomNPCs対話コンストラクター  「ビースト」(Ver. 1.6)",
-		title_quests: "CustomNPCsクエストコンストラクター 「要塞」(Ver. 1.1)",
-		title_scripts: "CustomNPCsスクリプトモジュール  量子 (Ver. 1.1)",
+		title_dialogs: "CustomNPCs対話コンストラクター  パラディン (Ver. 1.5)",
+		title_quests: "CustomNPCsクエストコンストラクター カッスル  (Ver. 1.0)",
+		title_scripts: "CustomNPCsスクリプトモジュール  量子 (Ver. 1.0)",
 		lbl_particles: "エフェクト:", 
 		opt_part_none: "無効 ❌",
 		opt_part_sakura: "桜 🌸",
@@ -5423,8 +5602,8 @@ const langData = {
 		notes_title: "📝 编剧笔记",
 		ph_notes_search: "搜索关键词...",
 		ph_notes_area: "在此处编写笔记...",
-		title_dialogs: "CustomNPCs对话编辑器 野兽 (Ver. 1.6)",
-		title_quests: "CustomNPCs任务编辑器 要塞 (Ver. 1.1)",
+		title_dialogs: "CustomNPCs对话编辑器 圣骑士 (Ver. 1.5)",
+		title_quests: "CustomNPCs任务编辑器 城堡 (Ver. 1.0)",
 		title_scripts: "CustomNPCs脚本模块 量子 (Ver. 1.0)",
 		lbl_particles: "特效:",
 		opt_part_none: "关闭 ❌", 
@@ -6535,7 +6714,7 @@ function downloadAllDialogsZip() {
     const mainId = document.getElementById('dialogId')?.value || "1";
     const mainContent = buildMainDialogData();
     filesToPack.push({
-        name: `dialog_${mainId}.json`,
+        name: `${mainId}.json`,
         content: mainContent
     });
 
@@ -6547,7 +6726,7 @@ function downloadAllDialogsZip() {
         const extraContent = buildExtraDialogData(extraId);
 
         filesToPack.push({
-            name: `dialog_${dId}.json`,
+            name: `${dId}.json`,
             content: extraContent
         });
     });
@@ -6574,7 +6753,7 @@ function downloadAllQuestsZip() {
     const mainId = document.getElementById('questId')?.value || "1";
     const mainContent = buildMainQuestData();
     filesToPack.push({
-        name: `quest_${mainId}.json`,
+        name: `${mainId}.json`,
         content: mainContent
     });
 
@@ -6727,6 +6906,7 @@ ${formattedOptions}
     "DecreaseFaction2Points": 0b
 }`;
 }
+
     // =========================================================================
     // Точный генератор текста для ДОПОЛНИТЕЛЬНЫХ диалогов
     // =========================================================================
@@ -6856,6 +7036,186 @@ ${formattedOptions}
 }`;
 }
 
+// =========================================================================
+// ФУНКЦИИ ОБЩЕГО МОНИТОРА СЮЖЕТА v2.5 (СТРОГО ОДНА ЗА ДРУГОЙ)
+// =========================================================================
+
+// // ФУНКЦИИ ОБЩЕГО МОНИТОРА СЮЖЕТА v2.5 (СТРОГО ОДНА ЗА ДРУГОЙ)
+// // =========================================================================
+
+// Полностью автономная функция сквозного симулятора v2.5 (Работает на всех вкладках!)
+function openGlobalStoryMonitor() {
+    // 1. БЕЗОПАСНЫЙ СБОР ДАННЫХ ИЗ "КРЕПОСТИ" (КВЕСТЫ)
+    if (typeof currentQuestMap !== 'undefined') {
+        currentQuestMap = {}; // Сброс карты квестов перед сбором
+        
+        const qTitleInput = document.getElementById('questTitle');
+        const qNextInput = document.getElementById('questNextId');
+        const qTextInput = document.getElementById('questText');
+
+        // Если мы на вкладке квестов и поля заполнены, собираем их. Если нет — ставим заглушку
+        const mainTitle = qTitleInput && qTitleInput.value.trim() !== "" ? qTitleInput.value : "Стартовое задание";
+        const mainNextId = qNextInput ? parseInt(qNextInput.value) : -1;
+        const mainText = qTextInput && qTextInput.value.trim() !== "" ? qTextInput.value : "Описание квеста отсутствует.";
+
+        currentQuestMap[1] = {
+            title: mainTitle,
+            nextId: isNaN(mainNextId) ? -1 : mainNextId,
+            text: mainText
+        };
+
+        // Сканируем дополнительные квесты
+        const extraBlocks = document.querySelectorAll('div[id^="extraQuestBlock_"]');
+        extraBlocks.forEach(block => {
+            const extraId = block.id.replace('extraQuestBlock_', '');
+            const qId = parseInt(document.getElementById(`extraQuestId_${extraId}`)?.value);
+            const qTitle = document.getElementById(`extraQuestTitle_${extraId}`)?.value || `Доп. задание №${extraId}`;
+            const qNextId = parseInt(document.getElementById(`extraQuestNextId_${extraId}`)?.value);
+
+            if (!isNaN(qId)) {
+                currentQuestMap[qId] = {
+                    title: qTitle,
+                    nextId: isNaN(qNextId) ? -1 : qNextId,
+                    text: document.getElementById(`extraQuestText_${extraId}`)?.value || "Описание задания отсутствует."
+                };
+            }
+        });
+    }
+
+    // 2. БЕЗОПАСНЫЙ СБОР ДАННЫХ ИЗ "ЗВЕРЯ" (ДИАЛОГИ)
+    if (typeof currentStoryMap !== 'undefined') {
+        currentStoryMap = {}; // Сброс карты диалогов перед сбором
+        
+        const dIdInput = document.getElementById('dialogId');
+        const dTitleInput = document.getElementById('dialogTitle');
+        const dTextInput = document.getElementById('dialogText');
+
+        // ЖЕСТКАЯ ЗАЩИТА: Если полей нет на экране, ставим дефолтный ID 1, чтобы скрипт не падал!
+        const mainId = dIdInput && dIdInput.value ? parseInt(dIdInput.value) : 1;
+        const mainTitle = dTitleInput && dTitleInput.value.trim() !== "" ? dTitleInput.value : "Главная реплика №1";
+        const mainText = dTextInput && dTextInput.value.trim() !== "" ? dTextInput.value : "[Текст NPC пуст]";
+
+        currentStoryMap[mainId] = {
+            title: mainTitle,
+            text: mainText,
+            options: []
+        };
+
+        // Сканируем кнопки главного диалога (только если инпуты существуют в DOM)
+        for (let slot = 0; slot < 3; slot++) {
+            const optTitleElem = document.getElementById(`extra_0_optTitle_${slot}`) || document.getElementById(`optTitle${slot}`);
+            const optDialogElem = document.getElementById(`extra_0_optDialog_${slot}`) || document.getElementById(`optDialog${slot}`);
+            const optTypeElem = document.getElementById(`extra_0_optType_${slot}`) || document.getElementById(`optType${slot}`);
+            
+            const optTitle = optTitleElem ? optTitleElem.value : "";
+            const optDialog = optDialogElem ? parseInt(optDialogElem.value) : -1;
+            const optType = optTypeElem ? parseInt(optTypeElem.value) : 1;
+            
+            if (optTitle && optTitle.trim() !== "") {
+                currentStoryMap[mainId].options.push({
+                    title: optTitle,
+                    nextDialogId: isNaN(optDialog) ? -1 : optDialog,
+                    type: isNaN(optType) ? 1 : optType
+                });
+            }
+        }
+
+        // Сканируем дополнительные диалоги
+        const extraDialogBlocks = document.querySelectorAll('div[id^="extraDialogBlock_"]');
+        extraDialogBlocks.forEach(block => {
+            const extraId = block.id.replace('extraDialogBlock_', '');
+            const dId = parseInt(document.getElementById(`extraDialogId_${extraId}`)?.value);
+            const dTitle = document.getElementById(`extraDialogTitle_${extraId}`)?.value || `Chain Part ${extraId}`;
+            const dText = document.getElementById(`extraDialogText_${extraId}`)?.value || "";
+
+            if (!isNaN(dId)) {
+                currentStoryMap[dId] = {
+                    title: dTitle,
+                    text: dText,
+                    options: []
+                };
+
+                const optionsWrapper = document.getElementById(`extraOptionsWrapper_${extraId}`);
+                if (optionsWrapper) {
+                    const optionBlocks = optionsWrapper.querySelectorAll('.option-block');
+                    optionBlocks.forEach((optBlock, slot) => {
+                        const optTitle = document.getElementById(`extra_${extraId}_optTitle_${slot}`)?.value;
+                        const optDialog = parseInt(document.getElementById(`extra_${extraId}_optDialog_${slot}`)?.value);
+                        const optType = parseInt(document.getElementById(`extra_${extraId}_optType_${slot}`)?.value || 1);
+
+                        if (optTitle && optTitle.trim() !== "") {
+                            currentStoryMap[dId].options.push({
+                                title: optTitle,
+                                nextDialogId: isNaN(optDialog) ? -1 : optDialog,
+                                type: isNaN(optType) ? 1 : optType
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    // 3. ОТКРЫТИЕ ОКНА МОНИТОРА (Запустится в любом случае!)
+    const overlay = document.getElementById('storyMonitorOverlay');
+    if (overlay) {
+        overlay.style.display = 'flex';
+    }
+    
+    clearMonitorLog();
+    printMonitorLog('System', '[Старт глобальной симуляции проекта v2.5]');
+    
+    // Запускаем сквозную трассировку строк
+    startGlobalSimulation();
+}
+
+// 1. Умный запуск сквозного симулятора без падений
+function runSafeGlobalSimulation() {
+    // Принудительно открываем наше оранжево-черное окно монитора сюжета
+    const overlay = document.getElementById('storyMonitorOverlay');
+    if (overlay) overlay.style.display = 'flex';
+    
+    clearMonitorLog();
+    printMonitorLog('System', '[Старт глобальной симуляции проекта v2.5]');
+    
+    // Запускаем сквозную трассировку
+    if (typeof startGlobalSimulation === 'function') {
+        startGlobalSimulation();
+    } else {
+        printMonitorLog('Error', 'Функция startGlobalSimulation не найдена в кодовой базе!');
+    }
+}
+
+// 2. Автоматическое переключение симуляторов (Квест или Диалог) на лету!
+function runContextSimulator() {
+    const contentQuests = document.getElementById('moduleContentQuests');
+    
+    // Если рабочая зона квестов сейчас видна на экране (display !== 'none')
+    if (contentQuests && contentQuests.style.display !== 'none') {
+        // Мы на вкладке заданий! Вызываем вашу симуляцию квестов ("Крепость")
+        if (typeof openQuestMonitor === 'function') openQuestMonitor();
+        else alert('Функция openQuestMonitor не найдена в коде!');
+    } else {
+        // Мы на вкладке диалогов! Вызываем локальный симулятор диалогов ("Зверь")
+        if (typeof openStoryMonitor === 'function') openStoryMonitor();
+        else alert('Функция openStoryMonitor не найдена в коде!');
+    }
+}
+
+// 3. Автоматическое создание Квеста или Диалога в зависимости от вкладки!
+function runContextCreator() {
+    const contentQuests = document.getElementById('moduleContentQuests');
+    
+    if (contentQuests && contentQuests.style.display !== 'none') {
+        // Создаем доп. задание во вкладке "Крепость"
+        if (typeof addExtraQuest === 'function') addExtraQuest();
+        else alert('Функция добавления задания (addExtraQuest) не найдена!');
+    } else {
+        // Создаем доп. диалог во вкладке "Зверь"
+        if (typeof addExtraDialog === 'function') addExtraDialog();
+        else alert('Функция добавления диалога (addExtraDialog) не найдена!');
+    }
+}
 
 
 
