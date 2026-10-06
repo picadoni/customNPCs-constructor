@@ -164,9 +164,16 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 * **Improvements:** Enhanced quest/dialogue control, now featuring two preview and sequence tracking modes ("Tech Log" and "Game").
 * **Bug Fixes:** Fixed a visual bug with rapid script generation where text remained invisible until a click or keypress occurred.
 
-### [Version 2.4 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+### [Version 2.4](https://picadoni.github.io/customNPCs-constructor/ver%202.4/)
 **Dialogue Constructor "Beast" (v1.6) / Quest Constructor "Fortress" (v1.1) / Script Module "Quantum" (v1.0)**
 *(The script module did not receive a new name, as its functionality was not updated in this version).*
 * **New Features:** Bulk downloading of files, dialogues, and quests.
 * **Improvements:** Dialogue buttons have been expanded. There are now 4 buttons instead of 2, and their names have also been changed or expanded.
 * **Bug Fixes:** Urgent update due to critical errors that corrupted files during dialogue and quest generation. Everything has been fixed and is now working properly.
+
+### [Version 2.4.5 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+**Dialogue Constructor "Beast" (v1.6) / Quest Constructor "Fortress" (v1.1) / Script Module "Quantum" (v1.0)**
+*(This is an intermediate version).*
+* **New Features:** A unified window for viewing dialogues and tasks, as well as a convenient control panel located above the page scroll bar.
+* **Improvements:** The gear icon has been removed, and its functionality has been redistributed.
+* **Bug Fixes:** Fixed the display of the banner featuring core theme and transparency functions; it is now displayed correctly.
