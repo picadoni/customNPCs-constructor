@@ -178,7 +178,7 @@
 * **改进：** 取消了齿轮图标，并将其功能进行了重新分配。
 * **缺陷修复：** 修复了包含主题核心功能和透明度设置的边栏/板块的显示问题，现已正常显示。
 
-### ### [Version Final(当前)](https://picadoni.github.io/customNPCs-constructor)
+### [Version Final(当前)](https://picadoni.github.io/customNPCs-constructor)
 **“光子”对话构建器 🏁 / “核能”任务构建器 🏁 / “量子辐射”脚本模块 🏁**
 *(此为最终版本，已完成所有模块的更新)。*
 * **新功能：** 添加了脚本测试器，用于检查脚本的有效性，确保没有遗漏逗号或引号。
