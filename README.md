@@ -171,9 +171,27 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 * **Improvements:** Dialogue buttons have been expanded. There are now 4 buttons instead of 2, and their names have also been changed or expanded.
 * **Bug Fixes:** Urgent update due to critical errors that corrupted files during dialogue and quest generation. Everything has been fixed and is now working properly.
 
-### [Version 2.4.5 (Current)](https://picadoni.github.io/customNPCs-constructor/)
+### [Version 2.4.5](https://picadoni.github.io/customNPCs-constructor/ver%202.4.5/)
 **Dialogue Constructor "Beast" (v1.6) / Quest Constructor "Fortress" (v1.1) / Script Module "Quantum beam" (v1.1)**
 *(This is an intermediate version).*
 * **New Features:** A unified window for viewing dialogues and tasks, as well as a convenient control panel located above the page scroll bar.
 * **Improvements:** The gear icon has been removed, and its functionality has been redistributed.
 * **Bug Fixes:** Fixed the display of the banner featuring core theme and transparency functions; it is now displayed correctly.
+
+### ### [Version Final(Current)](https://picadoni.github.io/customNPCs-constructor/)
+**Dialogue Constructor "Photon 🏁" / Quest Constructor "Nuclear 🏁" / Script Module "Quantum Radiation 🏁"**
+*(This is the final version, featuring updates across all modules).*
+* **New Features:** Added a Script Tester to validate script syntax and ensure no commas or quotation marks are missing.
+* **Additional Features:** Added an Export Guide with instructions on moving the generated dialogue, quest, and script files, explaining exactly which folders they belong in.
+* **Improvements:** Replaced the broken "Alarm" script with "Gift from a Blogger". The side menu has also been fully polished.
+* **Bug Fixes:** Rewrote all script templates so they now function correctly. Fixed the "Screenwriter's Notes" feature, where transparency wasn't working properly; it is now displayed correctly.
+* **Logic Improvements:** Removed the individual buttons for "Create Extra Dialogue", "Download All .zip", "Create New Quest", and "Download All Quests .zip". These actions have been moved to the side menu, which now features dynamic button switching (the previous intermediate version only included tests for this).
+* **Localization:** Expanded translations for the following components:
+    * Script templates (including comments for better readability in other languages)
+    * Dialogue templates
+    * Quest templates
+    * Dialogue Simulator
+    * Quest Simulator
+    * Script Validator
+    * STORY MONITOR: End-to-End Simulator (Dialogues & Quests)
+* **Development Status:** Project development is officially complete, but it will receive ongoing support and hotfixes based on user bug reports.
