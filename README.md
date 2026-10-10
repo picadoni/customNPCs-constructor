@@ -178,7 +178,7 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 * **Improvements:** The gear icon has been removed, and its functionality has been redistributed.
 * **Bug Fixes:** Fixed the display of the banner featuring core theme and transparency functions; it is now displayed correctly.
 
-### ### [Version Final(Current)](https://picadoni.github.io/customNPCs-constructor/)
+### [Version Final(Current)](https://picadoni.github.io/customNPCs-constructor/)
 **Dialogue Constructor "Photon 🏁" / Quest Constructor "Nuclear 🏁" / Script Module "Quantum Radiation 🏁"**
 *(This is the final version, featuring updates across all modules).*
 * **New Features:** Added a Script Tester to validate script syntax and ensure no commas or quotation marks are missing.
