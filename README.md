@@ -7,177 +7,6 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
 
 ## Version History (Clickable 🌐)
 
-### [Версия 0.0](https://picadoni.github.io/customNPCs-constructor/ver%200.0/)
-**CustomNPCs Dialogue Constructor "Herald"**
-* **Project Start:** Added basic tabs for designing dialogues.
-
-### [Version 0.1](https://picadoni.github.io/customNPCs-constructor/ver%200.1/)
-**CustomNPCs Dialogue Constructor "Stargazer"**
-* **Update:** Added 5 different UI themes/styles.
-
-### [Version 0.2](https://picadoni.github.io/customNPCs-constructor/ver%200.2/)
-**CustomNPCs Dialogue Constructor "Steward"**
-* **Update:** Added 4 control buttons:
-  1. Clear All
-  2. Delete Last
-  3. Add Branch
-* **Note:** Added a floppy disk icon for downloading dialogues, but it is not functional yet (placeholder). Downloads currently happen via the bottom button.
-
-### [Version 0.3](https://picadoni.github.io/customNPCs-constructor/ver%200.3/)
-**CustomNPCs Dialogue Constructor "Warden"**
-* **Gear Menu Update:**
-  1. Create Additional Dialogue (button added, placeholder functionality).
-  2. Access Level (button added, placeholder functionality).
-* **New Features:** Added a notepad with 3 tabs and a search function:
-  1. Storyline
-  2. Quests
-  3. Notes
-
-### [Version 0.4](https://picadoni.github.io/customNPCs-constructor/ver%200.4/)
-**CustomNPCs Dialogue Constructor "Scientist"**
-* **Gear Menu Update:** The "Create Additional Dialogue" function is now fully operational.
-
-### [Version 0.5](https://picadoni.github.io/customNPCs-constructor/ver%200.5/)
-**CustomNPCs Dialogue Constructor "Master"**
-* **Notepad Update:** Changed to a sliding panel to avoid cluttering the interface.
-* **Expanded Functional:** Added the ability to create up to 34 dialogue/response branches in a single window for additional dialogues. Added control buttons: "Clear All", "Delete Last", "Add Branch".
-
-### [Version 0.6](https://picadoni.github.io/customNPCs-constructor/ver%200.6/)
-**CustomNPCs Dialogue Constructor "Lightning"**
-* **Removed:** Completely removed the large "Download Dialogue File (.JSON)" button.
-* **Changes:** Themes and other settings moved inside the gear menu.
-* **New Features:** 
-  1. Adjustable UI opacity.
-  2. Ability to set a custom background image.
-* **Templates:** Added presets for quick filling: "Villager", "Guard", "Merchant".
-* **Optimization:** Added the ability to fully collapse dialogue windows (ID1, ID2, etc.) instead of keeping them as separate floating windows/tabs.
-
-### [Version 0.7](https://picadoni.github.io/customNPCs-constructor/ver%200.7/)
-**Dialogue Constructor "Foreman" (v0.7) / Quest Constructor "Foreman" (v0.1)**
-* **New Features:** Added the "Quests" tab.
-* **Placeholders:** Created a gear menu placeholder for future quest settings.
-* **Dialogue Update:** Implemented the Availability Conditions system for Dialogues.
-
-### [Version 0.8](https://picadoni.github.io/customNPCs-constructor/ver%200.8/)
-**Dialogue Constructor "Announcer" (v0.8) / Quest Constructor "Aztec" (v0.2)**
-* **UI Update:** 
-  1. Added an option to reset the custom PC background image.
-  2. Added a quick-scroll arrow to move up/down the page.
-* **Quest Update:**
-  * Activated the gear menu: additional quest branches can now be created.
-  * Increased the maximum number of quests and fixed a structure bug that caused the game to sometimes fail to recognize quest files.
-  * Added the option to run a console command upon quest completion (matching the mod's native feature).
-
-### [Version 0.9](https://picadoni.github.io/customNPCs-constructor/ver%200.9/)
-**Dialogue Constructor "Comet" (v0.9) / Quest Constructor "Satellite" (v0.3)**
-* **New Features:** Added a comprehensive game command guide with an integrated search-by-name feature.
-* **Fixes:** Fixed the quest tab and improved quest completion logic.
-* **Optimization:** Added 1-click command insertion after selecting a command window in the dialogue/quest constructor.
-
-### [Version 1.0](https://picadoni.github.io/customNPCs-constructor/ver%201.0/)
-**Dialogue Constructor "Comet" (v0.9) / Quest Constructor "Satellite" (v0.3) / Scripting Module "Emperor" (v0.1)**
-*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
-* **New Features:** Added a new tab — "Scripting Module CustomNPCs 'Emperor' v0.1".
-* **Script Templates:** Added auto-generation templates and a library of ready-to-use JavaScript code snippet presets:
-  1. Script Auto-Generator
-  2. Ready-made scripts: Say in chat, Play sound, Spawn particles, Grant potion effect, Random event.
-* **Known Bug:** The quest window stays highlighted as active when navigating inside the scripting module window.
-
-### [Version 1.1](https://picadoni.github.io/customNPCs-constructor/ver%201.1/)
-**Dialogue Constructor "Comet" (v0.9) / Quest Constructor "Satellite" (v0.3) / Scripting Module "Commander" (v0.2)**
-*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
-* **Scripting Update:** Added a "Generate Random Script Event" button to the scripting module tab.
-
-### [Version 1.2](https://picadoni.github.io/customNPCs-constructor/ver%201.2/)
-**Dialogue Constructor "Comet" (v0.9) / Quest Constructor "Satellite" (v0.3) / Scripting Module "Pilot" (v0.3)**
-*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
-* **Scripting Update:** Expanded the library of script templates and presets.
-
-### [Version 1.3](https://picadoni.github.io/customNPCs-constructor/ver%201.3/)
-**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Tower" (v0.4) / Scripting Module "Titan" (v0.4)**
-* **Global Update of All Tabs:**
-  * **Dialogue Constructor:** Integrated an AI Story Generator.
-  * **Quest Constructor:** Integrated an AI Quest Generator.
-  * **Scripting Module:** Added new preset functions (Change NPC size, Siren/Alarm mode, Meteor shower).
-
-### [Version 1.4](https://picadoni.github.io/customNPCs-constructor/ver%201.4/)
-**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Priest" (v0.5) / Scripting Module "Cosmos" (v0.5)**
-*(Dialogue constructor did not receive a new name as its functionality was not updated in this release).*
-* **Global Code Update:** Implemented multi-language core support:
-  1. English
-  2. Simplified Chinese
-  3. Japanese (日本語)
-* **Note:** Localization is partially implemented. Bug present: main tab headers remain in Russian.
-
-### [Version 1.5](https://picadoni.github.io/customNPCs-constructor/ver%201.5/)
-**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Secretary" (v0.6) / Scripting Module "Servant" (v0.6)**
-*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
-* **Bug Fixes:** Fully resolved localization bugs. Tab headers now display correctly in the selected language.
-
-### [Version 1.6](https://picadoni.github.io/customNPCs-constructor/ver%201.6/)
-**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Secretary" (v0.7) / Scripting Module "Overlord" (v0.7)**
-*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
-* **New Features:** Added toggleable ambient background particle effects (smoothly falling sakura petals, snow, or autumn leaves).
-* **Logic Improvement:** Replaced the gear icon on the quest tab with crossed swords. This is more logical since combat and quest parameters are configured inside this menu.
-
-### [Version 1.7](https://picadoni.github.io/customNPCs-constructor/ver%201.7/)
-**Dialogue Constructor "Forest" (v1.1) / Quest Constructor "Secretary" (v0.7) / Scripting Module "Observer" (v0.8)**
-*(The quest constructor did not receive a new name, as its functionality was not updated in this version).*
-* **New Features:** Dialogues are now signed, and the dialogue title is visible. A mini-player for previewing effects has been added to the scripting module.
-* **Bug Fixes:** Non-working scripts have been fixed; the templates used for auto-generation now function properly.
-* **Improvement:** The gear icon has been replaced with a more stylish one.
-
-### [Version 1.8](https://picadoni.github.io/customNPCs-constructor/ver%201.8/)
-**Dialogue Constructor "Waterfall" (v1.2) / Quest Constructor "Guild" (v0.8) / Scripting Module "Observer" (v0.8)**
-*(The scripting module did not receive a new name, as its functionality was not updated in this version).*
-* **New Features:** An AI generator for sub-quests was added to extra tasks; tabs in the quest creator were renamed to shorter variants (Russian language only, other languages remain unchanged).
-* **Bug Fixes:** Dialogue IDs are now dynamic again, the bug has been fixed.
-* **Improvement:** Quests, much like dialogues, now display their title in the header and have a different color.
-
-### [Version 1.9](https://picadoni.github.io/customNPCs-constructor/ver%201.9/)
-**Dialogue Constructor "Grotto" (v1.3) / Quest Constructor "Guild" (v0.8) / Script Module "Terminal" (v0.9)**
-*(The scripting module did not receive a new name, as its functionality was not updated in this version).*
-* **New Features:** Added 'Leprechaun's Luck' template to the script module.
-* **Bug Fixes:** Fixed a critical bug from version 1.8 that caused duplicate dialogue responses and could corrupt files during creation/saving; all functions now work correctly.
-* **Improvement:** Added syntax highlighting in the script module for better usability.
-
-### [Version 2.0](https://picadoni.github.io/customNPCs-constructor/ver%202.0/)
-**Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Guild" (v0.8) / Script Module "Terminal" (v0.9)**
-*(The task builder and script module did not receive new names, as their functionality was not updated in this version).*
-* **New Features:** Added a dialogue simulation feature directly inside the constructor to test how the sequence will look and play in-game.
-* **Bug Fixes:** Discovered bugs in the plot generator and the 'Add response branch' button, which had been a critical issue since version 1.7. This critical code error has been successfully fixed.
-
-### [Version 2.1](https://picadoni.github.io/customNPCs-constructor/ver%202.1/)
-**Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Guild" (v0.8) / Script Module "Terminal" (v0.9)**
-*(The Dialogue Constructor, Quest Constructor, and Script Module have not been renamed, as their functionality was not updated in this version).*
-* **New Features:** Added a guide for linking with the FTB Quests mod, and full localization into Japanese, English, and Simplified Chinese.
-* **Improvement:** Expanded translation for buttons.
-
-### [Version 2.2](https://picadoni.github.io/customNPCs-constructor/ver%202.2/)
-**Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Gidra" (v0.9) / Script Module "Terminal" (v0.9)**
-*(The Dialogue Constructor and Script Module have not been renamed, as their functionality was not updated in this version).*
-* **New Features:** Added a modal window to check the sequence and validate task IDs for integrity.
-
-### [Version 2.3](https://picadoni.github.io/customNPCs-constructor/ver%202.3/)
-**Dialogue Constructor "Paladin" (v1.5) / Quest Constructor "Citadel" (v1.0) / Script Module "Quantum" (v1.0)**
-* **New Features:** Added a mini-guide for scripting in ECMA 5.1.
-* **Improvements:** Enhanced quest/dialogue control, now featuring two preview and sequence tracking modes ("Tech Log" and "Game").
-* **Bug Fixes:** Fixed a visual bug with rapid script generation where text remained invisible until a click or keypress occurred.
-
-### [Version 2.4](https://picadoni.github.io/customNPCs-constructor/ver%202.4/)
-**Dialogue Constructor "Beast" (v1.6) / Quest Constructor "Fortress" (v1.1) / Script Module "Quantum" (v1.0)**
-*(The script module did not receive a new name, as its functionality was not updated in this version).*
-* **New Features:** Bulk downloading of files, dialogues, and quests.
-* **Improvements:** Dialogue buttons have been expanded. There are now 4 buttons instead of 2, and their names have also been changed or expanded.
-* **Bug Fixes:** Urgent update due to critical errors that corrupted files during dialogue and quest generation. Everything has been fixed and is now working properly.
-
-### [Version 2.4.5](https://picadoni.github.io/customNPCs-constructor/ver%202.4.5/)
-**Dialogue Constructor "Beast" (v1.6) / Quest Constructor "Fortress" (v1.1) / Script Module "Quantum beam" (v1.1)**
-*(This is an intermediate version).*
-* **New Features:** A unified window for viewing dialogues and tasks, as well as a convenient control panel located above the page scroll bar.
-* **Improvements:** The gear icon has been removed, and its functionality has been redistributed.
-* **Bug Fixes:** Fixed the display of the banner featuring core theme and transparency functions; it is now displayed correctly.
-
 ### [Version Final(Current)](https://picadoni.github.io/customNPCs-constructor/)
 **Dialogue Constructor "Photon 🏁" / Quest Constructor "Nuclear 🏁" / Script Module "Quantum Radiation 🏁"**
 *(This is the final version, featuring updates across all modules).*
@@ -195,3 +24,174 @@ A visual builder for dialogues, quests, and scripts for the Custom NPCs mod in M
     * Script Validator
     * STORY MONITOR: End-to-End Simulator (Dialogues & Quests)
 * **Development Status:** Project development is officially complete, but it will receive ongoing support and hotfixes based on user bug reports.
+
+### [Version 2.4.5](https://picadoni.github.io/customNPCs-constructor/ver%202.4.5/)
+**Dialogue Constructor "Beast" (v1.6) / Quest Constructor "Fortress" (v1.1) / Script Module "Quantum beam" (v1.1)**
+*(This is an intermediate version).*
+* **New Features:** A unified window for viewing dialogues and tasks, as well as a convenient control panel located above the page scroll bar.
+* **Improvements:** The gear icon has been removed, and its functionality has been redistributed.
+* **Bug Fixes:** Fixed the display of the banner featuring core theme and transparency functions; it is now displayed correctly.
+
+### [Version 2.4](https://picadoni.github.io/customNPCs-constructor/ver%202.4/)
+**Dialogue Constructor "Beast" (v1.6) / Quest Constructor "Fortress" (v1.1) / Script Module "Quantum" (v1.0)**
+*(The script module did not receive a new name, as its functionality was not updated in this version).*
+* **New Features:** Bulk downloading of files, dialogues, and quests.
+* **Improvements:** Dialogue buttons have been expanded. There are now 4 buttons instead of 2, and their names have also been changed or expanded.
+* **Bug Fixes:** Urgent update due to critical errors that corrupted files during dialogue and quest generation. Everything has been fixed and is now working properly.
+
+### [Version 2.3](https://picadoni.github.io/customNPCs-constructor/ver%202.3/)
+**Dialogue Constructor "Paladin" (v1.5) / Quest Constructor "Citadel" (v1.0) / Script Module "Quantum" (v1.0)**
+* **New Features:** Added a mini-guide for scripting in ECMA 5.1.
+* **Improvements:** Enhanced quest/dialogue control, now featuring two preview and sequence tracking modes ("Tech Log" and "Game").
+* **Bug Fixes:** Fixed a visual bug with rapid script generation where text remained invisible until a click or keypress occurred.
+
+### [Version 2.2](https://picadoni.github.io/customNPCs-constructor/ver%202.2/)
+**Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Gidra" (v0.9) / Script Module "Terminal" (v0.9)**
+*(The Dialogue Constructor and Script Module have not been renamed, as their functionality was not updated in this version).*
+* **New Features:** Added a modal window to check the sequence and validate task IDs for integrity.
+
+### [Version 2.1](https://picadoni.github.io/customNPCs-constructor/ver%202.1/)
+**Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Guild" (v0.8) / Script Module "Terminal" (v0.9)**
+*(The Dialogue Constructor, Quest Constructor, and Script Module have not been renamed, as their functionality was not updated in this version).*
+* **New Features:** Added a guide for linking with the FTB Quests mod, and full localization into Japanese, English, and Simplified Chinese.
+* **Improvement:** Expanded translation for buttons.
+
+### [Version 2.0](https://picadoni.github.io/customNPCs-constructor/ver%202.0/)
+**Dialogue Constructor "Planetarium" (v1.4) / Quest Constructor "Guild" (v0.8) / Script Module "Terminal" (v0.9)**
+*(The task builder and script module did not receive new names, as their functionality was not updated in this version).*
+* **New Features:** Added a dialogue simulation feature directly inside the constructor to test how the sequence will look and play in-game.
+* **Bug Fixes:** Discovered bugs in the plot generator and the 'Add response branch' button, which had been a critical issue since version 1.7. This critical code error has been successfully fixed.
+
+### [Version 1.9](https://picadoni.github.io/customNPCs-constructor/ver%201.9/)
+**Dialogue Constructor "Grotto" (v1.3) / Quest Constructor "Guild" (v0.8) / Script Module "Terminal" (v0.9)**
+*(The scripting module did not receive a new name, as its functionality was not updated in this version).*
+* **New Features:** Added 'Leprechaun's Luck' template to the script module.
+* **Bug Fixes:** Fixed a critical bug from version 1.8 that caused duplicate dialogue responses and could corrupt files during creation/saving; all functions now work correctly.
+* **Improvement:** Added syntax highlighting in the script module for better usability.
+
+### [Version 1.8](https://picadoni.github.io/customNPCs-constructor/ver%201.8/)
+**Dialogue Constructor "Waterfall" (v1.2) / Quest Constructor "Guild" (v0.8) / Scripting Module "Observer" (v0.8)**
+*(The scripting module did not receive a new name, as its functionality was not updated in this version).*
+* **New Features:** An AI generator for sub-quests was added to extra tasks; tabs in the quest creator were renamed to shorter variants (Russian language only, other languages remain unchanged).
+* **Bug Fixes:** Dialogue IDs are now dynamic again, the bug has been fixed.
+* **Improvement:** Quests, much like dialogues, now display their title in the header and have a different color.
+
+### [Version 1.7](https://picadoni.github.io/customNPCs-constructor/ver%201.7/)
+**Dialogue Constructor "Forest" (v1.1) / Quest Constructor "Secretary" (v0.7) / Scripting Module "Observer" (v0.8)**
+*(The quest constructor did not receive a new name, as its functionality was not updated in this version).*
+* **New Features:** Dialogues are now signed, and the dialogue title is visible. A mini-player for previewing effects has been added to the scripting module.
+* **Bug Fixes:** Non-working scripts have been fixed; the templates used for auto-generation now function properly.
+* **Improvement:** The gear icon has been replaced with a more stylish one.
+
+### [Version 1.6](https://picadoni.github.io/customNPCs-constructor/ver%201.6/)
+**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Secretary" (v0.7) / Scripting Module "Overlord" (v0.7)**
+*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
+* **New Features:** Added toggleable ambient background particle effects (smoothly falling sakura petals, snow, or autumn leaves).
+* **Logic Improvement:** Replaced the gear icon on the quest tab with crossed swords. This is more logical since combat and quest parameters are configured inside this menu.
+
+### [Version 1.5](https://picadoni.github.io/customNPCs-constructor/ver%201.5/)
+**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Secretary" (v0.6) / Scripting Module "Servant" (v0.6)**
+*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
+* **Bug Fixes:** Fully resolved localization bugs. Tab headers now display correctly in the selected language.
+
+### [Version 1.4](https://picadoni.github.io/customNPCs-constructor/ver%201.4/)
+**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Priest" (v0.5) / Scripting Module "Cosmos" (v0.5)**
+*(Dialogue constructor did not receive a new name as its functionality was not updated in this release).*
+* **Global Code Update:** Implemented multi-language core support:
+  1. English
+  2. Simplified Chinese
+  3. Japanese (日本語)
+* **Note:** Localization is partially implemented. Bug present: main tab headers remain in Russian.
+
+### [Version 1.3](https://picadoni.github.io/customNPCs-constructor/ver%201.3/)
+**Dialogue Constructor "The Great" (v1.0) / Quest Constructor "Tower" (v0.4) / Scripting Module "Titan" (v0.4)**
+* **Global Update of All Tabs:**
+  * **Dialogue Constructor:** Integrated an AI Story Generator.
+  * **Quest Constructor:** Integrated an AI Quest Generator.
+  * **Scripting Module:** Added new preset functions (Change NPC size, Siren/Alarm mode, Meteor shower).
+
+### [Version 1.2](https://picadoni.github.io/customNPCs-constructor/ver%201.2/)
+**Dialogue Constructor "Comet" (v0.9) / Quest Constructor "Satellite" (v0.3) / Scripting Module "Pilot" (v0.3)**
+*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
+* **Scripting Update:** Expanded the library of script templates and presets.
+
+### [Version 1.1](https://picadoni.github.io/customNPCs-constructor/ver%201.1/)
+**Dialogue Constructor "Comet" (v0.9) / Quest Constructor "Satellite" (v0.3) / Scripting Module "Commander" (v0.2)**
+*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
+* **Scripting Update:** Added a "Generate Random Script Event" button to the scripting module tab.
+
+### [Version 1.0](https://picadoni.github.io/customNPCs-constructor/ver%201.0/)
+**Dialogue Constructor "Comet" (v0.9) / Quest Constructor "Satellite" (v0.3) / Scripting Module "Emperor" (v0.1)**
+*(Dialogue and Quest constructors did not receive new names as their functionality was not updated in this release).*
+* **New Features:** Added a new tab — "Scripting Module CustomNPCs 'Emperor' v0.1".
+* **Script Templates:** Added auto-generation templates and a library of ready-to-use JavaScript code snippet presets:
+  1. Script Auto-Generator
+  2. Ready-made scripts: Say in chat, Play sound, Spawn particles, Grant potion effect, Random event.
+* **Known Bug:** The quest window stays highlighted as active when navigating inside the scripting module window.
+
+### [Version 0.9](https://picadoni.github.io/customNPCs-constructor/ver%200.9/)
+**Dialogue Constructor "Comet" (v0.9) / Quest Constructor "Satellite" (v0.3)**
+* **New Features:** Added a comprehensive game command guide with an integrated search-by-name feature.
+* **Fixes:** Fixed the quest tab and improved quest completion logic.
+* **Optimization:** Added 1-click command insertion after selecting a command window in the dialogue/quest constructor.
+
+### [Version 0.8](https://picadoni.github.io/customNPCs-constructor/ver%200.8/)
+**Dialogue Constructor "Announcer" (v0.8) / Quest Constructor "Aztec" (v0.2)**
+* **UI Update:** 
+  1. Added an option to reset the custom PC background image.
+  2. Added a quick-scroll arrow to move up/down the page.
+* **Quest Update:**
+  * Activated the gear menu: additional quest branches can now be created.
+  * Increased the maximum number of quests and fixed a structure bug that caused the game to sometimes fail to recognize quest files.
+  * Added the option to run a console command upon quest completion (matching the mod's native feature).
+
+### [Version 0.7](https://picadoni.github.io/customNPCs-constructor/ver%200.7/)
+**Dialogue Constructor "Foreman" (v0.7) / Quest Constructor "Foreman" (v0.1)**
+* **New Features:** Added the "Quests" tab.
+* **Placeholders:** Created a gear menu placeholder for future quest settings.
+* **Dialogue Update:** Implemented the Availability Conditions system for Dialogues.
+
+### [Version 0.6](https://picadoni.github.io/customNPCs-constructor/ver%200.6/)
+**CustomNPCs Dialogue Constructor "Lightning"**
+* **Removed:** Completely removed the large "Download Dialogue File (.JSON)" button.
+* **Changes:** Themes and other settings moved inside the gear menu.
+* **New Features:** 
+  1. Adjustable UI opacity.
+  2. Ability to set a custom background image.
+* **Templates:** Added presets for quick filling: "Villager", "Guard", "Merchant".
+* **Optimization:** Added the ability to fully collapse dialogue windows (ID1, ID2, etc.) instead of keeping them as separate floating windows/tabs.
+
+### [Version 0.5](https://picadoni.github.io/customNPCs-constructor/ver%200.5/)
+**CustomNPCs Dialogue Constructor "Master"**
+* **Notepad Update:** Changed to a sliding panel to avoid cluttering the interface.
+* **Expanded Functional:** Added the ability to create up to 34 dialogue/response branches in a single window for additional dialogues. Added control buttons: "Clear All", "Delete Last", "Add Branch".
+
+### [Version 0.4](https://picadoni.github.io/customNPCs-constructor/ver%200.4/)
+**CustomNPCs Dialogue Constructor "Scientist"**
+* **Gear Menu Update:** The "Create Additional Dialogue" function is now fully operational.
+
+### [Version 0.3](https://picadoni.github.io/customNPCs-constructor/ver%200.3/)
+**CustomNPCs Dialogue Constructor "Warden"**
+* **Gear Menu Update:**
+  1. Create Additional Dialogue (button added, placeholder functionality).
+  2. Access Level (button added, placeholder functionality).
+* **New Features:** Added a notepad with 3 tabs and a search function:
+  1. Storyline
+  2. Quests
+  3. Notes
+ 
+### [Version 0.2](https://picadoni.github.io/customNPCs-constructor/ver%200.2/)
+**CustomNPCs Dialogue Constructor "Steward"**
+* **Update:** Added 4 control buttons:
+  1. Clear All
+  2. Delete Last
+  3. Add Branch
+* **Note:** Added a floppy disk icon for downloading dialogues, but it is not functional yet (placeholder). Downloads currently happen via the bottom button.
+
+### [Version 0.1](https://picadoni.github.io/customNPCs-constructor/ver%200.1/)
+**CustomNPCs Dialogue Constructor "Stargazer"**
+* **Update:** Added 5 different UI themes/styles.
+
+### [Версия 0.0](https://picadoni.github.io/customNPCs-constructor/ver%200.0/)
+**CustomNPCs Dialogue Constructor "Herald"**
+* **Project Start:** Added basic tabs for designing dialogues.
